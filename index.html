@@ -14,6 +14,18 @@
 <body>
   <header>
     <nav class="container">
+  <div class="logo"> <img src="assets/images/logo.png" alt="Alireza BZ Logo" /></div>
+  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+  <ul class="nav-links">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#economics">Economics</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+    <!-- <nav class="container">
       <div class="logo">Alireza BZ</div>
       <ul class="nav-links">
         <li><a href="#hero">Home</a></li>
@@ -23,14 +35,14 @@
         <li><a href="#economics">Economics</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-    </nav>
+    </nav> -->
   </header>
   <main>
     <!-- Hero Section -->
     <section id="hero" class="hero">
       <h1>Alireza Barzin Zanganeh</h1>
       <h2>Data Scientist & ML Engineer</h2>
-      <img src="assets/images/profile.jpg" alt="Profile photo" style="width:160px; border-radius:50%; margin:2rem auto;" />
+      <img src="assets/images/profile.png" alt="Profile photo" />
       <p>Economics graduate with focus on Econometrics. 7+ years in Python Automation, now transitioning to Data Science and ML Engineering.</p>
       <a href="#contact" class="cta-button">Contact Me</a>
     </section>
@@ -38,7 +50,7 @@
     <section id="about" class="section-white">
       <div class="container about-content">
         <div class="about-image">
-          <img src="assets/images/about.jpg" alt="About Alireza" />
+          <img src="assets/images/about.png" alt="About Alireza" />
         </div>
         <div class="about-text">
           <h3>About Me</h3>
@@ -117,15 +129,18 @@
     <section id="contact" class="section-light">
       <div class="container contact-content">
         <div class="contact-info">
-          <h3>Contact Info</h3>
-          <div class="contact-item">
-            <span class="contact-icon">📧</span>
-            <span>abzanganeh@gmail.com</span>
-          </div>
-          <div class="contact-item">
-            <span class="contact-icon">💼</span>
-            <span>LinkedIn: <a href="https://linkedin.com/in/abzanganeh" target="_blank">@abzanganeh</a></span>
-          </div>
+          <h2>Contact Info</h2>
+          <ul>
+            <li>
+              <span style="margin-right:5px;">📧</span> alireza@zanganehai.com
+            </li>
+            <li>
+              <span style="margin-right:5px;">💼</span> LinkedIn: <a href="https://linkedin.com/in/abzanganeh" target="_blank">@abzanganeh</a>
+            </li>
+            <li>
+              <span style="margin-right:5px;">🐙</span> GitHub: <a href="https://github.com/abzanganeh" target="_blank">abzanganeh</a>
+            </li>
+          </ul>
         </div>
         <form class="contact-form" action="mailto:abzanganeh@gmail.com" method="post" enctype="text/plain">
           <h3>Send a Message</h3>
@@ -157,5 +172,10 @@
   <script src="js/animations.js"></script>
   <!-- (Optional) Prism.js for code highlighting -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/prism.min.js"></script>
+  <script>
+function toggleMenu() {
+  document.querySelector('.nav-links').classList.toggle('active');
+}
+</script>
 </body>
 </html>
