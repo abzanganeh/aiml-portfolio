@@ -3,8 +3,8 @@ pipeline {
     
     environment {
         // Define environment variables
-        FTP_SERVER = 'srv637-files.hstgr.io'
-        REMOTE_DIR = '/public_html/'
+        FTP_SERVER = 'ftp.srv637-files.hstgr.io'
+        REMOTE_DIR = '/public_html'
         PROJECT_NAME = 'aiml-portfolio'
     }
     
@@ -94,6 +94,34 @@ pipeline {
                         fi
                         
                         echo "✅ Using lftp: $(which lftp)"
+                        echo "🔗 Connecting to: $FTP_SERVER"
+                        echo "📁 Target directory: $REMOTE_DIR"
+                        
+                        # Test connection first
+                        echo "Testing FTP connection..."
+                        lftp -c "
+                        set ftp:ssl-allow no
+                        set ftp:passive-mode on
+                        set net:timeout 10
+                        open $FTP_SERVER
+                        user $FTP_USERNAME $FTP_PASSWORD
+                        pwd
+                        ls
+                        quit
+                        " || {
+                            echo "❌ FTP connection test failed"
+                            echo "Trying alternative server: srv637-files.hstgr.io"
+                            lftp -c "
+                            set ftp:ssl-allow no
+                            set ftp:passive-mode on
+                            set net:timeout 10
+                            open srv637-files.hstgr.io
+                            user $FTP_USERNAME $FTP_PASSWORD
+                            pwd
+                            ls
+                            quit
+                            " || exit 1
+                        }
                         
                         # Deploy using lftp
                         lftp -f "
