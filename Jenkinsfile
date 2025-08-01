@@ -84,11 +84,16 @@ pipeline {
                     )
                 ]) {
                     sh '''
-                        # Install lftp if not available
+                        # Set PATH to include Homebrew binaries
+                        export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+                        
+                        # Check if lftp is available
                         if ! command -v lftp &> /dev/null; then
-                            echo "Installing lftp..."
-                            apt-get update && apt-get install -y lftp
+                            echo "❌ lftp not found in PATH. Please install with: brew install lftp"
+                            exit 1
                         fi
+                        
+                        echo "✅ Using lftp: $(which lftp)"
                         
                         # Deploy using lftp
                         lftp -f "
