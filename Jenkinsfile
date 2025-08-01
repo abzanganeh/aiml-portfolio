@@ -4,7 +4,7 @@ pipeline {
     environment {
         // Define environment variables
         FTP_SERVER = 'srv637-files.hstgr.io'
-        REMOTE_DIR = '/'
+        REMOTE_DIR = 'public_html'
         PROJECT_NAME = 'aiml-portfolio'
     }
     
@@ -137,7 +137,7 @@ pipeline {
                         user $FTP_USERNAME $FTP_PASSWORD
                         lcd deployment
                         cd $REMOTE_DIR
-                        mirror --reverse --delete --verbose --parallel=3
+                        mirror --reverse --verbose --parallel=3
                         quit
                         " || {
                             echo "⚠️ SSL deployment failed, using non-SSL fallback"
@@ -150,7 +150,7 @@ pipeline {
                             user $FTP_USERNAME $FTP_PASSWORD
                             lcd deployment
                             cd $REMOTE_DIR
-                            mirror --reverse --delete --verbose --parallel=3
+                            mirror --reverse --verbose --parallel=3
                             quit
                             "
                         }
