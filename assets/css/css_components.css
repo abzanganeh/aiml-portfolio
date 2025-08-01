@@ -1,0 +1,11 @@
+/* Styles for reusable components like cards, tabs, badges */
+.project-card {
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  transition: transform 0.2s;
+}
+.project-card.expanded {
+  transform: scale(1.05);
+}

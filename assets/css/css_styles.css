@@ -1,0 +1,7 @@
+/* Core styling, gradients, fonts, colors */
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: linear-gradient(135deg, #c1dfc4 0%, #deecdd 100%);
+  margin: 0;
+  padding: 0;
+}
