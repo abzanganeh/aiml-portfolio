@@ -3,7 +3,7 @@ pipeline {
     
     environment {
         // Define environment variables
-        FTP_SERVER = '82.29.81.162'
+        FTP_SERVER = 'srv637-files.hstgr.io'
         REMOTE_DIR = 'public_html'
         PROJECT_NAME = 'aiml-portfolio'
     }
@@ -103,6 +103,7 @@ pipeline {
                         set ftp:ssl-allow no
                         set ftp:passive-mode on
                         set net:timeout 10
+                        set ssl:verify-certificate no
                         open $FTP_SERVER
                         user $FTP_USERNAME $FTP_PASSWORD
                         pwd
@@ -110,12 +111,13 @@ pipeline {
                         quit
                         " || {
                             echo "❌ FTP connection test failed"
-                            echo "Trying alternative server: srv637-files.hstgr.io"
+                            echo "Trying with IP address: 82.29.81.162"
                             lftp -c "
                             set ftp:ssl-allow no
                             set ftp:passive-mode on
                             set net:timeout 10
-                            open srv637-files.hstgr.io
+                            set ssl:verify-certificate no
+                            open 82.29.81.162
                             user $FTP_USERNAME $FTP_PASSWORD
                             pwd
                             ls
@@ -129,6 +131,7 @@ pipeline {
                         set ftp:passive-mode on
                         set net:timeout 10
                         set net:max-retries 3
+                        set ssl:verify-certificate no
                         open $FTP_SERVER
                         user $FTP_USERNAME $FTP_PASSWORD
                         lcd deployment
