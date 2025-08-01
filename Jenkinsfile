@@ -4,7 +4,7 @@ pipeline {
     environment {
         // Define environment variables
         FTP_SERVER = 'srv637-files.hstgr.io'
-        REMOTE_DIR = 'public_html'
+        REMOTE_DIR = 'domains/zanganehai.com/public_html'
         PROJECT_NAME = 'aiml-portfolio'
     }
     
