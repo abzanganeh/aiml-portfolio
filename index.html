@@ -205,6 +205,31 @@
             transform: translateY(-5px);
         }
 
+        .project-card.under-construction {
+            opacity: 0.6;
+            position: relative;
+        }
+
+        .project-card.under-construction::before {
+            content: "🚧 Under Construction";
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff6b6b;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 10;
+        }
+
+        .project-card.under-construction .project-links a {
+            pointer-events: none;
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         .project-image {
             width: 100%;
             height: 200px;
@@ -515,7 +540,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="project-card">
+                <div class="project-card under-construction">
                     <div class="project-image">🧠 Neural Networks</div>
                     <div class="project-content">
                         <h3 class="project-title">Deep Learning Architecture Implementation</h3>
@@ -526,7 +551,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="project-card">
+                <div class="project-card under-construction">
                     <div class="project-image">🤖 Generative AI</div>
                     <div class="project-content">
                         <h3 class="project-title">Large Language Model Applications</h3>
@@ -537,7 +562,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="project-card">
+                <div class="project-card under-construction">
                     <div class="project-image">📈 ML Pipeline</div>
                     <div class="project-content">
                         <h3 class="project-title">Scalable ML Pipeline System</h3>
@@ -548,7 +573,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="project-card">
+                <div class="project-card under-construction">
                     <div class="project-image">🔬 Research Project</div>
                     <div class="project-content">
                         <h3 class="project-title">Statistical Analysis & Modeling</h3>
@@ -559,7 +584,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="project-card">
+                <div class="project-card under-construction">
                     <div class="project-image">💡 AI Innovation</div>
                     <div class="project-content">
                         <h3 class="project-title">AI-Driven Solution Development</h3>
