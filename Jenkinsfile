@@ -97,27 +97,26 @@ pipeline {
                         echo "🔗 Connecting to: $FTP_SERVER"
                         echo "📁 Target directory: $REMOTE_DIR"
                         
-                        # Test connection first
+                        # Test connection first with proper SSL
                         echo "Testing FTP connection..."
                         lftp -c "
-                        set ftp:ssl-allow no
+                        set ftp:ssl-allow yes
+                        set ftp:ssl-force yes
                         set ftp:passive-mode on
-                        set net:timeout 10
-                        set ssl:verify-certificate no
-                        open $FTP_SERVER
+                        set net:timeout 15
+                        set ssl:verify-certificate yes
+                        open ftp://$FTP_SERVER
                         user $FTP_USERNAME $FTP_PASSWORD
                         pwd
                         ls
                         quit
                         " || {
-                            echo "❌ FTP connection test failed"
-                            echo "Trying with IP address: 82.29.81.162"
+                            echo "❌ SSL FTP failed, trying without SSL as fallback"
                             lftp -c "
                             set ftp:ssl-allow no
                             set ftp:passive-mode on
                             set net:timeout 10
-                            set ssl:verify-certificate no
-                            open 82.29.81.162
+                            open $FTP_SERVER
                             user $FTP_USERNAME $FTP_PASSWORD
                             pwd
                             ls
@@ -125,20 +124,36 @@ pipeline {
                             " || exit 1
                         }
                         
-                        # Deploy using lftp
+                        # Deploy using lftp with SSL first, fallback to non-SSL
+                        echo "Attempting secure SSL deployment..."
                         lftp -f "
-                        set ftp:ssl-allow no
+                        set ftp:ssl-allow yes
+                        set ftp:ssl-force yes
                         set ftp:passive-mode on
-                        set net:timeout 10
+                        set net:timeout 15
                         set net:max-retries 3
-                        set ssl:verify-certificate no
-                        open $FTP_SERVER
+                        set ssl:verify-certificate yes
+                        open ftp://$FTP_SERVER
                         user $FTP_USERNAME $FTP_PASSWORD
                         lcd deployment
                         cd $REMOTE_DIR
                         mirror --reverse --delete --verbose --parallel=3
                         quit
-                        "
+                        " || {
+                            echo "⚠️ SSL deployment failed, using non-SSL fallback"
+                            lftp -f "
+                            set ftp:ssl-allow no
+                            set ftp:passive-mode on
+                            set net:timeout 10
+                            set net:max-retries 3
+                            open $FTP_SERVER
+                            user $FTP_USERNAME $FTP_PASSWORD
+                            lcd deployment
+                            cd $REMOTE_DIR
+                            mirror --reverse --delete --verbose --parallel=3
+                            quit
+                            "
+                        }
                         
                         echo "✅ Deployment completed successfully!"
                     '''
