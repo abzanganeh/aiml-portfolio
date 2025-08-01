@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neural Networks Guide - Learning Resources</title>
+    <title>Neural Networks - Learning Resources</title>
     <style>
         * {
             margin: 0;
@@ -120,8 +120,6 @@
             margin: 1rem 0;
             font-family: 'Courier New', monospace;
             overflow-x: auto;
-            white-space: pre-wrap;
-            word-wrap: break-word;
         }
 
         .formula {
@@ -227,6 +225,34 @@
             </div>
 
             <div class="content-section">
+                <h2>Activation Functions</h2>
+                
+                <h3>Sigmoid</h3>
+                <div class="formula">
+                    σ(x) = 1 / (1 + e^(-x))
+                </div>
+                <p>Output range: (0, 1). Good for binary classification but suffers from vanishing gradient problem.</p>
+
+                <h3>ReLU (Rectified Linear Unit)</h3>
+                <div class="formula">
+                    f(x) = max(0, x)
+                </div>
+                <p>Most popular activation function. Simple, efficient, and helps mitigate vanishing gradient problem.</p>
+
+                <h3>Tanh</h3>
+                <div class="formula">
+                    tanh(x) = (e^x - e^(-x)) / (e^x + e^(-x))
+                </div>
+                <p>Output range: (-1, 1). Zero-centered, making optimization easier than sigmoid.</p>
+
+                <h3>Softmax</h3>
+                <div class="formula">
+                    softmax(x_i) = e^(x_i) / Σ(e^(x_j))
+                </div>
+                <p>Used in output layer for multi-class classification. Converts outputs to probability distribution.</p>
+            </div>
+
+            <div class="content-section">
                 <h2>Training Process</h2>
                 
                 <h3>Forward Propagation</h3>
@@ -235,6 +261,15 @@
                     <li>Each neuron applies weights, adds bias, and applies activation function</li>
                     <li>Process continues layer by layer until output is produced</li>
                 </ol>
+
+                <h3>Loss Calculation</h3>
+                <p>
+                    Compare network output with actual target values using a loss function:
+                </p>
+                <ul>
+                    <li><strong>Mean Squared Error (MSE):</strong> For regression problems</li>
+                    <li><strong>Cross-Entropy:</strong> For classification problems</li>
+                </ul>
 
                 <h3>Backpropagation</h3>
                 <ol>
@@ -252,10 +287,20 @@
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+
+# Prepare data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Scale features
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
 
 # Build the neural network
 model = Sequential([
-    Dense(128, activation='relu', input_shape=(input_features,)),
+    Dense(128, activation='relu', input_shape=(X_train.shape[1],)),
     Dropout(0.3),
     Dense(64, activation='relu'),
     Dropout(0.3),
@@ -271,8 +316,73 @@ model.compile(
 )
 
 # Train the model
-model.fit(X_train, y_train, epochs=100, validation_split=0.2)
+history = model.fit(
+    X_train_scaled, y_train,
+    epochs=100,
+    batch_size=32,
+    validation_split=0.2,
+    verbose=1
+)
+
+# Evaluate the model
+test_loss, test_accuracy = model.evaluate(X_test_scaled, y_test)
+print(f"Test Accuracy: {test_accuracy:.4f}")
                 </div>
+            </div>
+
+            <div class="content-section">
+                <h2>Types of Neural Networks</h2>
+                
+                <h3>Feedforward Neural Networks</h3>
+                <p>Information flows in one direction from input to output. Good for basic classification and regression tasks.</p>
+
+                <h3>Convolutional Neural Networks (CNNs)</h3>
+                <p>Specialized for processing grid-like data such as images. Use convolution operations to detect local features.</p>
+
+                <h3>Recurrent Neural Networks (RNNs)</h3>
+                <p>Have memory capabilities, making them suitable for sequential data like time series and natural language.</p>
+
+                <h3>Long Short-Term Memory (LSTM)</h3>
+                <p>Special type of RNN that can learn long-term dependencies. Addresses the vanishing gradient problem in RNNs.</p>
+
+                <h3>Transformer Networks</h3>
+                <p>Based on attention mechanisms. State-of-the-art architecture for natural language processing tasks.</p>
+            </div>
+
+            <div class="content-section">
+                <h2>Advantages and Challenges</h2>
+                
+                <h3>Advantages</h3>
+                <ul>
+                    <li>Can learn complex non-linear patterns</li>
+                    <li>Automatic feature extraction</li>
+                    <li>Versatile - applicable to many problem types</li>
+                    <li>State-of-the-art performance in many domains</li>
+                    <li>Can handle large amounts of data</li>
+                </ul>
+
+                <h3>Challenges</h3>
+                <ul>
+                    <li>Requires large amounts of data</li>
+                    <li>Computationally expensive</li>
+                    <li>Black box - difficult to interpret</li>
+                    <li>Prone to overfitting</li>
+                    <li>Many hyperparameters to tune</li>
+                    <li>Vanishing/exploding gradient problems</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2>Best Practices</h2>
+                <ul>
+                    <li><strong>Data Preprocessing:</strong> Normalize/standardize input features</li>
+                    <li><strong>Regularization:</strong> Use dropout, L1/L2 regularization to prevent overfitting</li>
+                    <li><strong>Batch Normalization:</strong> Normalize inputs to each layer</li>
+                    <li><strong>Early Stopping:</strong> Monitor validation loss to avoid overfitting</li>
+                    <li><strong>Learning Rate Scheduling:</strong> Adjust learning rate during training</li>
+                    <li><strong>Weight Initialization:</strong> Use appropriate initialization schemes</li>
+                    <li><strong>Cross-Validation:</strong> Validate model performance properly</li>
+                </ul>
             </div>
 
             <a href="../index.html#learning" class="back-link">← Back to Learning Resources</a>

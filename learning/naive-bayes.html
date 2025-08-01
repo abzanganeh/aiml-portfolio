@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Decision Trees Guide - Learning Resources</title>
+    <title>Naive Bayes Algorithm - Learning Resources</title>
     <style>
         * {
             margin: 0;
@@ -120,8 +120,6 @@
             margin: 1rem 0;
             font-family: 'Courier New', monospace;
             overflow-x: auto;
-            white-space: pre-wrap;
-            word-wrap: break-word;
         }
 
         .formula {
@@ -177,8 +175,8 @@
     <main>
         <div class="learning-header">
             <div class="container">
-                <h1>🌳 Decision Trees</h1>
-                <p>Understanding tree-based algorithms and ensemble methods</p>
+                <h1>📊 Naive Bayes Algorithm</h1>
+                <p>Understanding the fundamentals of probabilistic classification</p>
             </div>
         </div>
 
@@ -186,112 +184,92 @@
             <a href="../index.html#learning" class="back-link">← Back to Learning Resources</a>
 
             <div class="content-section">
-                <h2>Introduction to Decision Trees</h2>
+                <h2>Introduction to Naive Bayes</h2>
                 <p>
-                    Decision trees are a type of supervised learning algorithm that can be used for both classification 
-                    and regression tasks. They work by creating a model that predicts the value of a target variable 
-                    by learning simple decision rules inferred from the data features. The tree structure represents 
-                    decisions and their possible consequences.
+                    Naive Bayes is a family of probabilistic algorithms based on applying Bayes' theorem with the "naive" assumption 
+                    of conditional independence between every pair of features. Despite its simplicity, it often performs remarkably 
+                    well in many real-world situations, particularly in text classification and spam filtering.
                 </p>
                 
                 <h3>Key Characteristics</h3>
                 <ul>
-                    <li><strong>Interpretable:</strong> Easy to understand and visualize</li>
-                    <li><strong>Non-parametric:</strong> No assumptions about data distribution</li>
-                    <li><strong>Handles mixed data:</strong> Works with both numerical and categorical features</li>
-                    <li><strong>Feature selection:</strong> Automatically identifies important features</li>
+                    <li><strong>Probabilistic:</strong> Based on Bayes' theorem and probability theory</li>
+                    <li><strong>Simple:</strong> Easy to implement and understand</li>
+                    <li><strong>Fast:</strong> Quick training and prediction times</li>
+                    <li><strong>Effective:</strong> Works well with small datasets and high-dimensional data</li>
                 </ul>
             </div>
 
             <div class="content-section">
-                <h2>How Decision Trees Work</h2>
+                <h2>Bayes' Theorem</h2>
+                <p>
+                    The foundation of Naive Bayes is Bayes' theorem, which describes the probability of an event based on 
+                    prior knowledge of conditions that might be related to the event.
+                </p>
                 
-                <h3>Tree Structure</h3>
-                <ul>
-                    <li><strong>Root Node:</strong> The topmost node representing the entire dataset</li>
-                    <li><strong>Internal Nodes:</strong> Nodes with decision rules (splits)</li>
-                    <li><strong>Leaf Nodes:</strong> Terminal nodes with final predictions</li>
-                    <li><strong>Branches:</strong> Connections representing outcomes of decisions</li>
-                </ul>
-
-                <h3>Splitting Criteria</h3>
-                <p>For classification tasks:</p>
-                <ul>
-                    <li><strong>Gini Impurity:</strong> Measures probability of incorrect classification</li>
-                    <li><strong>Entropy:</strong> Measures disorder or randomness in the data</li>
-                    <li><strong>Information Gain:</strong> Reduction in entropy after a split</li>
-                </ul>
-
                 <div class="formula">
-                    Gini Impurity = 1 - Σ(p_i)² <br>
-                    Entropy = -Σ(p_i × log₂(p_i)) <br>
-                    Information Gain = Entropy(parent) - Σ(weighted_avg × Entropy(children))
+                    P(A|B) = P(B|A) × P(A) / P(B)
                 </div>
+
+                <p>Where:</p>
+                <ul>
+                    <li><strong>P(A|B):</strong> Posterior probability (probability of A given B)</li>
+                    <li><strong>P(B|A):</strong> Likelihood (probability of B given A)</li>
+                    <li><strong>P(A):</strong> Prior probability of A</li>
+                    <li><strong>P(B):</strong> Evidence (probability of B)</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2>Types of Naive Bayes</h2>
+                
+                <h3>1. Gaussian Naive Bayes</h3>
+                <p>
+                    Used when features are continuous and assumed to follow a Gaussian (normal) distribution. 
+                    Commonly used for general classification tasks with numerical features.
+                </p>
+
+                <h3>2. Multinomial Naive Bayes</h3>
+                <p>
+                    Best suited for discrete features, especially when dealing with text data and word counts. 
+                    Ideal for document classification and sentiment analysis.
+                </p>
+
+                <h3>3. Bernoulli Naive Bayes</h3>
+                <p>
+                    Works with binary features (0 or 1). Often used in text classification where features 
+                    represent the presence or absence of words.
+                </p>
             </div>
 
             <div class="content-section">
                 <h2>Implementation Example</h2>
-                <p>Here's a simple decision tree implementation using scikit-learn:</p>
+                <p>Here's a simple Python implementation using scikit-learn:</p>
                 
                 <div class="code-block">
-from sklearn.tree import DecisionTreeClassifier, export_text
+from sklearn.naive_bayes import GaussianNB
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, classification_report
-import pandas as pd
+import numpy as np
 
-# Load and prepare data
+# Sample data
+X = np.array([[1, 2], [2, 3], [3, 4], [4, 5], [5, 6]])
+y = np.array([0, 0, 1, 1, 1])
+
+# Split the data
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Create and train the model
-dt_model = DecisionTreeClassifier(
-    criterion='gini',        # or 'entropy'
-    max_depth=5,            # prevent overfitting
-    min_samples_split=10,   # minimum samples to split
-    min_samples_leaf=5,     # minimum samples in leaf
-    random_state=42
-)
-
-dt_model.fit(X_train, y_train)
+nb_model = GaussianNB()
+nb_model.fit(X_train, y_train)
 
 # Make predictions
-y_pred = dt_model.predict(X_test)
+y_pred = nb_model.predict(X_test)
 
 # Evaluate the model
 accuracy = accuracy_score(y_test, y_pred)
-print(f"Accuracy: {accuracy:.4f}")
+print(f"Accuracy: {accuracy:.2f}")
 print(classification_report(y_test, y_pred))
-
-# Display tree rules (text format)
-tree_rules = export_text(dt_model, feature_names=feature_names)
-print(tree_rules)
-                </div>
-            </div>
-
-            <div class="content-section">
-                <h2>Ensemble Methods</h2>
-                
-                <h3>Random Forest</h3>
-                <p>
-                    Combines multiple decision trees using bootstrap aggregating (bagging). Each tree is trained 
-                    on a random subset of data and features, reducing overfitting and improving generalization.
-                </p>
-
-                <h3>Gradient Boosting</h3>
-                <p>
-                    Builds trees sequentially, where each new tree corrects errors made by previous trees. 
-                    Popular implementations include XGBoost, LightGBM, and CatBoost.
-                </p>
-
-                <div class="code-block">
-from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
-
-# Random Forest
-rf_model = RandomForestClassifier(n_estimators=100, random_state=42)
-rf_model.fit(X_train, y_train)
-
-# Gradient Boosting
-gb_model = GradientBoostingClassifier(n_estimators=100, random_state=42)
-gb_model.fit(X_train, y_train)
                 </div>
             </div>
 
@@ -300,33 +278,30 @@ gb_model.fit(X_train, y_train)
                 
                 <h3>Advantages</h3>
                 <ul>
-                    <li>Easy to understand and interpret</li>
-                    <li>Requires little data preparation</li>
-                    <li>Handles both numerical and categorical data</li>
-                    <li>Can model non-linear relationships</li>
-                    <li>Automatic feature selection</li>
-                    <li>Missing values handling</li>
+                    <li>Simple and fast algorithm</li>
+                    <li>Performs well with small training datasets</li>
+                    <li>Handles multiple classes naturally</li>
+                    <li>Not sensitive to irrelevant features</li>
+                    <li>Good baseline for text classification</li>
                 </ul>
 
                 <h3>Disadvantages</h3>
                 <ul>
-                    <li>Prone to overfitting (especially deep trees)</li>
-                    <li>Unstable - small changes in data can result in different trees</li>
-                    <li>Biased toward features with more levels</li>
-                    <li>Poor performance on linear relationships</li>
-                    <li>Difficulty handling missing values in some implementations</li>
+                    <li>Strong independence assumption (rarely true in practice)</li>
+                    <li>Can be outperformed by more sophisticated methods</li>
+                    <li>Requires smoothing for zero probabilities</li>
+                    <li>Poor estimator for probability (though good classifier)</li>
                 </ul>
             </div>
 
             <div class="content-section">
-                <h2>Best Practices</h2>
+                <h2>Common Applications</h2>
                 <ul>
-                    <li><strong>Pruning:</strong> Use max_depth, min_samples_split to prevent overfitting</li>
-                    <li><strong>Cross-validation:</strong> Use k-fold CV to evaluate model performance</li>
-                    <li><strong>Feature importance:</strong> Analyze which features are most important</li>
-                    <li><strong>Ensemble methods:</strong> Use Random Forest or Gradient Boosting for better performance</li>
-                    <li><strong>Data preprocessing:</strong> Handle missing values and outliers appropriately</li>
-                    <li><strong>Visualization:</strong> Plot the tree to understand decision rules</li>
+                    <li><strong>Text Classification:</strong> Spam filtering, sentiment analysis</li>
+                    <li><strong>Medical Diagnosis:</strong> Disease prediction based on symptoms</li>
+                    <li><strong>Real-time Predictions:</strong> Due to its computational efficiency</li>
+                    <li><strong>Recommendation Systems:</strong> Content-based filtering</li>
+                    <li><strong>News Categorization:</strong> Automatic article classification</li>
                 </ul>
             </div>
 
