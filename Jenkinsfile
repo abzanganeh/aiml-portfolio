@@ -3,8 +3,20 @@ pipeline {
     
     environment {
         // Define environment variables
-        FTP_SERVER = 'ftp.srv637-files.hstgr.io'
-        REMOTE_DIR = '/public_html'
+        FTP_SERVER = '                        } || {
+                            echo "❌ FTP connection test failed"
+                            echo "Trying alternative server: ftp.srv637-files.hstgr.io"
+                            lftp -c "
+                            set ftp:ssl-allow no
+                            set ftp:passive-mode on
+                            set net:timeout 10
+                            open ftp.srv637-files.hstgr.io
+                            user $FTP_USERNAME $FTP_PASSWORD
+                            pwd
+                            ls
+                            quit
+                            " || exit 1
+                        }        REMOTE_DIR = 'public_html'
         PROJECT_NAME = 'aiml-portfolio'
     }
     
