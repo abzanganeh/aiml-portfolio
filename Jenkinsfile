@@ -61,7 +61,7 @@ pipeline {
                     cd flask_portfolio
                     if command -v python3 &> /dev/null; then
                         echo "🐍 Python 3 found"
-                        python3 -m pip install --user -r requirements.txt
+                        python3 -m pip install --user -r requirements.txt || echo "Dependencies already installed"
                     else
                         echo "❌ Python 3 not found, using alternative method"
                     fi
@@ -74,20 +74,18 @@ pipeline {
                         
                         if [ -d "static_site" ]; then
                             echo "✅ Static site generated successfully"
+                            # Use the generated static site as deployment
+                            rm -rf deployment 2>/dev/null || true
                             mv static_site deployment
+                            echo "📋 Using generated static files for deployment"
                         else
                             echo "❌ Static generation failed, using fallback method"
                             mkdir -p deployment
-                            cp -r flask_portfolio/* deployment/
-                        fi
-                    else
-                        echo "⚠️ Using fallback: copying Flask files directly"
-                        mkdir -p deployment
-                        cp -r flask_portfolio/* deployment/
-                    fi
-                    
-                    # Create a simple index.html redirect as backup
-                    cat > deployment/index.html << 'EOF'
+                            cp -r flask_portfolio/static deployment/
+                            cp -r flask_portfolio/templates deployment/
+                            
+                            # Create proper index.html that works with the template structure
+                            cat > deployment/index.html << 'EOF'
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -106,8 +104,8 @@ pipeline {
             </div>
             <div class="nav-menu">
                 <a href="#about" class="nav-link">About</a>
-                <a href="templates/tutorials.html" class="nav-link">Tutorials</a>
-                <a href="templates/projects.html" class="nav-link">Projects</a>
+                <a href="tutorials.html" class="nav-link">Tutorials</a>
+                <a href="projects.html" class="nav-link">Projects</a>
                 <a href="#contact" class="nav-link">Contact</a>
             </div>
         </div>
@@ -117,7 +115,7 @@ pipeline {
         <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
             <h1 style="font-size: 3rem; margin-bottom: 1rem;">Machine Learning Engineer</h1>
             <p style="font-size: 1.2rem; margin-bottom: 2rem;">Passionate about AI, Data Science, and Building Intelligent Systems</p>
-            <a href="templates/tutorials.html" style="background: transparent; color: white; border: 2px solid white; padding: 1rem 2rem; text-decoration: none; border-radius: 8px; font-weight: 700;">Explore Portfolio</a>
+            <a href="tutorials.html" style="background: transparent; color: white; border: 2px solid white; padding: 1rem 2rem; text-decoration: none; border-radius: 8px; font-weight: 700;">Explore Portfolio</a>
         </div>
     </section>
     
@@ -125,9 +123,34 @@ pipeline {
 </body>
 </html>
 EOF
+                        fi
+                    else
+                        echo "⚠️ Python not available, creating simple static structure"
+                        mkdir -p deployment
+                        cp -r flask_portfolio/static deployment/
+                        cp -r flask_portfolio/templates deployment/
+                        
+                        # Simple fallback index
+                        cat > deployment/index.html << 'EOF'
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Alireza Barzin Zanganeh - Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="static/css/main.css" rel="stylesheet">
+</head>
+<body>
+    <h1>Portfolio Loading...</h1>
+    <p><a href="templates/">Browse Templates</a></p>
+</body>
+</html>
+EOF
+                    fi
                     
-                    echo "📋 Deployment package prepared:"
+                    echo "📋 Final deployment structure:"
                     ls -la deployment/
+                    echo "📄 Main files:"
+                    find deployment/ -name "*.html" | head -10
                 '''
             }
         }

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Large Language Model Applications - ML Project</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Exploring practical applications of large language models in various domains">
+    <meta name="keywords" content="machine learning, artificial intelligence, data science, python, portfolio">
+    <meta name="author" content="Alireza Barzin Zanganeh">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://localhost/projects/llm-applications">
+    <meta property="og:title" content="Large Language Model Applications - ML Project">
+    <meta property="og:description" content="Exploring practical applications of large language models in various domains">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="http://localhost/projects/llm-applications">
+    <meta property="twitter:title" content="Large Language Model Applications - ML Project">
+    <meta property="twitter:description" content="Exploring practical applications of large language models in various domains">
+    
+    <!-- CSS -->
+    <link href="/static/css/main.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+<style>
+.project-content {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.project-header {
+    background: var(--gradient-primary);
+    color: white;
+    padding: 3rem 0;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.project-meta {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.project-body {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
+    margin-bottom: 2rem;
+}
+
+.project-section {
+    margin-bottom: 2rem;
+}
+
+.project-section h2 {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.demo-section {
+    background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
+    border: 2px solid var(--accent-color);
+    border-radius: var(--border-radius-lg);
+    padding: 2rem;
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.feature-card {
+    background: var(--bg-secondary);
+    padding: 1rem;
+    border-radius: var(--border-radius-md);
+    border-left: 4px solid var(--accent-color);
+}
+
+.interactive-demo {
+    background: white;
+    border: 2px solid var(--success-color);
+    border-radius: var(--border-radius-lg);
+    padding: 2rem;
+    margin: 2rem 0;
+}
+
+.demo-input {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+}
+
+.input-group input,
+.input-group select {
+    padding: 0.75rem;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+}
+
+.prediction-result {
+    background: var(--success-color);
+    color: white;
+    padding: 1rem;
+    border-radius: var(--border-radius-md);
+    margin-top: 1rem;
+    font-weight: 600;
+    text-align: center;
+    display: none;
+}
+
+.model-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.metric-card {
+    background: white;
+    padding: 1rem;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+    border: 1px solid var(--border-color);
+}
+
+.metric-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent-color);
+}
+
+.chart-container {
+    background: white;
+    padding: 1rem;
+    border-radius: var(--border-radius-md);
+    margin: 1rem 0;
+    box-shadow: var(--shadow-sm);
+}
+</style>
+
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="/">Alireza Barzin Zanganeh</a>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/#about" class="nav-link">About</a>
+                <a href="/tutorials" class="nav-link">Tutorials</a>
+                <a href="/projects" class="nav-link">Projects</a>
+                <a href="/#contact" class="nav-link">Contact</a>
+            </div>
+            <div class="nav-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        
+<div class="project-content">
+    <!-- Project Header -->
+    <div class="project-header">
+        <div class="container">
+            <h1>Large Language Model Applications</h1>
+            <p>Exploring practical applications of large language models in various domains</p>
+            <div class="project-meta">
+                <span class="badge badge-warning">In Development</span>
+                <span class="badge badge-secondary">Machine Learning</span>
+                
+                <span class="badge badge-primary">Python</span>
+                
+                <span class="badge badge-primary">Transformers</span>
+                
+                <span class="badge badge-primary">OpenAI API</span>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Content -->
+    <div class="container">
+        <div class="project-body">
+            
+            <!-- This will be overridden by specific project templates -->
+            
+            <div class="project-section">
+                <h2>📋 Project Overview</h2>
+                <p>Exploring practical applications of large language models in various domains</p>
+                
+                
+                <h3>🎯 Key Features</h3>
+                <div class="features-grid">
+                    
+                    <div class="feature-card">
+                        <h4>1. Text generation and completion</h4>
+                        
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>2. Question answering systems</h4>
+                        
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>3. Document summarization</h4>
+                        
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>4. Code generation assistance</h4>
+                        
+                    </div>
+                    
+                </div>
+                
+            </div>
+
+            <div class="project-section">
+                <h2>🛠️ Technology Stack</h2>
+                <div class="tech-stack">
+                    
+                    <span class="badge badge-secondary">Python</span>
+                    
+                    <span class="badge badge-secondary">Transformers</span>
+                    
+                    <span class="badge badge-secondary">OpenAI API</span>
+                    
+                    <span class="badge badge-secondary">Streamlit</span>
+                    
+                </div>
+            </div>
+
+            
+            
+            
+        </div>
+
+        <!-- Navigation -->
+        <div style="background: var(--bg-secondary); padding: 1.5rem; border-radius: var(--border-radius-lg); text-align: center; margin-top: 2rem;">
+            <a href="/projects" class="btn btn-secondary" style="margin-right: 1rem;">
+                <i class="fas fa-arrow-left"></i> All Projects
+            </a>
+            <a href="/" class="btn btn-primary">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </div>
+    </div>
+</div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Alireza Barzin Zanganeh</h3>
+                    <p>Machine Learning Engineer</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/tutorials">Tutorials</a></li>
+                        <li><a href="/projects">Projects</a></li>
+                        <li><a href="/#about">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Alireza Barzin Zanganeh. Built with Flask and Python.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="/static/js/main.js"></script>
+    
+<script>
+// Interactive demo functionality
+function initializeDemo() {
+    const predictBtn = document.getElementById('predict-btn');
+    const resultDiv = document.getElementById('prediction-result');
+    
+    if (predictBtn && resultDiv) {
+        predictBtn.addEventListener('click', function() {
+            // Collect input values
+            const inputs = {};
+            document.querySelectorAll('.demo-input input, .demo-input select').forEach(input => {
+                inputs[input.name] = input.value;
+            });
+            
+            // Simulate prediction (replace with actual API call)
+            setTimeout(() => {
+                const prediction = Math.random() > 0.5 ? 'Survived' : 'Did not survive';
+                const confidence = (Math.random() * 0.3 + 0.7).toFixed(2);
+                
+                resultDiv.innerHTML = `
+                    <h4>Prediction: ${prediction}</h4>
+                    <p>Confidence: ${confidence}</p>
+                `;
+                resultDiv.style.display = 'block';
+                resultDiv.scrollIntoView({ behavior: 'smooth' });
+            }, 1000);
+        });
+    }
+}
+
+// Initialize interactive features
+document.addEventListener('DOMContentLoaded', function() {
+    initializeDemo();
+    
+    // Add loading animation to buttons
+    document.querySelectorAll('.btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            if (this.id === 'predict-btn') {
+                e.preventDefault();
+                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Predicting...';
+                this.disabled = true;
+                
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-brain"></i> Make Prediction';
+                    this.disabled = false;
+                }, 1000);
+            }
+        });
+    });
+});
+</script>
+
+</body>
+</html>

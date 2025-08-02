@@ -72,7 +72,25 @@ def generate_static_site():
                         prefix = '../' * depth
                         content = content.replace('href="static/', f'href="{prefix}static/')
                         content = content.replace('src="static/', f'src="{prefix}static/')
-                        content = content.replace("url_for('static'", f"'{prefix}static")
+                        # Fix Flask url_for calls to static paths
+                        content = content.replace("url_for('static', filename='css/main.css')", f"'{prefix}static/css/main.css'")
+                        content = content.replace("url_for('static', filename='js/main.js')", f"'{prefix}static/js/main.js'")
+                        # Fix navigation links
+                        content = content.replace("url_for('home')", "'/' if depth == 0 else '../index.html'")
+                        content = content.replace("url_for('tutorials_list')", f"'{'../' * depth}tutorials.html'")
+                        content = content.replace("url_for('projects_list')", f"'{'../' * depth}projects.html'")
+                    else:
+                        # Fix Flask url_for calls for root level files
+                        content = content.replace("url_for('static', filename='css/main.css')", "'static/css/main.css'")
+                        content = content.replace("url_for('static', filename='js/main.js')", "'static/js/main.js'")
+                        content = content.replace("url_for('home')", "'index.html'")
+                        content = content.replace("url_for('tutorials_list')", "'tutorials.html'")
+                        content = content.replace("url_for('projects_list')", "'projects.html'")
+                    
+                    # Fix remaining Flask template calls
+                    import re
+                    content = re.sub(r"url_for\('([^']+)',\s*slug='([^']+)'\)", r'\1/\2.html', content)
+                    content = re.sub(r"url_for\('([^']+)'\)", r'\1.html', content)
                     
                     # Write file
                     filepath = os.path.join(output_dir, filename)
