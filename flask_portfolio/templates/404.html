@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Page Not Found{% endblock %}
+
+{% block content %}
+<section class="section" style="padding-top: 6rem; text-align: center;">
+    <div class="container">
+        <div class="card" style="max-width: 600px; margin: 0 auto;">
+            <div class="card-body">
+                <h1 style="font-size: 6rem; color: var(--text-light); margin-bottom: 1rem;">404</h1>
+                <h2>Page Not Found</h2>
+                <p>The page you're looking for doesn't exist or has been moved.</p>
+                <div style="margin-top: 2rem;">
+                    <a href="{{ url_for('home') }}" class="btn btn-primary" style="margin-right: 1rem;">Go Home</a>
+                    <a href="{{ url_for('tutorials_list') }}" class="btn btn-secondary">Browse Tutorials</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

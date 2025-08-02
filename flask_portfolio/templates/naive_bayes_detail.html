@@ -1,0 +1,347 @@
+{% extends "tutorial_detail.html" %}
+
+{% block tutorial_content %}
+<div class="tutorial-section">
+    <h2>📚 What is Naive Bayes?</h2>
+    <p>Naive Bayes is a family of probabilistic algorithms based on applying Bayes' theorem with the "naive" assumption of conditional independence between every pair of features. Despite this strong assumption, it works surprisingly well for many real-world problems, especially text classification and spam filtering.</p>
+</div>
+
+<div class="tutorial-section">
+    <h2>🔢 The Mathematical Foundation</h2>
+    <p>Bayes' theorem forms the core of this algorithm:</p>
+    
+    <div class="formula-box">
+        P(A|B) = P(B|A) × P(A) / P(B)
+    </div>
+    
+    <p>For classification, this becomes:</p>
+    
+    <div class="formula-box">
+        P(class|features) = P(features|class) × P(class) / P(features)
+    </div>
+    
+    <p>The "naive" assumption means we assume all features are independent:</p>
+    
+    <div class="formula-box">
+        P(x₁,x₂,...,xₙ|class) = P(x₁|class) × P(x₂|class) × ... × P(xₙ|class)
+    </div>
+</div>
+
+<div class="tutorial-section">
+    <h2>📊 Simple Example: Weather Prediction</h2>
+    <div class="example-box">
+        <h3>Dataset: Will we play tennis based on weather?</h3>
+        <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+                <thead>
+                    <tr style="background: var(--accent-color); color: white;">
+                        <th style="padding: 0.5rem; border: 1px solid #ddd;">Day</th>
+                        <th style="padding: 0.5rem; border: 1px solid #ddd;">Outlook</th>
+                        <th style="padding: 0.5rem; border: 1px solid #ddd;">Temperature</th>
+                        <th style="padding: 0.5rem; border: 1px solid #ddd;">Humidity</th>
+                        <th style="padding: 0.5rem; border: 1px solid #ddd;">Wind</th>
+                        <th style="padding: 0.5rem; border: 1px solid #ddd;">Play Tennis?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td style="padding: 0.5rem; border: 1px solid #ddd;">1</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Sunny</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Hot</td><td style="padding: 0.5rem; border: 1px solid #ddd;">High</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Weak</td><td style="padding: 0.5rem; border: 1px solid #ddd;">No</td></tr>
+                    <tr><td style="padding: 0.5rem; border: 1px solid #ddd;">2</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Sunny</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Hot</td><td style="padding: 0.5rem; border: 1px solid #ddd;">High</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Strong</td><td style="padding: 0.5rem; border: 1px solid #ddd;">No</td></tr>
+                    <tr><td style="padding: 0.5rem; border: 1px solid #ddd;">3</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Overcast</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Hot</td><td style="padding: 0.5rem; border: 1px solid #ddd;">High</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Weak</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Yes</td></tr>
+                    <tr><td style="padding: 0.5rem; border: 1px solid #ddd;">4</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Rain</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Mild</td><td style="padding: 0.5rem; border: 1px solid #ddd;">High</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Weak</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Yes</td></tr>
+                    <tr><td style="padding: 0.5rem; border: 1px solid #ddd;">5</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Rain</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Cool</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Normal</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Weak</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Yes</td></tr>
+                    <tr><td style="padding: 0.5rem; border: 1px solid #ddd;">6</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Rain</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Cool</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Normal</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Strong</td><td style="padding: 0.5rem; border: 1px solid #ddd;">No</td></tr>
+                    <tr><td style="padding: 0.5rem; border: 1px solid #ddd;">7</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Overcast</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Cool</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Normal</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Strong</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Yes</td></tr>
+                    <tr><td style="padding: 0.5rem; border: 1px solid #ddd;">8</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Sunny</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Mild</td><td style="padding: 0.5rem; border: 1px solid #ddd;">High</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Weak</td><td style="padding: 0.5rem; border: 1px solid #ddd;">No</td></tr>
+                    <tr><td style="padding: 0.5rem; border: 1px solid #ddd;">9</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Sunny</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Cool</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Normal</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Weak</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Yes</td></tr>
+                    <tr><td style="padding: 0.5rem; border: 1px solid #ddd;">10</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Rain</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Mild</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Normal</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Weak</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Yes</td></tr>
+                    <tr><td style="padding: 0.5rem; border: 1px solid #ddd;">11</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Sunny</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Mild</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Normal</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Strong</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Yes</td></tr>
+                    <tr><td style="padding: 0.5rem; border: 1px solid #ddd;">12</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Overcast</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Mild</td><td style="padding: 0.5rem; border: 1px solid #ddd;">High</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Strong</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Yes</td></tr>
+                    <tr><td style="padding: 0.5rem; border: 1px solid #ddd;">13</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Overcast</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Hot</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Normal</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Weak</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Yes</td></tr>
+                    <tr><td style="padding: 0.5rem; border: 1px solid #ddd;">14</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Rain</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Mild</td><td style="padding: 0.5rem; border: 1px solid #ddd;">High</td><td style="padding: 0.5rem; border: 1px solid #ddd;">Strong</td><td style="padding: 0.5rem; border: 1px solid #ddd;">No</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <h3>Step-by-Step Calculation</h3>
+    <p>Let's predict: <strong>Outlook=Sunny, Temperature=Cool, Humidity=High, Wind=Strong</strong></p>
+    
+    <div class="example-box">
+        <h4>🔢 Step 1: Prior Probabilities</h4>
+        <p>P(Play=Yes) = 9/14 = <span style="background: #fff9c4; padding: 2px 6px; border-radius: 4px; font-weight: bold;">0.643</span></p>
+        <p>P(Play=No) = 5/14 = <span style="background: #fff9c4; padding: 2px 6px; border-radius: 4px; font-weight: bold;">0.357</span></p>
+        
+        <h4>📊 Step 2: Likelihood Calculations</h4>
+        <p><strong>For Play=Yes:</strong></p>
+        <ul>
+            <li>P(Outlook=Sunny|Yes) = 2/9 = 0.222</li>
+            <li>P(Temperature=Cool|Yes) = 3/9 = 0.333</li>
+            <li>P(Humidity=High|Yes) = 3/9 = 0.333</li>
+            <li>P(Wind=Strong|Yes) = 3/9 = 0.333</li>
+        </ul>
+        
+        <p><strong>For Play=No:</strong></p>
+        <ul>
+            <li>P(Outlook=Sunny|No) = 3/5 = 0.600</li>
+            <li>P(Temperature=Cool|No) = 1/5 = 0.200</li>
+            <li>P(Humidity=High|No) = 4/5 = 0.800</li>
+            <li>P(Wind=Strong|No) = 3/5 = 0.600</li>
+        </ul>
+        
+        <h4>🎯 Step 3: Final Calculation</h4>
+        <p>P(Yes|features) ∝ 0.643 × 0.222 × 0.333 × 0.333 × 0.333 = <span style="background: #fff9c4; padding: 2px 6px; border-radius: 4px; font-weight: bold;">0.0063</span></p>
+        <p>P(No|features) ∝ 0.357 × 0.600 × 0.200 × 0.800 × 0.600 = <span style="background: #fff9c4; padding: 2px 6px; border-radius: 4px; font-weight: bold;">0.0206</span></p>
+        
+        <p><strong>Prediction: <span style="background: #fff9c4; padding: 2px 6px; border-radius: 4px; font-weight: bold;">No (Don't play tennis)</span></strong></p>
+    </div>
+</div>
+
+<div class="tutorial-section">
+    <h2>💻 Python Implementation</h2>
+    
+    <h3>From Scratch Implementation</h3>
+    <div class="code-example">import numpy as np
+import pandas as pd
+from collections import defaultdict
+
+class NaiveBayesClassifier:
+    def __init__(self):
+        self.class_probs = {}
+        self.feature_probs = defaultdict(lambda: defaultdict(dict))
+        self.classes = []
+        
+    def fit(self, X, y):
+        """Train the Naive Bayes classifier"""
+        self.classes = np.unique(y)
+        n_samples = len(y)
+        
+        # Calculate class probabilities
+        for cls in self.classes:
+            self.class_probs[cls] = np.sum(y == cls) / n_samples
+        
+        # Calculate feature probabilities
+        for feature_idx in range(X.shape[1]):
+            feature_values = np.unique(X[:, feature_idx])
+            
+            for cls in self.classes:
+                class_mask = (y == cls)
+                class_samples = X[class_mask]
+                
+                for value in feature_values:
+                    count = np.sum(class_samples[:, feature_idx] == value)
+                    # Add Laplace smoothing
+                    self.feature_probs[feature_idx][cls][value] = (
+                        (count + 1) / (np.sum(class_mask) + len(feature_values))
+                    )
+    
+    def predict_proba(self, X):
+        """Predict class probabilities"""
+        predictions = []
+        
+        for sample in X:
+            class_scores = {}
+            
+            for cls in self.classes:
+                # Start with class prior
+                score = self.class_probs[cls]
+                
+                # Multiply by feature likelihoods
+                for feature_idx, feature_value in enumerate(sample):
+                    if feature_value in self.feature_probs[feature_idx][cls]:
+                        score *= self.feature_probs[feature_idx][cls][feature_value]
+                    else:
+                        # Laplace smoothing for unseen values
+                        score *= 1 / (
+                            np.sum([1 for y_val in self.classes]) + 
+                            len(self.feature_probs[feature_idx][cls])
+                        )
+                
+                class_scores[cls] = score
+            
+            # Normalize probabilities
+            total = sum(class_scores.values())
+            class_probs = {cls: score/total for cls, score in class_scores.items()}
+            predictions.append(class_probs)
+        
+        return predictions
+    
+    def predict(self, X):
+        """Predict classes"""
+        probabilities = self.predict_proba(X)
+        return [max(prob_dict, key=prob_dict.get) for prob_dict in probabilities]
+
+# Example usage
+weather_data = [
+    ['Sunny', 'Hot', 'High', 'Weak', 'No'],
+    ['Sunny', 'Hot', 'High', 'Strong', 'No'],
+    ['Overcast', 'Hot', 'High', 'Weak', 'Yes'],
+    # ... more data rows
+]
+
+# Convert to numpy arrays
+X = np.array([row[:-1] for row in weather_data])
+y = np.array([row[-1] for row in weather_data])
+
+# Train the classifier
+nb = NaiveBayesClassifier()
+nb.fit(X, y)
+
+# Make predictions
+test_sample = [['Sunny', 'Cool', 'High', 'Strong']]
+prediction = nb.predict(test_sample)
+probabilities = nb.predict_proba(test_sample)
+
+print(f"Prediction: {prediction[0]}")
+print(f"Probabilities: {probabilities[0]}")</div>
+    
+    <h3>Using Scikit-learn</h3>
+    <div class="code-example">from sklearn.naive_bayes import GaussianNB, CategoricalNB, MultinomialNB
+from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.metrics import classification_report, confusion_matrix
+import numpy as np
+
+# For categorical data (like our weather example)
+def categorical_naive_bayes_example():
+    # Encode categorical features
+    encoders = {}
+    X_encoded = np.zeros((len(X), X.shape[1]))
+    
+    for i in range(X.shape[1]):
+        encoders[i] = LabelEncoder()
+        X_encoded[:, i] = encoders[i].fit_transform(X[:, i])
+    
+    # Encode target
+    y_encoder = LabelEncoder()
+    y_encoded = y_encoder.fit_transform(y)
+    
+    # Split data
+    X_train, X_test, y_train, y_test = train_test_split(
+        X_encoded, y_encoded, test_size=0.3, random_state=42
+    )
+    
+    # Train model
+    model = CategoricalNB()
+    model.fit(X_train, y_train)
+    
+    # Predictions
+    y_pred = model.predict(X_test)
+    
+    # Evaluation
+    print("Accuracy:", model.score(X_test, y_test))
+    print("\nClassification Report:")
+    print(classification_report(y_test, y_pred, target_names=y_encoder.classes_))
+    
+    return model, encoders, y_encoder
+
+# For continuous data (Gaussian Naive Bayes)
+def gaussian_naive_bayes_example():
+    from sklearn.datasets import load_iris
+    
+    # Load iris dataset
+    iris = load_iris()
+    X, y = iris.data, iris.target
+    
+    # Split data
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.3, random_state=42
+    )
+    
+    # Train model
+    model = GaussianNB()
+    model.fit(X_train, y_train)
+    
+    # Cross-validation
+    cv_scores = cross_val_score(model, X, y, cv=5)
+    
+    print(f"Gaussian NB Accuracy: {model.score(X_test, y_test):.3f}")
+    print(f"Cross-validation scores: {cv_scores}")
+    print(f"Mean CV accuracy: {cv_scores.mean():.3f} (+/- {cv_scores.std() * 2:.3f})")
+    
+    return model</div>
+</div>
+
+<div class="tutorial-section">
+    <h2>⚖️ Advantages and Disadvantages</h2>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0;">
+        <div style="background: linear-gradient(135deg, #d4edda, #c3e6cb); border: 2px solid #28a745; border-radius: 12px; padding: 25px;">
+            <h3 style="color: #155724; margin-bottom: 1rem;">✅ Advantages</h3>
+            <ul class="feature-list">
+                <li>Simple and fast algorithm</li>
+                <li>Works well with small datasets</li>
+                <li>Handles multiple classes naturally</li>
+                <li>Good baseline for text classification</li>
+                <li>Not sensitive to irrelevant features</li>
+                <li>Good performance with categorical inputs</li>
+            </ul>
+        </div>
+        
+        <div style="background: linear-gradient(135deg, #ffebee, #f8d7da); border: 2px solid #dc3545; border-radius: 12px; padding: 25px;">
+            <h3 style="color: #721c24; margin-bottom: 1rem;">❌ Disadvantages</h3>
+            <ul class="feature-list">
+                <li>Strong independence assumption</li>
+                <li>Can be outperformed by more sophisticated methods</li>
+                <li>Categorical inputs require Laplace smoothing</li>
+                <li>Poor estimator for probability</li>
+                <li>Sensitive to skewed data</li>
+                <li>Limited expressiveness</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="tutorial-section">
+    <h2>🎯 Real-World Applications</h2>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin: 20px 0;">
+        <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-left: 4px solid #3498db;">
+            <h4>📧 Email Spam Detection</h4>
+            <p>Classifying emails as spam or not spam based on word frequencies and other features.</p>
+        </div>
+        
+        <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-left: 4px solid #3498db;">
+            <h4>💭 Sentiment Analysis</h4>
+            <p>Determining sentiment (positive/negative) from text reviews and social media posts.</p>
+        </div>
+        
+        <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-left: 4px solid #3498db;">
+            <h4>🏥 Medical Diagnosis</h4>
+            <p>Assisting in medical diagnosis based on symptoms and patient history.</p>
+        </div>
+        
+        <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-left: 4px solid #3498db;">
+            <h4>📰 News Classification</h4>
+            <p>Categorizing news articles into different topics or categories.</p>
+        </div>
+        
+        <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-left: 4px solid #3498db;">
+            <h4>🛡️ Fraud Detection</h4>
+            <p>Identifying potentially fraudulent transactions in financial systems.</p>
+        </div>
+        
+        <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-left: 4px solid #3498db;">
+            <h4>🔍 Web Search</h4>
+            <p>Ranking and filtering search results based on relevance.</p>
+        </div>
+    </div>
+</div>
+
+<div class="tutorial-section">
+    <h2>🚀 Next Steps</h2>
+    <div class="example-box">
+        <h3>Continue Your Learning Journey</h3>
+        <ul>
+            <li><strong>Practice Implementation:</strong> Try implementing Naive Bayes from scratch on different datasets</li>
+            <li><strong>Explore Variants:</strong> Learn about Gaussian, Multinomial, and Bernoulli Naive Bayes</li>
+            <li><strong>Advanced Topics:</strong> Study feature selection and text preprocessing techniques</li>
+            <li><strong>Compare Algorithms:</strong> Compare Naive Bayes with other classification methods</li>
+        </ul>
+        
+        <div style="margin-top: 1.5rem;">
+            <a href="{{ url_for('tutorial_detail', slug='decision-trees') }}" class="btn btn-primary" style="margin-right: 1rem;">Next: Decision Trees</a>
+            <a href="{{ url_for('tutorials_list') }}" class="btn btn-secondary">All Tutorials</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

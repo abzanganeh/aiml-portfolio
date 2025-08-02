@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}Tutorials - Machine Learning & AI Guides{% endblock %}
+{% block description %}Comprehensive machine learning tutorials covering algorithms, implementation, and best practices for data science professionals.{% endblock %}
+
+{% block content %}
+<section class="section" style="padding-top: 6rem;">
+    <div class="container">
+        <div class="section-title">
+            <h1>Machine Learning Tutorials</h1>
+            <p>Comprehensive guides covering fundamental and advanced concepts in machine learning and artificial intelligence</p>
+        </div>
+        
+        <!-- Search and Filter Section -->
+        <div class="card" style="margin-bottom: 2rem;">
+            <div class="card-body">
+                <!-- Search Bar -->
+                <div style="margin-bottom: 1.5rem;">
+                    <h3>Search Tutorials</h3>
+                    <div style="position: relative; max-width: 500px;">
+                        <input type="text" id="search-input" placeholder="Search tutorials..." 
+                               style="width: 100%; padding: 1rem 3rem 1rem 1rem; border: 2px solid var(--border-color); border-radius: var(--border-radius-md); font-size: 1rem;">
+                        <button id="clear-search" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-secondary); cursor: pointer;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div id="search-results" style="color: var(--text-secondary); margin-top: 0.5rem; font-style: italic;"></div>
+                </div>
+                
+                <!-- Filter Buttons -->
+                <h3>Filter by Topics</h3>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;">
+                    <button class="btn btn-primary filter-btn active" data-filter="all">All Topics</button>
+                    {% for tag in tags %}
+                    <button class="btn btn-secondary filter-btn" data-filter="{{ tag }}">{{ tag.title() }}</button>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tutorials Grid -->
+        <div class="grid grid-3" id="tutorials-grid">
+            {% for tutorial in tutorials %}
+            <div class="card tutorial-card fade-in-up" data-tags="{{ tutorial.tags|join(',') }}" data-category="tutorial">
+                <div class="card-header">
+                    <h3 class="card-title">{{ tutorial.title }}</h3>
+                    <div style="margin-top: 0.5rem;">
+                        <span class="badge {{ tutorial.get_difficulty_badge_class() }}">{{ tutorial.difficulty }}</span>
+                        <span class="badge badge-secondary">{{ tutorial.read_time }} min read</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">{{ tutorial.description }}</p>
+                    
+                    <div style="margin-top: 1rem;">
+                        <h4 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Topics Covered:</h4>
+                        {% for tag in tutorial.tags %}
+                        <span class="badge badge-primary" style="margin-right: 0.25rem; margin-bottom: 0.25rem;">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="{{ url_for('tutorial_detail', slug=tutorial.slug) }}" class="btn btn-primary">Start Learning</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- No results message -->
+        <div id="no-results" style="display: none; text-align: center; margin-top: 2rem;">
+            <div class="card">
+                <div class="card-body">
+                    <h3>No tutorials found</h3>
+                    <p>Try selecting a different topic or browse all tutorials.</p>
+                    <button class="btn btn-primary" onclick="filterTutorials('all')">Show All Tutorials</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Tutorial filtering functionality
+function filterTutorials(selectedTag) {
+    const cards = document.querySelectorAll('.tutorial-card');
+    const buttons = document.querySelectorAll('[data-filter]');
+    const noResults = document.getElementById('no-results');
+    let visibleCount = 0;
+    
+    // Update button states
+    buttons.forEach(button => {
+        if (button.getAttribute('data-filter') === selectedTag) {
+            button.classList.remove('btn-secondary');
+            button.classList.add('btn-primary');
+        } else {
+            button.classList.remove('btn-primary');
+            button.classList.add('btn-secondary');
+        }
+    });
+    
+    // Filter cards
+    cards.forEach(card => {
+        const tags = card.getAttribute('data-tags').split(',');
+        const shouldShow = selectedTag === 'all' || tags.includes(selectedTag);
+        
+        if (shouldShow) {
+            card.style.display = 'block';
+            card.style.animation = 'fadeInUp 0.4s ease-out';
+            visibleCount++;
+        } else {
+            card.style.display = 'none';
+        }
+    });
+    
+    // Show/hide no results message
+    noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+}
+
+// Initialize with all tutorials showing
+document.addEventListener('DOMContentLoaded', function() {
+    filterTutorials('all');
+});
+</script>
+{% endblock %}

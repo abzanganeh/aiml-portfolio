@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% block title %}Projects - ML & AI Portfolio{% endblock %}
+{% block description %}Machine learning and AI projects showcasing practical implementations, from data science to deep learning applications.{% endblock %}
+
+{% block content %}
+<section class="section" style="padding-top: 6rem;">
+    <div class="container">
+        <div class="section-title">
+            <h1>Machine Learning Projects</h1>
+            <p>Practical implementations showcasing various machine learning techniques and real-world applications</p>
+        </div>
+        
+        <!-- Search and Filter Section -->
+        <div class="card" style="margin-bottom: 2rem;">
+            <div class="card-body">
+                <!-- Search Bar -->
+                <div style="margin-bottom: 1.5rem;">
+                    <h3>Search Projects</h3>
+                    <div style="position: relative; max-width: 500px;">
+                        <input type="text" id="search-input" placeholder="Search projects..." 
+                               style="width: 100%; padding: 1rem 3rem 1rem 1rem; border: 2px solid var(--border-color); border-radius: var(--border-radius-md); font-size: 1rem;">
+                        <button id="clear-search" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-secondary); cursor: pointer;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div id="search-results" style="color: var(--text-secondary); margin-top: 0.5rem; font-style: italic;"></div>
+                </div>
+                
+                <!-- Filter Buttons -->
+                <h3>Filter by Status</h3>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;">
+                    <button class="btn btn-primary filter-btn active" data-filter="all">All Projects</button>
+                    <button class="btn btn-secondary filter-btn" data-filter="active">Live Demos</button>
+                    <button class="btn btn-secondary filter-btn" data-filter="development">In Development</button>
+                    <button class="btn btn-secondary filter-btn" data-filter="planning">Coming Soon</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Projects Grid -->
+        <div class="grid grid-2" id="projects-grid">
+            {% for project in projects %}
+            <div class="card project-card fade-in-up" data-category="{{ project.status }}" data-tags="{{ project.tech_stack|join(',') }}">
+                <div class="card-header">
+                    <h3 class="card-title">{{ project.title }}</h3>
+                    <span class="badge {{ project.get_status_badge_class() }}">{{ project.get_status_display() }}</span>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">{{ project.description }}</p>
+                    
+                    {% if project.features %}
+                    <h4>Key Features:</h4>
+                    <ul style="margin-left: 1.5rem; color: var(--text-secondary); margin-bottom: 1rem;">
+                        {% for feature in project.features %}
+                        <li>{{ feature }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    
+                    <div>
+                        <h4>Technology Stack:</h4>
+                        <div style="margin-top: 0.5rem;">
+                            {% for tech in project.tech_stack %}
+                            <span class="badge badge-secondary" style="margin-right: 0.25rem; margin-bottom: 0.25rem;">{{ tech }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    {% if project.status == 'active' and project.demo_url %}
+                        <a href="{{ project.demo_url }}" class="btn btn-primary" style="margin-right: 0.5rem;">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                    {% endif %}
+                    {% if project.github_url %}
+                        <a href="{{ project.github_url }}" class="btn btn-secondary" style="margin-right: 0.5rem;">
+                            <i class="fab fa-github"></i> Code
+                        </a>
+                    {% endif %}
+                    <a href="{{ url_for('project_detail', slug=project.slug) }}" class="btn btn-secondary">
+                        <i class="fas fa-info-circle"></i> Details
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Project Stats -->
+        <div class="section" style="background: var(--bg-secondary); border-radius: var(--border-radius-lg); padding: 2rem; margin-top: 3rem;">
+            <div class="grid grid-3" style="text-align: center;">
+                <div>
+                    <h3 style="color: var(--success-color); font-size: 2rem; margin-bottom: 0.5rem;">
+                        {{ projects|selectattr('status', 'equalto', 'active')|list|length }}
+                    </h3>
+                    <p>Live Projects</p>
+                </div>
+                <div>
+                    <h3 style="color: var(--warning-color); font-size: 2rem; margin-bottom: 0.5rem;">
+                        {{ projects|selectattr('status', 'equalto', 'development')|list|length }}
+                    </h3>
+                    <p>In Development</p>
+                </div>
+                <div>
+                    <h3 style="color: var(--text-light); font-size: 2rem; margin-bottom: 0.5rem;">
+                        {{ projects|selectattr('status', 'equalto', 'planning')|list|length }}
+                    </h3>
+                    <p>Planned Projects</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Call to Action -->
+        <div style="text-align: center; margin-top: 3rem;">
+            <div class="card">
+                <div class="card-body">
+                    <h3>Have a Project Idea?</h3>
+                    <p>I'm always interested in collaborating on innovative machine learning projects and research.</p>
+                    <a href="{{ url_for('home') }}#contact" class="btn btn-primary">Get In Touch</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Project filtering functionality
+function filterProjects(selectedStatus) {
+    const cards = document.querySelectorAll('.project-card');
+    const buttons = document.querySelectorAll('[data-status]');
+    
+    // Update button states
+    buttons.forEach(button => {
+        if (button.getAttribute('data-status') === selectedStatus) {
+            button.classList.remove('btn-secondary');
+            button.classList.add('btn-primary');
+        } else {
+            button.classList.remove('btn-primary');
+            button.classList.add('btn-secondary');
+        }
+    });
+    
+    // Filter cards
+    cards.forEach(card => {
+        const status = card.getAttribute('data-status');
+        const shouldShow = selectedStatus === 'all' || status === selectedStatus;
+        
+        if (shouldShow) {
+            card.style.display = 'block';
+            card.style.animation = 'fadeInUp 0.4s ease-out';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+// Initialize with all projects showing
+document.addEventListener('DOMContentLoaded', function() {
+    filterProjects('all');
+});
+</script>
+{% endblock %}

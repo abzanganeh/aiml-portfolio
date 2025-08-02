@@ -2,22 +2,35 @@
 
 ## Overview
 
-Professional portfolio website showcasing expertise in Data Science, Machine Learning, and AI Engineering. Features a comprehensive learning resource library and detailed project showcases with modern, responsive design.
+Professional Flask portfolio website showcasing expertise in Data Science, Machine Learning, and AI Engineering. Features interactive ML demos, comprehensive tutorials, and modern object-oriented architecture.
 
 ## 🚀 Live Website
 
-Visit the live portfolio: [Your Website URL]
+Visit the live portfolio: https://srv637-files.hstgr.io/54b7d1bc1ec58d94/files/public_html/
 
 ## 📁 Project Structure
 
 ```
 WebSite/
-├── index.html                    # Main portfolio page
-├── assets/
-│   ├── images/                   # Profile photos and project images
-│   ├── css/                      # Modular stylesheets
-│   └── js/                       # JavaScript functionality
-├── projects/                     # Individual project showcases
+├── flask_portfolio/              # Main Flask application
+│   ├── app.py                    # Flask application entry point
+│   ├── models/                   # Python data models (Tutorial, Project)
+│   ├── templates/                # Jinja2 HTML templates
+│   ├── static/                   # CSS, JS, and static assets
+│   └── requirements.txt          # Python dependencies
+├── .github/workflows/            # GitHub Actions CI/CD
+├── deploy.sh                     # Deployment script
+└── Jenkinsfile                   # Jenkins CI/CD pipeline
+```
+
+## ✨ Features
+
+- **Flask Web Application**: Professional Python web framework
+- **Object-Oriented Architecture**: Clean, maintainable code structure  
+- **Interactive ML Demos**: Live prediction interfaces (Titanic Survival)
+- **Real-Time Search**: Instant filtering of tutorials and projects
+- **Responsive Design**: Modern UI optimized for all devices
+- **Educational Content**: Comprehensive ML tutorials and guides
 │   ├── titanic-survival-prediction/
 │   ├── neural-networks/
 │   ├── llm-applications/
