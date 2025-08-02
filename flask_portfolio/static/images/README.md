@@ -1,11 +1,21 @@
 # Image Assets
 
 This directory contains:
-- logo.png: Logo for the website title/navbar
-- profile-photo.jpg: Personal photo for the About section
+- logo.png: AZ logo with brain and tree icons (Navy blue AZ with orange icons)
+- logo-with-text.png: Logo with "Alireza Barzin Zanganeh" text
+- profile.jpg: Professional photo for the About section
 
-Please add your actual logo and photo files here with these exact names.
+## Current Images Provided:
+1. **AZ Logo** - Navy blue "AZ" letters with orange brain/tree icons representing AI/ML
+2. **Logo with Text** - Full branding with "Alireza Barzin Zanganeh" name
+3. **Profile Photo** - Professional headshot with glasses
+
+## Instructions:
+Please save the provided images to this directory:
+- Save the "AZ" logo as "logo.png" 
+- Save the logo with full name as "logo-with-text.png"
+- Save the professional headshot as "profile.jpg"
 
 Recommended dimensions:
-- Logo: 150x50px or similar aspect ratio, PNG format with transparency
-- Profile photo: 300x300px square, JPG format, professional headshot
+- Logo: Scalable, works well at navbar size (40px height)
+- Profile photo: 400x400px, professional headshot with good lighting
