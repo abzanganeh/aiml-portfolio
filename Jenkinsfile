@@ -33,41 +33,100 @@ pipeline {
         
         stage('Validate Files') {
             steps {
-                echo '🔍 Validating project structure...'
+                echo '🔍 Validating Flask project structure...'
                 sh '''
                     echo "Project files:"
                     ls -la
                     
-                    echo "Checking for main files..."
-                    test -f index.html && echo "✅ index.html found" || echo "❌ index.html missing"
-                    test -d assets && echo "✅ assets/ directory found" || echo "❌ assets/ directory missing"
-                    test -d projects && echo "✅ projects/ directory found" || echo "❌ projects/ directory missing"
+                    echo "Checking for Flask application files..."
+                    test -d flask_portfolio && echo "✅ flask_portfolio/ directory found" || echo "❌ flask_portfolio/ directory missing"
+                    test -f flask_portfolio/app.py && echo "✅ Flask app.py found" || echo "❌ Flask app.py missing"
+                    test -f flask_portfolio/requirements.txt && echo "✅ requirements.txt found" || echo "❌ requirements.txt missing"
+                    test -d flask_portfolio/templates && echo "✅ templates/ directory found" || echo "❌ templates/ directory missing"
+                    test -d flask_portfolio/static && echo "✅ static/ directory found" || echo "❌ static/ directory missing"
                     
-                    echo "File count: $(find . -name "*.html" | wc -l) HTML files"
+                    echo "Flask files count:"
+                    echo "- Templates: $(find flask_portfolio/templates -name "*.html" | wc -l) HTML files"
+                    echo "- Static files: $(find flask_portfolio/static -type f | wc -l) static files"
+                    echo "- Python models: $(find flask_portfolio/models -name "*.py" | wc -l) Python files"
                 '''
             }
         }
         
         stage('Prepare Deployment') {
             steps {
-                echo '📦 Preparing files for deployment...'
+                echo '📦 Converting Flask app to static HTML for shared hosting...'
                 sh '''
-                    # Create deployment directory
-                    mkdir -p deployment
+                    # Install Python dependencies if needed
+                    cd flask_portfolio
+                    if command -v python3 &> /dev/null; then
+                        echo "🐍 Python 3 found"
+                        python3 -m pip install --user -r requirements.txt
+                    else
+                        echo "❌ Python 3 not found, using alternative method"
+                    fi
+                    cd ..
                     
-                    # Copy files excluding development files
-                    rsync -av --progress ./ deployment/ \
-                        --exclude='.git*' \
-                        --exclude='node_modules' \
-                        --exclude='.DS_Store' \
-                        --exclude='README.md' \
-                        --exclude='DEPLOYMENT.md' \
-                        --exclude='.github' \
-                        --exclude='Jenkinsfile' \
-                        --exclude='deployment' \
-                        --exclude='*.log'
+                    # Generate static site using our generator
+                    if command -v python3 &> /dev/null; then
+                        echo "🔄 Generating static HTML files from Flask templates..."
+                        python3 generate_static.py
+                        
+                        if [ -d "static_site" ]; then
+                            echo "✅ Static site generated successfully"
+                            mv static_site deployment
+                        else
+                            echo "❌ Static generation failed, using fallback method"
+                            mkdir -p deployment
+                            cp -r flask_portfolio/* deployment/
+                        fi
+                    else
+                        echo "⚠️ Using fallback: copying Flask files directly"
+                        mkdir -p deployment
+                        cp -r flask_portfolio/* deployment/
+                    fi
                     
-                    echo "Deployment package contents:"
+                    # Create a simple index.html redirect as backup
+                    cat > deployment/index.html << 'EOF'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alireza Barzin Zanganeh - ML Engineer</title>
+    <meta name="description" content="Machine Learning Engineer portfolio featuring AI tutorials, projects, and technical expertise">
+    <link href="static/css/main.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="/">Alireza Barzin Zanganeh</a>
+            </div>
+            <div class="nav-menu">
+                <a href="#about" class="nav-link">About</a>
+                <a href="templates/tutorials.html" class="nav-link">Tutorials</a>
+                <a href="templates/projects.html" class="nav-link">Projects</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+    
+    <section style="padding: 6rem 0 4rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-align: center;">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+            <h1 style="font-size: 3rem; margin-bottom: 1rem;">Machine Learning Engineer</h1>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">Passionate about AI, Data Science, and Building Intelligent Systems</p>
+            <a href="templates/tutorials.html" style="background: transparent; color: white; border: 2px solid white; padding: 1rem 2rem; text-decoration: none; border-radius: 8px; font-weight: 700;">Explore Portfolio</a>
+        </div>
+    </section>
+    
+    <script src="static/js/main.js"></script>
+</body>
+</html>
+EOF
+                    
+                    echo "📋 Deployment package prepared:"
                     ls -la deployment/
                 '''
             }
