@@ -501,6 +501,55 @@ function logPerformance() {
     }
 }
 
+// Photo toggle functionality
+function togglePhoto() {
+    const photoContainer = document.getElementById('photo-container');
+    const toggleButton = document.getElementById('photo-toggle');
+    
+    if (photoContainer && toggleButton) {
+        if (photoContainer.style.display === 'none' || photoContainer.style.display === '') {
+            // Show photo
+            photoContainer.style.display = 'block';
+            setTimeout(() => {
+                photoContainer.classList.add('show');
+            }, 10); // Small delay for smooth animation
+            
+            toggleButton.innerHTML = '<i class="fas fa-eye-slash"></i> Hide Photo';
+            toggleButton.classList.remove('btn-secondary');
+            toggleButton.classList.add('btn-primary');
+        } else {
+            // Hide photo
+            photoContainer.classList.remove('show');
+            setTimeout(() => {
+                photoContainer.style.display = 'none';
+            }, 500); // Wait for animation to complete
+            
+            toggleButton.innerHTML = '<i class="fas fa-user"></i> Show Photo';
+            toggleButton.classList.remove('btn-primary');
+            toggleButton.classList.add('btn-secondary');
+        }
+    }
+}
+
+// Handle logo image load error (fallback to text-only)
+function initializeLogoHandling() {
+    const logoImg = document.querySelector('.nav-logo-img');
+    if (logoImg) {
+        logoImg.addEventListener('error', function() {
+            this.style.display = 'none';
+        });
+        
+        logoImg.addEventListener('load', function() {
+            this.style.display = 'block';
+        });
+    }
+}
+
+// Initialize logo handling
+document.addEventListener('DOMContentLoaded', function() {
+    initializeLogoHandling();
+});
+
 // Initialize performance monitoring in development
 if (window.location.hostname === 'localhost') {
     logPerformance();
