@@ -31,7 +31,7 @@ class Project:
             description="Machine learning classification model predicting passenger survival using historical Titanic data",
             tech_stack=["Python", "Pandas", "Scikit-learn", "Matplotlib"],
             status="active",
-            demo_url="/projects/titanic-survival-prediction/",
+            demo_url="/projects/titanic-survival",
             features=[
                 "Data preprocessing and feature engineering",
                 "Multiple classification algorithms comparison", 

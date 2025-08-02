@@ -3,7 +3,262 @@
 {% block tutorial_content %}
 <div class="tutorial-section">
     <h2>📚 What is Naive Bayes?</h2>
-    <p>Naive Bayes is a family of probabilistic algorithms based on applying Bayes' theorem with the "naive" assumption of conditional independence between every pair of features. Despite this strong assumption, it works surprisingly well for many real-world problems, especially text classification and spam filtering.</p>
+    <p>Naive Bayes is a family of probabilistic algorithms based on applying Bayes' theorem with the "naive" assumption of conditional independence between    </div>
+</div>
+
+<div class="tutorial-section">
+    <h2>🎮 Interactive Demo: Text Classification</h2>
+    <div class="example-box">
+        <h3>Try the Naive Bayes Classifier</h3>
+        <p>Enter some text below and see how a Naive Bayes classifier would categorize it as positive or negative sentiment:</p>
+        
+        <div style="margin: 1.5rem 0;">
+            <label for="text-input" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Enter text to classify:</label>
+            <textarea id="text-input" 
+                     placeholder="Type your text here... (e.g., 'I love this movie!' or 'This product is terrible')"
+                     style="width: 100%; height: 100px; padding: 1rem; border: 2px solid var(--border-color); border-radius: var(--border-radius-md); font-size: 1rem; resize: vertical;"></textarea>
+        </div>
+        
+        <div style="margin: 1rem 0;">
+            <button onclick="classifyText()" style="background: var(--accent-color); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: var(--border-radius-md); font-size: 1rem; cursor: pointer; margin-right: 1rem;">
+                Classify Text
+            </button>
+            <button onclick="resetDemo()" style="background: var(--text-light); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: var(--border-radius-md); font-size: 1rem; cursor: pointer;">
+                Reset
+            </button>
+        </div>
+        
+        <div id="classification-result" style="margin-top: 1.5rem; padding: 1rem; border-radius: var(--border-radius-md); display: none;">
+            <h4>Classification Result:</h4>
+            <div id="result-content"></div>
+        </div>
+        
+        <div id="probability-breakdown" style="margin-top: 1rem; display: none;">
+            <h5>Probability Breakdown:</h5>
+            <div style="display: flex; gap: 1rem; margin-top: 0.5rem;">
+                <div style="flex: 1; background: #e8f5e8; padding: 1rem; border-radius: var(--border-radius-md);">
+                    <strong>Positive:</strong> <span id="positive-prob">0%</span>
+                    <div style="background: #c8e6c9; height: 10px; border-radius: 5px; margin-top: 0.5rem;">
+                        <div id="positive-bar" style="background: var(--success-color); height: 100%; border-radius: 5px; width: 0%; transition: width 0.5s ease;"></div>
+                    </div>
+                </div>
+                <div style="flex: 1; background: #fde8e8; padding: 1rem; border-radius: var(--border-radius-md);">
+                    <strong>Negative:</strong> <span id="negative-prob">0%</span>
+                    <div style="background: #ffcdd2; height: 10px; border-radius: 5px; margin-top: 0.5rem;">
+                        <div id="negative-bar" style="background: var(--danger-color); height: 100%; border-radius: 5px; width: 0%; transition: width 0.5s ease;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="word-analysis" style="margin-top: 1rem; display: none;">
+            <h5>Word Impact Analysis:</h5>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">Words that influenced the classification:</p>
+            <div id="word-impact" style="margin-top: 0.5rem;"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Simple Naive Bayes sentiment classifier demo
+class NaiveBayesDemo {
+    constructor() {
+        // Pre-trained word weights (simplified for demo)
+        this.positiveWords = {
+            'good': 0.8, 'great': 0.9, 'excellent': 0.95, 'amazing': 0.9, 'wonderful': 0.85,
+            'fantastic': 0.9, 'love': 0.85, 'perfect': 0.9, 'best': 0.85, 'awesome': 0.9,
+            'brilliant': 0.85, 'outstanding': 0.9, 'superb': 0.85, 'nice': 0.7, 'happy': 0.8,
+            'pleased': 0.75, 'satisfied': 0.7, 'recommend': 0.75, 'beautiful': 0.8, 'impressive': 0.8
+        };
+        
+        this.negativeWords = {
+            'bad': 0.8, 'terrible': 0.9, 'awful': 0.95, 'horrible': 0.9, 'worst': 0.9,
+            'hate': 0.85, 'disgusting': 0.9, 'pathetic': 0.85, 'useless': 0.8, 'disappointed': 0.75,
+            'poor': 0.7, 'slow': 0.6, 'broken': 0.8, 'wrong': 0.7, 'failed': 0.75,
+            'problem': 0.65, 'issue': 0.6, 'error': 0.7, 'waste': 0.8, 'regret': 0.75
+        };
+        
+        this.neutralWords = new Set(['the', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by']);
+    }
+    
+    preprocessText(text) {
+        return text.toLowerCase()
+            .replace(/[^\w\s]/g, ' ')
+            .split(/\s+/)
+            .filter(word => word.length > 0 && !this.neutralWords.has(word));
+    }
+    
+    classify(text) {
+        const words = this.preprocessText(text);
+        
+        let positiveScore = 0.5; // Prior probability
+        let negativeScore = 0.5; // Prior probability
+        
+        const wordImpacts = [];
+        
+        for (const word of words) {
+            let impact = 0;
+            let sentiment = 'neutral';
+            
+            if (this.positiveWords[word]) {
+                positiveScore += this.positiveWords[word];
+                impact = this.positiveWords[word];
+                sentiment = 'positive';
+            } else if (this.negativeWords[word]) {
+                negativeScore += this.negativeWords[word];
+                impact = this.negativeWords[word];
+                sentiment = 'negative';
+            } else {
+                // Unknown word - slight penalty
+                positiveScore += 0.1;
+                negativeScore += 0.1;
+                impact = 0.1;
+                sentiment = 'unknown';
+            }
+            
+            wordImpacts.push({ word, impact, sentiment });
+        }
+        
+        // Normalize scores
+        const total = positiveScore + negativeScore;
+        const positiveProbability = positiveScore / total;
+        const negativeProbability = negativeScore / total;
+        
+        return {
+            prediction: positiveProbability > negativeProbability ? 'positive' : 'negative',
+            probabilities: {
+                positive: positiveProbability,
+                negative: negativeProbability
+            },
+            wordImpacts: wordImpacts.sort((a, b) => b.impact - a.impact)
+        };
+    }
+}
+
+const naiveBayesDemo = new NaiveBayesDemo();
+
+function classifyText() {
+    const textInput = document.getElementById('text-input');
+    const text = textInput.value.trim();
+    
+    if (!text) {
+        alert('Please enter some text to classify!');
+        return;
+    }
+    
+    const result = naiveBayesDemo.classify(text);
+    
+    // Show result container
+    const resultDiv = document.getElementById('classification-result');
+    resultDiv.style.display = 'block';
+    
+    // Update result content
+    const resultContent = document.getElementById('result-content');
+    const sentiment = result.prediction;
+    const confidence = Math.max(result.probabilities.positive, result.probabilities.negative);
+    
+    resultContent.innerHTML = `
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <div style="font-size: 2rem;">${sentiment === 'positive' ? '😊' : '😔'}</div>
+            <div>
+                <strong style="color: ${sentiment === 'positive' ? 'var(--success-color)' : 'var(--danger-color)'}; font-size: 1.2rem;">
+                    ${sentiment.toUpperCase()} SENTIMENT
+                </strong>
+                <div style="color: var(--text-secondary);">
+                    Confidence: ${(confidence * 100).toFixed(1)}%
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Update probability bars
+    document.getElementById('probability-breakdown').style.display = 'block';
+    document.getElementById('positive-prob').textContent = `${(result.probabilities.positive * 100).toFixed(1)}%`;
+    document.getElementById('negative-prob').textContent = `${(result.probabilities.negative * 100).toFixed(1)}%`;
+    
+    // Animate bars
+    setTimeout(() => {
+        document.getElementById('positive-bar').style.width = `${result.probabilities.positive * 100}%`;
+        document.getElementById('negative-bar').style.width = `${result.probabilities.negative * 100}%`;
+    }, 100);
+    
+    // Show word analysis
+    const wordAnalysis = document.getElementById('word-analysis');
+    const wordImpact = document.getElementById('word-impact');
+    
+    if (result.wordImpacts.length > 0) {
+        wordAnalysis.style.display = 'block';
+        
+        const topWords = result.wordImpacts.slice(0, 8); // Show top 8 words
+        wordImpact.innerHTML = topWords.map(word => {
+            let color = 'var(--text-light)';
+            let icon = '⚪';
+            
+            if (word.sentiment === 'positive') {
+                color = 'var(--success-color)';
+                icon = '🟢';
+            } else if (word.sentiment === 'negative') {
+                color = 'var(--danger-color)';
+                icon = '🔴';
+            }
+            
+            return `
+                <span style="display: inline-block; margin: 0.25rem; padding: 0.5rem 0.75rem; background: white; border: 2px solid ${color}; border-radius: 20px; color: ${color}; font-size: 0.9rem;">
+                    ${icon} ${word.word} (${(word.impact * 100).toFixed(0)}%)
+                </span>
+            `;
+        }).join('');
+    }
+    
+    // Set background color based on sentiment
+    if (sentiment === 'positive') {
+        resultDiv.style.background = 'linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%)';
+        resultDiv.style.border = '2px solid var(--success-color)';
+    } else {
+        resultDiv.style.background = 'linear-gradient(135deg, #fde8e8 0%, #ffcdd2 100%)';
+        resultDiv.style.border = '2px solid var(--danger-color)';
+    }
+}
+
+function resetDemo() {
+    document.getElementById('text-input').value = '';
+    document.getElementById('classification-result').style.display = 'none';
+    document.getElementById('probability-breakdown').style.display = 'none';
+    document.getElementById('word-analysis').style.display = 'none';
+    
+    // Reset bars
+    document.getElementById('positive-bar').style.width = '0%';
+    document.getElementById('negative-bar').style.width = '0%';
+}
+
+// Add some example texts for quick testing
+document.addEventListener('DOMContentLoaded', function() {
+    const textInput = document.getElementById('text-input');
+    
+    // Add example button
+    const exampleBtn = document.createElement('button');
+    exampleBtn.textContent = 'Try Example';
+    exampleBtn.style.cssText = 'background: var(--text-light); color: white; border: none; padding: 0.5rem 1rem; border-radius: var(--border-radius-md); font-size: 0.9rem; cursor: pointer; margin-left: 1rem;';
+    
+    const examples = [
+        "I absolutely love this product! It's amazing and works perfectly.",
+        "This is the worst thing I've ever bought. Completely useless and waste of money.",
+        "The movie was okay, nothing special but not terrible either.",
+        "Outstanding performance! Highly recommend to everyone.",
+        "Terrible customer service. Very disappointed with the quality."
+    ];
+    
+    exampleBtn.onclick = function() {
+        const randomExample = examples[Math.floor(Math.random() * examples.length)];
+        textInput.value = randomExample;
+    };
+    
+    textInput.parentNode.appendChild(exampleBtn);
+});
+</script>
+
+<div class="tutorial-section">
+    <h2>🌍 Real-World Applications</h2>y pair of features. Despite this strong assumption, it works surprisingly well for many real-world problems, especially text classification and spam filtering.</p>
 </div>
 
 <div class="tutorial-section">
