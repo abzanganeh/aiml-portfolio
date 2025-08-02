@@ -306,6 +306,16 @@ a:hover {
     padding: var(--spacing-lg);
     background: var(--bg-secondary);
     border-top: 1px solid var(--border-color);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    align-items: center;
+}
+
+.card-footer .btn {
+    flex: 0 0 auto;
+    margin: 0;
+    min-width: fit-content;
 }
 
 /* Badges */
@@ -317,6 +327,13 @@ a:hover {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    margin-right: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+}
+
+.badge-container {
+    margin-top: var(--spacing-sm);
+    line-height: 1.6;
 }
 
 .badge-primary { background: var(--accent-color); color: white; }
@@ -485,6 +502,18 @@ a:hover {
 
     .hero h1 {
         font-size: 2rem;
+    }
+
+    .card-footer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--spacing-sm);
+    }
+
+    .card-footer .btn {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
     }
 
     .container {

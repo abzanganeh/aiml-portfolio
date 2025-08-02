@@ -54,9 +54,11 @@
                     
                     <div style="margin-top: 1rem;">
                         <h4 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Topics Covered:</h4>
-                        {% for tag in tutorial.tags %}
-                        <span class="badge badge-primary" style="margin-right: 0.25rem; margin-bottom: 0.25rem;">{{ tag }}</span>
-                        {% endfor %}
+                        <div class="badge-container">
+                            {% for tag in tutorial.tags %}
+                            <span class="badge badge-primary">{{ tag }}</span>
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
                 <div class="card-footer">

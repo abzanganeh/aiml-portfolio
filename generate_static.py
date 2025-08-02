@@ -89,8 +89,18 @@ def generate_static_site():
                     
                     # Fix remaining Flask template calls
                     import re
+                    # Fix tutorial and project detail links to include .html
+                    content = re.sub(r'href="/tutorials/([^"]+)"', r'href="tutorials/\1.html"', content)
+                    content = re.sub(r'href="/projects/([^"]+)"', r'href="projects/\1.html"', content)
+                    # Fix other Flask url_for patterns
+                    content = re.sub(r"url_for\('tutorial_detail',\s*slug='([^']+)'\)", r'tutorials/\1.html', content)
+                    content = re.sub(r"url_for\('project_detail',\s*slug='([^']+)'\)", r'projects/\1.html', content)
                     content = re.sub(r"url_for\('([^']+)',\s*slug='([^']+)'\)", r'\1/\2.html', content)
                     content = re.sub(r"url_for\('([^']+)'\)", r'\1.html', content)
+                    # Fix relative paths for nested pages
+                    if depth > 0:
+                        content = content.replace('href="tutorials/', f'href="../tutorials/')
+                        content = content.replace('href="projects/', f'href="../projects/')
                     
                     # Write file
                     filepath = os.path.join(output_dir, filename)
