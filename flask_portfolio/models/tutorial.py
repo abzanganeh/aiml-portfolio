@@ -45,6 +45,17 @@ class Tutorial:
             read_time=20
         ))
         
+        # Data Preprocessing 
+        tutorials.append(cls(
+            title="Interactive Data Preprocessing",
+            slug="data-preprocessing",
+            description="Master data cleaning and preparation techniques through hands-on practice",
+            content="",
+            tags=["preprocessing", "data-cleaning", "missing-values", "outliers", "beginner"],
+            difficulty="beginner", 
+            read_time=20
+        ))
+        
         # Neural Networks
         tutorials.append(cls(
             title="Neural Networks",
