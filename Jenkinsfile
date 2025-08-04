@@ -79,6 +79,7 @@ pipeline {
                     ls -la deployment/
                 '''
             }
+        }
         
         stage('Deploy to Web Server') {
             steps {
