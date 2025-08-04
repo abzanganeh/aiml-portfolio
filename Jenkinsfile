@@ -75,6 +75,7 @@ pipeline {
                     
                     # Set executable permissions for CGI
                     chmod +x deployment/app.py
+                    chmod +x deployment/cgi_test.py
                     
                     # Copy version info for reference
                     cp version.json deployment/ 2>/dev/null || true
