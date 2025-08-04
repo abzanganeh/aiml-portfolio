@@ -1,0 +1,11 @@
+Please save your provided images here:
+
+1. AZ Logo (navy blue with orange icons) → logo.png
+2. Logo with full name → logo-with-text.png  
+3. Professional headshot → profile.jpg
+
+These files should be placed in both:
+- /flask_portfolio/static/images/
+- /static_site/static/images/
+
+The navigation and photo reveal functionality is already configured to use these files.

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neural Networks Guide - Learning Resources</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ffd700;
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 80px;
+            padding: 2rem 0;
+        }
+
+        .learning-header {
+            text-align: center;
+            color: white;
+            padding: 2rem 0;
+        }
+
+        .learning-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .learning-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .content-section {
+            background: white;
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .content-section h2 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .content-section h3 {
+            color: #333;
+            margin: 1.5rem 0 1rem 0;
+            font-size: 1.3rem;
+        }
+
+        .content-section p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .formula {
+            background: #f0f8ff;
+            border-left: 4px solid #667eea;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-style: italic;
+        }
+
+        .back-link {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 1rem 0;
+            transition: background 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: #764ba2;
+        }
+
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">Alireza Barzin Zanganeh</div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../index.html#skills">Skills</a></li>
+                <li><a href="../index.html#projects">Projects</a></li>
+                <li><a href="../index.html#learning">Learning</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="learning-header">
+            <div class="container">
+                <h1>🧠 Neural Networks</h1>
+                <p>Deep dive into artificial neural networks and deep learning</p>
+            </div>
+        </div>
+
+        <div class="container">
+            <a href="../index.html#learning" class="back-link">← Back to Learning Resources</a>
+
+            <div class="content-section">
+                <h2>Introduction to Neural Networks</h2>
+                <p>
+                    Neural networks are computing systems inspired by biological neural networks. They consist of 
+                    interconnected nodes (neurons) that process information using a connectionist approach. Neural 
+                    networks are the foundation of deep learning and have revolutionized fields like computer vision, 
+                    natural language processing, and many other AI applications.
+                </p>
+                
+                <h3>Key Components</h3>
+                <ul>
+                    <li><strong>Neurons (Nodes):</strong> Basic processing units that receive inputs and produce outputs</li>
+                    <li><strong>Weights:</strong> Parameters that determine the strength of connections between neurons</li>
+                    <li><strong>Biases:</strong> Additional parameters that help shift the activation function</li>
+                    <li><strong>Activation Functions:</strong> Functions that determine the output of neurons</li>
+                    <li><strong>Layers:</strong> Groups of neurons organized in a hierarchical structure</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2>Network Architecture</h2>
+                
+                <h3>Input Layer</h3>
+                <p>
+                    The first layer that receives the input data. The number of neurons equals the number of features 
+                    in your dataset.
+                </p>
+
+                <h3>Hidden Layers</h3>
+                <p>
+                    Intermediate layers between input and output layers. Deep networks have multiple hidden layers, 
+                    allowing them to learn complex patterns and representations.
+                </p>
+
+                <h3>Output Layer</h3>
+                <p>
+                    The final layer that produces the network's prediction. The number of neurons depends on the 
+                    type of problem (1 for regression, n for n-class classification).
+                </p>
+            </div>
+
+            <div class="content-section">
+                <h2>Training Process</h2>
+                
+                <h3>Forward Propagation</h3>
+                <ol>
+                    <li>Input data flows through the network</li>
+                    <li>Each neuron applies weights, adds bias, and applies activation function</li>
+                    <li>Process continues layer by layer until output is produced</li>
+                </ol>
+
+                <h3>Backpropagation</h3>
+                <ol>
+                    <li>Calculate gradients of loss with respect to weights</li>
+                    <li>Propagate gradients backward through the network</li>
+                    <li>Update weights using gradient descent or other optimization algorithms</li>
+                </ol>
+            </div>
+
+            <div class="content-section">
+                <h2>Implementation Example</h2>
+                <p>Here's a simple neural network implementation using TensorFlow/Keras:</p>
+                
+                <div class="code-block">
+import tensorflow as tf
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Dropout
+
+# Build the neural network
+model = Sequential([
+    Dense(128, activation='relu', input_shape=(input_features,)),
+    Dropout(0.3),
+    Dense(64, activation='relu'),
+    Dropout(0.3),
+    Dense(32, activation='relu'),
+    Dense(1, activation='sigmoid')  # For binary classification
+])
+
+# Compile the model
+model.compile(
+    optimizer='adam',
+    loss='binary_crossentropy',
+    metrics=['accuracy']
+)
+
+# Train the model
+model.fit(X_train, y_train, epochs=100, validation_split=0.2)
+                </div>
+            </div>
+
+            <a href="../index.html#learning" class="back-link">← Back to Learning Resources</a>
+        </div>
+    </main>
+
+    <script>
+        // Header background change on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.color = '#333';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.1)';
+                header.style.color = 'white';
+            }
+        });
+    </script>
+</body>
+</html>

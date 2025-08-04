@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorials - Machine Learning & AI Guides</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Comprehensive machine learning tutorials covering algorithms, implementation, and best practices for data science professionals.">
+    <meta name="keywords" content="machine learning, artificial intelligence, data science, python, portfolio">
+    <meta name="author" content="Ali Barzin Zanganeh">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://localhost/tutorials">
+    <meta property="og:title" content="Tutorials - Machine Learning & AI Guides">
+    <meta property="og:description" content="Comprehensive machine learning tutorials covering algorithms, implementation, and best practices for data science professionals.">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="http://localhost/tutorials">
+    <meta property="twitter:title" content="Tutorials - Machine Learning & AI Guides">
+    <meta property="twitter:description" content="Comprehensive machine learning tutorials covering algorithms, implementation, and best practices for data science professionals.">
+    
+    <!-- CSS -->
+    <link href="static/css/main.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html" class="logo-link">
+                    <img src="static/images/logo.png" alt="Logo" class="nav-logo-img">
+                    <span class="nav-logo-text">Ali Barzin Zanganeh</span>
+                </a>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="index.html#about" class="nav-link">About</a>
+                <a href="tutorials.html" class="nav-link">Tutorials</a>
+                <a href="projects.html" class="nav-link">Projects</a>
+                <a href="index.html#contact" class="nav-link">Contact</a>
+            </div>
+            <div class="nav-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        
+<section class="section" style="padding-top: 6rem;">
+    <div class="container">
+        <div class="section-title">
+            <h1>Machine Learning Tutorials</h1>
+            <p>Comprehensive guides covering fundamental and advanced concepts in machine learning and artificial intelligence</p>
+        </div>
+        
+        <!-- Search and Filter Section -->
+        <div class="card" style="margin-bottom: 2rem;">
+            <div class="card-body">
+                <!-- Search Bar -->
+                <div style="margin-bottom: 1.5rem;">
+                    <h3>Search Tutorials</h3>
+                    <div style="position: relative; max-width: 500px;">
+                        <input type="text" id="search-input" placeholder="Search tutorials..." 
+                               style="width: 100%; padding: 1rem 3rem 1rem 1rem; border: 2px solid var(--border-color); border-radius: var(--border-radius-md); font-size: 1rem;">
+                        <button id="clear-search" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-secondary); cursor: pointer;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div id="search-results" style="color: var(--text-secondary); margin-top: 0.5rem; font-style: italic;"></div>
+                </div>
+                
+                <!-- Filter Buttons -->
+                <h3>Filter by Topics</h3>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;">
+                    <button class="btn btn-primary filter-btn active" data-filter="all">All Topics</button>
+                    
+                    <button class="btn btn-secondary filter-btn" data-filter="beginner">Beginner</button>
+                    
+                    <button class="btn btn-secondary filter-btn" data-filter="classification">Classification</button>
+                    
+                    <button class="btn btn-secondary filter-btn" data-filter="clustering">Clustering</button>
+                    
+                    <button class="btn btn-secondary filter-btn" data-filter="deep-learning">Deep-Learning</button>
+                    
+                    <button class="btn btn-secondary filter-btn" data-filter="feature-selection">Feature-Selection</button>
+                    
+                    <button class="btn btn-secondary filter-btn" data-filter="intermediate">Intermediate</button>
+                    
+                    <button class="btn btn-secondary filter-btn" data-filter="interpretable">Interpretable</button>
+                    
+                    <button class="btn btn-secondary filter-btn" data-filter="neural-networks">Neural-Networks</button>
+                    
+                    <button class="btn btn-secondary filter-btn" data-filter="preprocessing">Preprocessing</button>
+                    
+                    <button class="btn btn-secondary filter-btn" data-filter="probability">Probability</button>
+                    
+                    <button class="btn btn-secondary filter-btn" data-filter="regression">Regression</button>
+                    
+                    <button class="btn btn-secondary filter-btn" data-filter="statistics">Statistics</button>
+                    
+                    <button class="btn btn-secondary filter-btn" data-filter="unsupervised">Unsupervised</button>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tutorials Grid -->
+        <div class="grid grid-3" id="tutorials-grid">
+            
+            <div class="card tutorial-card fade-in-up" data-tags="preprocessing,data-cleaning,missing-values,outliers,beginner" data-category="tutorial">
+                <div class="card-header">
+                    <h3 class="card-title">Interactive Data Preprocessing</h3>
+                    <div style="margin-top: 0.5rem;">
+                        <span class="badge badge-success">beginner</span>
+                        <span class="badge badge-secondary">20 min read</span>
+                        <span class="badge badge-warning"><i class="fas fa-mouse-pointer"></i> Interactive</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">Master data cleaning and preparation techniques through hands-on practice with missing values, outliers, and feature scaling</p>
+                    
+                    <div style="margin-top: 1rem;">
+                        <h4 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Topics Covered:</h4>
+                        <div class="badge-container">
+                            <span class="badge badge-primary">preprocessing</span>
+                            <span class="badge badge-primary">data-cleaning</span>
+                            <span class="badge badge-primary">missing-values</span>
+                            <span class="badge badge-primary">outliers</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="tutorials/data-preprocessing.html" class="btn btn-primary">Start Learning</a>
+                </div>
+            </div>
+            
+            <div class="card tutorial-card fade-in-up" data-tags="classification,probability,beginner" data-category="tutorial">
+                <div class="card-header">
+                    <h3 class="card-title">Naive Bayes Classification</h3>
+                    <div style="margin-top: 0.5rem;">
+                        <span class="badge badge-success">beginner</span>
+                        <span class="badge badge-secondary">15 min read</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">Probabilistic classification algorithm based on Bayes theorem</p>
+                    
+                    <div style="margin-top: 1rem;">
+                        <h4 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Topics Covered:</h4>
+                        <div class="badge-container">
+                            
+                            <span class="badge badge-primary">classification</span>
+                            
+                            <span class="badge badge-primary">probability</span>
+                            
+                            <span class="badge badge-primary">beginner</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="tutorials/naive-bayes.html" class="btn btn-primary">Start Learning</a>
+                </div>
+            </div>
+            
+            <div class="card tutorial-card fade-in-up" data-tags="classification,regression,interpretable,beginner" data-category="tutorial">
+                <div class="card-header">
+                    <h3 class="card-title">Decision Trees</h3>
+                    <div style="margin-top: 0.5rem;">
+                        <span class="badge badge-success">beginner</span>
+                        <span class="badge badge-secondary">20 min read</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">Tree-based learning algorithm for classification and regression</p>
+                    
+                    <div style="margin-top: 1rem;">
+                        <h4 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Topics Covered:</h4>
+                        <div class="badge-container">
+                            
+                            <span class="badge badge-primary">classification</span>
+                            
+                            <span class="badge badge-primary">regression</span>
+                            
+                            <span class="badge badge-primary">interpretable</span>
+                            
+                            <span class="badge badge-primary">beginner</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="tutorials/decision-trees.html" class="btn btn-primary">Start Learning</a>
+                </div>
+            </div>
+            
+            <div class="card tutorial-card fade-in-up" data-tags="deep-learning,neural-networks,intermediate" data-category="tutorial">
+                <div class="card-header">
+                    <h3 class="card-title">Neural Networks</h3>
+                    <div style="margin-top: 0.5rem;">
+                        <span class="badge badge-warning">intermediate</span>
+                        <span class="badge badge-secondary">30 min read</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">Deep learning fundamentals and neural network architectures</p>
+                    
+                    <div style="margin-top: 1rem;">
+                        <h4 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Topics Covered:</h4>
+                        <div class="badge-container">
+                            
+                            <span class="badge badge-primary">deep-learning</span>
+                            
+                            <span class="badge badge-primary">neural-networks</span>
+                            
+                            <span class="badge badge-primary">intermediate</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="tutorials/neural-networks.html" class="btn btn-primary">Start Learning</a>
+                </div>
+            </div>
+            
+            <div class="card tutorial-card fade-in-up" data-tags="regression,statistics,beginner" data-category="tutorial">
+                <div class="card-header">
+                    <h3 class="card-title">Linear Regression</h3>
+                    <div style="margin-top: 0.5rem;">
+                        <span class="badge badge-success">beginner</span>
+                        <span class="badge badge-secondary">18 min read</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">Statistical regression analysis and predictive modeling</p>
+                    
+                    <div style="margin-top: 1rem;">
+                        <h4 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Topics Covered:</h4>
+                        <div class="badge-container">
+                            
+                            <span class="badge badge-primary">regression</span>
+                            
+                            <span class="badge badge-primary">statistics</span>
+                            
+                            <span class="badge badge-primary">beginner</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="tutorials/linear-regression.html" class="btn btn-primary">Start Learning</a>
+                </div>
+            </div>
+            
+            <div class="card tutorial-card fade-in-up" data-tags="clustering,unsupervised,intermediate" data-category="tutorial">
+                <div class="card-header">
+                    <h3 class="card-title">Clustering Algorithms</h3>
+                    <div style="margin-top: 0.5rem;">
+                        <span class="badge badge-warning">intermediate</span>
+                        <span class="badge badge-secondary">25 min read</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">Unsupervised learning techniques for data grouping</p>
+                    
+                    <div style="margin-top: 1rem;">
+                        <h4 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Topics Covered:</h4>
+                        <div class="badge-container">
+                            
+                            <span class="badge badge-primary">clustering</span>
+                            
+                            <span class="badge badge-primary">unsupervised</span>
+                            
+                            <span class="badge badge-primary">intermediate</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="tutorials/clustering.html" class="btn btn-primary">Start Learning</a>
+                </div>
+            </div>
+            
+            <div class="card tutorial-card fade-in-up" data-tags="preprocessing,feature-selection,intermediate" data-category="tutorial">
+                <div class="card-header">
+                    <h3 class="card-title">Feature Engineering</h3>
+                    <div style="margin-top: 0.5rem;">
+                        <span class="badge badge-warning">intermediate</span>
+                        <span class="badge badge-secondary">22 min read</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">Data preprocessing and feature selection techniques</p>
+                    
+                    <div style="margin-top: 1rem;">
+                        <h4 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Topics Covered:</h4>
+                        <div class="badge-container">
+                            
+                            <span class="badge badge-primary">preprocessing</span>
+                            
+                            <span class="badge badge-primary">feature-selection</span>
+                            
+                            <span class="badge badge-primary">intermediate</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="tutorials/feature-engineering.html" class="btn btn-primary">Start Learning</a>
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- No results message -->
+        <div id="no-results" style="display: none; text-align: center; margin-top: 2rem;">
+            <div class="card">
+                <div class="card-body">
+                    <h3>No tutorials found</h3>
+                    <p>Try selecting a different topic or browse all tutorials.</p>
+                    <button class="btn btn-primary" onclick="filterTutorials('all')">Show All Tutorials</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    </main>
+
+    <!-- Footer -->
+        <footer style="margin-top: 60px; padding: 40px 0; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-align: center;">
+        <div>
+            <p>&copy; 2025 Ali Barzin Zanganeh. All rights reserved.</p>
+            <p style="margin-top: 10px; font-size: 0.8em; opacity: 0.8;">
+                <strong>Version:</strong> v2.0803.1610 | 
+                <strong>Build:</strong> 20250803-1610 | 
+                <strong>Updated:</strong> <span id="timestamp">Loading...</span>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Dynamic timestamp update
+        document.getElementById('timestamp').textContent = new Date().toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    </script>
+
+    <!-- JavaScript -->
+    <script src="static/js/main.js"></script>
+    
+<script>
+// Tutorial filtering functionality
+function filterTutorials(selectedTag) {
+    const cards = document.querySelectorAll('.tutorial-card');
+    const buttons = document.querySelectorAll('[data-filter]');
+    const noResults = document.getElementById('no-results');
+    let visibleCount = 0;
+    
+    // Update button states
+    buttons.forEach(button => {
+        if (button.getAttribute('data-filter') === selectedTag) {
+            button.classList.remove('btn-secondary');
+            button.classList.add('btn-primary');
+        } else {
+            button.classList.remove('btn-primary');
+            button.classList.add('btn-secondary');
+        }
+    });
+    
+    // Filter cards
+    cards.forEach(card => {
+        const tags = card.getAttribute('data-tags').split(',');
+        const shouldShow = selectedTag === 'all' || tags.includes(selectedTag);
+        
+        if (shouldShow) {
+            card.style.display = 'block';
+            card.style.animation = 'fadeInUp 0.4s ease-out';
+            visibleCount++;
+        } else {
+            card.style.display = 'none';
+        }
+    });
+    
+    // Show/hide no results message
+    noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+}
+
+// Initialize with all tutorials showing
+document.addEventListener('DOMContentLoaded', function() {
+    filterTutorials('all');
+});
+</script>
+
+</body>
+</html>

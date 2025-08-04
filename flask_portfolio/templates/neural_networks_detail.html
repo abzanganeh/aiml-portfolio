@@ -1,0 +1,273 @@
+{% extends "tutorial_detail.html" %}
+
+{% block tutorial_content %}
+<div class="tutorial-section">
+    <h2>Introduction to Neural Networks</h2>
+    <p>
+        Neural networks are computational models inspired by the human brain's interconnected network of neurons. 
+        They consist of layers of artificial neurons (nodes) that process information through weighted connections, 
+        enabling them to learn complex patterns and relationships in data.
+    </p>
+    
+    <div class="highlight-box">
+        <h3>🧠 Why Neural Networks?</h3>
+        <ul>
+            <li><strong>Universal Approximators:</strong> Can approximate any continuous function</li>
+            <li><strong>Pattern Recognition:</strong> Excellent at identifying complex patterns</li>
+            <li><strong>Adaptability:</strong> Learn from data automatically</li>
+            <li><strong>Versatility:</strong> Work with images, text, audio, and structured data</li>
+            <li><strong>Non-linear:</strong> Capture complex non-linear relationships</li>
+        </ul>
+    </div>
+</div>
+
+<div class="tutorial-section">
+    <h2>Neural Network Architecture</h2>
+    
+    <h3>Basic Components</h3>
+    <div class="component-grid">
+        <div class="component">
+            <h4>🔵 Neurons (Nodes)</h4>
+            <p>Basic processing units that receive inputs, apply weights, and produce outputs</p>
+        </div>
+        <div class="component">
+            <h4>🔗 Connections (Synapses)</h4>
+            <p>Weighted links between neurons that determine signal strength</p>
+        </div>
+        <div class="component">
+            <h4>📊 Layers</h4>
+            <p>Groups of neurons organized in input, hidden, and output layers</p>
+        </div>
+        <div class="component">
+            <h4>🎯 Activation Functions</h4>
+            <p>Mathematical functions that determine neuron output</p>
+        </div>
+    </div>
+
+    <h3>Mathematical Foundation</h3>
+    <div class="formula-box">
+        <strong>Neuron Output:</strong> y = f(Σ(wᵢxᵢ) + b)<br>
+        <strong>Where:</strong><br>
+        • y = neuron output<br>
+        • f = activation function<br>
+        • wᵢ = weights<br>
+        • xᵢ = inputs<br>
+        • b = bias term
+    </div>
+</div>
+
+<div class="tutorial-section">
+    <h2>Activation Functions</h2>
+    <p>Activation functions introduce non-linearity and determine when neurons should be activated:</p>
+    
+    <div class="activation-grid">
+        <div class="activation-function">
+            <h4>📈 ReLU (Rectified Linear Unit)</h4>
+            <div class="formula-box">f(x) = max(0, x)</div>
+            <p><strong>Pros:</strong> Fast, prevents vanishing gradients<br>
+            <strong>Cons:</strong> Dead neuron problem</p>
+        </div>
+        
+        <div class="activation-function">
+            <h4>📊 Sigmoid</h4>
+            <div class="formula-box">f(x) = 1 / (1 + e⁻ˣ)</div>
+            <p><strong>Pros:</strong> Smooth, probabilistic output<br>
+            <strong>Cons:</strong> Vanishing gradients, computationally expensive</p>
+        </div>
+        
+        <div class="activation-function">
+            <h4>📈 Tanh</h4>
+            <div class="formula-box">f(x) = (eˣ - e⁻ˣ) / (eˣ + e⁻ˣ)</div>
+            <p><strong>Pros:</strong> Zero-centered, stronger gradients<br>
+            <strong>Cons:</strong> Still suffers from vanishing gradients</p>
+        </div>
+        
+        <div class="activation-function">
+            <h4>⚡ Leaky ReLU</h4>
+            <div class="formula-box">f(x) = max(αx, x), α = 0.01</div>
+            <p><strong>Pros:</strong> Prevents dead neurons<br>
+            <strong>Cons:</strong> Additional hyperparameter</p>
+        </div>
+    </div>
+</div>
+
+<div class="tutorial-section">
+    <h2>Implementation Example</h2>
+    <p>Here's how to build neural networks using TensorFlow/Keras:</p>
+    
+    <div class="code-example">import numpy as np
+import pandas as pd
+import tensorflow as tf
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Dropout
+from tensorflow.keras.optimizers import Adam
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler, LabelEncoder
+from sklearn.metrics import accuracy_score, classification_report
+
+# Prepare data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Scale features
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+# Build neural network
+model = Sequential([
+    # Input layer
+    Dense(128, activation='relu', input_shape=(X_train.shape[1],)),
+    Dropout(0.3),  # Prevent overfitting
+    
+    # Hidden layers
+    Dense(64, activation='relu'),
+    Dropout(0.3),
+    
+    Dense(32, activation='relu'),
+    Dropout(0.2),
+    
+    # Output layer
+    Dense(num_classes, activation='softmax')  # For classification
+    # Dense(1, activation='linear')  # For regression
+])
+
+# Compile model
+model.compile(
+    optimizer=Adam(learning_rate=0.001),
+    loss='categorical_crossentropy',  # or 'sparse_categorical_crossentropy'
+    metrics=['accuracy']
+)
+
+# Display model architecture
+model.summary()
+
+# Train the model
+history = model.fit(
+    X_train_scaled, y_train,
+    validation_data=(X_test_scaled, y_test),
+    epochs=100,
+    batch_size=32,
+    verbose=1
+)
+
+# Make predictions
+y_pred = model.predict(X_test_scaled)
+y_pred_classes = np.argmax(y_pred, axis=1)
+
+# Evaluate
+accuracy = accuracy_score(y_test, y_pred_classes)
+print(f"Test Accuracy: {accuracy:.4f}")
+print("\nClassification Report:")
+print(classification_report(y_test, y_pred_classes))</div>
+</div>
+
+<div class="tutorial-section">
+    <h2>Training Process</h2>
+    
+    <h3>Forward Propagation</h3>
+    <ol>
+        <li>Input data flows through the network layer by layer</li>
+        <li>Each neuron applies weights, bias, and activation function</li>
+        <li>Final layer produces predictions</li>
+    </ol>
+
+    <h3>Backpropagation</h3>
+    <ol>
+        <li>Calculate loss between predictions and actual values</li>
+        <li>Compute gradients using chain rule</li>
+        <li>Update weights and biases to minimize loss</li>
+        <li>Repeat process for multiple epochs</li>
+    </ol>
+
+    <h3>Loss Functions</h3>
+    <div class="formula-box">
+        <strong>Mean Squared Error (Regression):</strong> MSE = Σ(y - ŷ)² / n<br>
+        <strong>Cross-Entropy (Classification):</strong> CE = -Σy·log(ŷ)<br>
+        <strong>Binary Cross-Entropy:</strong> BCE = -[y·log(ŷ) + (1-y)·log(1-ŷ)]
+    </div>
+</div>
+
+<div class="tutorial-section">
+    <h2>Common Challenges & Solutions</h2>
+    
+    <div class="challenges-grid">
+        <div class="challenge">
+            <h4>🌊 Vanishing Gradients</h4>
+            <p><strong>Problem:</strong> Gradients become too small in deep networks</p>
+            <p><strong>Solutions:</strong> ReLU activation, batch normalization, residual connections</p>
+        </div>
+        
+        <div class="challenge">
+            <h4>💥 Exploding Gradients</h4>
+            <p><strong>Problem:</strong> Gradients become too large</p>
+            <p><strong>Solutions:</strong> Gradient clipping, proper weight initialization</p>
+        </div>
+        
+        <div class="challenge">
+            <h4>📈 Overfitting</h4>
+            <p><strong>Problem:</strong> Model memorizes training data</p>
+            <p><strong>Solutions:</strong> Dropout, regularization, early stopping, more data</p>
+        </div>
+        
+        <div class="challenge">
+            <h4>🐌 Slow Convergence</h4>
+            <p><strong>Problem:</strong> Training takes too long</p>
+            <p><strong>Solutions:</strong> Better optimizers (Adam, RMSprop), learning rate scheduling</p>
+        </div>
+    </div>
+</div>
+
+<div class="tutorial-section">
+    <h2>Advanced Architectures</h2>
+    
+    <div class="architecture-grid">
+        <div class="architecture">
+            <h4>🖼️ Convolutional Neural Networks (CNNs)</h4>
+            <p>Specialized for image and spatial data processing</p>
+            <ul>
+                <li>Convolutional layers extract features</li>
+                <li>Pooling layers reduce dimensionality</li>
+                <li>Translation invariant</li>
+            </ul>
+        </div>
+        
+        <div class="architecture">
+            <h4>🔄 Recurrent Neural Networks (RNNs)</h4>
+            <p>Designed for sequential data and time series</p>
+            <ul>
+                <li>LSTM and GRU variants</li>
+                <li>Handle variable-length sequences</li>
+                <li>Memory of previous inputs</li>
+            </ul>
+        </div>
+        
+        <div class="architecture">
+            <h4>🎯 Transformers</h4>
+            <p>Attention-based architecture for NLP and beyond</p>
+            <ul>
+                <li>Self-attention mechanisms</li>
+                <li>Parallel processing</li>
+                <li>State-of-the-art in many domains</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="tutorial-section">
+    <h2>🚀 Next Steps</h2>
+    <div class="example-box">
+        <h3>Continue Your Deep Learning Journey</h3>
+        <ul>
+            <li><strong>Practice:</strong> Build networks for different types of data</li>
+            <li><strong>Frameworks:</strong> Master TensorFlow, PyTorch, or Keras</li>
+            <li><strong>Specialized Architectures:</strong> Learn CNNs, RNNs, and Transformers</li>
+            <li><strong>Advanced Topics:</strong> Transfer learning, attention mechanisms, GANs</li>
+        </ul>
+        
+        <div style="margin-top: 1.5rem;">
+            <a href="{{ url_for('tutorial_detail', slug='clustering') }}" class="btn btn-primary" style="margin-right: 1rem;">Next: Clustering</a>
+            <a href="{{ url_for('tutorials_list') }}" class="btn btn-secondary">All Tutorials</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

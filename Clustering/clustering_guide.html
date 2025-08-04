@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clustering Complete Guide</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+        }
+        
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+        
+        h2 {
+            color: #34495e;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            margin-top: 30px;
+            font-size: 1.8rem;
+        }
+        
+        h3 {
+            color: #2980b9;
+            margin-top: 25px;
+            font-size: 1.4rem;
+        }
+
+        .content-section {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .content-section p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .formula {
+            background: #f0f8ff;
+            border-left: 4px solid #667eea;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-style: italic;
+        }
+
+        .back-link {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+
+        .back-link:hover {
+            background: #5a67d8;
+        }
+
+        .algorithm-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .algorithm-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-left: 4px solid #3498db;
+        }
+
+        .example-box {
+            background: linear-gradient(135deg, #e8f5e8, #d4edda);
+            border: 2px solid #4caf50;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Complete Guide to Clustering</h1>
+        
+        <h2>📚 What is Clustering?</h2>
+        <div class="content-section">
+            <p>Clustering is an unsupervised machine learning technique that groups similar data points together based on their characteristics. Unlike supervised learning, clustering doesn't require labeled data - it discovers hidden patterns and structures within the dataset automatically.</p>
+            
+            <p>The goal is to maximize intra-cluster similarity (points within the same cluster are similar) while minimizing inter-cluster similarity (points in different clusters are different).</p>
+        </div>
+        
+        <h2>🔍 Types of Clustering Algorithms</h2>
+        
+        <div class="algorithm-grid">
+            <div class="algorithm-card">
+                <h3>🎯 K-Means Clustering</h3>
+                <p><strong>Type:</strong> Centroid-based</p>
+                <p><strong>How it works:</strong> Partitions data into k clusters by minimizing within-cluster sum of squares.</p>
+                <p><strong>Best for:</strong> Spherical clusters, numerical data</p>
+                <p><strong>Complexity:</strong> O(n·k·i·d) where n=samples, k=clusters, i=iterations, d=dimensions</p>
+            </div>
+            
+            <div class="algorithm-card">
+                <h3>🌳 Hierarchical Clustering</h3>
+                <p><strong>Type:</strong> Hierarchy-based</p>
+                <p><strong>How it works:</strong> Creates tree-like cluster structure (dendrogram) by merging or splitting clusters.</p>
+                <p><strong>Best for:</strong> When you don't know the number of clusters</p>
+                <p><strong>Complexity:</strong> O(n³) for agglomerative</p>
+            </div>
+            
+            <div class="algorithm-card">
+                <h3>🌌 DBSCAN</h3>
+                <p><strong>Type:</strong> Density-based</p>
+                <p><strong>How it works:</strong> Groups points that are closely packed while marking outliers in low-density regions.</p>
+                <p><strong>Best for:</strong> Irregular shapes, handling noise/outliers</p>
+                <p><strong>Complexity:</strong> O(n log n) with spatial indexing</p>
+            </div>
+            
+            <div class="algorithm-card">
+                <h3>🎲 Gaussian Mixture Models</h3>
+                <p><strong>Type:</strong> Distribution-based</p>
+                <p><strong>How it works:</strong> Assumes data comes from mixture of Gaussian distributions.</p>
+                <p><strong>Best for:</strong> Soft clustering, probabilistic assignments</p>
+                <p><strong>Complexity:</strong> O(n·k·i·d)</p>
+            </div>
+        </div>
+        
+        <h2>🎯 K-Means Algorithm Deep Dive</h2>
+        
+        <div class="example-box">
+            <h3>Algorithm Steps:</h3>
+            <ol>
+                <li><strong>Initialize:</strong> Choose k cluster centers randomly</li>
+                <li><strong>Assign:</strong> Assign each point to nearest cluster center</li>
+                <li><strong>Update:</strong> Recalculate cluster centers as mean of assigned points</li>
+                <li><strong>Repeat:</strong> Steps 2-3 until convergence</li>
+            </ol>
+        </div>
+
+        <div class="formula">
+            <strong>Distance Formula (Euclidean):</strong><br>
+            d(x, y) = √[(x₁-y₁)² + (x₂-y₂)² + ... + (xₙ-yₙ)²]
+        </div>
+
+        <div class="formula">
+            <strong>Centroid Update:</strong><br>
+            μₖ = (1/|Cₖ|) Σ(xᵢ ∈ Cₖ) xᵢ
+        </div>
+        
+        <h2>💻 Python Implementation</h2>
+        
+        <h3>K-Means from Scratch</h3>
+        <div class="code-block">
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.datasets import make_blobs
+
+class KMeans:
+    def __init__(self, k=3, max_iters=100, random_state=None):
+        self.k = k
+        self.max_iters = max_iters
+        self.random_state = random_state
+        
+    def fit(self, X):
+        if self.random_state:
+            np.random.seed(self.random_state)
+            
+        # Initialize centroids randomly
+        self.centroids = X[np.random.choice(X.shape[0], self.k, replace=False)]
+        
+        for _ in range(self.max_iters):
+            # Assign points to closest centroid
+            distances = np.sqrt(((X - self.centroids[:, np.newaxis])**2).sum(axis=2))
+            self.labels = np.argmin(distances, axis=0)
+            
+            # Update centroids
+            new_centroids = np.array([X[self.labels == k].mean(axis=0) for k in range(self.k)])
+            
+            # Check for convergence
+            if np.allclose(self.centroids, new_centroids):
+                break
+                
+            self.centroids = new_centroids
+            
+        return self
+    
+    def predict(self, X):
+        distances = np.sqrt(((X - self.centroids[:, np.newaxis])**2).sum(axis=2))
+        return np.argmin(distances, axis=0)
+
+# Example usage
+X, y_true = make_blobs(n_samples=300, centers=4, cluster_std=0.60, random_state=0)
+
+# Fit K-means
+kmeans = KMeans(k=4, random_state=0)
+kmeans.fit(X)
+
+# Plot results
+plt.figure(figsize=(12, 5))
+
+plt.subplot(1, 2, 1)
+plt.scatter(X[:, 0], X[:, 1], c=y_true, cmap='viridis', alpha=0.6)
+plt.title('True Clusters')
+
+plt.subplot(1, 2, 2)
+plt.scatter(X[:, 0], X[:, 1], c=kmeans.labels, cmap='viridis', alpha=0.6)
+plt.scatter(kmeans.centroids[:, 0], kmeans.centroids[:, 1], 
+           c='red', marker='x', s=200, linewidths=3)
+plt.title('K-Means Results')
+plt.show()
+        </div>
+        
+        <h3>Using Scikit-learn</h3>
+        <div class="code-block">
+from sklearn.cluster import KMeans, DBSCAN, AgglomerativeClustering
+from sklearn.mixture import GaussianMixture
+from sklearn.metrics import silhouette_score, adjusted_rand_score
+from sklearn.preprocessing import StandardScaler
+
+# Load and prepare data
+X, y_true = make_blobs(n_samples=300, centers=4, cluster_std=0.60, random_state=0)
+X_scaled = StandardScaler().fit_transform(X)
+
+# Compare different clustering algorithms
+algorithms = {
+    'K-Means': KMeans(n_clusters=4, random_state=0),
+    'DBSCAN': DBSCAN(eps=0.3, min_samples=10),
+    'Hierarchical': AgglomerativeClustering(n_clusters=4),
+    'Gaussian Mixture': GaussianMixture(n_components=4, random_state=0)
+}
+
+results = {}
+for name, algorithm in algorithms.items():
+    # Fit the algorithm
+    if name == 'Gaussian Mixture':
+        labels = algorithm.fit_predict(X_scaled)
+    else:
+        labels = algorithm.fit_predict(X_scaled)
+    
+    # Calculate metrics
+    silhouette = silhouette_score(X_scaled, labels)
+    ari = adjusted_rand_score(y_true, labels)
+    
+    results[name] = {
+        'labels': labels,
+        'silhouette': silhouette,
+        'ari': ari
+    }
+    
+    print(f"{name}:")
+    print(f"  Silhouette Score: {silhouette:.3f}")
+    print(f"  Adjusted Rand Index: {ari:.3f}")
+    print()
+        </div>
+        
+        <h2>📊 Clustering Evaluation Metrics</h2>
+        
+        <div class="algorithm-grid">
+            <div class="algorithm-card">
+                <h3>📏 Silhouette Score</h3>
+                <p>Measures how similar points are to their own cluster vs. other clusters</p>
+                <p><strong>Range:</strong> [-1, 1]</p>
+                <p><strong>Higher is better</strong></p>
+                <div class="formula">s = (b - a) / max(a, b)</div>
+            </div>
+            
+            <div class="algorithm-card">
+                <h3>📐 Within-Cluster Sum of Squares (WCSS)</h3>
+                <p>Sum of squared distances of points to their cluster centroid</p>
+                <p><strong>Lower is better</strong></p>
+                <p>Used in elbow method for optimal k</p>
+            </div>
+            
+            <div class="algorithm-card">
+                <h3>🎯 Adjusted Rand Index (ARI)</h3>
+                <p>Measures similarity between predicted and true clusters</p>
+                <p><strong>Range:</strong> [-1, 1]</p>
+                <p><strong>Higher is better</strong></p>
+            </div>
+            
+            <div class="algorithm-card">
+                <h3>📈 Calinski-Harabasz Index</h3>
+                <p>Ratio of sum of between-cluster dispersion to within-cluster dispersion</p>
+                <p><strong>Higher is better</strong></p>
+                <p>Good for determining optimal number of clusters</p>
+            </div>
+        </div>
+        
+        <h2>🔧 Practical Tips</h2>
+        
+        <div class="example-box">
+            <h3>✅ Best Practices:</h3>
+            <ul>
+                <li><strong>🎯 Choose the right algorithm:</strong> K-means for spherical clusters, DBSCAN for irregular shapes</li>
+                <li><strong>📊 Scale your data:</strong> Normalize features for distance-based algorithms</li>
+                <li><strong>🔍 Determine optimal k:</strong> Use elbow method, silhouette analysis, or gap statistic</li>
+                <li><strong>🎲 Handle initialization:</strong> Run multiple times with different random seeds</li>
+                <li><strong>📈 Validate results:</strong> Use multiple evaluation metrics</li>
+                <li><strong>🔬 Domain knowledge:</strong> Incorporate business understanding</li>
+            </ul>
+        </div>
+        
+        <h2>🚀 Real-World Applications</h2>
+        
+        <div class="algorithm-grid">
+            <div class="algorithm-card">
+                <h4>🛒 Customer Segmentation</h4>
+                <p>Group customers by purchasing behavior for targeted marketing</p>
+            </div>
+            
+            <div class="algorithm-card">
+                <h4>🧬 Gene Analysis</h4>
+                <p>Identify gene expression patterns and biological pathways</p>
+            </div>
+            
+            <div class="algorithm-card">
+                <h4>🖼️ Image Segmentation</h4>
+                <p>Partition images into meaningful regions for computer vision</p>
+            </div>
+            
+            <div class="algorithm-card">
+                <h4>📰 Document Clustering</h4>
+                <p>Group similar documents for organization and recommendation</p>
+            </div>
+            
+            <div class="algorithm-card">
+                <h4>🌐 Social Network Analysis</h4>
+                <p>Detect communities and influential groups in networks</p>
+            </div>
+            
+            <div class="algorithm-card">
+                <h4>🏥 Medical Diagnosis</h4>
+                <p>Group patients with similar symptoms for treatment planning</p>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="../index.html#learning" class="back-link">← Back to Learning Resources</a>
+        </div>
+    </div>
+</body>
+</html>
