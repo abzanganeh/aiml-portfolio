@@ -8,7 +8,7 @@
     <!-- SEO Meta Tags -->
     <meta name="description" content="Machine learning and AI projects showcasing practical implementations, from data science to deep learning applications.">
     <meta name="keywords" content="machine learning, artificial intelligence, data science, python, portfolio">
-    <meta name="author" content="Alireza Barzin Zanganeh">
+    <meta name="author" content="Ali Barzin Zanganeh">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -34,7 +34,7 @@
             <div class="nav-logo">
                 <a href="index.html" class="logo-link">
                     <img src="static/images/logo.png" alt="Logo" class="nav-logo-img">
-                    <span class="nav-logo-text">Alireza Barzin Zanganeh</span>
+                    <span class="nav-logo-text">Ali Barzin Zanganeh</span>
                 </a>
             </div>
             <div class="nav-menu" id="nav-menu">
@@ -420,35 +420,27 @@
     </main>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Alireza Barzin Zanganeh</h3>
-                    <p>Machine Learning Engineer</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="/tutorials">Tutorials</a></li>
-                        <li><a href="/projects">Projects</a></li>
-                        <li><a href="/#about">About</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Connect</h4>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Alireza Barzin Zanganeh. Built with Flask and Python.</p>
-            </div>
+        <footer style="margin-top: 60px; padding: 40px 0; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-align: center;">
+        <div>
+            <p>&copy; 2025 Ali Barzin Zanganeh. All rights reserved.</p>
+            <p style="margin-top: 10px; font-size: 0.8em; opacity: 0.8;">
+                <strong>Version:</strong> v2.0803.1610 | 
+                <strong>Build:</strong> 20250803-1610 | 
+                <strong>Updated:</strong> <span id="timestamp">Loading...</span>
+            </p>
         </div>
     </footer>
+
+    <script>
+        // Dynamic timestamp update
+        document.getElementById('timestamp').textContent = new Date().toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    </script>
 
     <!-- JavaScript -->
     <script src="static/js/main.js"></script>

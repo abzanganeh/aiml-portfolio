@@ -1,4 +1,4 @@
-# Alireza Barzin Zanganeh - Portfolio Website
+# Ali Barzin Zanganeh - Portfolio Website
 
 ## Overview
 

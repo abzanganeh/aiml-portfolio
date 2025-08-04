@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        label 'macos'  // Use macOS agent for security (not built-in node)
+    }
+    
+    // Security Fix: This pipeline now uses a dedicated macOS agent instead of the built-in node
+    // to prevent security issues where builds have access to Jenkins controller files
     
     environment {
         // Define environment variables
@@ -55,105 +60,25 @@ pipeline {
         
         stage('Prepare Deployment') {
             steps {
-                echo '📦 Converting Flask app to static HTML for shared hosting...'
+                echo '📦 Preparing Flask application for deployment...'
                 sh '''
-                    # Install Python dependencies if needed
-                    cd flask_portfolio
-                    if command -v python3 &> /dev/null; then
-                        echo "🐍 Python 3 found"
-                        python3 -m pip install --user -r requirements.txt || echo "Dependencies already installed"
-                    else
-                        echo "❌ Python 3 not found, using alternative method"
-                    fi
-                    cd ..
+                    echo "📁 Setting up deployment directory..."
+                    rm -rf deployment 2>/dev/null || true
+                    mkdir -p deployment
                     
-                    # Generate static site using our generator
-                    if command -v python3 &> /dev/null; then
-                        echo "🔄 Generating static HTML files from Flask templates..."
-                        python3 generate_static.py
-                        
-                        if [ -d "static_site" ]; then
-                            echo "✅ Static site generated successfully"
-                            # Use the generated static site as deployment
-                            rm -rf deployment 2>/dev/null || true
-                            mv static_site deployment
-                            echo "📋 Using generated static files for deployment"
-                        else
-                            echo "❌ Static generation failed, using fallback method"
-                            mkdir -p deployment
-                            cp -r flask_portfolio/static deployment/
-                            cp -r flask_portfolio/templates deployment/
-                            
-                            # Create proper index.html that works with the template structure
-                            cat > deployment/index.html << 'EOF'
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alireza Barzin Zanganeh - ML Engineer</title>
-    <meta name="description" content="Machine Learning Engineer portfolio featuring AI tutorials, projects, and technical expertise">
-    <link href="static/css/main.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-</head>
-<body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="/">Alireza Barzin Zanganeh</a>
-            </div>
-            <div class="nav-menu">
-                <a href="#about" class="nav-link">About</a>
-                <a href="tutorials.html" class="nav-link">Tutorials</a>
-                <a href="projects.html" class="nav-link">Projects</a>
-                <a href="#contact" class="nav-link">Contact</a>
-            </div>
-        </div>
-    </nav>
-    
-    <section style="padding: 6rem 0 4rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-align: center;">
-        <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
-            <h1 style="font-size: 3rem; margin-bottom: 1rem;">Machine Learning Engineer</h1>
-            <p style="font-size: 1.2rem; margin-bottom: 2rem;">Passionate about AI, Data Science, and Building Intelligent Systems</p>
-            <a href="tutorials.html" style="background: transparent; color: white; border: 2px solid white; padding: 1rem 2rem; text-decoration: none; border-radius: 8px; font-weight: 700;">Explore Portfolio</a>
-        </div>
-    </section>
-    
-    <script src="static/js/main.js"></script>
-</body>
-</html>
-EOF
-                        fi
-                    else
-                        echo "⚠️ Python not available, creating simple static structure"
-                        mkdir -p deployment
-                        cp -r flask_portfolio/static deployment/
-                        cp -r flask_portfolio/templates deployment/
-                        
-                        # Simple fallback index
-                        cat > deployment/index.html << 'EOF'
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Alireza Barzin Zanganeh - Portfolio</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="static/css/main.css" rel="stylesheet">
-</head>
-<body>
-    <h1>Portfolio Loading...</h1>
-    <p><a href="templates/">Browse Templates</a></p>
-</body>
-</html>
-EOF
-                    fi
+                    echo "📋 Copying Flask application files..."
+                    # Copy the entire Flask application
+                    cp -r flask_portfolio/* deployment/
                     
-                    echo "📋 Final deployment structure:"
+                    # Copy important root files
+                    cp version.json deployment/ 2>/dev/null || true
+                    cp README.md deployment/ 2>/dev/null || true
+                    
+                    echo "✅ Flask application prepared for deployment"
+                    echo "📁 Deployment directory contents:"
                     ls -la deployment/
-                    echo "📄 Main files:"
-                    find deployment/ -name "*.html" | head -10
                 '''
             }
-        }
         
         stage('Deploy to Web Server') {
             steps {

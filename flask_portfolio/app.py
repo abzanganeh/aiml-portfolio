@@ -5,6 +5,8 @@ from utils.security import add_security_headers, validate_prediction_input, log_
 from config import config
 import os
 import logging
+import json
+from datetime import datetime
 
 # Load environment variables
 try:
@@ -13,10 +15,33 @@ try:
 except ImportError:
     pass  # dotenv not available, use system environment variables
 
+# Load version information
+def get_version_info():
+    version_file = os.path.join(os.path.dirname(__file__), '..', 'version.json')
+    try:
+        with open(version_file, 'r') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return {
+            "version": "2.0.0",
+            "build_id": "20250803-0000",
+            "build_date": "2025-08-03",
+            "description": "Second website iteration with comprehensive features"
+        }
+
 # Create Flask app with environment-based configuration
 config_name = os.environ.get('FLASK_CONFIG', 'development')
 app = Flask(__name__)
 app.config.from_object(config[config_name])
+
+# Context processor to inject global variables
+@app.context_processor
+def inject_globals():
+    return {
+        'current_year': datetime.now().year,
+        'version_info': get_version_info(),
+        'moment': datetime
+    }
 
 # Configure logging
 if not app.debug:

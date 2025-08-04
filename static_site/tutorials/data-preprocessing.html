@@ -116,7 +116,7 @@
         <div class="container">
             <a class="navbar-brand" href="../index.html">
                 <img src="../static/images/logo.png" alt="AZ" height="30" class="me-2">
-                Alireza Zanganeh
+                Ali Zanganeh
             </a>
             
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -226,7 +226,101 @@
                                 <i class="fas fa-tools"></i> Apply Strategy
                             </button>
                         </div>
-                        <div id="missing-result" class="result-display"></div>
+                                            <div id="missing-result" class="result-display"></div>
+                </div>
+            </div>
+
+            <!-- Outlier Detection Section -->
+            <section class="tutorial-section">
+                <h2><i class="fas fa-exclamation-triangle"></i> Outlier Detection & Treatment</h2>
+                
+                <div class="technique-card">
+                    <h3>Step 1: Identify Outliers</h3>
+                    <p>Outliers are extreme values that can skew your model. Let's find them using statistical methods.</p>
+                    
+                    <div class="interactive-demo">
+                        <button id="detect-outliers-btn" class="btn btn-info" disabled>
+                            <i class="fas fa-search"></i> Detect Outliers
+                        </button>
+                        <div id="outlier-analysis" class="result-display"></div>
+                    </div>
+                </div>
+
+                <div class="technique-card">
+                    <h3>Step 2: Handle Outliers</h3>
+                    <p>Choose how to handle extreme values in your dataset.</p>
+                    
+                    <div class="interactive-demo">
+                        <div class="demo-controls">
+                            <label for="outlier-strategy">Outlier Treatment:</label>
+                            <select id="outlier-strategy" class="form-control" disabled>
+                                <option value="">Select treatment</option>
+                                <option value="remove">Remove outliers</option>
+                                <option value="cap">Cap at 95th percentile</option>
+                                <option value="log">Log transformation</option>
+                                <option value="iqr">IQR method filtering</option>
+                            </select>
+                            <button id="apply-outlier-btn" class="btn btn-success mt-2" disabled>
+                                <i class="fas fa-tools"></i> Apply Treatment
+                            </button>
+                        </div>
+                        <div id="outlier-result" class="result-display"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Feature Scaling Section -->
+            <section class="tutorial-section">
+                <h2><i class="fas fa-balance-scale"></i> Feature Scaling</h2>
+                
+                <div class="technique-card">
+                    <h3>Normalize Your Data</h3>
+                    <p>Scale features to similar ranges for better model performance.</p>
+                    
+                    <div class="interactive-demo">
+                        <div class="demo-controls">
+                            <label for="scaling-method">Scaling Method:</label>
+                            <select id="scaling-method" class="form-control" disabled>
+                                <option value="">Select method</option>
+                                <option value="minmax">Min-Max Scaling (0-1)</option>
+                                <option value="standard">Standard Scaling (z-score)</option>
+                                <option value="robust">Robust Scaling (median-based)</option>
+                                <option value="normalize">Unit Vector Scaling</option>
+                            </select>
+                            <button id="apply-scaling-btn" class="btn btn-success mt-2" disabled>
+                                <i class="fas fa-tools"></i> Apply Scaling
+                            </button>
+                        </div>
+                        <div id="scaling-result" class="result-display"></div>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <!-- Quick Links -->
+        <section class="tutorial-section">
+            <h2>Next Steps</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-chart-line"></i> Feature Engineering</h5>
+                            <p class="card-text">Learn advanced feature creation and transformation techniques.</p>
+                            <a href="feature-engineering.html" class="btn btn-primary">Continue Learning</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-tree"></i> Decision Trees</h5>
+                            <p class="card-text">Explore tree-based algorithms for classification and regression.</p>
+                            <a href="decision-trees.html" class="btn btn-primary">Start Tutorial</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
                     </div>
                 </div>
             </section>
@@ -290,6 +384,11 @@
             document.getElementById('detect-missing-btn').addEventListener('click', detectMissingValues);
             document.getElementById('missing-strategy').addEventListener('change', enableMissingButton);
             document.getElementById('apply-missing-btn').addEventListener('click', applyMissingStrategy);
+            document.getElementById('detect-outliers-btn').addEventListener('click', detectOutliers);
+            document.getElementById('outlier-strategy').addEventListener('change', enableOutlierButton);
+            document.getElementById('apply-outlier-btn').addEventListener('click', applyOutlierTreatment);
+            document.getElementById('scaling-method').addEventListener('change', enableScalingButton);
+            document.getElementById('apply-scaling-btn').addEventListener('click', applyScaling);
         }
 
         function loadSampleData() {
@@ -301,6 +400,9 @@
             document.getElementById('show-summary-btn').disabled = false;
             document.getElementById('detect-missing-btn').disabled = false;
             document.getElementById('missing-strategy').disabled = false;
+            document.getElementById('detect-outliers-btn').disabled = false;
+            document.getElementById('outlier-strategy').disabled = false;
+            document.getElementById('scaling-method').disabled = false;
             
             document.getElementById('load-data-btn').innerHTML = '<i class="fas fa-sync-alt"></i> Reload Data';
         }
@@ -495,6 +597,222 @@
                     <p><strong>Action:</strong> ${description}</p>
                     <p><strong>Dataset Size:</strong> ${newData.length} rows</p>
                     <button onclick="displayDataTable()" class="btn btn-primary btn-sm">View Updated Data</button>
+                </div>
+            `;
+        }
+
+        function detectOutliers() {
+            const resultDiv = document.getElementById('outlier-analysis');
+            const numericColumns = ['age', 'salary', 'experience'];
+            
+            let html = '<h5><i class="fas fa-exclamation-triangle"></i> Outlier Detection Results</h5>';
+            html += '<div class="outlier-summary">';
+            
+            let hasOutliers = false;
+            numericColumns.forEach(col => {
+                const values = currentData.filter(row => row[col] !== null && row[col] !== undefined).map(row => row[col]);
+                if (values.length > 0) {
+                    // Calculate IQR
+                    const sorted = values.sort((a, b) => a - b);
+                    const q1 = sorted[Math.floor(sorted.length * 0.25)];
+                    const q3 = sorted[Math.floor(sorted.length * 0.75)];
+                    const iqr = q3 - q1;
+                    const lowerBound = q1 - 1.5 * iqr;
+                    const upperBound = q3 + 1.5 * iqr;
+                    
+                    const outliers = currentData.filter(row => {
+                        const val = row[col];
+                        return val !== null && val !== undefined && (val < lowerBound || val > upperBound);
+                    });
+                    
+                    if (outliers.length > 0) {
+                        hasOutliers = true;
+                        html += `<div class="outlier-column">`;
+                        html += `<p><strong>${col}:</strong> ${outliers.length} outliers detected</p>`;
+                        html += `<p><small>Range: ${lowerBound.toFixed(2)} - ${upperBound.toFixed(2)}</small></p>`;
+                        html += `<p><small>Outlier values: ${outliers.map(r => r[col]).join(', ')}</small></p>`;
+                        html += `</div>`;
+                    }
+                }
+            });
+            
+            if (!hasOutliers) {
+                html += '<p class="text-success"><i class="fas fa-check"></i> No significant outliers detected using IQR method!</p>';
+            }
+            
+            html += '</div>';
+            resultDiv.innerHTML = html;
+        }
+
+        function enableOutlierButton() {
+            const strategy = document.getElementById('outlier-strategy').value;
+            const button = document.getElementById('apply-outlier-btn');
+            button.disabled = !strategy;
+        }
+
+        function applyOutlierTreatment() {
+            const strategy = document.getElementById('outlier-strategy').value;
+            const resultDiv = document.getElementById('outlier-result');
+            
+            let newData = JSON.parse(JSON.stringify(currentData));
+            let description = '';
+            let rowsAffected = 0;
+            
+            const numericColumns = ['age', 'salary', 'experience'];
+            
+            switch(strategy) {
+                case 'remove':
+                    const originalLength = newData.length;
+                    newData = newData.filter(row => {
+                        return numericColumns.every(col => {
+                            const val = row[col];
+                            if (val === null || val === undefined) return true;
+                            
+                            const values = currentData.filter(r => r[col] !== null && r[col] !== undefined).map(r => r[col]);
+                            const sorted = values.sort((a, b) => a - b);
+                            const q1 = sorted[Math.floor(sorted.length * 0.25)];
+                            const q3 = sorted[Math.floor(sorted.length * 0.75)];
+                            const iqr = q3 - q1;
+                            const lowerBound = q1 - 1.5 * iqr;
+                            const upperBound = q3 + 1.5 * iqr;
+                            
+                            return val >= lowerBound && val <= upperBound;
+                        });
+                    });
+                    rowsAffected = originalLength - newData.length;
+                    description = `Removed ${rowsAffected} rows containing outliers`;
+                    break;
+                    
+                case 'cap':
+                    numericColumns.forEach(col => {
+                        const values = newData.filter(row => row[col] !== null && row[col] !== undefined).map(row => row[col]);
+                        if (values.length > 0) {
+                            const sorted = values.sort((a, b) => a - b);
+                            const cap = sorted[Math.floor(sorted.length * 0.95)];
+                            
+                            newData.forEach(row => {
+                                if (row[col] !== null && row[col] !== undefined && row[col] > cap) {
+                                    row[col] = cap;
+                                    rowsAffected++;
+                                }
+                            });
+                        }
+                    });
+                    description = `Capped ${rowsAffected} extreme values at 95th percentile`;
+                    break;
+                    
+                case 'log':
+                    numericColumns.forEach(col => {
+                        newData.forEach(row => {
+                            if (row[col] !== null && row[col] !== undefined && row[col] > 0) {
+                                row[col] = Math.log(row[col]);
+                                rowsAffected++;
+                            }
+                        });
+                    });
+                    description = `Applied log transformation to ${rowsAffected} values`;
+                    break;
+            }
+            
+            currentData = newData;
+            
+            resultDiv.innerHTML = `
+                <div class="alert alert-success">
+                    <h6><i class="fas fa-check-circle"></i> Outlier Treatment Applied</h6>
+                    <p><strong>Action:</strong> ${description}</p>
+                    <p><strong>Dataset Size:</strong> ${newData.length} rows</p>
+                    <button onclick="displayDataTable()" class="btn btn-primary btn-sm">View Updated Data</button>
+                </div>
+            `;
+        }
+
+        function enableScalingButton() {
+            const method = document.getElementById('scaling-method').value;
+            const button = document.getElementById('apply-scaling-btn');
+            button.disabled = !method;
+        }
+
+        function applyScaling() {
+            const method = document.getElementById('scaling-method').value;
+            const resultDiv = document.getElementById('scaling-result');
+            
+            let newData = JSON.parse(JSON.stringify(currentData));
+            let description = '';
+            
+            const numericColumns = ['age', 'salary', 'experience'];
+            
+            switch(method) {
+                case 'minmax':
+                    numericColumns.forEach(col => {
+                        const values = newData.filter(row => row[col] !== null && row[col] !== undefined).map(row => row[col]);
+                        if (values.length > 0) {
+                            const min = Math.min(...values);
+                            const max = Math.max(...values);
+                            const range = max - min;
+                            
+                            if (range > 0) {
+                                newData.forEach(row => {
+                                    if (row[col] !== null && row[col] !== undefined) {
+                                        row[col] = Number(((row[col] - min) / range).toFixed(3));
+                                    }
+                                });
+                            }
+                        }
+                    });
+                    description = 'Applied Min-Max scaling (0-1 range)';
+                    break;
+                    
+                case 'standard':
+                    numericColumns.forEach(col => {
+                        const values = newData.filter(row => row[col] !== null && row[col] !== undefined).map(row => row[col]);
+                        if (values.length > 0) {
+                            const mean = values.reduce((a, b) => a + b, 0) / values.length;
+                            const variance = values.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / values.length;
+                            const std = Math.sqrt(variance);
+                            
+                            if (std > 0) {
+                                newData.forEach(row => {
+                                    if (row[col] !== null && row[col] !== undefined) {
+                                        row[col] = Number(((row[col] - mean) / std).toFixed(3));
+                                    }
+                                });
+                            }
+                        }
+                    });
+                    description = 'Applied Standard scaling (z-score normalization)';
+                    break;
+                    
+                case 'robust':
+                    numericColumns.forEach(col => {
+                        const values = newData.filter(row => row[col] !== null && row[col] !== undefined).map(row => row[col]);
+                        if (values.length > 0) {
+                            const sorted = values.sort((a, b) => a - b);
+                            const median = sorted[Math.floor(sorted.length / 2)];
+                            const q1 = sorted[Math.floor(sorted.length * 0.25)];
+                            const q3 = sorted[Math.floor(sorted.length * 0.75)];
+                            const iqr = q3 - q1;
+                            
+                            if (iqr > 0) {
+                                newData.forEach(row => {
+                                    if (row[col] !== null && row[col] !== undefined) {
+                                        row[col] = Number(((row[col] - median) / iqr).toFixed(3));
+                                    }
+                                });
+                            }
+                        }
+                    });
+                    description = 'Applied Robust scaling (median and IQR based)';
+                    break;
+            }
+            
+            currentData = newData;
+            
+            resultDiv.innerHTML = `
+                <div class="alert alert-success">
+                    <h6><i class="fas fa-check-circle"></i> Feature Scaling Applied</h6>
+                    <p><strong>Method:</strong> ${description}</p>
+                    <p><strong>Columns Scaled:</strong> ${numericColumns.join(', ')}</p>
+                    <button onclick="displayDataTable()" class="btn btn-primary btn-sm">View Scaled Data</button>
                 </div>
             `;
         }
