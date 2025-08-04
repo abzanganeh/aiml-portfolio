@@ -60,31 +60,30 @@ pipeline {
         
         stage('Prepare Deployment') {
             steps {
-                echo '📦 Preparing professional Flask application...'
+                echo '📦 Preparing static website fallback...'
                 sh '''
                     echo "📁 Setting up deployment directory..."
                     rm -rf deployment 2>/dev/null || true
                     mkdir -p deployment
                     
-                    echo "📋 Deploying Flask application with diagnostic mode..."
-                    # Copy the entire Flask application including hidden files
+                    echo "📋 Deploying static website fallback..."
+                    # Copy the Flask directory structure
                     cp -r flask_portfolio/. deployment/
                     
-                    # DIAGNOSTIC MODE: Use diagnostic .htaccess
-                    cp deployment/.htaccess_diagnostic deployment/.htaccess
+                    # STATIC MODE: Use static .htaccess
+                    cp deployment/.htaccess_static deployment/.htaccess
                     
-                    # Set executable permissions for CGI
-                    chmod +x deployment/app.py
-                    chmod +x deployment/diagnostic.py
+                    # Remove Python files for static deployment
+                    rm -f deployment/app.py deployment/diagnostic.py deployment/test.py
+                    rm -f deployment/config.py deployment/requirements.txt
+                    rm -rf deployment/models deployment/utils deployment/__pycache__
                     
                     # Copy version info for reference
                     cp version.json deployment/ 2>/dev/null || true
                     
-                    echo "✅ Professional Flask application ready for deployment"
+                    echo "✅ Static website ready for deployment"
                     echo "📁 Deployment structure:"
                     ls -la deployment/
-                    echo "🔧 CGI permissions:"
-                    ls -la deployment/app.py
                     echo "📄 Configuration files:"
                     ls -la deployment/.htaccess 2>/dev/null || echo "Note: .htaccess will be created during deployment"
                 '''
