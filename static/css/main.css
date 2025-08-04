@@ -43,6 +43,29 @@ body {
     align-items: center;
 }
 
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #667eea;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.nav-brand:hover {
+    color: #5a67d8;
+}
+
+.nav-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #667eea;
+}
+
 .nav-logo a {
     font-size: 1.5rem;
     font-weight: 700;
@@ -126,6 +149,29 @@ body {
 .hero-content {
     position: relative;
     z-index: 2;
+}
+
+.hero-profile {
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.profile-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    animation: fadeInUp 1s ease forwards 0.2s;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-photo:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
 }
 
 .hero-title {
@@ -525,10 +571,146 @@ body {
 
 /* Footer */
 .footer {
-    background: #2d3748;
+    background: #1a1a1a;
     color: white;
-    padding: 2rem 0;
     text-align: center;
+    padding: 2rem 0;
+    margin-top: auto;
+}
+
+/* Project Detail Pages */
+.project-detail {
+    padding: 2rem 0;
+    min-height: 80vh;
+}
+
+.project-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.project-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.project-subtitle {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 1.5rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.project-meta {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.project-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.project-section {
+    margin-bottom: 3rem;
+}
+
+.project-section h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.feature-item h3 {
+    color: #667eea;
+    margin-bottom: 1rem;
+}
+
+.tech-details h3 {
+    color: #667eea;
+    margin: 1.5rem 0 1rem 0;
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.result-item {
+    text-align: center;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.result-item h4 {
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.result-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #667eea;
+    margin: 0;
+}
+
+.project-links {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin: 3rem 0;
+}
+
+.project-navigation {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #eee;
+}
+
+.tech-stack {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.tech-category h3 {
+    color: #667eea;
+    margin-bottom: 1rem;
+}
+
+.tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.math-section {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+}
+
+.math-section h3 {
+    color: #667eea;
+    margin-bottom: 1rem;
 }
 
 .footer-content p {

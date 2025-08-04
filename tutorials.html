@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorials - Ali Barzin Zanganeh</title>
+    <link rel="stylesheet" href="static/css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .tutorials-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 6rem 0 4rem;
+            text-align: center;
+            margin-top: 70px;
+        }
+        .tutorials-grid-page {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            padding: 4rem 0;
+        }
+        .tutorial-card-full {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+        .tutorial-card-full:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        }
+        .tutorial-icon-large {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .tutorial-title {
+            font-size: 1.5rem;
+            color: #2d3748;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .tutorial-description {
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .tutorial-features {
+            margin-bottom: 2rem;
+        }
+        .tutorial-features ul {
+            list-style: none;
+            padding: 0;
+        }
+        .tutorial-features li {
+            padding: 0.5rem 0;
+            color: #4a5568;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        .tutorial-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+        .tutorial-link-btn {
+            display: block;
+            text-align: center;
+            background: #667eea;
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .tutorial-link-btn:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+        <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">
+                <img src="static/images/logo.png" alt="Ali Barzin Zanganeh" class="nav-logo">
+                Ali Barzin Zanganeh
+            </a>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#projects" class="nav-link">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a href="tutorials.html" class="nav-link">Tutorials</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#contact" class="nav-link">Contact</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="tutorials-header">
+        <div class="container">
+            <h1>📚 Machine Learning Tutorials</h1>
+            <p>Comprehensive guides covering machine learning concepts, algorithms, and practical implementations</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="tutorials-grid-page">
+                
+                <!-- Machine Learning Fundamentals Tutorial -->
+                <div class="tutorial-card">
+                    <div class="tutorial-image">
+                        <div class="tutorial-icon">🎓</div>
+                    </div>
+                    <div class="tutorial-content">
+                        <h3>Machine Learning Fundamentals</h3>
+                        <p>Complete guide to supervised learning, data preprocessing, model building, and evaluation with practical examples.</p>
+                        <div class="tutorial-tags">
+                            <span class="tag">Supervised Learning</span>
+                            <span class="tag">Data Science</span>
+                            <span class="tag">Python</span>
+                        </div>
+                        <div class="tutorial-meta">
+                            <span class="difficulty intermediate">Intermediate</span>
+                            <span class="duration">95 min</span>
+                        </div>
+                    </div>
+                    <a href="tutorials/ml-fundamentals-part1.html" class="tutorial-link">Read Tutorial</a>
+                </div>
+
+                <!-- Clustering Tutorial -->
+                <div class="tutorial-card">
+                    <div class="tutorial-image">
+                        <div class="tutorial-icon">🔗</div>
+                    </div>
+                    <div class="tutorial-content">
+                        <h3>Clustering Analysis</h3>
+                        <p>Comprehensive guide to unsupervised learning with K-Means, hierarchical clustering, and DBSCAN algorithms.</p>
+                        <div class="tutorial-tags">
+                            <span class="tag">Unsupervised Learning</span>
+                            <span class="tag">Python</span>
+                            <span class="tag">Scikit-learn</span>
+                        </div>
+                        <div class="tutorial-meta">
+                            <span class="difficulty intermediate">Intermediate</span>
+                            <span class="duration">25 min</span>
+                        </div>
+                    </div>
+                    <a href="tutorials/clustering.html" class="tutorial-link">Read Tutorial</a>
+                </div>
+
+                <!-- Neural Networks Tutorial -->
+                <div class="tutorial-card-full">
+                    <div class="tutorial-icon-large">🧠</div>
+                    <h3 class="tutorial-title">Neural Networks</h3>
+                    <p class="tutorial-description">
+                        Deep dive into neural network architecture, backpropagation, and optimization techniques.
+                    </p>
+                    <div class="tutorial-features">
+                        <ul>
+                            <li>Forward and backward propagation</li>
+                            <li>Activation functions explained</li>
+                            <li>Gradient descent optimization</li>
+                            <li>Building networks from scratch</li>
+                        </ul>
+                    </div>
+                    <a href="tutorials/neural-networks.html" class="tutorial-link-btn">Read Tutorial</a>
+                </div>
+
+                <!-- Linear Regression Tutorial -->
+                <div class="tutorial-card-full">
+                    <div class="tutorial-icon-large">📈</div>
+                    <h3 class="tutorial-title">Linear Regression</h3>
+                    <p class="tutorial-description">
+                        Fundamental regression analysis from mathematical foundations to practical implementation.
+                    </p>
+                    <div class="tutorial-features">
+                        <ul>
+                            <li>Mathematical foundations</li>
+                            <li>Least squares method</li>
+                            <li>Regularization techniques</li>
+                            <li>Model evaluation metrics</li>
+                        </ul>
+                    </div>
+                    <a href="tutorials/linear-regression.html" class="tutorial-link-btn">Read Tutorial</a>
+                </div>
+
+                <!-- Coming Soon Tutorials -->
+                <div class="tutorial-card-full" style="opacity: 0.6; border: 2px dashed #ccc;">
+                    <div class="tutorial-icon-large">⚙️</div>
+                    <h3 class="tutorial-title">Feature Engineering</h3>
+                    <p class="tutorial-description">
+                        Advanced techniques for data preprocessing, feature selection, and transformation.
+                    </p>
+                    <div class="tutorial-features">
+                        <ul>
+                            <li>Data preprocessing techniques</li>
+                            <li>Feature selection methods</li>
+                            <li>Dimensionality reduction</li>
+                            <li>Handling categorical data</li>
+                        </ul>
+                    </div>
+                    <span class="tutorial-link-btn" style="background: #ccc; cursor: not-allowed;">Coming Soon</span>
+                </div>
+
+                <div class="tutorial-card-full" style="opacity: 0.6; border: 2px dashed #ccc;">
+                    <div class="tutorial-icon-large">🧹</div>
+                    <h3 class="tutorial-title">Data Preprocessing</h3>
+                    <p class="tutorial-description">
+                        Essential data cleaning and preparation techniques for machine learning projects.
+                    </p>
+                    <div class="tutorial-features">
+                        <ul>
+                            <li>Handling missing data</li>
+                            <li>Data normalization and scaling</li>
+                            <li>Outlier detection and treatment</li>
+                            <li>Data validation techniques</li>
+                        </ul>
+                    </div>
+                    <span class="tutorial-link-btn" style="background: #ccc; cursor: not-allowed;">Coming Soon</span>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 Ali Barzin Zanganeh - Machine Learning Engineer</p>
+                <p class="footer-version">Complete Tutorial Collection - Professional Learning Resources</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="static/js/main.js"></script>
+</body>
+</html>

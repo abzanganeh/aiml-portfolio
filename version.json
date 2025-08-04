@@ -1,12 +1,19 @@
 {
-  "version": "2.0803.1740",
-  "buildDate": "2025-08-03", 
-  "buildId": "20250803-1740",
-  "description": "STATIC HTML WEBSITE - Professional static site for shared hosting compatibility",
+  "version": "3.0804.1800",
+  "buildDate": "2025-08-04", 
+  "buildId": "20250804-1800",
+  "description": "STATIC HTML WEBSITE v3.0 - Final clean structure with organized files",
   "changes": [
-    "Created professional static HTML/CSS/JavaScript website",
-    "Modern responsive design with mobile-first approach", 
-    "Works on any hosting plan - no server-side dependencies",
-    "Fast loading with optimized assets and compression"
+    "MAJOR VERSION 3.0: Complete transition from Flask to static HTML architecture",
+    "🧹 FINAL CLEANUP: Organized file structure, moved old files to old_data folder",
+    "🔗 FIXED: All tutorial and project links working correctly",
+    "📁 CLEAN STRUCTURE: Organized root directory with active website files only",
+    "🎓 Added comprehensive Machine Learning Fundamentals tutorial (2 parts)",
+    "🖼️ Enhanced navigation with logo integration",
+    "📱 Added profile photo to hero section",
+    "🎨 Professional visual branding improvements",
+    "📚 Complete coverage of supervised learning, preprocessing, and model evaluation",
+    "⏱️ 95+ minutes of detailed content with practical examples",
+    "🚀 Professional static HTML/CSS/JavaScript website optimized for deployment"
   ]
 }

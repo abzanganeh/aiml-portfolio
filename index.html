@@ -9,12 +9,16 @@
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar">
+        <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-logo">
-                <a href="index.html">Ali Barzin Zanganeh</a>
-            </div>
+            <a href="index.html" class="nav-brand">
+                <img src="static/images/logo.png" alt="Ali Barzin Zanganeh" class="nav-logo">
+                Ali Barzin Zanganeh
+            </a>
             <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">Home</a>
+                </li>
                 <li class="nav-item">
                     <a href="#about" class="nav-link">About</a>
                 </li>
@@ -22,24 +26,20 @@
                     <a href="#projects" class="nav-link">Projects</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#tutorials" class="nav-link">Tutorials</a>
+                    <a href="tutorials.html" class="nav-link">Tutorials</a>
                 </li>
                 <li class="nav-item">
                     <a href="#contact" class="nav-link">Contact</a>
                 </li>
             </ul>
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-        </div>
-    </nav>
 
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
             <div class="hero-content">
+                <div class="hero-profile">
+                    <img src="static/images/profile-photo.jpg" alt="Ali Barzin Zanganeh" class="profile-photo">
+                </div>
                 <h1 class="hero-title">Ali Barzin Zanganeh</h1>
                 <h2 class="hero-subtitle">Machine Learning Engineer</h2>
                 <p class="hero-description">
@@ -213,6 +213,18 @@
                     <a href="tutorials/clustering.html" class="tutorial-link">Read Tutorial →</a>
                 </div>
 
+                <!-- Machine Learning Fundamentals Tutorial -->
+                <div class="tutorial-card">
+                    <div class="tutorial-icon">🎓</div>
+                    <h3>ML Fundamentals</h3>
+                    <p>Comprehensive guide to supervised learning, data preprocessing, and model evaluation.</p>
+                    <div class="tutorial-tags">
+                        <span class="tag">Supervised Learning</span>
+                        <span class="tag">Data Science</span>
+                    </div>
+                    <a href="tutorials/ml-fundamentals-part1.html" class="tutorial-link">Read Tutorial →</a>
+                </div>
+
                 <!-- Neural Networks Tutorial -->
                 <div class="tutorial-card">
                     <div class="tutorial-icon">🧠</div>
@@ -235,18 +247,6 @@
                         <span class="tag">Statistics</span>
                     </div>
                     <a href="tutorials/linear-regression.html" class="tutorial-link">Read Tutorial →</a>
-                </div>
-
-                <!-- Feature Engineering Tutorial -->
-                <div class="tutorial-card">
-                    <div class="tutorial-icon">⚙️</div>
-                    <h3>Feature Engineering</h3>
-                    <p>Advanced techniques for data preprocessing, feature selection, and transformation.</p>
-                    <div class="tutorial-tags">
-                        <span class="tag">Data Science</span>
-                        <span class="tag">Preprocessing</span>
-                    </div>
-                    <a href="tutorials/feature-engineering.html" class="tutorial-link">Read Tutorial →</a>
                 </div>
 
             </div>

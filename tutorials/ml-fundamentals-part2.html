@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning Fundamentals - Part 2 | Ali Barzin Zanganeh</title>
+    <meta name="description" content="Advanced machine learning concepts covering correlation analysis, model building, evaluation metrics, and hyperparameter tuning with practical examples.">
+    <link rel="stylesheet" href="../static/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-brand">
+                <img src="../static/images/logo.png" alt="Ali Barzin Zanganeh" class="nav-logo">
+                Ali Barzin Zanganeh
+            </a>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="../index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../index.html#projects" class="nav-link">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../tutorials.html" class="nav-link active">Tutorials</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../index.html#contact" class="nav-link">Contact</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="tutorial-content">
+        <div class="container">
+            <div class="tutorial-header">
+                <div class="breadcrumb">
+                    <a href="../tutorials.html">Tutorials</a>
+                    <span>→</span>
+                    <span>Machine Learning Fundamentals - Part 2</span>
+                </div>
+                <h1>Machine Learning Fundamentals - Part 2</h1>
+                <p class="tutorial-subtitle">Advanced concepts: correlation analysis, model building, evaluation metrics, and hyperparameter tuning</p>
+                <div class="tutorial-meta">
+                    <span class="difficulty">Intermediate</span>
+                    <span class="duration">50 min read</span>
+                    <span class="category">Machine Learning</span>
+                </div>
+            </div>
+
+            <div class="tutorial-body">
+                <section class="tutorial-section">
+                    <h2>Introduction</h2>
+                    <p>Welcome to Part 2 of our comprehensive Machine Learning Fundamentals tutorial. In this section, we'll dive deep into correlation analysis, multicollinearity detection, model building techniques, evaluation metrics, and hyperparameter optimization.</p>
+                    
+                    <div class="info-box">
+                        <h4>Prerequisites</h4>
+                        <p>Make sure you've completed <a href="ml-fundamentals-part1.html">Part 1</a> which covers supervised learning basics, data preprocessing, and initial EDA.</p>
+                    </div>
+                </section>
+
+                <section class="tutorial-section">
+                    <h2>4. Correlation Analysis and Multicollinearity</h2>
+                    
+                    <h3>4.1 Understanding Correlation</h3>
+                    <p>Correlation measures the linear relationship between two variables. It ranges from -1 to +1:</p>
+                    
+                    <div class="correlation-guide">
+                        <div class="correlation-item">
+                            <h4>Positive Correlation (+1 to 0)</h4>
+                            <p>As one variable increases, the other tends to increase</p>
+                            <p><strong>Example:</strong> House size and price typically have positive correlation</p>
+                        </div>
+                        
+                        <div class="correlation-item">
+                            <h4>Negative Correlation (-1 to 0)</h4>
+                            <p>As one variable increases, the other tends to decrease</p>
+                            <p><strong>Example:</strong> Car age and price typically have negative correlation</p>
+                        </div>
+                        
+                        <div class="correlation-item">
+                            <h4>No Correlation (≈0)</h4>
+                            <p>No linear relationship between variables</p>
+                            <p><strong>Example:</strong> Hair color and intelligence have no correlation</p>
+                        </div>
+                    </div>
+
+                    <h3>4.2 Correlation Matrix Analysis</h3>
+                    <div class="code-block">
+                        <pre><code>import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Calculate correlation matrix
+correlation_matrix = df.corr()
+
+# Create correlation heatmap
+plt.figure(figsize=(12, 10))
+mask = np.triu(np.ones_like(correlation_matrix, dtype=bool))  # Hide upper triangle
+
+sns.heatmap(correlation_matrix, 
+            annot=True,           # Show correlation values
+            cmap='RdBu_r',        # Red-Blue colormap
+            center=0,             # Center colormap at 0
+            mask=mask,            # Hide upper triangle
+            square=True,          # Square cells
+            fmt='.2f',            # 2 decimal places
+            cbar_kws={"shrink": .5})
+
+plt.title('Feature Correlation Matrix')
+plt.tight_layout()
+plt.show()
+
+# Find high correlations with target variable
+target_correlations = correlation_matrix['Price'].abs().sort_values(ascending=False)
+print("Correlations with Price (sorted by absolute value):")
+print(target_correlations)</code></pre>
+                    </div>
+
+                    <h3>4.3 Feature Selection Based on Correlation</h3>
+                    <div class="code-block">
+                        <pre><code>def analyze_feature_correlations(df, target_column, threshold=0.8):
+    """
+    Analyze feature correlations and identify highly correlated pairs
+    
+    Parameters:
+    - df: DataFrame
+    - target_column: Name of target variable
+    - threshold: Correlation threshold for identifying high correlation
+    """
+    corr_matrix = df.corr()
+    
+    # Find features highly correlated with target
+    target_corr = corr_matrix[target_column].abs().sort_values(ascending=False)
+    print(f"Features correlated with {target_column}:")
+    print(target_corr.head(10))
+    print("\n" + "="*50 + "\n")
+    
+    # Find highly correlated feature pairs
+    high_corr_pairs = []
+    
+    for i in range(len(corr_matrix.columns)):
+        for j in range(i+1, len(corr_matrix.columns)):
+            corr_value = abs(corr_matrix.iloc[i, j])
+            if corr_value > threshold:
+                feature1 = corr_matrix.columns[i]
+                feature2 = corr_matrix.columns[j]
+                high_corr_pairs.append((feature1, feature2, corr_value))
+    
+    if high_corr_pairs:
+        print(f"Highly correlated feature pairs (|correlation| > {threshold}):")
+        for feature1, feature2, corr in high_corr_pairs:
+            print(f"{feature1} ↔ {feature2}: {corr:.3f}")
+            
+            # Suggest which feature to keep based on target correlation
+            corr1 = abs(corr_matrix[target_column][feature1])
+            corr2 = abs(corr_matrix[target_column][feature2])
+            
+            if corr1 > corr2:
+                print(f"  → Suggestion: Keep {feature1} (correlation with target: {corr1:.3f})")
+            else:
+                print(f"  → Suggestion: Keep {feature2} (correlation with target: {corr2:.3f})")
+            print()
+    else:
+        print(f"No feature pairs with correlation > {threshold}")
+
+# Example usage
+analyze_feature_correlations(df, 'Price', threshold=0.8)</code></pre>
+                    </div>
+
+                    <h3>4.4 Multicollinearity Detection with VIF</h3>
+                    <p>Variance Inflation Factor (VIF) measures how much the variance of a coefficient increases due to collinearity.</p>
+
+                    <div class="vif-interpretation">
+                        <h4>VIF Interpretation Guidelines:</h4>
+                        <ul>
+                            <li><strong>VIF = 1:</strong> No multicollinearity</li>
+                            <li><strong>1 < VIF ≤ 5:</strong> Moderate correlation, generally acceptable</li>
+                            <li><strong>5 < VIF ≤ 10:</strong> High correlation, may cause problems</li>
+                            <li><strong>VIF > 10:</strong> Very high correlation, should be addressed</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-block">
+                        <pre><code>from statsmodels.stats.outliers_influence import variance_inflation_factor
+
+def calculate_vif(df, features):
+    """
+    Calculate Variance Inflation Factor for all features
+    
+    Parameters:
+    - df: DataFrame
+    - features: List of feature column names
+    """
+    # Prepare the data
+    X = df[features].select_dtypes(include=[np.number])  # Only numeric features
+    
+    # Calculate VIF for each feature
+    vif_data = []
+    for i, feature in enumerate(X.columns):
+        vif_value = variance_inflation_factor(X.values, i)
+        vif_data.append({'Feature': feature, 'VIF': vif_value})
+    
+    vif_df = pd.DataFrame(vif_data)
+    vif_df = vif_df.sort_values('VIF', ascending=False)
+    
+    print("Variance Inflation Factor (VIF) Analysis:")
+    print("="*40)
+    for _, row in vif_df.iterrows():
+        vif_value = row['VIF']
+        feature = row['Feature']
+        
+        if vif_value > 10:
+            status = "🔴 HIGH (Remove)"
+        elif vif_value > 5:
+            status = "🟡 MODERATE (Monitor)"
+        else:
+            status = "🟢 LOW (OK)"
+            
+        print(f"{feature:20s}: {vif_value:6.2f} - {status}")
+    
+    return vif_df
+
+# Example usage
+features = ['RAM', 'ROM', 'Mobile_Size', 'Primary_Cam', 'Selfi_Cam', 'Battery_Power']
+vif_results = calculate_vif(df, features)</code></pre>
+                    </div>
+                </section>
+
+                <section class="tutorial-section">
+                    <h2>5. Regression Model Building</h2>
+                    
+                    <h3>5.1 Linear Regression</h3>
+                    <p>Linear regression models the relationship between a dependent variable and independent variables using a linear equation.</p>
+
+                    <div class="model-explanation">
+                        <h4>Mathematical Foundation</h4>
+                        <p><strong>Simple Linear Regression:</strong> y = mx + b</p>
+                        <p><strong>Multiple Linear Regression:</strong> y = β₀ + β₁x₁ + β₂x₂ + ... + βₙxₙ + ε</p>
+                        <ul>
+                            <li><strong>y:</strong> Target variable (what we're predicting)</li>
+                            <li><strong>x₁, x₂, ..., xₙ:</strong> Features (input variables)</li>
+                            <li><strong>β₀:</strong> Intercept (y-value when all x=0)</li>
+                            <li><strong>β₁, β₂, ..., βₙ:</strong> Coefficients (slopes)</li>
+                            <li><strong>ε:</strong> Error term (residuals)</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-block">
+                        <pre><code>from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+import numpy as np
+
+# Prepare the data
+features = ['RAM', 'ROM', 'Mobile_Size', 'Primary_Cam', 'Selfi_Cam', 'Battery_Power']
+X = df[features]
+y = df['Price']
+
+# Split the data
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+# Scale the features (important for linear regression)
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+# Train the model
+lr_model = LinearRegression()
+lr_model.fit(X_train_scaled, y_train)
+
+# Make predictions
+y_train_pred = lr_model.predict(X_train_scaled)
+y_test_pred = lr_model.predict(X_test_scaled)
+
+# Print model parameters
+print("Linear Regression Results:")
+print("="*30)
+print(f"Intercept: {lr_model.intercept_:.2f}")
+print("\nCoefficients:")
+for feature, coef in zip(features, lr_model.coef_):
+    print(f"{feature:15s}: {coef:8.2f}")
+</code></pre>
+                    </div>
+
+                    <h3>5.2 Regularized Regression Models</h3>
+                    <p>Regularization prevents overfitting by adding a penalty term to the loss function.</p>
+
+                    <div class="regularization-types">
+                        <div class="reg-type">
+                            <h4>Ridge Regression (L2 Regularization)</h4>
+                            <p><strong>Penalty:</strong> Sum of squared coefficients (β₁² + β₂² + ... + βₙ²)</p>
+                            <p><strong>Effect:</strong> Shrinks coefficients towards zero but doesn't eliminate them</p>
+                            <p><strong>Use when:</strong> All features are somewhat relevant</p>
+                        </div>
+                        
+                        <div class="reg-type">
+                            <h4>Lasso Regression (L1 Regularization)</h4>
+                            <p><strong>Penalty:</strong> Sum of absolute coefficients (|β₁| + |β₂| + ... + |βₙ|)</p>
+                            <p><strong>Effect:</strong> Can eliminate features by setting coefficients to exactly zero</p>
+                            <p><strong>Use when:</strong> Feature selection is important</p>
+                        </div>
+                        
+                        <div class="reg-type">
+                            <h4>Elastic Net Regression</h4>
+                            <p><strong>Penalty:</strong> Combination of L1 and L2 penalties</p>
+                            <p><strong>Effect:</strong> Balances feature selection and coefficient shrinkage</p>
+                            <p><strong>Use when:</strong> You want both feature selection and coefficient shrinkage</p>
+                        </div>
+                    </div>
+
+                    <div class="code-block">
+                        <pre><code>from sklearn.linear_model import Ridge, Lasso, ElasticNet
+from sklearn.model_selection import GridSearchCV
+
+# Ridge Regression
+ridge_model = Ridge(alpha=1.0)
+ridge_model.fit(X_train_scaled, y_train)
+ridge_pred = ridge_model.predict(X_test_scaled)
+
+# Lasso Regression
+lasso_model = Lasso(alpha=0.1)
+lasso_model.fit(X_train_scaled, y_train)
+lasso_pred = lasso_model.predict(X_test_scaled)
+
+# Elastic Net
+elastic_model = ElasticNet(alpha=0.1, l1_ratio=0.5)
+elastic_model.fit(X_train_scaled, y_train)
+elastic_pred = elastic_model.predict(X_test_scaled)
+
+# Compare coefficients
+print("Coefficient Comparison:")
+print("="*50)
+print(f"{'Feature':<15} {'Linear':<10} {'Ridge':<10} {'Lasso':<10} {'Elastic':<10}")
+print("-"*50)
+
+for i, feature in enumerate(features):
+    print(f"{feature:<15} {lr_model.coef_[i]:>9.2f} {ridge_model.coef_[i]:>9.2f} "
+          f"{lasso_model.coef_[i]:>9.2f} {elastic_model.coef_[i]:>9.2f}")
+</code></pre>
+                    </div>
+
+                    <h3>5.3 Random Forest Regressor</h3>
+                    <p>Random Forest is an ensemble method that combines multiple decision trees to create a more robust model.</p>
+
+                    <div class="rf-explanation">
+                        <h4>How Random Forest Works:</h4>
+                        <ol>
+                            <li><strong>Bootstrap Sampling:</strong> Create multiple random samples of the training data</li>
+                            <li><strong>Feature Randomness:</strong> At each split, consider only a random subset of features</li>
+                            <li><strong>Multiple Trees:</strong> Train many decision trees on different samples</li>
+                            <li><strong>Aggregation:</strong> Average predictions from all trees for final result</li>
+                        </ol>
+                        
+                        <h4>Advantages:</h4>
+                        <ul>
+                            <li>Handles non-linear relationships naturally</li>
+                            <li>Robust to outliers and missing values</li>
+                            <li>Provides feature importance rankings</li>
+                            <li>Less prone to overfitting than single decision trees</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-block">
+                        <pre><code>from sklearn.ensemble import RandomForestRegressor
+
+# Random Forest (no need for feature scaling)
+rf_model = RandomForestRegressor(
+    n_estimators=100,        # Number of trees
+    max_depth=10,           # Maximum depth of trees
+    min_samples_split=5,    # Minimum samples to split a node
+    min_samples_leaf=2,     # Minimum samples in a leaf
+    random_state=42
+)
+
+# Train on original (unscaled) data
+rf_model.fit(X_train, y_train)
+rf_pred = rf_model.predict(X_test)
+
+# Feature importance analysis
+feature_importance = pd.DataFrame({
+    'Feature': features,
+    'Importance': rf_model.feature_importances_
+}).sort_values('Importance', ascending=False)
+
+print("Feature Importance Ranking:")
+print("="*30)
+for _, row in feature_importance.iterrows():
+    print(f"{row['Feature']:<15}: {row['Importance']:.4f}")
+
+# Visualize feature importance
+plt.figure(figsize=(10, 6))
+sns.barplot(data=feature_importance, x='Importance', y='Feature')
+plt.title('Random Forest Feature Importance')
+plt.xlabel('Importance Score')
+plt.tight_layout()
+plt.show()
+</code></pre>
+                    </div>
+                </section>
+
+                <section class="tutorial-section">
+                    <h2>6. Model Evaluation Metrics</h2>
+                    
+                    <h3>6.1 Regression Metrics</h3>
+                    
+                    <div class="metrics-explanation">
+                        <div class="metric-item">
+                            <h4>Mean Absolute Error (MAE)</h4>
+                            <p><strong>Formula:</strong> MAE = (1/n) × Σ|yᵢ - ŷᵢ|</p>
+                            <p><strong>Interpretation:</strong> Average absolute difference between actual and predicted values</p>
+                            <p><strong>Units:</strong> Same as target variable</p>
+                            <p><strong>Best value:</strong> 0 (lower is better)</p>
+                        </div>
+                        
+                        <div class="metric-item">
+                            <h4>Mean Squared Error (MSE)</h4>
+                            <p><strong>Formula:</strong> MSE = (1/n) × Σ(yᵢ - ŷᵢ)²</p>
+                            <p><strong>Interpretation:</strong> Average squared difference (penalizes large errors more)</p>
+                            <p><strong>Units:</strong> Squared units of target variable</p>
+                            <p><strong>Best value:</strong> 0 (lower is better)</p>
+                        </div>
+                        
+                        <div class="metric-item">
+                            <h4>Root Mean Squared Error (RMSE)</h4>
+                            <p><strong>Formula:</strong> RMSE = √MSE</p>
+                            <p><strong>Interpretation:</strong> Standard deviation of residuals</p>
+                            <p><strong>Units:</strong> Same as target variable</p>
+                            <p><strong>Best value:</strong> 0 (lower is better)</p>
+                        </div>
+                        
+                        <div class="metric-item">
+                            <h4>R-squared (R²)</h4>
+                            <p><strong>Formula:</strong> R² = 1 - (SS_res / SS_tot)</p>
+                            <p><strong>Interpretation:</strong> Proportion of variance explained by the model</p>
+                            <p><strong>Range:</strong> -∞ to 1</p>
+                            <p><strong>Best value:</strong> 1 (higher is better)</p>
+                        </div>
+                    </div>
+
+                    <div class="code-block">
+                        <pre><code>def evaluate_regression_model(y_true, y_pred, model_name):
+    """
+    Comprehensive evaluation of regression model performance
+    """
+    mae = mean_absolute_error(y_true, y_pred)
+    mse = mean_squared_error(y_true, y_pred)
+    rmse = np.sqrt(mse)
+    r2 = r2_score(y_true, y_pred)
+    
+    # Additional metrics
+    mape = np.mean(np.abs((y_true - y_pred) / y_true)) * 100  # Mean Absolute Percentage Error
+    
+    print(f"\n{model_name} Performance:")
+    print("="*40)
+    print(f"Mean Absolute Error (MAE):     {mae:10.2f}")
+    print(f"Mean Squared Error (MSE):      {mse:10.2f}")
+    print(f"Root Mean Squared Error (RMSE): {rmse:10.2f}")
+    print(f"R-squared (R²):                {r2:10.4f}")
+    print(f"Mean Absolute Percentage Error: {mape:10.2f}%")
+    
+    return {'MAE': mae, 'MSE': mse, 'RMSE': rmse, 'R2': r2, 'MAPE': mape}
+
+# Evaluate all models
+models_results = {}
+models_results['Linear Regression'] = evaluate_regression_model(y_test, y_test_pred, 'Linear Regression')
+models_results['Ridge Regression'] = evaluate_regression_model(y_test, ridge_pred, 'Ridge Regression')
+models_results['Lasso Regression'] = evaluate_regression_model(y_test, lasso_pred, 'Lasso Regression')
+models_results['Random Forest'] = evaluate_regression_model(y_test, rf_pred, 'Random Forest')
+
+# Create comparison DataFrame
+comparison_df = pd.DataFrame(models_results).T
+print("\nModel Comparison Summary:")
+print("="*50)
+print(comparison_df.round(4))
+</code></pre>
+                    </div>
+
+                    <h3>6.2 Visualization of Results</h3>
+                    <div class="code-block">
+                        <pre><code>def plot_regression_results(y_true, y_pred, model_name):
+    """
+    Create comprehensive visualization of regression results
+    """
+    fig, axes = plt.subplots(2, 2, figsize=(15, 12))
+    fig.suptitle(f'{model_name} - Regression Analysis', fontsize=16)
+    
+    # 1. Actual vs Predicted scatter plot
+    axes[0, 0].scatter(y_true, y_pred, alpha=0.6, color='blue')
+    axes[0, 0].plot([y_true.min(), y_true.max()], [y_true.min(), y_true.max()], 
+                    'r--', lw=2, label='Perfect Prediction')
+    axes[0, 0].set_xlabel('Actual Values')
+    axes[0, 0].set_ylabel('Predicted Values')
+    axes[0, 0].set_title('Actual vs Predicted')
+    axes[0, 0].legend()
+    axes[0, 0].grid(True, alpha=0.3)
+    
+    # 2. Residuals plot
+    residuals = y_true - y_pred
+    axes[0, 1].scatter(y_pred, residuals, alpha=0.6, color='green')
+    axes[0, 1].axhline(y=0, color='r', linestyle='--')
+    axes[0, 1].set_xlabel('Predicted Values')
+    axes[0, 1].set_ylabel('Residuals')
+    axes[0, 1].set_title('Residuals vs Predicted')
+    axes[0, 1].grid(True, alpha=0.3)
+    
+    # 3. Residuals distribution
+    axes[1, 0].hist(residuals, bins=30, alpha=0.7, color='orange', edgecolor='black')
+    axes[1, 0].set_xlabel('Residuals')
+    axes[1, 0].set_ylabel('Frequency')
+    axes[1, 0].set_title('Distribution of Residuals')
+    axes[1, 0].grid(True, alpha=0.3)
+    
+    # 4. Q-Q plot for residuals normality
+    from scipy import stats
+    stats.probplot(residuals, dist="norm", plot=axes[1, 1])
+    axes[1, 1].set_title('Q-Q Plot (Residuals Normality)')
+    axes[1, 1].grid(True, alpha=0.3)
+    
+    plt.tight_layout()
+    plt.show()
+
+# Example usage
+plot_regression_results(y_test, rf_pred, 'Random Forest')
+</code></pre>
+                    </div>
+                </section>
+
+                <section class="tutorial-section">
+                    <h2>7. Classification Models</h2>
+                    
+                    <h3>7.1 Logistic Regression</h3>
+                    <p>Logistic regression uses the logistic function to model the probability of class membership.</p>
+
+                    <div class="logistic-explanation">
+                        <h4>Mathematical Foundation</h4>
+                        <p><strong>Logistic Function:</strong> p = 1 / (1 + e^(-z))</p>
+                        <p><strong>Where:</strong> z = β₀ + β₁x₁ + β₂x₂ + ... + βₙxₙ</p>
+                        
+                        <h4>Multi-class Strategies:</h4>
+                        <ul>
+                            <li><strong>One-vs-Rest (OvR):</strong> Train one classifier per class</li>
+                            <li><strong>One-vs-One (OvO):</strong> Train one classifier for each pair of classes</li>
+                            <li><strong>Multinomial:</strong> Direct multi-class extension</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-block">
+                        <pre><code># Create classification dataset (price ranges)
+# Convert continuous price to categorical ranges
+def create_price_ranges(price):
+    if price < 10000:
+        return 0  # Low
+    elif price < 20000:
+        return 1  # Medium
+    else:
+        return 2  # High
+
+df['price_range'] = df['Price'].apply(create_price_ranges)
+range_names = {0: 'Low', 1: 'Medium', 2: 'High'}
+
+# Prepare classification data
+X_clf = df[features]
+y_clf = df['price_range']
+
+X_train_clf, X_test_clf, y_train_clf, y_test_clf = train_test_split(
+    X_clf, y_clf, test_size=0.2, random_state=42, stratify=y_clf
+)
+
+# Scale features for logistic regression
+X_train_clf_scaled = scaler.fit_transform(X_train_clf)
+X_test_clf_scaled = scaler.transform(X_test_clf)
+
+# Logistic Regression
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
+
+log_reg = LogisticRegression(multi_class='multinomial', solver='lbfgs', random_state=42)
+log_reg.fit(X_train_clf_scaled, y_train_clf)
+
+# Predictions
+y_pred_log = log_reg.predict(X_test_clf_scaled)
+y_pred_proba = log_reg.predict_proba(X_test_clf_scaled)
+
+print("Logistic Regression Results:")
+print("="*40)
+print(f"Accuracy: {accuracy_score(y_test_clf, y_pred_log):.4f}")
+print("\nClassification Report:")
+print(classification_report(y_test_clf, y_pred_log, target_names=['Low', 'Medium', 'High']))
+</code></pre>
+                    </div>
+
+                    <h3>7.2 K-Nearest Neighbors (KNN)</h3>
+                    <p>KNN classifies data points based on the majority class of their k nearest neighbors.</p>
+
+                    <div class="knn-explanation">
+                        <h4>How KNN Works:</h4>
+                        <ol>
+                            <li><strong>Calculate Distance:</strong> Measure distance to all training points</li>
+                            <li><strong>Find Neighbors:</strong> Select k closest points</li>
+                            <li><strong>Vote:</strong> Assign class based on majority vote of neighbors</li>
+                        </ol>
+                        
+                        <h4>Key Parameters:</h4>
+                        <ul>
+                            <li><strong>k (n_neighbors):</strong> Number of neighbors to consider</li>
+                            <li><strong>Distance Metric:</strong> Euclidean, Manhattan, Minkowski</li>
+                            <li><strong>Weights:</strong> Uniform or distance-based</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-block">
+                        <pre><code>from sklearn.neighbors import KNeighborsClassifier
+
+# Test different k values
+k_values = [3, 5, 7, 9, 11]
+knn_results = {}
+
+for k in k_values:
+    knn = KNeighborsClassifier(n_neighbors=k, weights='distance')
+    knn.fit(X_train_clf_scaled, y_train_clf)
+    y_pred_knn = knn.predict(X_test_clf_scaled)
+    accuracy = accuracy_score(y_test_clf, y_pred_knn)
+    knn_results[k] = accuracy
+    print(f"KNN (k={k}): Accuracy = {accuracy:.4f}")
+
+# Find best k
+best_k = max(knn_results, key=knn_results.get)
+print(f"\nBest k value: {best_k} with accuracy: {knn_results[best_k]:.4f}")
+
+# Train final KNN model with best k
+final_knn = KNeighborsClassifier(n_neighbors=best_k, weights='distance')
+final_knn.fit(X_train_clf_scaled, y_train_clf)
+y_pred_knn_final = final_knn.predict(X_test_clf_scaled)
+</code></pre>
+                    </div>
+
+                    <h3>7.3 Naive Bayes</h3>
+                    <p>Naive Bayes applies Bayes' theorem with the "naive" assumption of feature independence.</p>
+
+                    <div class="nb-explanation">
+                        <h4>Bayes' Theorem:</h4>
+                        <p><strong>P(class|features) = P(features|class) × P(class) / P(features)</strong></p>
+                        
+                        <h4>Types of Naive Bayes:</h4>
+                        <ul>
+                            <li><strong>Gaussian NB:</strong> Assumes features follow normal distribution</li>
+                            <li><strong>Multinomial NB:</strong> For discrete count data (text classification)</li>
+                            <li><strong>Bernoulli NB:</strong> For binary features</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-block">
+                        <pre><code>from sklearn.naive_bayes import GaussianNB
+
+# Gaussian Naive Bayes (no scaling needed)
+nb_model = GaussianNB()
+nb_model.fit(X_train_clf, y_train_clf)
+y_pred_nb = nb_model.predict(X_test_clf)
+
+print("Naive Bayes Results:")
+print("="*30)
+print(f"Accuracy: {accuracy_score(y_test_clf, y_pred_nb):.4f}")
+print("\nClassification Report:")
+print(classification_report(y_test_clf, y_pred_nb, target_names=['Low', 'Medium', 'High']))
+</code></pre>
+                    </div>
+                </section>
+
+                <section class="tutorial-section">
+                    <h2>8. Classification Evaluation Metrics</h2>
+                    
+                    <div class="classification-metrics">
+                        <div class="metric-item">
+                            <h4>Accuracy</h4>
+                            <p><strong>Formula:</strong> (TP + TN) / (TP + TN + FP + FN)</p>
+                            <p><strong>Use:</strong> When classes are balanced</p>
+                        </div>
+                        
+                        <div class="metric-item">
+                            <h4>Precision</h4>
+                            <p><strong>Formula:</strong> TP / (TP + FP)</p>
+                            <p><strong>Use:</strong> When false positives are costly</p>
+                        </div>
+                        
+                        <div class="metric-item">
+                            <h4>Recall (Sensitivity)</h4>
+                            <p><strong>Formula:</strong> TP / (TP + FN)</p>
+                            <p><strong>Use:</strong> When false negatives are costly</p>
+                        </div>
+                        
+                        <div class="metric-item">
+                            <h4>F1-Score</h4>
+                            <p><strong>Formula:</strong> 2 × (Precision × Recall) / (Precision + Recall)</p>
+                            <p><strong>Use:</strong> Harmonic mean of precision and recall</p>
+                        </div>
+                    </div>
+
+                    <div class="code-block">
+                        <pre><code>def plot_confusion_matrix(y_true, y_pred, class_names, model_name):
+    """
+    Plot an enhanced confusion matrix
+    """
+    cm = confusion_matrix(y_true, y_pred)
+    
+    plt.figure(figsize=(8, 6))
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues',
+                xticklabels=class_names, yticklabels=class_names)
+    plt.title(f'Confusion Matrix - {model_name}')
+    plt.xlabel('Predicted')
+    plt.ylabel('Actual')
+    plt.show()
+    
+    # Calculate metrics for each class
+    print(f"\n{model_name} - Detailed Metrics:")
+    print("="*40)
+    
+    for i, class_name in enumerate(class_names):
+        tp = cm[i, i]
+        fp = cm[:, i].sum() - tp
+        fn = cm[i, :].sum() - tp
+        tn = cm.sum() - tp - fp - fn
+        
+        precision = tp / (tp + fp) if (tp + fp) > 0 else 0
+        recall = tp / (tp + fn) if (tp + fn) > 0 else 0
+        f1 = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0
+        
+        print(f"{class_name:10s}: Precision={precision:.3f}, Recall={recall:.3f}, F1={f1:.3f}")
+
+# Plot confusion matrices for all models
+class_names = ['Low', 'Medium', 'High']
+plot_confusion_matrix(y_test_clf, y_pred_log, class_names, 'Logistic Regression')
+plot_confusion_matrix(y_test_clf, y_pred_knn_final, class_names, 'KNN')
+plot_confusion_matrix(y_test_clf, y_pred_nb, class_names, 'Naive Bayes')
+</code></pre>
+                    </div>
+                </section>
+
+                <section class="tutorial-section">
+                    <h2>9. Hyperparameter Tuning</h2>
+                    <p>Hyperparameter tuning optimizes model parameters that aren't learned during training.</p>
+
+                    <h3>9.1 Grid Search CV</h3>
+                    <div class="code-block">
+                        <pre><code>from sklearn.model_selection import GridSearchCV, cross_val_score
+
+# Random Forest hyperparameter tuning
+rf_params = {
+    'n_estimators': [50, 100, 200],
+    'max_depth': [5, 10, 15, None],
+    'min_samples_split': [2, 5, 10],
+    'min_samples_leaf': [1, 2, 4]
+}
+
+rf_grid = GridSearchCV(
+    RandomForestRegressor(random_state=42),
+    rf_params,
+    cv=5,                    # 5-fold cross-validation
+    scoring='r2',           # Optimization metric
+    n_jobs=-1,              # Use all CPU cores
+    verbose=1               # Show progress
+)
+
+print("Starting Grid Search for Random Forest...")
+rf_grid.fit(X_train, y_train)
+
+print(f"Best parameters: {rf_grid.best_params_}")
+print(f"Best cross-validation score: {rf_grid.best_score_:.4f}")
+
+# Use best model
+best_rf = rf_grid.best_estimator_
+best_rf_pred = best_rf.predict(X_test)
+print(f"Test R² score: {r2_score(y_test, best_rf_pred):.4f}")
+</code></pre>
+                    </div>
+
+                    <h3>9.2 Cross-Validation Strategies</h3>
+                    <div class="cv-strategies">
+                        <div class="strategy-item">
+                            <h4>K-Fold Cross-Validation</h4>
+                            <p>Splits data into k equal parts, uses k-1 for training, 1 for validation</p>
+                            <p><strong>Use:</strong> General purpose, balanced datasets</p>
+                        </div>
+                        
+                        <div class="strategy-item">
+                            <h4>Stratified K-Fold</h4>
+                            <p>Maintains class distribution in each fold</p>
+                            <p><strong>Use:</strong> Classification with imbalanced classes</p>
+                        </div>
+                        
+                        <div class="strategy-item">
+                            <h4>Time Series Split</h4>
+                            <p>Respects temporal order of data</p>
+                            <p><strong>Use:</strong> Time series data</p>
+                        </div>
+                    </div>
+
+                    <div class="code-block">
+                        <pre><code>from sklearn.model_selection import cross_validate, StratifiedKFold
+
+def comprehensive_model_evaluation(model, X, y, cv_folds=5, task_type='regression'):
+    """
+    Perform comprehensive cross-validation evaluation
+    """
+    if task_type == 'regression':
+        scoring = ['r2', 'neg_mean_squared_error', 'neg_mean_absolute_error']
+        cv_strategy = KFold(n_splits=cv_folds, shuffle=True, random_state=42)
+    else:
+        scoring = ['accuracy', 'precision_macro', 'recall_macro', 'f1_macro']
+        cv_strategy = StratifiedKFold(n_splits=cv_folds, shuffle=True, random_state=42)
+    
+    cv_results = cross_validate(model, X, y, cv=cv_strategy, 
+                               scoring=scoring, return_train_score=True)
+    
+    print(f"Cross-Validation Results ({cv_folds}-fold):")
+    print("="*50)
+    
+    for metric in scoring:
+        test_scores = cv_results[f'test_{metric}']
+        train_scores = cv_results[f'train_{metric}']
+        
+        # Handle negative scores (sklearn convention)
+        if metric.startswith('neg_'):
+            test_scores = -test_scores
+            train_scores = -train_scores
+            metric_name = metric[4:].replace('_', ' ').title()
+        else:
+            metric_name = metric.replace('_', ' ').title()
+        
+        print(f"{metric_name}:")
+        print(f"  Train: {train_scores.mean():.4f} (±{train_scores.std():.4f})")
+        print(f"  Test:  {test_scores.mean():.4f} (±{test_scores.std():.4f})")
+        print()
+    
+    return cv_results
+
+# Example usage
+print("Random Forest Cross-Validation:")
+rf_cv_results = comprehensive_model_evaluation(
+    RandomForestRegressor(random_state=42), X, y, task_type='regression'
+)
+
+print("\nLogistic Regression Cross-Validation:")
+log_cv_results = comprehensive_model_evaluation(
+    LogisticRegression(random_state=42), X_clf, y_clf, task_type='classification'
+)
+</code></pre>
+                    </div>
+                </section>
+
+                <section class="tutorial-section">
+                    <h2>10. Model Selection and Best Practices</h2>
+                    
+                    <div class="best-practices">
+                        <div class="practice-item">
+                            <h4>Industry Model Selection</h4>
+                            <ul>
+                                <li><strong>Banking/Finance:</strong> Prefer interpretable models (Linear, Logistic)</li>
+                                <li><strong>Tech/E-commerce:</strong> Performance over interpretability (Ensemble methods)</li>
+                                <li><strong>Healthcare:</strong> Balance interpretability and performance</li>
+                                <li><strong>Real-time Applications:</strong> Consider prediction latency</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="practice-item">
+                            <h4>Model Maintenance</h4>
+                            <ul>
+                                <li>Monitor model performance over time</li>
+                                <li>Retrain periodically with new data</li>
+                                <li>Set up automated performance alerts</li>
+                                <li>Version control your models</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="practice-item">
+                            <h4>Practical Considerations</h4>
+                            <ul>
+                                <li>Always start with simple baseline models</li>
+                                <li>Ensemble methods often perform best on tabular data</li>
+                                <li>Consider computational resources and deployment constraints</li>
+                                <li>Document your modeling decisions and assumptions</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="final-comparison">
+                        <h3>Final Model Comparison</h3>
+                        <div class="code-block">
+                            <pre><code># Create comprehensive comparison
+models_summary = {
+    'Linear Regression': {
+        'Interpretability': 'High',
+        'Performance': 'Moderate',
+        'Training Speed': 'Fast',
+        'Prediction Speed': 'Fast',
+        'Handles Non-linearity': 'No',
+        'Feature Scaling Required': 'Yes'
+    },
+    'Random Forest': {
+        'Interpretability': 'Moderate',
+        'Performance': 'High',
+        'Training Speed': 'Moderate',
+        'Prediction Speed': 'Moderate',
+        'Handles Non-linearity': 'Yes',
+        'Feature Scaling Required': 'No'
+    },
+    'Logistic Regression': {
+        'Interpretability': 'High',
+        'Performance': 'Moderate',
+        'Training Speed': 'Fast',
+        'Prediction Speed': 'Fast',
+        'Handles Non-linearity': 'No',
+        'Feature Scaling Required': 'Yes'
+    },
+    'KNN': {
+        'Interpretability': 'Low',
+        'Performance': 'Moderate',
+        'Training Speed': 'Fast',
+        'Prediction Speed': 'Slow',
+        'Handles Non-linearity': 'Yes',
+        'Feature Scaling Required': 'Yes'
+    }
+}
+
+comparison_df = pd.DataFrame(models_summary).T
+print("Model Characteristics Comparison:")
+print("="*50)
+print(comparison_df)
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="tutorial-section">
+                    <h2>Conclusion</h2>
+                    <p>In this comprehensive tutorial, we've covered the essential concepts of machine learning from data preprocessing to advanced model evaluation. Key takeaways include:</p>
+                    
+                    <ul>
+                        <li><strong>Data Quality First:</strong> Proper preprocessing is crucial for model success</li>
+                        <li><strong>Know Your Metrics:</strong> Choose evaluation metrics that align with business objectives</li>
+                        <li><strong>Start Simple:</strong> Begin with baseline models before moving to complex algorithms</li>
+                        <li><strong>Validate Properly:</strong> Use cross-validation to get reliable performance estimates</li>
+                        <li><strong>Consider Context:</strong> Model selection depends on interpretability requirements and deployment constraints</li>
+                    </ul>
+
+                    <div class="next-steps">
+                        <h3>Next Steps</h3>
+                        <p>Continue your machine learning journey with these advanced topics:</p>
+                        <ul>
+                            <li>Deep Learning and Neural Networks</li>
+                            <li>Advanced Ensemble Methods (XGBoost, LightGBM)</li>
+                            <li>Feature Selection and Dimensionality Reduction</li>
+                            <li>Time Series Forecasting</li>
+                            <li>Model Deployment and MLOps</li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+
+            <div class="tutorial-navigation">
+                <a href="ml-fundamentals-part1.html" class="btn btn-secondary">← Part 1</a>
+                <a href="../tutorials.html" class="btn btn-secondary">Back to Tutorials</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Ali Barzin Zanganeh. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../static/js/main.js"></script>
+</body>
+</html>

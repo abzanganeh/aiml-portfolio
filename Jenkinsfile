@@ -66,9 +66,13 @@ pipeline {
                     rm -rf deployment 2>/dev/null || true
                     mkdir -p deployment
                     
-                    echo "📋 Deploying static HTML website..."
-                    # Copy the static HTML site
-                    cp -r static_html_site/. deployment/
+                    echo "📋 Deploying static HTML website from root directory..."
+                    # Copy all website files (excluding git, CI/CD files, and old_data)
+                    rsync -av --exclude='.git' --exclude='.github' --exclude='Jenkinsfile' \
+                           --exclude='DEPLOYMENT.md' --exclude='README.md' \
+                           --exclude='deploy_professional.sh' --exclude='version.json' \
+                           --exclude='old_data' --exclude='.DS_Store' --exclude='.venv' \
+                           . deployment/
                     
                     # Copy version info for reference
                     cp version.json deployment/ 2>/dev/null || true
