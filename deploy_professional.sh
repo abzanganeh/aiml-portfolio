@@ -1,50 +1,76 @@
 #!/bin/bash
 
-# Professional Flask Deployment
-# v2.0803.1700 - Single Professional Solution
+# Professional Flask Portfolio Deployment
+# Ali Barzin Zanganeh - Machine Learning Engineer Portfolio
+# Single, clean deployment script
 
-echo "🚀 Professional Flask Application Deployment"
-echo "============================================="
+echo "🚀 Professional Flask Portfolio Deployment"
+echo "==========================================="
 echo ""
 
-# Commit the professional Flask application
-echo "💾 Committing professional Flask application..."
+# Verify we're in the right directory
+if [ ! -f "version.json" ]; then
+    echo "❌ Error: Not in the correct project directory"
+    echo "Please run this script from the WebSite root directory"
+    exit 1
+fi
+
+# Check git status
+echo "📋 Checking git status..."
+git status --porcelain
+
+echo ""
+
+# Add all changes
+echo "➕ Adding changes to git..."
 git add .
 
-git commit -m "v2.0803.1700 - Professional Flask application with WSGI/CGI support
+# Get current version
+VERSION=$(grep '"version"' version.json | cut -d'"' -f4)
+echo "📦 Current version: $VERSION"
 
-🏆 PROFESSIONAL FEATURES:
-- Enhanced Flask app with automatic WSGI/CGI detection
-- Professional .htaccess configuration for shared hosting
-- Optimized security headers and performance caching
-- Clean, single-solution implementation (no fallbacks)
+# Commit with professional message
+echo "💾 Committing professional Flask application..."
+git commit -m "$VERSION - Professional Flask application deployment
+
+🏆 FEATURES:
+- Flask application with WSGI/CGI auto-detection
+- Professional .htaccess configuration
+- Security headers and performance optimization
+- Clean, maintainable codebase
+
+🔧 TECHNICAL:
+- Automatic environment detection (CGI/dev server)
 - Professional URL routing and error handling
+- Optimized static asset serving
+- Security headers implementation
 
-🔧 TECHNICAL IMPLEMENTATION:
-- app.py detects CGI environment automatically
-- WSGI interface for professional hosting
-- Security headers and static asset optimization
-- Proper error handling and logging
-
-🎯 DEPLOYMENT:
-- Single professional solution - no multiple options
-- Works with shared hosting Python/CGI support
-- Clean, maintainable codebase"
+🚀 DEPLOYMENT:
+- Single professional solution
+- Compatible with shared hosting
+- Production-ready configuration"
 
 echo ""
 
-# Push to GitHub
-echo "🚀 Deploying to production..."
+# Push to GitHub to trigger Jenkins
+echo "🚀 Deploying to production via Jenkins..."
 git push origin main
 
 echo ""
-echo "✅ PROFESSIONAL DEPLOYMENT COMPLETE!"
+echo "✅ DEPLOYMENT INITIATED!"
 echo ""
-echo "🎯 FEATURES:"
-echo "- Flask application with WSGI/CGI auto-detection"
-echo "- Professional .htaccess configuration"  
-echo "- Optimized security and performance"
-echo "- Clean, single-solution implementation"
+echo "🎯 WHAT HAPPENS NEXT:"
+echo "1. GitHub receives the push"
+echo "2. Jenkins automatically triggers build"
+echo "3. Professional Flask app deployed to server"
+echo "4. Live site updated at zanganehai.com"
 echo ""
-echo "🚀 Jenkins will deploy the professional Flask application"
-echo "📱 Live site: zanganehai.com (v2.0803.1700)"
+echo "📱 Features deployed:"
+echo "- Professional Flask application"
+echo "- WSGI/CGI support for shared hosting"
+echo "- Security headers and performance optimization"
+echo "- Clean URL routing and error handling"
+echo ""
+echo "� Monitor deployment:"
+echo "- Check Jenkins console for build status"
+echo "- Verify live site shows version: $VERSION"

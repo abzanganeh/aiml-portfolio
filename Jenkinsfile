@@ -67,8 +67,8 @@ pipeline {
                     mkdir -p deployment
                     
                     echo "📋 Deploying Flask application with WSGI/CGI support..."
-                    # Copy the entire Flask application
-                    cp -r flask_portfolio/* deployment/
+                    # Copy the entire Flask application including hidden files
+                    cp -r flask_portfolio/. deployment/
                     
                     # Set executable permissions for CGI
                     chmod +x deployment/app.py
@@ -82,7 +82,7 @@ pipeline {
                     echo "🔧 CGI permissions:"
                     ls -la deployment/app.py
                     echo "📄 Configuration files:"
-                    ls -la deployment/.htaccess
+                    ls -la deployment/.htaccess 2>/dev/null || echo "Note: .htaccess will be created during deployment"
                 '''
             }
         }
