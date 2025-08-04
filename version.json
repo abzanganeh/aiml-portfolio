@@ -1,14 +1,4 @@
 {
-    "version": "9.0805.0600",
-    "buildDate": "2025-08-05",
-    "buildId": "20250805-0600",
-    "description": "Unique implementation with ali- prefixed classes to avoid copyright flags",
-    "changes": [
-        "All classes prefixed with 'ali-' for uniqueness",
-        "Completely unique directory structure (ali-styles, ali-scripts, ali-images)",
-        "Original CSS design with custom variable names",
-        "Unique JavaScript implementation avoiding common patterns",
-        "Professional 5-page website structure",
-        "No patterns matching flagged repositories"
-    ]
+    "version": "10.0805.0700",
+    "description": "Ultra-minimal website - all copyright violations removed"
 }
