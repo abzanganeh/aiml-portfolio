@@ -60,33 +60,24 @@ pipeline {
         
         stage('Prepare Deployment') {
             steps {
-                echo '📦 Preparing Flask application...'
+                echo '📦 Preparing static HTML website...'
                 sh '''
                     echo "📁 Setting up deployment directory..."
                     rm -rf deployment 2>/dev/null || true
                     mkdir -p deployment
                     
-                    echo "📋 Deploying Flask application..."
-                    # Copy the entire Flask application including hidden files
-                    cp -r flask_portfolio/. deployment/
-                    
-                    # Use the simple .htaccess for better compatibility
-                    cp deployment/.htaccess_simple deployment/.htaccess
-                    
-                    # Set executable permissions for CGI
-                    chmod +x deployment/app.py
-                    chmod +x deployment/cgi_test.py
+                    echo "📋 Deploying static HTML website..."
+                    # Copy the static HTML site
+                    cp -r static_html_site/. deployment/
                     
                     # Copy version info for reference
                     cp version.json deployment/ 2>/dev/null || true
                     
-                    echo "✅ Flask application ready for deployment"
+                    echo "✅ Static HTML website ready for deployment"
                     echo "📁 Deployment structure:"
                     ls -la deployment/
-                    echo "🔧 CGI permissions:"
-                    ls -la deployment/app.py
                     echo "📄 Configuration files:"
-                    ls -la deployment/.htaccess 2>/dev/null || echo "Note: .htaccess will be created during deployment"
+                    ls -la deployment/.htaccess 2>/dev/null || echo "Note: .htaccess included"
                 '''
             }
         }
