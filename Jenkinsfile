@@ -66,12 +66,16 @@ pipeline {
                     rm -rf deployment 2>/dev/null || true
                     mkdir -p deployment
                     
-                    echo "📋 Deploying Flask application with WSGI/CGI support..."
+                    echo "📋 Deploying Flask application with diagnostic mode..."
                     # Copy the entire Flask application including hidden files
                     cp -r flask_portfolio/. deployment/
                     
+                    # DIAGNOSTIC MODE: Use diagnostic .htaccess
+                    cp deployment/.htaccess_diagnostic deployment/.htaccess
+                    
                     # Set executable permissions for CGI
                     chmod +x deployment/app.py
+                    chmod +x deployment/diagnostic.py
                     
                     # Copy version info for reference
                     cp version.json deployment/ 2>/dev/null || true

@@ -1,0 +1,31 @@
+# Diagnostic Configuration
+DirectoryIndex diagnostic.py app.py
+
+# Enable Python CGI execution
+AddHandler cgi-script .py
+Options +ExecCGI
+
+# Make both diagnostic and app executable
+<Files "diagnostic.py">
+    SetHandler cgi-script
+    Options +ExecCGI
+</Files>
+
+<Files "app.py">
+    SetHandler cgi-script
+    Options +ExecCGI
+</Files>
+
+# Simple routing - try diagnostic first
+RewriteEngine On
+
+# Serve static assets directly
+RewriteRule ^static/ - [L]
+
+# For debugging, let's route everything to diagnostic first
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ diagnostic.py/$1 [QSA,L]
+
+# Basic security headers
+Header always set X-Content-Type-Options nosniff

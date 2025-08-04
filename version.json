@@ -1,12 +1,12 @@
 {
-  "version": "2.0803.1710",
+  "version": "2.0803.1715",
   "buildDate": "2025-08-03", 
-  "buildId": "20250803-1710",
-  "description": "Clean deployment - Removed obsolete scripts",
+  "buildId": "20250803-1715",
+  "description": "DIAGNOSTIC MODE - Debug 500 Internal Server Error",
   "changes": [
-    "Removed 7+ obsolete deployment scripts for cleaner codebase",
-    "Kept only essential: deploy_professional.sh and Jenkins setup",
-    "Updated professional deployment script with better logging",
-    "Clean, maintainable deployment process"
+    "Added diagnostic.py to identify 500 error cause",
+    "Simple CGI test without Flask dependencies", 
+    "Diagnostic .htaccess configuration for testing",
+    "System info display and error troubleshooting"
   ]
 }
