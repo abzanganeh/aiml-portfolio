@@ -60,23 +60,29 @@ pipeline {
         
         stage('Prepare Deployment') {
             steps {
-                echo '📦 Preparing Flask application for deployment...'
+                echo '📦 Preparing professional Flask application...'
                 sh '''
                     echo "📁 Setting up deployment directory..."
                     rm -rf deployment 2>/dev/null || true
                     mkdir -p deployment
                     
-                    echo "📋 Copying Flask application files..."
+                    echo "📋 Deploying Flask application with WSGI/CGI support..."
                     # Copy the entire Flask application
                     cp -r flask_portfolio/* deployment/
                     
-                    # Copy important root files
-                    cp version.json deployment/ 2>/dev/null || true
-                    cp README.md deployment/ 2>/dev/null || true
+                    # Set executable permissions for CGI
+                    chmod +x deployment/app.py
                     
-                    echo "✅ Flask application prepared for deployment"
-                    echo "📁 Deployment directory contents:"
+                    # Copy version info for reference
+                    cp version.json deployment/ 2>/dev/null || true
+                    
+                    echo "✅ Professional Flask application ready for deployment"
+                    echo "📁 Deployment structure:"
                     ls -la deployment/
+                    echo "🔧 CGI permissions:"
+                    ls -la deployment/app.py
+                    echo "📄 Configuration files:"
+                    ls -la deployment/.htaccess
                 '''
             }
         }

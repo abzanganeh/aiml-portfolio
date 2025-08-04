@@ -1,3 +1,9 @@
+#!/usr/bin/env python3
+"""
+Ali Barzin Zanganeh - Machine Learning Engineer Portfolio
+Flask application for shared hosting deployment
+"""
+
 from flask import Flask, render_template, request, jsonify
 from models.tutorial import Tutorial
 from models.project import Project
@@ -149,10 +155,25 @@ def internal_error(error):
     return render_template('error.html', 
                          error="An internal server error occurred" if not app.debug else str(error)), 500
 
+def create_app():
+    """Application factory for WSGI deployment"""
+    return app
+
+# Professional CGI interface for shared hosting
+def application(environ, start_response):
+    """WSGI application interface for shared hosting deployment"""
+    return app(environ, start_response)
+
 if __name__ == '__main__':
-    # Use environment variables for host and port
-    host = app.config.get('HOST', '127.0.0.1')
-    port = app.config.get('PORT', 5001)
-    debug = app.config.get('DEBUG', False)
-    
-    app.run(debug=debug, host=host, port=port)
+    # Check if running as CGI
+    if 'REQUEST_METHOD' in os.environ:
+        # Running as CGI script
+        from wsgiref.handlers import CGIHandler
+        CGIHandler().run(app)
+    else:
+        # Running as development server
+        host = app.config.get('HOST', '127.0.0.1')
+        port = app.config.get('PORT', 5001)
+        debug = app.config.get('DEBUG', False)
+        
+        app.run(debug=debug, host=host, port=port)
