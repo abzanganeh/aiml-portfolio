@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clustering Tutorial - Ali Barzin Zanganeh</title>
+    <link rel="stylesheet" href="../static/css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .tutorial-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        .formula {
+            background: #e8f4fd;
+            border-left: 4px solid #667eea;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+        }
+        .back-link {
+            display: inline-block;
+            margin: 2rem 0;
+            padding: 0.75rem 1.5rem;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background 0.3s ease;
+        }
+        .back-link:hover {
+            background: #5a67d8;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../index.html">Ali Barzin Zanganeh</a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="../index.html#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../index.html#projects" class="nav-link">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../index.html#tutorials" class="nav-link">Tutorials</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../index.html#contact" class="nav-link">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="section" style="padding-top: 8rem;">
+        <div class="tutorial-content">
+            <a href="../index.html#tutorials" class="back-link">← Back to Tutorials</a>
+            
+            <h1 class="section-title">🎯 Complete Guide to Clustering</h1>
+            
+            <h2>📚 What is Clustering?</h2>
+            <p>
+                Clustering is an unsupervised machine learning technique that groups similar data points 
+                together based on their characteristics. Unlike supervised learning, clustering doesn't 
+                require labeled data - it discovers hidden patterns and structures within the dataset automatically.
+            </p>
+            
+            <p>
+                The goal is to maximize intra-cluster similarity (points within the same cluster are similar) 
+                while minimizing inter-cluster similarity (points in different clusters are different).
+            </p>
+
+            <h2>🔍 Types of Clustering Algorithms</h2>
+            
+            <h3>🎯 K-Means Clustering</h3>
+            <p><strong>Type:</strong> Centroid-based</p>
+            <p><strong>How it works:</strong> Partitions data into k clusters by minimizing within-cluster sum of squares.</p>
+            <p><strong>Best for:</strong> Spherical clusters, numerical data</p>
+            <p><strong>Complexity:</strong> O(n·k·i·d) where n=samples, k=clusters, i=iterations, d=dimensions</p>
+
+            <h3>🌳 Hierarchical Clustering</h3>
+            <p><strong>Type:</strong> Hierarchy-based</p>
+            <p><strong>How it works:</strong> Creates tree-like cluster structure (dendrogram) by merging or splitting clusters.</p>
+            <p><strong>Best for:</strong> When you don't know the number of clusters</p>
+            <p><strong>Complexity:</strong> O(n³) for agglomerative</p>
+
+            <h3>🌌 DBSCAN</h3>
+            <p><strong>Type:</strong> Density-based</p>
+            <p><strong>How it works:</strong> Groups points that are closely packed while marking outliers in low-density regions.</p>
+            <p><strong>Best for:</strong> Irregular shapes, handling noise/outliers</p>
+            <p><strong>Complexity:</strong> O(n log n) with spatial indexing</p>
+
+            <h2>🎯 K-Means Algorithm Deep Dive</h2>
+            
+            <h3>Algorithm Steps:</h3>
+            <ol>
+                <li><strong>Initialize:</strong> Choose k cluster centers randomly</li>
+                <li><strong>Assign:</strong> Assign each point to nearest cluster center</li>
+                <li><strong>Update:</strong> Recalculate cluster centers as mean of assigned points</li>
+                <li><strong>Repeat:</strong> Steps 2-3 until convergence</li>
+            </ol>
+
+            <div class="formula">
+                <strong>Distance Formula (Euclidean):</strong><br>
+                d(x, y) = √[(x₁-y₁)² + (x₂-y₂)² + ... + (xₙ-yₙ)²]
+            </div>
+
+            <div class="formula">
+                <strong>Centroid Update:</strong><br>
+                μₖ = (1/|Cₖ|) Σ(xᵢ ∈ Cₖ) xᵢ
+            </div>
+            
+            <h2>💻 Python Implementation</h2>
+            
+            <h3>K-Means from Scratch</h3>
+            <div class="code-block">import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.datasets import make_blobs
+
+class KMeans:
+    def __init__(self, k=3, max_iters=100, random_state=None):
+        self.k = k
+        self.max_iters = max_iters
+        self.random_state = random_state
+        
+    def fit(self, X):
+        if self.random_state:
+            np.random.seed(self.random_state)
+            
+        # Initialize centroids randomly
+        self.centroids = X[np.random.choice(X.shape[0], self.k, replace=False)]
+        
+        for _ in range(self.max_iters):
+            # Assign points to closest centroid
+            distances = np.sqrt(((X - self.centroids[:, np.newaxis])**2).sum(axis=2))
+            self.labels = np.argmin(distances, axis=0)
+            
+            # Update centroids
+            new_centroids = np.array([X[self.labels == k].mean(axis=0) for k in range(self.k)])
+            
+            # Check for convergence
+            if np.allclose(self.centroids, new_centroids):
+                break
+                
+            self.centroids = new_centroids
+            
+        return self</div>
+
+            <h2>✅ Best Practices</h2>
+            <ul>
+                <li><strong>🎯 Choose the right algorithm:</strong> K-means for spherical clusters, DBSCAN for irregular shapes</li>
+                <li><strong>📊 Scale your data:</strong> Normalize features for distance-based algorithms</li>
+                <li><strong>🔍 Determine optimal k:</strong> Use elbow method, silhouette analysis, or gap statistic</li>
+                <li><strong>🎲 Handle initialization:</strong> Run multiple times with different random seeds</li>
+                <li><strong>📈 Validate results:</strong> Use multiple evaluation metrics</li>
+                <li><strong>🔬 Domain knowledge:</strong> Incorporate business understanding</li>
+            </ul>
+
+            <h2>🚀 Real-World Applications</h2>
+            <ul>
+                <li><strong>🛒 Customer Segmentation:</strong> Group customers by purchasing behavior for targeted marketing</li>
+                <li><strong>🧬 Gene Analysis:</strong> Identify gene expression patterns and biological pathways</li>
+                <li><strong>🖼️ Image Segmentation:</strong> Partition images into meaningful regions for computer vision</li>
+                <li><strong>📰 Document Clustering:</strong> Group similar documents for organization and recommendation</li>
+                <li><strong>🌐 Social Network Analysis:</strong> Detect communities and influential groups in networks</li>
+                <li><strong>🏥 Medical Diagnosis:</strong> Group patients with similar symptoms for treatment planning</li>
+            </ul>
+            
+            <a href="../index.html#tutorials" class="back-link">← Back to Tutorials</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 Ali Barzin Zanganeh - Machine Learning Engineer</p>
+                <p class="footer-version">Static HTML Website - Professional & Fast</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../static/js/main.js"></script>
+</body>
+</html>

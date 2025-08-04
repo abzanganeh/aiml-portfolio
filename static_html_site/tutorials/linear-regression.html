@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linear Regression Tutorial - Ali Barzin Zanganeh</title>
+    <link rel="stylesheet" href="../static/css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .tutorial-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        .formula {
+            background: #e8f4fd;
+            border-left: 4px solid #667eea;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+        }
+        .back-link {
+            display: inline-block;
+            margin: 2rem 0;
+            padding: 0.75rem 1.5rem;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background 0.3s ease;
+        }
+        .back-link:hover {
+            background: #5a67d8;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../index.html">Ali Barzin Zanganeh</a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="../index.html#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../index.html#projects" class="nav-link">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../tutorials.html" class="nav-link">Tutorials</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../index.html#contact" class="nav-link">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="section" style="padding-top: 8rem;">
+        <div class="tutorial-content">
+            <a href="../tutorials.html" class="back-link">← Back to Tutorials</a>
+            
+            <h1 class="section-title">📈 Linear Regression Complete Guide</h1>
+            
+            <h2>🎯 What is Linear Regression?</h2>
+            <p>
+                Linear regression is a fundamental supervised learning algorithm that models the relationship 
+                between a dependent variable and independent variables by fitting a linear equation to observed data.
+            </p>
+
+            <div class="formula">
+                <strong>Simple Linear Regression:</strong><br>
+                y = mx + b
+                <br>where m is slope and b is y-intercept
+            </div>
+
+            <div class="formula">
+                <strong>Multiple Linear Regression:</strong><br>
+                y = β₀ + β₁x₁ + β₂x₂ + ... + βₙxₙ + ε
+            </div>
+
+            <h2>📊 Mathematical Foundation</h2>
+            
+            <h3>Least Squares Method</h3>
+            <p>The goal is to minimize the sum of squared residuals:</p>
+            
+            <div class="formula">
+                <strong>Cost Function:</strong><br>
+                J(β) = (1/2m) Σ(hβ(x⁽ⁱ⁾) - y⁽ⁱ⁾)²
+            </div>
+
+            <h3>Normal Equation</h3>
+            <div class="formula">
+                <strong>Analytical Solution:</strong><br>
+                β = (XᵀX)⁻¹Xᵀy
+            </div>
+
+            <h2>💻 Implementation from Scratch</h2>
+            
+            <div class="code-block">import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.datasets import make_regression
+
+class LinearRegression:
+    def __init__(self, learning_rate=0.01, n_iterations=1000):
+        self.learning_rate = learning_rate
+        self.n_iterations = n_iterations
+        self.weights = None
+        self.bias = None
+        self.costs = []
+    
+    def fit(self, X, y):
+        # Initialize parameters
+        n_samples, n_features = X.shape
+        self.weights = np.zeros(n_features)
+        self.bias = 0
+        
+        # Gradient descent
+        for i in range(self.n_iterations):
+            # Forward pass
+            y_pred = np.dot(X, self.weights) + self.bias
+            
+            # Calculate cost
+            cost = (1 / (2 * n_samples)) * np.sum((y_pred - y) ** 2)
+            self.costs.append(cost)
+            
+            # Calculate gradients
+            dw = (1 / n_samples) * np.dot(X.T, (y_pred - y))
+            db = (1 / n_samples) * np.sum(y_pred - y)
+            
+            # Update parameters
+            self.weights -= self.learning_rate * dw
+            self.bias -= self.learning_rate * db
+    
+    def predict(self, X):
+        return np.dot(X, self.weights) + self.bias
+    
+    def mean_squared_error(self, y_true, y_pred):
+        return np.mean((y_true - y_pred) ** 2)
+    
+    def r2_score(self, y_true, y_pred):
+        ss_res = np.sum((y_true - y_pred) ** 2)
+        ss_tot = np.sum((y_true - np.mean(y_true)) ** 2)
+        return 1 - (ss_res / ss_tot)
+
+# Example usage
+# Generate sample data
+X, y = make_regression(n_samples=100, n_features=1, noise=20, random_state=42)
+
+# Train model
+model = LinearRegression(learning_rate=0.01, n_iterations=1000)
+model.fit(X, y)
+
+# Make predictions
+y_pred = model.predict(X)
+
+# Calculate metrics
+mse = model.mean_squared_error(y, y_pred)
+r2 = model.r2_score(y, y_pred)
+
+print(f"MSE: {mse:.2f}")
+print(f"R²: {r2:.2f}")
+
+# Plot results
+plt.figure(figsize=(12, 4))
+
+plt.subplot(1, 2, 1)
+plt.scatter(X, y, alpha=0.6)
+plt.plot(X, y_pred, color='red', linewidth=2)
+plt.xlabel('X')
+plt.ylabel('y')
+plt.title('Linear Regression Fit')
+
+plt.subplot(1, 2, 2)
+plt.plot(model.costs)
+plt.xlabel('Iterations')
+plt.ylabel('Cost')
+plt.title('Cost Function')
+plt.show()
+</div>
+
+            <h2>🛠️ Using Scikit-learn</h2>
+            
+            <div class="code-block">from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error, r2_score
+import pandas as pd
+
+# Load Boston housing dataset (or create synthetic data)
+from sklearn.datasets import make_regression
+X, y = make_regression(n_samples=500, n_features=5, noise=0.1, random_state=42)
+
+# Split data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Create and train model
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# Make predictions
+y_pred = model.predict(X_test)
+
+# Evaluate model
+mse = mean_squared_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+
+print(f"Mean Squared Error: {mse:.2f}")
+print(f"R² Score: {r2:.2f}")
+print(f"Coefficients: {model.coef_}")
+print(f"Intercept: {model.intercept_:.2f}")
+</div>
+
+            <h2>🎛️ Regularization Techniques</h2>
+            
+            <h3>Ridge Regression (L2)</h3>
+            <p>Adds L2 penalty to prevent overfitting:</p>
+            <div class="formula">
+                J(β) = MSE + α Σβᵢ²
+            </div>
+
+            <h3>Lasso Regression (L1)</h3>
+            <p>Adds L1 penalty for feature selection:</p>
+            <div class="formula">
+                J(β) = MSE + α Σ|βᵢ|
+            </div>
+
+            <div class="code-block">from sklearn.linear_model import Ridge, Lasso, ElasticNet
+from sklearn.preprocessing import StandardScaler
+
+# Standardize features
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+# Ridge Regression
+ridge = Ridge(alpha=1.0)
+ridge.fit(X_train_scaled, y_train)
+ridge_pred = ridge.predict(X_test_scaled)
+ridge_r2 = r2_score(y_test, ridge_pred)
+
+# Lasso Regression
+lasso = Lasso(alpha=0.1)
+lasso.fit(X_train_scaled, y_train)
+lasso_pred = lasso.predict(X_test_scaled)
+lasso_r2 = r2_score(y_test, lasso_pred)
+
+# Elastic Net
+elastic = ElasticNet(alpha=0.1, l1_ratio=0.5)
+elastic.fit(X_train_scaled, y_train)
+elastic_pred = elastic.predict(X_test_scaled)
+elastic_r2 = r2_score(y_test, elastic_pred)
+
+print(f"Ridge R²: {ridge_r2:.3f}")
+print(f"Lasso R²: {lasso_r2:.3f}")
+print(f"Elastic Net R²: {elastic_r2:.3f}")
+</div>
+
+            <h2>📊 Model Evaluation</h2>
+            
+            <h3>Regression Metrics</h3>
+            <ul>
+                <li><strong>Mean Squared Error (MSE):</strong> Average squared differences</li>
+                <li><strong>Root Mean Squared Error (RMSE):</strong> Square root of MSE</li>
+                <li><strong>Mean Absolute Error (MAE):</strong> Average absolute differences</li>
+                <li><strong>R² Score:</strong> Proportion of variance explained</li>
+            </ul>
+
+            <h3>Assumptions Checking</h3>
+            <ul>
+                <li><strong>Linearity:</strong> Relationship is linear</li>
+                <li><strong>Independence:</strong> Observations are independent</li>
+                <li><strong>Homoscedasticity:</strong> Constant variance of residuals</li>
+                <li><strong>Normality:</strong> Residuals are normally distributed</li>
+            </ul>
+
+            <h2>✅ Best Practices</h2>
+            
+            <ul>
+                <li><strong>Feature Scaling:</strong> Standardize features for regularized models</li>
+                <li><strong>Feature Engineering:</strong> Create polynomial features if needed</li>
+                <li><strong>Cross-Validation:</strong> Use k-fold CV for model selection</li>
+                <li><strong>Regularization:</strong> Use Ridge/Lasso to prevent overfitting</li>
+                <li><strong>Residual Analysis:</strong> Check assumptions with residual plots</li>
+                <li><strong>Outlier Detection:</strong> Identify and handle outliers appropriately</li>
+            </ul>
+
+            <h2>🚀 Applications</h2>
+            
+            <ul>
+                <li><strong>Real Estate:</strong> House price prediction</li>
+                <li><strong>Finance:</strong> Stock price forecasting</li>
+                <li><strong>Marketing:</strong> Sales prediction based on advertising spend</li>
+                <li><strong>Healthcare:</strong> Medical cost estimation</li>
+                <li><strong>Economics:</strong> GDP growth modeling</li>
+            </ul>
+            
+            <a href="../tutorials.html" class="back-link">← Back to Tutorials</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 Ali Barzin Zanganeh - Machine Learning Engineer</p>
+                <p class="footer-version">Linear Regression - Foundation of Supervised Learning</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../static/js/main.js"></script>
+</body>
+</html>

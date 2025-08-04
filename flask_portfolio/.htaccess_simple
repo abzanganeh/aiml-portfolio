@@ -1,0 +1,20 @@
+# Simple Flask CGI configuration
+AddHandler cgi-script .py
+Options +ExecCGI
+
+# Make app.py the default page, but allow direct access to test files
+DirectoryIndex app.py
+
+# Basic security
+Header always set X-Frame-Options "SAMEORIGIN"
+Header always set X-Content-Type-Options "nosniff"
+
+# Error handling
+ErrorDocument 404 /app.py
+ErrorDocument 500 /app.py
+
+# Allow direct access to test files
+<Files "cgi_test.py">
+    SetHandler cgi-script
+    Options +ExecCGI
+</Files>

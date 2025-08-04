@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neural Networks Tutorial - Ali Barzin Zanganeh</title>
+    <link rel="stylesheet" href="../static/css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .tutorial-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        .formula {
+            background: #e8f4fd;
+            border-left: 4px solid #667eea;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+        }
+        .back-link {
+            display: inline-block;
+            margin: 2rem 0;
+            padding: 0.75rem 1.5rem;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background 0.3s ease;
+        }
+        .back-link:hover {
+            background: #5a67d8;
+        }
+        .concept-box {
+            background: #f0f8ff;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../index.html">Ali Barzin Zanganeh</a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="../index.html#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../index.html#projects" class="nav-link">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../tutorials.html" class="nav-link">Tutorials</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../index.html#contact" class="nav-link">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="section" style="padding-top: 8rem;">
+        <div class="tutorial-content">
+            <a href="../tutorials.html" class="back-link">← Back to Tutorials</a>
+            
+            <h1 class="section-title">🧠 Neural Networks Deep Dive</h1>
+            
+            <h2>🎯 What are Neural Networks?</h2>
+            <p>
+                Neural networks are computing systems inspired by biological neural networks. They consist of 
+                interconnected nodes (neurons) that process information using connectionist approaches to computation.
+            </p>
+            
+            <div class="concept-box">
+                <h3>Key Concepts</h3>
+                <ul>
+                    <li><strong>Neuron:</strong> Basic processing unit that receives inputs and produces output</li>
+                    <li><strong>Weight:</strong> Parameter that determines the strength of connection between neurons</li>
+                    <li><strong>Bias:</strong> Additional parameter that shifts the activation function</li>
+                    <li><strong>Activation Function:</strong> Function that determines neuron output</li>
+                </ul>
+            </div>
+
+            <h2>🏗️ Neural Network Architecture</h2>
+            
+            <h3>Basic Structure</h3>
+            <ul>
+                <li><strong>Input Layer:</strong> Receives the input data</li>
+                <li><strong>Hidden Layers:</strong> Process the data through weighted connections</li>
+                <li><strong>Output Layer:</strong> Produces the final prediction</li>
+            </ul>
+
+            <h3>Forward Propagation</h3>
+            <p>The process of computing output from input through the network:</p>
+            
+            <div class="formula">
+                <strong>Weighted Sum:</strong><br>
+                z = Σ(wᵢ × xᵢ) + b
+            </div>
+
+            <div class="formula">
+                <strong>Activation:</strong><br>
+                a = f(z) where f is the activation function
+            </div>
+
+            <h2>🎛️ Activation Functions</h2>
+            
+            <h3>Common Activation Functions</h3>
+            <ul>
+                <li><strong>Sigmoid:</strong> σ(x) = 1/(1 + e⁻ˣ) - Outputs between 0 and 1</li>
+                <li><strong>Tanh:</strong> tanh(x) = (eˣ - e⁻ˣ)/(eˣ + e⁻ˣ) - Outputs between -1 and 1</li>
+                <li><strong>ReLU:</strong> f(x) = max(0, x) - Most popular for hidden layers</li>
+                <li><strong>Softmax:</strong> For multi-class classification output</li>
+            </ul>
+
+            <h2>📚 Backpropagation</h2>
+            <p>
+                Backpropagation is the algorithm used to train neural networks by computing gradients 
+                and updating weights to minimize the loss function.
+            </p>
+
+            <h3>Steps:</h3>
+            <ol>
+                <li><strong>Forward Pass:</strong> Compute predictions</li>
+                <li><strong>Compute Loss:</strong> Calculate error between prediction and actual</li>
+                <li><strong>Backward Pass:</strong> Compute gradients using chain rule</li>
+                <li><strong>Update Weights:</strong> Adjust weights using gradient descent</li>
+            </ol>
+
+            <div class="formula">
+                <strong>Weight Update Rule:</strong><br>
+                w = w - α × ∂L/∂w
+                <br>where α is the learning rate
+            </div>
+
+            <h2>💻 Implementation from Scratch</h2>
+            
+            <div class="code-block">import numpy as np
+import matplotlib.pyplot as plt
+
+class NeuralNetwork:
+    def __init__(self, input_size, hidden_size, output_size):
+        # Initialize weights and biases
+        self.W1 = np.random.randn(input_size, hidden_size) * 0.1
+        self.b1 = np.zeros((1, hidden_size))
+        self.W2 = np.random.randn(hidden_size, output_size) * 0.1
+        self.b2 = np.zeros((1, output_size))
+        
+    def sigmoid(self, x):
+        return 1 / (1 + np.exp(-np.clip(x, -250, 250)))
+    
+    def sigmoid_derivative(self, x):
+        return x * (1 - x)
+    
+    def forward(self, X):
+        # Forward propagation
+        self.z1 = np.dot(X, self.W1) + self.b1
+        self.a1 = self.sigmoid(self.z1)
+        self.z2 = np.dot(self.a1, self.W2) + self.b2
+        self.a2 = self.sigmoid(self.z2)
+        return self.a2
+    
+    def backward(self, X, y, output):
+        # Backward propagation
+        m = X.shape[0]
+        
+        # Calculate gradients
+        dZ2 = output - y
+        dW2 = (1/m) * np.dot(self.a1.T, dZ2)
+        db2 = (1/m) * np.sum(dZ2, axis=0, keepdims=True)
+        
+        dA1 = np.dot(dZ2, self.W2.T)
+        dZ1 = dA1 * self.sigmoid_derivative(self.a1)
+        dW1 = (1/m) * np.dot(X.T, dZ1)
+        db1 = (1/m) * np.sum(dZ1, axis=0, keepdims=True)
+        
+        return dW1, db1, dW2, db2
+    
+    def train(self, X, y, epochs, learning_rate):
+        losses = []
+        
+        for epoch in range(epochs):
+            # Forward propagation
+            output = self.forward(X)
+            
+            # Calculate loss
+            loss = np.mean(np.square(output - y))
+            losses.append(loss)
+            
+            # Backward propagation
+            dW1, db1, dW2, db2 = self.backward(X, y, output)
+            
+            # Update weights and biases
+            self.W1 -= learning_rate * dW1
+            self.b1 -= learning_rate * db1
+            self.W2 -= learning_rate * dW2
+            self.b2 -= learning_rate * db2
+            
+            if epoch % 100 == 0:
+                print(f'Epoch {epoch}, Loss: {loss:.4f}')
+        
+        return losses
+    
+    def predict(self, X):
+        return self.forward(X)
+
+# Example usage
+# Generate sample data
+np.random.seed(42)
+X = np.random.randn(1000, 2)
+y = ((X[:, 0]**2 + X[:, 1]**2) > 1).astype(int).reshape(-1, 1)
+
+# Create and train network
+nn = NeuralNetwork(input_size=2, hidden_size=10, output_size=1)
+losses = nn.train(X, y, epochs=1000, learning_rate=0.1)
+
+# Make predictions
+predictions = nn.predict(X)
+accuracy = np.mean((predictions > 0.5) == y)
+print(f'Accuracy: {accuracy:.4f}')
+</div>
+
+            <h2>🛠️ Using TensorFlow/Keras</h2>
+            
+            <div class="code-block">import tensorflow as tf
+from tensorflow import keras
+from sklearn.datasets import make_classification
+from sklearn.model_selection import train_test_split
+
+# Generate sample data
+X, y = make_classification(n_samples=1000, n_features=20, n_classes=2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Build neural network
+model = keras.Sequential([
+    keras.layers.Dense(64, activation='relu', input_shape=(20,)),
+    keras.layers.Dropout(0.2),
+    keras.layers.Dense(32, activation='relu'),
+    keras.layers.Dropout(0.2),
+    keras.layers.Dense(1, activation='sigmoid')
+])
+
+# Compile model
+model.compile(
+    optimizer='adam',
+    loss='binary_crossentropy',
+    metrics=['accuracy']
+)
+
+# Train model
+history = model.fit(
+    X_train, y_train,
+    batch_size=32,
+    epochs=50,
+    validation_data=(X_test, y_test),
+    verbose=1
+)
+
+# Evaluate model
+test_loss, test_accuracy = model.evaluate(X_test, y_test)
+print(f'Test Accuracy: {test_accuracy:.4f}')
+</div>
+
+            <h2>⚡ Optimization Techniques</h2>
+            
+            <h3>Gradient Descent Variants</h3>
+            <ul>
+                <li><strong>Batch Gradient Descent:</strong> Uses entire dataset</li>
+                <li><strong>Stochastic Gradient Descent (SGD):</strong> Uses one sample at a time</li>
+                <li><strong>Mini-batch Gradient Descent:</strong> Uses small batches</li>
+            </ul>
+
+            <h3>Advanced Optimizers</h3>
+            <ul>
+                <li><strong>Adam:</strong> Adaptive learning rates with momentum</li>
+                <li><strong>RMSprop:</strong> Adaptive learning rates</li>
+                <li><strong>AdaGrad:</strong> Adaptive gradient algorithm</li>
+            </ul>
+
+            <h2>🎯 Best Practices</h2>
+            
+            <ul>
+                <li><strong>Data Preprocessing:</strong> Normalize/standardize inputs</li>
+                <li><strong>Weight Initialization:</strong> Use appropriate initialization schemes</li>
+                <li><strong>Regularization:</strong> Use dropout, L1/L2 regularization</li>
+                <li><strong>Learning Rate:</strong> Start with 0.001 and adjust</li>
+                <li><strong>Batch Size:</strong> Common choices: 32, 64, 128</li>
+                <li><strong>Early Stopping:</strong> Monitor validation loss</li>
+            </ul>
+
+            <h2>🚀 Applications</h2>
+            
+            <ul>
+                <li><strong>Image Classification:</strong> CNNs for computer vision</li>
+                <li><strong>Natural Language Processing:</strong> RNNs, LSTMs, Transformers</li>
+                <li><strong>Time Series Prediction:</strong> Forecasting and sequence modeling</li>
+                <li><strong>Recommendation Systems:</strong> Collaborative filtering</li>
+                <li><strong>Game Playing:</strong> Reinforcement learning agents</li>
+            </ul>
+            
+            <a href="../tutorials.html" class="back-link">← Back to Tutorials</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 Ali Barzin Zanganeh - Machine Learning Engineer</p>
+                <p class="footer-version">Neural Networks - Deep Learning Fundamentals</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../static/js/main.js"></script>
+</body>
+</html>

@@ -1,19 +1,13 @@
 {
-  "version": "3.0804.1800",
-  "buildDate": "2025-08-04", 
-  "buildId": "20250804-1800",
-  "description": "STATIC HTML WEBSITE v3.0 - Final clean structure with organized files",
-  "changes": [
-    "MAJOR VERSION 3.0: Complete transition from Flask to static HTML architecture",
-    "🧹 FINAL CLEANUP: Organized file structure, moved old files to old_data folder",
-    "🔗 FIXED: All tutorial and project links working correctly",
-    "📁 CLEAN STRUCTURE: Organized root directory with active website files only",
-    "🎓 Added comprehensive Machine Learning Fundamentals tutorial (2 parts)",
-    "🖼️ Enhanced navigation with logo integration",
-    "📱 Added profile photo to hero section",
-    "🎨 Professional visual branding improvements",
-    "📚 Complete coverage of supervised learning, preprocessing, and model evaluation",
-    "⏱️ 95+ minutes of detailed content with practical examples",
-    "🚀 Professional static HTML/CSS/JavaScript website optimized for deployment"
-  ]
+    "version": "3.0804.1800",
+    "buildDate": "2025-08-04",
+    "buildId": "20250804-1800",
+    "description": "Clean static HTML website - Final production version",
+    "changes": [
+        "Complete transition to static HTML/CSS/JS website",
+        "Cleaned up all Flask files moved to old_data folder",
+        "Professional static website structure",
+        "Fixed all tutorial and project links",
+        "Logo and profile photo integration ready"
+    ]
 }
