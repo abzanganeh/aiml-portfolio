@@ -1,0 +1,14 @@
+# Simple Flask CGI configuration
+AddHandler cgi-script .py
+Options +ExecCGI
+
+# Make app.py the default page
+DirectoryIndex app.py
+
+# Basic security
+Header always set X-Frame-Options "SAMEORIGIN"
+Header always set X-Content-Type-Options "nosniff"
+
+# Error handling
+ErrorDocument 404 /app.py
+ErrorDocument 500 /app.py

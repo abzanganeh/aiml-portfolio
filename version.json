@@ -1,12 +1,12 @@
 {
-  "version": "2.0803.1720",
+  "version": "2.0803.1725",
   "buildDate": "2025-08-03", 
-  "buildId": "20250803-1720",
-  "description": "STATIC FALLBACK - Hosting Flask app with static HTML while debugging server issues",
+  "buildId": "20250803-1725",
+  "description": "FLASK DEPLOYMENT FIX - Simple .htaccess configuration for shared hosting",
   "changes": [
-    "Created static index.html fallback for immediate website functionality",
-    "Static .htaccess configuration for immediate deployment", 
-    "Professional static website with maintenance status display",
-    "Works without server-side Python dependencies"
+    "Reverted to Flask application deployment (not static)",
+    "Simple .htaccess configuration without complex rewriting", 
+    "Focus on getting basic CGI execution working",
+    "Removed static deployment approach"
   ]
 }
