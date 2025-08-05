@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 2: Regression - Ali Zanganeh</title>
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+    <header class="azbn-header">
+        <div class="azbn-container">
+            <h1><a href="../../" style="text-decoration: none; color: #4f46e5;">Ali Zanganeh</a></h1>
+            <nav>
+                <a href="../../#home">Home</a>
+                <a href="../">Tutorials</a>
+                <a href="chapter1.html">← Chapter 1</a>
+                <a href="chapter3.html">Chapter 3 →</a>
+            </nav>
+        </div>
+    </header>
+
+    <main style="padding-top: 100px;">
+        <section class="azbn-section">
+            <div class="azbn-container">
+                <h1>Chapter 2: Linear & Polynomial Regression</h1>
+                
+                <h2>💻 Complete Regression Implementation</h2>
+                <pre style="background: #f4f4f4; padding: 1rem; border-radius: 8px; overflow-x: auto;"><code># -*- coding: utf-8 -*-
+"""
+Chapter 2: Complete Regression Analysis
+Author: Ali Barzin Zanganeh
+Topic: Linear and Polynomial Regression with Evaluation Metrics
+"""
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
+from sklearn.datasets import load_boston
+import warnings
+warnings.filterwarnings('ignore')
+
+# ==========================================
+# SECTION 1: Linear Regression Theory & Practice
+# ==========================================
+
+def linear_regression_complete():
+    """
+    Complete linear regression implementation with theory
+    
+    Theory:
+    - Linear regression finds the best line: y = mx + b
+    - Goal: minimize sum of squared errors
+    - Assumptions: linearity, independence, homoscedasticity
+    """
+    
+    print("📈 LINEAR REGRESSION MASTERCLASS")
+    print("="*50)
+    
+    # Load Boston housing dataset
+    boston = load_boston()
+    X = pd.DataFrame(boston.data, columns=boston.feature_names)
+    y = boston.target
+    
+    print(f"Dataset: {X.shape[0]} houses, {X.shape[1]} features")
+    print(f"Target: House prices (median value in $1000s)")
+    
+    # Select most important feature for simple demonstration
+    # LSTAT = % lower status of population
+    X_simple = X[['LSTAT']].values
+    
+    # Train-test split
+    X_train, X_test, y_train, y_test = train_test_split(
+        X_simple, y, test_size=0.2, random_state=42
+    )
+    
+    # Create and train linear regression model
+    # Mathematical formula: y = β₀ + β₁x + ε
+    model = LinearRegression()
+    model.fit(X_train, y_train)
+    
+    # Make predictions
+    y_pred_train = model.predict(X_train)
+    y_pred_test = model.predict(X_test)
+    
+    # Model parameters
+    slope = model.coef_[0]
+    intercept = model.intercept_
+    
+    print(f"\n🔍 MODEL PARAMETERS:")
+    print(f"Slope (β₁): {slope:.4f}")
+    print(f"Intercept (β₀): {intercept:.4f}")
+    print(f"Equation: Price = {intercept:.2f} + {slope:.2f} × LSTAT")
+    
+    # Calculate evaluation metrics
+    train_mse = mean_squared_error(y_train, y_pred_train)
+    test_mse = mean_squared_error(y_test, y_pred_test)
+    train_r2 = r2_score(y_train, y_pred_train)
+    test_r2 = r2_score(y_test, y_pred_test)
+    
+    print(f"\n📊 PERFORMANCE METRICS:")
+    print(f"Training R²: {train_r2:.4f} (higher is better)")
+    print(f"Test R²: {test_r2:.4f}")
+    print(f"Training MSE: {train_mse:.4f} (lower is better)")
+    print(f"Test MSE: {test_mse:.4f}")
+    
+    # Visualization
+    plt.figure(figsize=(12, 5))
+    
+    # Plot 1: Scatter plot with regression line
+    plt.subplot(1, 2, 1)
+    plt.scatter(X_test, y_test, alpha=0.6, color='blue', label='Actual')
+    plt.scatter(X_test, y_pred_test, alpha=0.6, color='red', label='Predicted')
+    
+    # Draw regression line
+    x_line = np.linspace(X_test.min(), X_test.max(), 100)
+    y_line = model.predict(x_line.reshape(-1, 1))
+    plt.plot(x_line, y_line, color='green', linewidth=2, label='Regression Line')
+    
+    plt.xlabel('LSTAT (% lower status)')
+    plt.ylabel('House Price ($1000s)')
+    plt.title('Linear Regression: House Prices')
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+    
+    # Plot 2: Residuals plot
+    plt.subplot(1, 2, 2)
+    residuals = y_test - y_pred_test
+    plt.scatter(y_pred_test, residuals, alpha=0.6)
+    plt.axhline(y=0, color='red', linestyle='--')
+    plt.xlabel('Predicted Values')
+    plt.ylabel('Residuals')
+    plt.title('Residuals Plot')
+    plt.grid(True, alpha=0.3)
+    
+    plt.tight_layout()
+    plt.savefig('linear_regression_analysis.png', dpi=300)
+    print("📈 Plots saved as 'linear_regression_analysis.png'")
+    
+    return model, X_train, y_train, X_test, y_test
+
+# ==========================================
+# SECTION 2: Polynomial Regression
+# ==========================================
+
+def polynomial_regression_demo():
+    """
+    Polynomial regression for non-linear relationships
+    
+    Theory:
+    - Extends linear regression: y = β₀ + β₁x + β₂x² + ... + βₙxⁿ
+    - Captures curved relationships
+    - Higher degrees can lead to overfitting
+    """
+    
+    print("\n" + "="*50)
+    print("🌟 POLYNOMIAL REGRESSION")
+    print("="*50)
+    
+    # Generate synthetic non-linear data
+    np.random.seed(42)
+    X = np.linspace(0, 4, 100).reshape(-1, 1)
+    y = 0.5 * X.ravel()**3 - 2 * X.ravel()**2 + 3 * X.ravel() + np.random.normal(0, 1, 100)
+    
+    # Split data
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    
+    # Test different polynomial degrees
+    degrees = [1, 2, 3, 4, 8]
+    results = {}
+    
+    plt.figure(figsize=(15, 10))
+    
+    for i, degree in enumerate(degrees, 1):
+        # Create polynomial features
+        # Example: x → [1, x, x², x³] for degree=3
+        poly_features = PolynomialFeatures(degree=degree)
+        X_train_poly = poly_features.fit_transform(X_train)
+        X_test_poly = poly_features.transform(X_test)
+        
+        # Train polynomial regression
+        model = LinearRegression()
+        model.fit(X_train_poly, y_train)
+        
+        # Predictions
+        y_pred_train = model.predict(X_train_poly)
+        y_pred_test = model.predict(X_test_poly)
+        
+        # Evaluation
+        train_score = r2_score(y_train, y_pred_train)
+        test_score = r2_score(y_test, y_pred_test)
+        
+        results[degree] = {
+            'train_r2': train_score,
+            'test_r2': test_score,
+            'model': model,
+            'poly_features': poly_features
+        }
+        
+        # Plotting
+        plt.subplot(2, 3, i)
+        
+        # Scatter plot of data
+        plt.scatter(X_train, y_train, alpha=0.6, color='blue', s=20)
+        plt.scatter(X_test, y_test, alpha=0.6, color='orange', s=20)
+        
+        # Plot prediction curve
+        X_plot = np.linspace(0, 4, 300).reshape(-1, 1)
+        X_plot_poly = poly_features.transform(X_plot)
+        y_plot_pred = model.predict(X_plot_poly)
+        plt.plot(X_plot, y_plot_pred, color='red', linewidth=2)
+        
+        plt.title(f'Degree {degree}\nTrain R²:{train_score:.3f}, Test R²:{test_score:.3f}')
+        plt.xlabel('X')
+        plt.ylabel('y')
+        plt.grid(True, alpha=0.3)
+    
+    # Summary plot
+    plt.subplot(2, 3, 6)
+    degrees_list = list(results.keys())
+    train_scores = [results[d]['train_r2'] for d in degrees_list]
+    test_scores = [results[d]['test_r2'] for d in degrees_list]
+    
+    plt.plot(degrees_list, train_scores, 'o-', label='Training R²', linewidth=2)
+    plt.plot(degrees_list, test_scores, 's-', label='Test R²', linewidth=2)
+    plt.xlabel('Polynomial Degree')
+    plt.ylabel('R² Score')
+    plt.title('Bias-Variance Tradeoff')
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+    
+    plt.tight_layout()
+    plt.savefig('polynomial_regression_analysis.png', dpi=300)
+    print("📈 Polynomial analysis saved as 'polynomial_regression_analysis.png'")
+    
+    # Print detailed results
+    print(f"\n📊 POLYNOMIAL REGRESSION RESULTS:")
+    for degree, result in results.items():
+        print(f"Degree {degree}: Train R² = {result['train_r2']:.4f}, Test R² = {result['test_r2']:.4f}")
+    
+    # Identify best model (highest test R² without significant overfitting)
+    best_degree = max(results.keys(), key=lambda d: results[d]['test_r2'])
+    print(f"\n🏆 BEST MODEL: Degree {best_degree}")
+    print(f"Best Test R²: {results[best_degree]['test_r2']:.4f}")
+    
+    return results
+
+# ==========================================
+# SECTION 3: Multiple Linear Regression
+# ==========================================
+
+def multiple_regression_analysis():
+    """
+    Multiple linear regression with feature importance analysis
+    
+    Theory:
+    - Uses multiple features: y = β₀ + β₁x₁ + β₂x₂ + ... + βₙxₙ
+    - Each coefficient shows feature importance
+    - More complex but often more accurate
+    """
+    
+    print("\n" + "="*50)
+    print("🔢 MULTIPLE LINEAR REGRESSION")
+    print("="*50)
+    
+    # Load Boston housing data
+    boston = load_boston()
+    X = pd.DataFrame(boston.data, columns=boston.feature_names)
+    y = boston.target
+    
+    # Select top 5 most correlated features
+    correlations = X.corrwith(pd.Series(y)).abs().sort_values(ascending=False)
+    top_features = correlations.head(5).index.tolist()
+    
+    print(f"🎯 TOP 5 FEATURES BY CORRELATION:")
+    for i, feature in enumerate(top_features, 1):
+        corr = correlations[feature]
+        print(f"{i}. {feature}: {corr:.4f}")
+    
+    X_selected = X[top_features]
+    
+    # Train-test split
+    X_train, X_test, y_train, y_test = train_test_split(
+        X_selected, y, test_size=0.2, random_state=42
+    )
+    
+    # Train multiple regression model
+    model = LinearRegression()
+    model.fit(X_train, y_train)
+    
+    # Predictions
+    y_pred_train = model.predict(X_train)
+    y_pred_test = model.predict(X_test)
+    
+    # Feature importance (coefficients)
+    feature_importance = pd.DataFrame({
+        'Feature': top_features,
+        'Coefficient': model.coef_,
+        'Abs_Coefficient': np.abs(model.coef_)
+    }).sort_values('Abs_Coefficient', ascending=False)
+    
+    print(f"\n🏠 MULTIPLE REGRESSION EQUATION:")
+    equation = f"Price = {model.intercept_:.2f}"
+    for feature, coef in zip(top_features, model.coef_):
+        equation += f" + ({coef:.2f} × {feature})"
+    print(equation)
+    
+    print(f"\n📊 FEATURE IMPORTANCE:")
+    print(feature_importance.to_string(index=False))
+    
+    # Evaluation metrics
+    metrics = {
+        'Training R²': r2_score(y_train, y_pred_train),
+        'Test R²': r2_score(y_test, y_pred_test),
+        'Training RMSE': np.sqrt(mean_squared_error(y_train, y_pred_train)),
+        'Test RMSE': np.sqrt(mean_squared_error(y_test, y_pred_test)),
+        'Training MAE': mean_absolute_error(y_train, y_pred_train),
+        'Test MAE': mean_absolute_error(y_test, y_pred_test)
+    }
+    
+    print(f"\n📈 PERFORMANCE METRICS:")
+    for metric, value in metrics.items():
+        print(f"{metric}: {value:.4f}")
+    
+    # Feature importance visualization
+    plt.figure(figsize=(10, 6))
+    plt.barh(feature_importance['Feature'], feature_importance['Abs_Coefficient'])
+    plt.xlabel('Absolute Coefficient Value')
+    plt.title('Feature Importance in Multiple Linear Regression')
+    plt.grid(axis='x', alpha=0.3)
+    plt.tight_layout()
+    plt.savefig('feature_importance.png', dpi=300)
+    print("📊 Feature importance plot saved as 'feature_importance.png'")
+    
+    return model, feature_importance, metrics
+
+# ==========================================
+# MAIN EXECUTION
+# ==========================================
+
+if __name__ == "__main__":
+    print("📈 CHAPTER 2: REGRESSION MASTERCLASS")
+    print("=" * 60)
+    
+    # Section 1: Linear Regression
+    linear_model, X_train, y_train, X_test, y_test = linear_regression_complete()
+    
+    # Section 2: Polynomial Regression
+    poly_results = polynomial_regression_demo()
+    
+    # Section 3: Multiple Linear Regression
+    multi_model, importance, metrics = multiple_regression_analysis()
+    
+    print("\n" + "="*60)
+    print("✅ CHAPTER 2 COMPLETED!")
+    print("💡 KEY INSIGHTS:")
+    print("- Linear regression works well for linear relationships")
+    print("- Polynomial regression captures non-linear patterns")
+    print("- Higher polynomial degrees can cause overfitting")
+    print("- Multiple features often improve prediction accuracy")
+    print("- Always validate on unseen test data")
+    print("\n🔜 NEXT: Chapter 3 - Classification Algorithms")
+    print("="*60)</code></pre>
+
+                <div style="margin: 2rem 0; text-align: center;">
+                    <a href="chapter1.html" class="azbn-btn azbn-secondary" style="text-decoration: none; margin-right: 1rem;">← Chapter 1</a>
+                    <a href="chapter3.html" class="azbn-btn" style="text-decoration: none;">Chapter 3: Classification →</a>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
