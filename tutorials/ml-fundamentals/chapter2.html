@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chapter 2: Regression - Ali Zanganeh</title>
+    <title>Chapter 2: Regression Analysis - Ali Zanganeh</title>
     <link rel="stylesheet" href="../../assets/css/style.css">
 </head>
 <body>
@@ -22,353 +22,431 @@
     <main style="padding-top: 100px;">
         <section class="azbn-section">
             <div class="azbn-container">
-                <h1>Chapter 2: Linear & Polynomial Regression</h1>
+                <h1>Chapter 2: Regression Analysis Mastery</h1>
+                <p class="azbn-subtitle">From linear relationships to complex polynomial modeling with mathematical foundations</p>
                 
-                <h2>💻 Complete Regression Implementation</h2>
-                <pre style="background: #f4f4f4; padding: 1rem; border-radius: 8px; overflow-x: auto;"><code># -*- coding: utf-8 -*-
-"""
-Chapter 2: Complete Regression Analysis
-Author: Ali Barzin Zanganeh
-Topic: Linear and Polynomial Regression with Evaluation Metrics
-"""
+                <div class="azbn-card" style="background: linear-gradient(135deg, #43a047 0%, #1e88e5 100%); color: white; margin-bottom: 2rem;">
+                    <h2>🎯 Learning Objectives</h2>
+                    <ul style="color: white;">
+                        <li>Master linear regression theory and mathematical foundations</li>
+                        <li>Understand polynomial regression and feature engineering</li>
+                        <li>Learn multiple regression with feature importance analysis</li>
+                        <li>Evaluate models using proper metrics (MSE, MAE, R²)</li>
+                        <li>Recognize and prevent overfitting in regression models</li>
+                        <li>Apply regularization techniques (Ridge, Lasso)</li>
+                    </ul>
+                </div>
 
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn.linear_model import LinearRegression
-from sklearn.preprocessing import PolynomialFeatures
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
-from sklearn.datasets import load_boston
-import warnings
-warnings.filterwarnings('ignore')
+                <h2>📊 What is Regression?</h2>
+                <div class="azbn-card">
+                    <h3>Core Concept and Mathematical Foundation</h3>
+                    <p><strong>Regression Analysis</strong> is a supervised learning technique used to predict continuous numerical values by modeling the relationship between input features and target variables.</p>
+                    
+                    <div style="background: #e8f5e8; padding: 1.5rem; border-radius: 10px; margin: 1.5rem 0;">
+                        <h4>🎯 The Fundamental Equation:</h4>
+                        <div style="text-align: center; font-size: 1.2rem; margin: 1rem 0;">
+                            <strong>y = f(X) + ε</strong>
+                        </div>
+                        <ul style="margin-top: 1rem;">
+                            <li><strong>y:</strong> Target variable (what we want to predict)</li>
+                            <li><strong>f(X):</strong> The function we want to learn</li>
+                            <li><strong>X:</strong> Input features (independent variables)</li>
+                            <li><strong>ε:</strong> Error term (noise and unmeasured factors)</li>
+                        </ul>
+                    </div>
 
-# ==========================================
-# SECTION 1: Linear Regression Theory & Practice
-# ==========================================
+                    <h4>🔍 Real-World Regression Examples:</h4>
+                    <div class="azbn-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1rem 0;">
+                        <div style="border: 1px solid #ddd; padding: 1rem; border-radius: 8px;">
+                            <h5>🏠 Real Estate Pricing</h5>
+                            <p><strong>Predict:</strong> House price</p>
+                            <p><strong>Features:</strong> Size, location, bedrooms, age</p>
+                            <p><strong>Why Linear:</strong> Generally, larger houses cost more</p>
+                        </div>
+                        <div style="border: 1px solid #ddd; padding: 1rem; border-radius: 8px;">
+                            <h5>📈 Stock Market Analysis</h5>
+                            <p><strong>Predict:</strong> Stock price movement</p>
+                            <p><strong>Features:</strong> Trading volume, market indicators</p>
+                            <p><strong>Challenge:</strong> Non-linear, highly volatile</p>
+                        </div>
+                        <div style="border: 1px solid #ddd; padding: 1rem; border-radius: 8px;">
+                            <h5>🌡️ Weather Forecasting</h5>
+                            <p><strong>Predict:</strong> Tomorrow's temperature</p>
+                            <p><strong>Features:</strong> Today's weather, pressure, humidity</p>
+                            <p><strong>Complexity:</strong> Seasonal patterns, non-linear trends</p>
+                        </div>
+                    </div>
+                </div>
 
-def linear_regression_complete():
-    """
-    Complete linear regression implementation with theory
-    
-    Theory:
-    - Linear regression finds the best line: y = mx + b
-    - Goal: minimize sum of squared errors
-    - Assumptions: linearity, independence, homoscedasticity
-    """
-    
-    print("📈 LINEAR REGRESSION MASTERCLASS")
-    print("="*50)
-    
-    # Load Boston housing dataset
-    boston = load_boston()
-    X = pd.DataFrame(boston.data, columns=boston.feature_names)
-    y = boston.target
-    
-    print(f"Dataset: {X.shape[0]} houses, {X.shape[1]} features")
-    print(f"Target: House prices (median value in $1000s)")
-    
-    # Select most important feature for simple demonstration
-    # LSTAT = % lower status of population
-    X_simple = X[['LSTAT']].values
-    
-    # Train-test split
-    X_train, X_test, y_train, y_test = train_test_split(
-        X_simple, y, test_size=0.2, random_state=42
-    )
-    
-    # Create and train linear regression model
-    # Mathematical formula: y = β₀ + β₁x + ε
-    model = LinearRegression()
-    model.fit(X_train, y_train)
-    
-    # Make predictions
-    y_pred_train = model.predict(X_train)
-    y_pred_test = model.predict(X_test)
-    
-    # Model parameters
-    slope = model.coef_[0]
-    intercept = model.intercept_
-    
-    print(f"\n🔍 MODEL PARAMETERS:")
-    print(f"Slope (β₁): {slope:.4f}")
-    print(f"Intercept (β₀): {intercept:.4f}")
-    print(f"Equation: Price = {intercept:.2f} + {slope:.2f} × LSTAT")
-    
-    # Calculate evaluation metrics
-    train_mse = mean_squared_error(y_train, y_pred_train)
-    test_mse = mean_squared_error(y_test, y_pred_test)
-    train_r2 = r2_score(y_train, y_pred_train)
-    test_r2 = r2_score(y_test, y_pred_test)
-    
-    print(f"\n📊 PERFORMANCE METRICS:")
-    print(f"Training R²: {train_r2:.4f} (higher is better)")
-    print(f"Test R²: {test_r2:.4f}")
-    print(f"Training MSE: {train_mse:.4f} (lower is better)")
-    print(f"Test MSE: {test_mse:.4f}")
-    
-    # Visualization
-    plt.figure(figsize=(12, 5))
-    
-    # Plot 1: Scatter plot with regression line
-    plt.subplot(1, 2, 1)
-    plt.scatter(X_test, y_test, alpha=0.6, color='blue', label='Actual')
-    plt.scatter(X_test, y_pred_test, alpha=0.6, color='red', label='Predicted')
-    
-    # Draw regression line
-    x_line = np.linspace(X_test.min(), X_test.max(), 100)
-    y_line = model.predict(x_line.reshape(-1, 1))
-    plt.plot(x_line, y_line, color='green', linewidth=2, label='Regression Line')
-    
-    plt.xlabel('LSTAT (% lower status)')
-    plt.ylabel('House Price ($1000s)')
-    plt.title('Linear Regression: House Prices')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    # Plot 2: Residuals plot
-    plt.subplot(1, 2, 2)
-    residuals = y_test - y_pred_test
-    plt.scatter(y_pred_test, residuals, alpha=0.6)
-    plt.axhline(y=0, color='red', linestyle='--')
-    plt.xlabel('Predicted Values')
-    plt.ylabel('Residuals')
-    plt.title('Residuals Plot')
-    plt.grid(True, alpha=0.3)
-    
-    plt.tight_layout()
-    plt.savefig('linear_regression_analysis.png', dpi=300)
-    print("📈 Plots saved as 'linear_regression_analysis.png'")
-    
-    return model, X_train, y_train, X_test, y_test
+                <h2>📏 Linear Regression: The Foundation</h2>
+                <div class="azbn-card">
+                    <h3>Mathematical Deep Dive</h3>
+                    
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
+                        <h4>🔢 Simple Linear Regression Formula:</h4>
+                        <div style="text-align: center; font-size: 1.3rem; margin: 1rem 0; background: white; padding: 1rem; border-radius: 6px;">
+                            <strong>y = β₀ + β₁x + ε</strong>
+                        </div>
+                        <ul>
+                            <li><strong>β₀ (Beta Zero):</strong> Y-intercept - value when x = 0</li>
+                            <li><strong>β₁ (Beta One):</strong> Slope - change in y per unit change in x</li>
+                            <li><strong>x:</strong> Independent variable (feature)</li>
+                            <li><strong>y:</strong> Dependent variable (target)</li>
+                            <li><strong>ε:</strong> Random error term</li>
+                        </ul>
+                    </div>
 
-# ==========================================
-# SECTION 2: Polynomial Regression
-# ==========================================
+                    <h4>🎯 Key Assumptions of Linear Regression:</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+                        <div style="background: #e3f2fd; padding: 1rem; border-radius: 8px; border-left: 4px solid #2196f3;">
+                            <h5>1️⃣ Linearity</h5>
+                            <p>The relationship between X and y is linear</p>
+                            <p><em>Check: Scatter plots, residual plots</em></p>
+                        </div>
+                        <div style="background: #f3e5f5; padding: 1rem; border-radius: 8px; border-left: 4px solid #9c27b0;">
+                            <h5>2️⃣ Independence</h5>
+                            <p>Observations are independent of each other</p>
+                            <p><em>Important for time series and spatial data</em></p>
+                        </div>
+                        <div style="background: #e8f5e8; padding: 1rem; border-radius: 8px; border-left: 4px solid #4caf50;">
+                            <h5>3️⃣ Homoscedasticity</h5>
+                            <p>Constant variance of residuals</p>
+                            <p><em>Check: Residuals vs fitted values plot</em></p>
+                        </div>
+                        <div style="background: #fff8e1; padding: 1rem; border-radius: 8px; border-left: 4px solid #ff9800;">
+                            <h5>4️⃣ Normality</h5>
+                            <p>Residuals are normally distributed</p>
+                            <p><em>Check: Q-Q plots, Shapiro-Wilk test</em></p>
+                        </div>
+                    </div>
 
-def polynomial_regression_demo():
-    """
-    Polynomial regression for non-linear relationships
-    
-    Theory:
-    - Extends linear regression: y = β₀ + β₁x + β₂x² + ... + βₙxⁿ
-    - Captures curved relationships
-    - Higher degrees can lead to overfitting
-    """
-    
-    print("\n" + "="*50)
-    print("🌟 POLYNOMIAL REGRESSION")
-    print("="*50)
-    
-    # Generate synthetic non-linear data
-    np.random.seed(42)
-    X = np.linspace(0, 4, 100).reshape(-1, 1)
-    y = 0.5 * X.ravel()**3 - 2 * X.ravel()**2 + 3 * X.ravel() + np.random.normal(0, 1, 100)
-    
-    # Split data
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    
-    # Test different polynomial degrees
-    degrees = [1, 2, 3, 4, 8]
-    results = {}
-    
-    plt.figure(figsize=(15, 10))
-    
-    for i, degree in enumerate(degrees, 1):
-        # Create polynomial features
-        # Example: x → [1, x, x², x³] for degree=3
-        poly_features = PolynomialFeatures(degree=degree)
-        X_train_poly = poly_features.fit_transform(X_train)
-        X_test_poly = poly_features.transform(X_test)
-        
-        # Train polynomial regression
-        model = LinearRegression()
-        model.fit(X_train_poly, y_train)
-        
-        # Predictions
-        y_pred_train = model.predict(X_train_poly)
-        y_pred_test = model.predict(X_test_poly)
-        
-        # Evaluation
-        train_score = r2_score(y_train, y_pred_train)
-        test_score = r2_score(y_test, y_pred_test)
-        
-        results[degree] = {
-            'train_r2': train_score,
-            'test_r2': test_score,
-            'model': model,
-            'poly_features': poly_features
-        }
-        
-        # Plotting
-        plt.subplot(2, 3, i)
-        
-        # Scatter plot of data
-        plt.scatter(X_train, y_train, alpha=0.6, color='blue', s=20)
-        plt.scatter(X_test, y_test, alpha=0.6, color='orange', s=20)
-        
-        # Plot prediction curve
-        X_plot = np.linspace(0, 4, 300).reshape(-1, 1)
-        X_plot_poly = poly_features.transform(X_plot)
-        y_plot_pred = model.predict(X_plot_poly)
-        plt.plot(X_plot, y_plot_pred, color='red', linewidth=2)
-        
-        plt.title(f'Degree {degree}\nTrain R²:{train_score:.3f}, Test R²:{test_score:.3f}')
-        plt.xlabel('X')
-        plt.ylabel('y')
-        plt.grid(True, alpha=0.3)
-    
-    # Summary plot
-    plt.subplot(2, 3, 6)
-    degrees_list = list(results.keys())
-    train_scores = [results[d]['train_r2'] for d in degrees_list]
-    test_scores = [results[d]['test_r2'] for d in degrees_list]
-    
-    plt.plot(degrees_list, train_scores, 'o-', label='Training R²', linewidth=2)
-    plt.plot(degrees_list, test_scores, 's-', label='Test R²', linewidth=2)
-    plt.xlabel('Polynomial Degree')
-    plt.ylabel('R² Score')
-    plt.title('Bias-Variance Tradeoff')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.tight_layout()
-    plt.savefig('polynomial_regression_analysis.png', dpi=300)
-    print("📈 Polynomial analysis saved as 'polynomial_regression_analysis.png'")
-    
-    # Print detailed results
-    print(f"\n📊 POLYNOMIAL REGRESSION RESULTS:")
-    for degree, result in results.items():
-        print(f"Degree {degree}: Train R² = {result['train_r2']:.4f}, Test R² = {result['test_r2']:.4f}")
-    
-    # Identify best model (highest test R² without significant overfitting)
-    best_degree = max(results.keys(), key=lambda d: results[d]['test_r2'])
-    print(f"\n🏆 BEST MODEL: Degree {best_degree}")
-    print(f"Best Test R²: {results[best_degree]['test_r2']:.4f}")
-    
-    return results
+                    <h4>📐 How Linear Regression Works - The Math Behind the Magic:</h4>
+                    <div style="background: #fff3e0; padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
+                        <h5>🎯 Ordinary Least Squares (OLS) Method:</h5>
+                        <p>Linear regression finds the best line by minimizing the sum of squared residuals:</p>
+                        
+                        <div style="background: white; padding: 1rem; border-radius: 6px; margin: 1rem 0;">
+                            <p><strong>Objective Function:</strong></p>
+                            <div style="text-align: center; font-size: 1.1rem; margin: 0.5rem 0;">
+                                <strong>Minimize: Σ(yᵢ - ŷᵢ)²</strong>
+                            </div>
+                            <p style="font-size: 0.9rem; text-align: center; margin-top: 0.5rem;">
+                                Where ŷᵢ = β₀ + β₁xᵢ (predicted value)
+                            </p>
+                        </div>
 
-# ==========================================
-# SECTION 3: Multiple Linear Regression
-# ==========================================
+                        <h5>📊 The Solution (for simple linear regression):</h5>
+                        <div style="background: white; padding: 1rem; border-radius: 6px; margin: 1rem 0;">
+                            <p><strong>Slope (β₁):</strong></p>
+                            <div style="text-align: center; margin: 0.5rem 0;">
+                                β₁ = Σ((xᵢ - x̄)(yᵢ - ȳ)) / Σ((xᵢ - x̄)²)
+                            </div>
+                            <p><strong>Intercept (β₀):</strong></p>
+                            <div style="text-align: center; margin: 0.5rem 0;">
+                                β₀ = ȳ - β₁x̄
+                            </div>
+                        </div>
 
-def multiple_regression_analysis():
-    """
-    Multiple linear regression with feature importance analysis
-    
-    Theory:
-    - Uses multiple features: y = β₀ + β₁x₁ + β₂x₂ + ... + βₙxₙ
-    - Each coefficient shows feature importance
-    - More complex but often more accurate
-    """
-    
-    print("\n" + "="*50)
-    print("🔢 MULTIPLE LINEAR REGRESSION")
-    print("="*50)
-    
-    # Load Boston housing data
-    boston = load_boston()
-    X = pd.DataFrame(boston.data, columns=boston.feature_names)
-    y = boston.target
-    
-    # Select top 5 most correlated features
-    correlations = X.corrwith(pd.Series(y)).abs().sort_values(ascending=False)
-    top_features = correlations.head(5).index.tolist()
-    
-    print(f"🎯 TOP 5 FEATURES BY CORRELATION:")
-    for i, feature in enumerate(top_features, 1):
-        corr = correlations[feature]
-        print(f"{i}. {feature}: {corr:.4f}")
-    
-    X_selected = X[top_features]
-    
-    # Train-test split
-    X_train, X_test, y_train, y_test = train_test_split(
-        X_selected, y, test_size=0.2, random_state=42
-    )
-    
-    # Train multiple regression model
-    model = LinearRegression()
-    model.fit(X_train, y_train)
-    
-    # Predictions
-    y_pred_train = model.predict(X_train)
-    y_pred_test = model.predict(X_test)
-    
-    # Feature importance (coefficients)
-    feature_importance = pd.DataFrame({
-        'Feature': top_features,
-        'Coefficient': model.coef_,
-        'Abs_Coefficient': np.abs(model.coef_)
-    }).sort_values('Abs_Coefficient', ascending=False)
-    
-    print(f"\n🏠 MULTIPLE REGRESSION EQUATION:")
-    equation = f"Price = {model.intercept_:.2f}"
-    for feature, coef in zip(top_features, model.coef_):
-        equation += f" + ({coef:.2f} × {feature})"
-    print(equation)
-    
-    print(f"\n📊 FEATURE IMPORTANCE:")
-    print(feature_importance.to_string(index=False))
-    
-    # Evaluation metrics
-    metrics = {
-        'Training R²': r2_score(y_train, y_pred_train),
-        'Test R²': r2_score(y_test, y_pred_test),
-        'Training RMSE': np.sqrt(mean_squared_error(y_train, y_pred_train)),
-        'Test RMSE': np.sqrt(mean_squared_error(y_test, y_pred_test)),
-        'Training MAE': mean_absolute_error(y_train, y_pred_train),
-        'Test MAE': mean_absolute_error(y_test, y_pred_test)
-    }
-    
-    print(f"\n📈 PERFORMANCE METRICS:")
-    for metric, value in metrics.items():
-        print(f"{metric}: {value:.4f}")
-    
-    # Feature importance visualization
-    plt.figure(figsize=(10, 6))
-    plt.barh(feature_importance['Feature'], feature_importance['Abs_Coefficient'])
-    plt.xlabel('Absolute Coefficient Value')
-    plt.title('Feature Importance in Multiple Linear Regression')
-    plt.grid(axis='x', alpha=0.3)
-    plt.tight_layout()
-    plt.savefig('feature_importance.png', dpi=300)
-    print("📊 Feature importance plot saved as 'feature_importance.png'")
-    
-    return model, feature_importance, metrics
+                        <div style="background: #e3f2fd; padding: 1rem; border-radius: 6px; margin-top: 1rem;">
+                            <strong>💡 Intuition:</strong> The slope tells us the correlation scaled by the ratio of standard deviations. The intercept ensures the line passes through the point (x̄, ȳ).
+                        </div>
+                    </div>
+                </div>
 
-# ==========================================
-# MAIN EXECUTION
-# ==========================================
+                <h2>🌟 Multiple Linear Regression</h2>
+                <div class="azbn-card">
+                    <h3>Extending to Multiple Features</h3>
+                    
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
+                        <h4>🔢 Multiple Regression Formula:</h4>
+                        <div style="text-align: center; font-size: 1.2rem; margin: 1rem 0; background: white; padding: 1rem; border-radius: 6px;">
+                            <strong>y = β₀ + β₁x₁ + β₂x₂ + ... + βₚxₚ + ε</strong>
+                        </div>
+                        <p>Or in matrix form: <strong>y = Xβ + ε</strong></p>
+                        <ul>
+                            <li><strong>p:</strong> Number of features</li>
+                            <li><strong>βⱼ:</strong> Coefficient for feature xⱼ</li>
+                            <li><strong>X:</strong> Design matrix (n × p matrix)</li>
+                            <li><strong>β:</strong> Parameter vector</li>
+                        </ul>
+                    </div>
 
-if __name__ == "__main__":
-    print("📈 CHAPTER 2: REGRESSION MASTERCLASS")
-    print("=" * 60)
-    
-    # Section 1: Linear Regression
-    linear_model, X_train, y_train, X_test, y_test = linear_regression_complete()
-    
-    # Section 2: Polynomial Regression
-    poly_results = polynomial_regression_demo()
-    
-    # Section 3: Multiple Linear Regression
-    multi_model, importance, metrics = multiple_regression_analysis()
-    
-    print("\n" + "="*60)
-    print("✅ CHAPTER 2 COMPLETED!")
-    print("💡 KEY INSIGHTS:")
-    print("- Linear regression works well for linear relationships")
-    print("- Polynomial regression captures non-linear patterns")
-    print("- Higher polynomial degrees can cause overfitting")
-    print("- Multiple features often improve prediction accuracy")
-    print("- Always validate on unseen test data")
-    print("\n🔜 NEXT: Chapter 3 - Classification Algorithms")
-    print("="*60)</code></pre>
+                    <h4>🎯 Feature Importance and Interpretation:</h4>
+                    <div style="background: #e8f5e8; padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
+                        <h5>📊 Coefficient Interpretation:</h5>
+                        <ul>
+                            <li><strong>Magnitude:</strong> Larger |βⱼ| means more influence on prediction</li>
+                            <li><strong>Sign:</strong> Positive β increases y, negative β decreases y</li>
+                            <li><strong>Units:</strong> βⱼ represents change in y per unit change in xⱼ</li>
+                        </ul>
+                        
+                        <div style="background: #fff3e0; padding: 1rem; border-radius: 6px; margin-top: 1rem;">
+                            <strong>⚠️ Important Caveat:</strong> Coefficients represent the effect of changing one feature while holding all others constant. In practice, features are often correlated!
+                        </div>
+                    </div>
+
+                    <h4>🔗 Multicollinearity: When Features are Too Similar</h4>
+                    <div style="background: #ffebee; padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
+                        <h5>❌ Problems with Highly Correlated Features:</h5>
+                        <ul>
+                            <li>Unstable coefficient estimates</li>
+                            <li>Difficult to interpret individual feature importance</li>
+                            <li>High variance in predictions</li>
+                            <li>Numerical instability in matrix inversion</li>
+                        </ul>
+
+                        <h5>🔍 Detection Methods:</h5>
+                        <ul>
+                            <li><strong>Correlation Matrix:</strong> Look for correlations > 0.8</li>
+                            <li><strong>Variance Inflation Factor (VIF):</strong> VIF > 10 indicates problems</li>
+                            <li><strong>Condition Number:</strong> > 30 suggests multicollinearity</li>
+                        </ul>
+
+                        <h5>💡 Solutions:</h5>
+                        <ul>
+                            <li>Remove highly correlated features</li>
+                            <li>Use Principal Component Analysis (PCA)</li>
+                            <li>Apply regularization (Ridge, Lasso)</li>
+                            <li>Collect more data if possible</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2>🌪️ Polynomial Regression: Capturing Non-Linear Relationships</h2>
+                <div class="azbn-card">
+                    <h3>Beyond Straight Lines</h3>
+                    
+                    <div style="background: #f3e5f5; padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
+                        <h4>🔄 Polynomial Transformation:</h4>
+                        <p>Polynomial regression extends linear regression by adding polynomial features:</p>
+                        
+                        <div style="background: white; padding: 1rem; border-radius: 6px; margin: 1rem 0;">
+                            <p><strong>Degree 2 (Quadratic):</strong></p>
+                            <div style="text-align: center; margin: 0.5rem 0;">
+                                y = β₀ + β₁x + β₂x² + ε
+                            </div>
+                            <p><strong>Degree 3 (Cubic):</strong></p>
+                            <div style="text-align: center; margin: 0.5rem 0;">
+                                y = β₀ + β₁x + β₂x² + β₃x³ + ε
+                            </div>
+                            <p><strong>General Form:</strong></p>
+                            <div style="text-align: center; margin: 0.5rem 0;">
+                                y = β₀ + β₁x + β₂x² + ... + βₐxᵈ + ε
+                            </div>
+                        </div>
+
+                        <div style="background: #e3f2fd; padding: 1rem; border-radius: 6px; margin-top: 1rem;">
+                            <strong>🎯 Key Insight:</strong> Polynomial regression is still linear in the parameters β! We just transform the features.
+                        </div>
+                    </div>
+
+                    <h4>⚖️ The Bias-Variance Tradeoff</h4>
+                    <div style="background: #fff8e1; padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div style="background: #ffebee; padding: 1rem; border-radius: 6px;">
+                                <h5>📉 Underfitting (High Bias)</h5>
+                                <ul style="font-size: 0.9rem;">
+                                    <li>Model too simple</li>
+                                    <li>Cannot capture underlying pattern</li>
+                                    <li>Poor performance on both training and test data</li>
+                                    <li><strong>Solution:</strong> Increase model complexity</li>
+                                </ul>
+                            </div>
+                            <div style="background: #e8f5e8; padding: 1rem; border-radius: 6px;">
+                                <h5>📈 Overfitting (High Variance)</h5>
+                                <ul style="font-size: 0.9rem;">
+                                    <li>Model too complex</li>
+                                    <li>Memorizes training data noise</li>
+                                    <li>Good training, poor test performance</li>
+                                    <li><strong>Solution:</strong> Reduce complexity or add data</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div style="background: #e3f2fd; padding: 1rem; border-radius: 6px; margin-top: 1rem;">
+                            <strong>🎯 Sweet Spot:</strong> Find the optimal degree that minimizes total error = bias² + variance + noise
+                        </div>
+                    </div>
+
+                    <h4>🎚️ Choosing the Right Polynomial Degree</h4>
+                    <div style="background: #e8f5e8; padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
+                        <h5>📊 Practical Guidelines:</h5>
+                        <ul>
+                            <li><strong>Degree 1:</strong> Linear relationship</li>
+                            <li><strong>Degree 2:</strong> One curve (parabola) - good for many real-world phenomena</li>
+                            <li><strong>Degree 3-4:</strong> More complex curves with multiple turns</li>
+                            <li><strong>Degree >5:</strong> Usually overfitting unless you have lots of data</li>
+                        </ul>
+
+                        <h5>🔍 Selection Methods:</h5>
+                        <ol>
+                            <li><strong>Cross-Validation:</strong> Test different degrees, pick best CV score</li>
+                            <li><strong>Learning Curves:</strong> Plot training vs validation error</li>
+                            <li><strong>Information Criteria:</strong> AIC, BIC balance fit and complexity</li>
+                            <li><strong>Domain Knowledge:</strong> Physics/business understanding of relationship</li>
+                        </ol>
+
+                        <div style="background: #fff3e0; padding: 1rem; border-radius: 6px; margin-top: 1rem;">
+                            <strong>💡 Pro Tip:</strong> Start simple (degree 1-2) and increase complexity only if validation performance improves!
+                        </div>
+                    </div>
+                </div>
+
+                <h2>📏 Regression Evaluation Metrics</h2>
+                <div class="azbn-card">
+                    <h3>Measuring Model Performance</h3>
+                    
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
+                        <h4>🎯 Essential Regression Metrics:</h4>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin: 1rem 0;">
+                            <div style="background: #e3f2fd; padding: 1rem; border-radius: 8px;">
+                                <h5>1️⃣ Mean Squared Error (MSE)</h5>
+                                <div style="text-align: center; margin: 0.5rem 0; background: white; padding: 0.5rem; border-radius: 4px;">
+                                    <strong>MSE = (1/n) Σ(yᵢ - ŷᵢ)²</strong>
+                                </div>
+                                <p><strong>Pros:</strong> Heavily penalizes large errors</p>
+                                <p><strong>Cons:</strong> Same units as y², hard to interpret</p>
+                                <p><strong>Use when:</strong> Large errors are especially bad</p>
+                            </div>
+
+                            <div style="background: #e8f5e8; padding: 1rem; border-radius: 8px;">
+                                <h5>2️⃣ Root Mean Squared Error (RMSE)</h5>
+                                <div style="text-align: center; margin: 0.5rem 0; background: white; padding: 0.5rem; border-radius: 4px;">
+                                    <strong>RMSE = √MSE</strong>
+                                </div>
+                                <p><strong>Pros:</strong> Same units as y, interpretable</p>
+                                <p><strong>Cons:</strong> Still penalizes large errors heavily</p>
+                                <p><strong>Use when:</strong> You want MSE benefits with interpretability</p>
+                            </div>
+
+                            <div style="background: #fff8e1; padding: 1rem; border-radius: 8px;">
+                                <h5>3️⃣ Mean Absolute Error (MAE)</h5>
+                                <div style="text-align: center; margin: 0.5rem 0; background: white; padding: 0.5rem; border-radius: 4px;">
+                                    <strong>MAE = (1/n) Σ|yᵢ - ŷᵢ|</strong>
+                                </div>
+                                <p><strong>Pros:</strong> Robust to outliers, easy to interpret</p>
+                                <p><strong>Cons:</strong> Doesn't distinguish small vs large errors</p>
+                                <p><strong>Use when:</strong> You have outliers or all errors are equally bad</p>
+                            </div>
+
+                            <div style="background: #f3e5f5; padding: 1rem; border-radius: 8px;">
+                                <h5>4️⃣ R-squared (R²)</h5>
+                                <div style="text-align: center; margin: 0.5rem 0; background: white; padding: 0.5rem; border-radius: 4px;">
+                                    <strong>R² = 1 - (SS_res / SS_tot)</strong>
+                                </div>
+                                <p><strong>Range:</strong> 0 to 1 (higher is better)</p>
+                                <p><strong>Interpretation:</strong> % of variance explained</p>
+                                <p><strong>Caveat:</strong> Can be misleading with non-linear relationships</p>
+                            </div>
+                        </div>
+
+                        <div style="background: #e8f5e8; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                            <h4>📊 Which Metric to Use?</h4>
+                            <ul style="margin: 0.5rem 0;">
+                                <li><strong>RMSE:</strong> Most common, good for normally distributed errors</li>
+                                <li><strong>MAE:</strong> When you have outliers or skewed error distribution</li>
+                                <li><strong>R²:</strong> For understanding model explanatory power</li>
+                                <li><strong>Multiple metrics:</strong> Always use several metrics for complete picture!</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>🛡️ Regularization: Preventing Overfitting</h2>
+                <div class="azbn-card">
+                    <h3>Ridge and Lasso Regression</h3>
+                    
+                    <div style="background: #e3f2fd; padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
+                        <h4>🎯 Why Regularization?</h4>
+                        <p>When we have many features or polynomial terms, the model can become too complex and overfit. Regularization adds a penalty term to prevent this.</p>
+                        
+                        <div style="background: white; padding: 1rem; border-radius: 6px; margin: 1rem 0;">
+                            <p><strong>General Regularized Objective:</strong></p>
+                            <div style="text-align: center; margin: 0.5rem 0;">
+                                <strong>Minimize: MSE + λ × Penalty(β)</strong>
+                            </div>
+                            <p style="font-size: 0.9rem; text-align: center;">Where λ (lambda) controls the strength of regularization</p>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0;">
+                        <div style="background: #e8f5e8; padding: 1rem; border-radius: 8px;">
+                            <h4>🏔️ Ridge Regression (L2)</h4>
+                            <div style="background: white; padding: 0.8rem; border-radius: 4px; margin: 0.5rem 0;">
+                                <strong>Penalty = Σβⱼ²</strong>
+                            </div>
+                            <h5>Characteristics:</h5>
+                            <ul style="font-size: 0.9rem;">
+                                <li>Shrinks coefficients toward zero</li>
+                                <li>Keeps all features (no feature selection)</li>
+                                <li>Good when all features are somewhat relevant</li>
+                                <li>Handles multicollinearity well</li>
+                            </ul>
+                            <div style="background: #f1f8e9; padding: 0.5rem; border-radius: 4px; margin-top: 0.5rem;">
+                                <strong>Best for:</strong> Many relevant features
+                            </div>
+                        </div>
+
+                        <div style="background: #fff8e1; padding: 1rem; border-radius: 8px;">
+                            <h4>🗻 Lasso Regression (L1)</h4>
+                            <div style="background: white; padding: 0.8rem; border-radius: 4px; margin: 0.5rem 0;">
+                                <strong>Penalty = Σ|βⱼ|</strong>
+                            </div>
+                            <h5>Characteristics:</h5>
+                            <ul style="font-size: 0.9rem;">
+                                <li>Can set coefficients exactly to zero</li>
+                                <li>Automatic feature selection</li>
+                                <li>Produces sparse models</li>
+                                <li>Good when only some features are relevant</li>
+                            </ul>
+                            <div style="background: #fef7e0; padding: 0.5rem; border-radius: 4px; margin-top: 0.5rem;">
+                                <strong>Best for:</strong> Feature selection needed
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: #f3e5f5; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                        <h4>🎚️ Choosing λ (Regularization Strength):</h4>
+                        <ul>
+                            <li><strong>λ = 0:</strong> No regularization (standard regression)</li>
+                            <li><strong>Small λ:</strong> Light penalty, close to unregularized</li>
+                            <li><strong>Large λ:</strong> Heavy penalty, coefficients shrink toward zero</li>
+                            <li><strong>λ → ∞:</strong> All coefficients approach zero (underfitting)</li>
+                        </ul>
+                        <div style="background: #e1bee7; padding: 0.8rem; border-radius: 4px; margin-top: 0.5rem;">
+                            <strong>💡 Selection Method:</strong> Use cross-validation to find optimal λ that minimizes validation error!
+                        </div>
+                    </div>
+                </div>
+
+                <h2>🎯 Key Takeaways and Best Practices</h2>
+                <div class="azbn-deployment-status">
+                    <p><strong>✅ Chapter 2 Mastery:</strong></p>
+                    <p>• Linear regression mathematical foundations and assumptions</p>
+                    <p>• Multiple regression with feature importance interpretation</p>
+                    <p>• Polynomial regression for non-linear relationships</p>
+                    <p>• Comprehensive evaluation metrics (MSE, RMSE, MAE, R²)</p>
+                    <p>• Overfitting detection and regularization techniques</p>
+                    <p>• Practical model selection and validation strategies</p>
+                </div>
+
+                <div style="background: #e3f2fd; padding: 1.5rem; border-radius: 10px; margin: 2rem 0;">
+                    <h3>🎓 Practical Guidelines for Regression Success:</h3>
+                    <ol>
+                        <li><strong>Always start simple:</strong> Begin with linear regression before trying polynomial</li>
+                        <li><strong>Check assumptions:</strong> Plot residuals to verify linearity and homoscedasticity</li>
+                        <li><strong>Handle multicollinearity:</strong> Use correlation matrices and VIF</li>
+                        <li><strong>Use multiple metrics:</strong> Don't rely on R² alone</li>
+                        <li><strong>Validate properly:</strong> Use cross-validation for model selection</li>
+                        <li><strong>Consider regularization:</strong> Especially with many features or limited data</li>
+                        <li><strong>Understand your domain:</strong> Let business knowledge guide feature engineering</li>
+                    </ol>
+                </div>
 
                 <div style="margin: 2rem 0; text-align: center;">
-                    <a href="./chapter1.html" class="azbn-btn azbn-secondary" style="text-decoration: none; margin-right: 1rem;">← Chapter 1</a>
-                    <a href="./chapter3.html" class="azbn-btn" style="text-decoration: none;">Chapter 3: Classification →</a>
+                    <a href="./chapter1.html" class="azbn-btn azbn-secondary" style="text-decoration: none; margin-right: 1rem;">← Chapter 1: Introduction</a>
+                    <a href="./chapter3.html" class="azbn-btn" style="text-decoration: none;">Next: Chapter 3 - Classification →</a>
                 </div>
             </div>
         </section>
