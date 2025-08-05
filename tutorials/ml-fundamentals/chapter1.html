@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chapter 1: ML Introduction - Ali Zanganeh</title>
+    <title>Chapter 1: Introduction to Machine Learning - Ali Zanganeh</title>
     <link rel="stylesheet" href="../../assets/css/style.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
             <nav>
                 <a href="../../#home">Home</a>
                 <a href="../">Tutorials</a>
-                <a href="./">ML Fundamentals</a>
+                <a href="./chapter2.html">Chapter 2 →</a>
             </nav>
         </div>
     </header>
@@ -21,244 +21,387 @@
     <main style="padding-top: 100px;">
         <section class="azbn-section">
             <div class="azbn-container">
-                <h1>Chapter 1: What is Machine Learning?</h1>
+                <h1>Chapter 1: Introduction to Machine Learning</h1>
+                <p class="azbn-subtitle">Understanding the foundations of artificial intelligence and data-driven decision making</p>
                 
-                <h2>🎯 Learning Objectives</h2>
-                <ul class="azbn-skills">
-                    <li>Understand core ML concepts and terminology</li>
-                    <li>Distinguish between supervised, unsupervised, and reinforcement learning</li>
-                    <li>Implement basic data exploration with Python</li>
-                    <li>Set up your ML development environment</li>
-                </ul>
-
-                <h2>📚 Theory: Types of Machine Learning</h2>
-                <div class="azbn-card">
-                    <h3>🎓 Supervised Learning</h3>
-                    <p><strong>Definition:</strong> Learning with labeled examples (input-output pairs)</p>
-                    <p><strong>Examples:</strong> Email spam detection, house price prediction, medical diagnosis</p>
-                    <p><strong>Goal:</strong> Learn a function that maps inputs to correct outputs</p>
+                <div class="azbn-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; margin-bottom: 2rem;">
+                    <h2>🎯 Learning Objectives</h2>
+                    <ul style="color: white;">
+                        <li>Understand what machine learning is and why it matters</li>
+                        <li>Distinguish between supervised, unsupervised, and reinforcement learning</li>
+                        <li>Learn essential Python libraries for ML (NumPy, Pandas, Scikit-learn)</li>
+                        <li>Master data preprocessing techniques</li>
+                        <li>Understand the importance of data quality and preparation</li>
+                    </ul>
                 </div>
 
+                <h2>🤖 What is Machine Learning?</h2>
                 <div class="azbn-card">
-                    <h3>🔍 Unsupervised Learning</h3>
-                    <p><strong>Definition:</strong> Finding patterns in data without labels</p>
-                    <p><strong>Examples:</strong> Customer segmentation, anomaly detection, data compression</p>
-                    <p><strong>Goal:</strong> Discover hidden structures in data</p>
+                    <h3>Definition and Core Concept</h3>
+                    <p><strong>Machine Learning</strong> is a subset of artificial intelligence that enables computers to learn and make decisions from data without being explicitly programmed for every scenario.</p>
+                    
+                    <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                        <h4>�� Key Insight:</h4>
+                        <p style="margin: 0;"><em>"Traditional programming requires us to write rules to process data into answers. Machine learning flips this: we provide data and answers, and the algorithm discovers the rules."</em></p>
+                    </div>
+
+                    <h4>🔍 Real-World Examples:</h4>
+                    <ul>
+                        <li><strong>Email Spam Detection:</strong> Learning patterns from millions of emails</li>
+                        <li><strong>Netflix Recommendations:</strong> Analyzing viewing history to suggest content</li>
+                        <li><strong>Medical Diagnosis:</strong> Identifying diseases from medical images</li>
+                        <li><strong>Financial Trading:</strong> Predicting market trends from historical data</li>
+                        <li><strong>Autonomous Vehicles:</strong> Learning to navigate from sensor data</li>
+                    </ul>
                 </div>
 
-                <h2>💻 Hands-On Code: Environment Setup</h2>
-                <pre style="background: #f4f4f4; padding: 1rem; border-radius: 8px; overflow-x: auto;"><code># -*- coding: utf-8 -*-
-"""
-Chapter 1: Machine Learning Introduction
-Author: Ali Barzin Zanganeh
-Purpose: Complete ML fundamentals with practical examples
-"""
+                <h2>📊 Types of Machine Learning</h2>
+                <div class="azbn-grid">
+                    <div class="azbn-card">
+                        <h3>�� Supervised Learning</h3>
+                        <p><strong>Definition:</strong> Learning with labeled examples (input-output pairs)</p>
+                        
+                        <h4>Key Characteristics:</h4>
+                        <ul>
+                            <li>Training data includes both features (X) and target labels (y)</li>
+                            <li>Goal: Learn a function f(X) = y</li>
+                            <li>Performance measured against known correct answers</li>
+                        </ul>
 
-# Essential imports for machine learning
-import numpy as np              # Numerical computations
-import pandas as pd             # Data manipulation and analysis
-import matplotlib.pyplot as plt # Data visualization
-import seaborn as sns          # Advanced statistical visualization
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-from sklearn.datasets import load_iris, load_boston
-import warnings
-warnings.filterwarnings('ignore')
+                        <h4>Two Main Types:</h4>
+                        <div style="margin: 1rem 0;">
+                            <p><strong>🔢 Regression:</strong> Predicting continuous numerical values</p>
+                            <ul style="margin-left: 1rem;">
+                                <li>House prices based on size, location, features</li>
+                                <li>Stock prices based on market indicators</li>
+                                <li>Temperature prediction from weather data</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin: 1rem 0;">
+                            <p><strong>🏷️ Classification:</strong> Predicting discrete categories or classes</p>
+                            <ul style="margin-left: 1rem;">
+                                <li>Email spam vs. legitimate (binary classification)</li>
+                                <li>Image recognition: cat, dog, bird (multi-class)</li>
+                                <li>Medical diagnosis: disease type identification</li>
+                            </ul>
+                        </div>
 
-# Set up plotting style for professional visualizations
-plt.style.use('seaborn-v0_8')
-sns.set_palette("husl")
+                        <div style="background: #e3f2fd; padding: 0.8rem; border-radius: 6px; margin-top: 1rem;">
+                            <strong>💡 Pro Tip:</strong> Start with supervised learning - it's easier to evaluate because you have ground truth to compare against!
+                        </div>
+                    </div>
 
-print("🚀 Machine Learning Environment Ready!")
-print(f"NumPy version: {np.__version__}")
-print(f"Pandas version: {pd.__version__}")
+                    <div class="azbn-card">
+                        <h3>🔍 Unsupervised Learning</h3>
+                        <p><strong>Definition:</strong> Finding hidden patterns in data without labeled examples</p>
 
-# ==========================================
-# SECTION 1: Understanding Data Types in ML
-# ==========================================
+                        <h4>Key Characteristics:</h4>
+                        <ul>
+                            <li>Only input data (X) available, no target labels (y)</li>
+                            <li>Goal: Discover underlying structure in data</li>
+                            <li>More exploratory and hypothesis-generating</li>
+                        </ul>
 
-def explore_ml_data_types():
-    """
-    Comprehensive guide to data types in machine learning
-    
-    Key Concepts:
-    - Numerical vs Categorical data
-    - Features vs Target variables
-    - Training vs Test data
-    """
-    
-    print("\n" + "="*50)
-    print("📊 DATA TYPES IN MACHINE LEARNING")
-    print("="*50)
-    
-    # Load the famous Iris dataset for demonstration
-    iris = load_iris()
-    
-    # Convert to pandas DataFrame for easier manipulation
-    # TIP: Always use DataFrames for real-world ML projects
-    df = pd.DataFrame(iris.data, columns=iris.feature_names)
-    df['species'] = iris.target_names[iris.target]
-    
-    print("🌸 IRIS DATASET OVERVIEW:")
-    print(f"Shape: {df.shape} (rows, columns)")
-    print(f"Features: {list(df.columns[:-1])}")
-    print(f"Target: {df.columns[-1]}")
-    
-    # Display first few rows
-    print("\nFirst 5 rows:")
-    print(df.head())
-    
-    # Data types analysis
-    print("\n📋 DATA TYPES:")
-    print(df.dtypes)
-    
-    # Statistical summary
-    print("\n📈 STATISTICAL SUMMARY:")
-    print(df.describe())
-    
-    return df
+                        <h4>Common Applications:</h4>
+                        <div style="margin: 1rem 0;">
+                            <p><strong>🎯 Clustering:</strong> Grouping similar data points</p>
+                            <ul style="margin-left: 1rem;">
+                                <li>Customer segmentation for marketing</li>
+                                <li>Gene sequencing to identify species</li>
+                                <li>Market research to identify consumer groups</li>
+                            </ul>
+                        </div>
 
-# ==========================================
-# SECTION 2: Supervised Learning Example
-# ==========================================
+                        <div style="margin: 1rem 0;">
+                            <p><strong>📏 Dimensionality Reduction:</strong> Simplifying data while preserving information</p>
+                            <ul style="margin-left: 1rem;">
+                                <li>Data visualization (3D to 2D plots)</li>
+                                <li>Feature selection for model efficiency</li>
+                                <li>Noise reduction in data</li>
+                            </ul>
+                        </div>
 
-def supervised_learning_demo(df):
-    """
-    Complete supervised learning workflow demonstration
-    
-    Steps:
-    1. Data preparation
-    2. Train-test split
-    3. Feature scaling
-    4. Model training (simple classifier)
-    5. Evaluation
-    """
-    
-    print("\n" + "="*50)
-    print("🎓 SUPERVISED LEARNING DEMONSTRATION")
-    print("="*50)
-    
-    # Prepare features (X) and target (y)
-    # X = input features, y = what we want to predict
-    X = df.iloc[:, :-1].values  # All columns except last
-    y = df.iloc[:, -1].values   # Last column (species)
-    
-    print(f"Features shape: {X.shape}")
-    print(f"Target shape: {y.shape}")
-    print(f"Unique classes: {np.unique(y)}")
-    
-    # Train-test split (80% training, 20% testing)
-    # CRITICAL: Never test on training data!
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=42, stratify=y
-    )
-    
-    print(f"\nTraining set: {X_train.shape[0]} samples")
-    print(f"Test set: {X_test.shape[0]} samples")
-    
-    # Feature scaling - important for many ML algorithms
-    # StandardScaler: (x - mean) / std_deviation
-    scaler = StandardScaler()
-    X_train_scaled = scaler.fit_transform(X_train)
-    X_test_scaled = scaler.transform(X_test)  # Use same scaling as training
-    
-    print("\n✅ Data preprocessing completed!")
-    print("Next: Train your first ML model in Chapter 2")
-    
-    return X_train_scaled, X_test_scaled, y_train, y_test
+                        <div style="background: #fff3e0; padding: 0.8rem; border-radius: 6px; margin-top: 1rem;">
+                            <strong>⚠️ Challenge:</strong> Harder to evaluate since there's no "correct answer" to compare against!
+                        </div>
+                    </div>
 
-# ==========================================
-# SECTION 3: Data Visualization Fundamentals
-# ==========================================
+                    <div class="azbn-card">
+                        <h3>🎮 Reinforcement Learning</h3>
+                        <p><strong>Definition:</strong> Learning through interaction with an environment using rewards and penalties</p>
 
-def create_ml_visualizations(df):
-    """
-    Essential data visualization techniques for ML
-    
-    Visualizations covered:
-    - Distribution plots
-    - Correlation heatmaps
-    - Pairwise feature relationships
-    - Class distribution
-    """
-    
-    print("\n" + "="*50)
-    print("📊 DATA VISUALIZATION FOR ML")
-    print("="*50)
-    
-    # Create subplots for multiple visualizations
-    fig, axes = plt.subplots(2, 2, figsize=(15, 12))
-    fig.suptitle('Machine Learning Data Analysis', fontsize=16, fontweight='bold')
-    
-    # 1. Feature distributions
-    df.iloc[:, :-1].hist(bins=20, ax=axes[0,0])
-    axes[0,0].set_title('Feature Distributions')
-    
-    # 2. Correlation heatmap
-    correlation_matrix = df.iloc[:, :-1].corr()
-    sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', ax=axes[0,1])
-    axes[0,1].set_title('Feature Correlations')
-    
-    # 3. Class distribution
-    class_counts = df['species'].value_counts()
-    axes[1,0].pie(class_counts.values, labels=class_counts.index, autopct='%1.1f%%')
-    axes[1,0].set_title('Class Distribution')
-    
-    # 4. Pairwise relationships
-    # Using first two features for simplicity
-    for species in df['species'].unique():
-        species_data = df[df['species'] == species]
-        axes[1,1].scatter(species_data.iloc[:, 0], species_data.iloc[:, 1], 
-                         label=species, alpha=0.7)
-    axes[1,1].set_xlabel(df.columns[0])
-    axes[1,1].set_ylabel(df.columns[1])
-    axes[1,1].set_title('Feature Relationships by Class')
-    axes[1,1].legend()
-    
-    plt.tight_layout()
-    plt.savefig('ml_data_analysis.png', dpi=300, bbox_inches='tight')
-    print("📈 Visualizations saved as 'ml_data_analysis.png'")
-    
-    return fig
+                        <h4>Key Components:</h4>
+                        <ul>
+                            <li><strong>Agent:</strong> The learner/decision maker</li>
+                            <li><strong>Environment:</strong> The world the agent operates in</li>
+                            <li><strong>Actions:</strong> What the agent can do</li>
+                            <li><strong>Rewards:</strong> Feedback signal for good/bad actions</li>
+                            <li><strong>Policy:</strong> Strategy for choosing actions</li>
+                        </ul>
 
-# ==========================================
-# MAIN EXECUTION
-# ==========================================
+                        <h4>Famous Applications:</h4>
+                        <ul>
+                            <li>Game playing (Chess, Go, video games)</li>
+                            <li>Autonomous vehicle navigation</li>
+                            <li>Robot control and manipulation</li>
+                            <li>Trading algorithms</li>
+                            <li>Personalized recommendations</li>
+                        </ul>
 
-if __name__ == "__main__":
-    print("🎓 CHAPTER 1: MACHINE LEARNING INTRODUCTION")
-    print("=" * 60)
-    
-    # Step 1: Explore data types
-    iris_df = explore_ml_data_types()
-    
-    # Step 2: Demonstrate supervised learning workflow
-    X_train, X_test, y_train, y_test = supervised_learning_demo(iris_df)
-    
-    # Step 3: Create visualizations
-    fig = create_ml_visualizations(iris_df)
-    
-    print("\n" + "="*60)
-    print("✅ CHAPTER 1 COMPLETED!")
-    print("💡 KEY TAKEAWAYS:")
-    print("- Machine learning works with numerical data")
-    print("- Always split data into training and testing sets")
-    print("- Feature scaling improves algorithm performance")
-    print("- Visualization helps understand your data")
-    print("\n🔜 NEXT: Chapter 2 - Regression Algorithms")
-    print("="*60)</code></pre>
+                        <div style="background: #f3e5f5; padding: 0.8rem; border-radius: 6px; margin-top: 1rem;">
+                            <strong>🚀 Advanced:</strong> Most complex type of ML, often requires significant computational resources and expertise!
+                        </div>
+                    </div>
+                </div>
+
+                <h2>🐍 Essential Python Libraries for ML</h2>
+                <div class="azbn-card">
+                    <h3>📚 The ML Python Stack</h3>
+                    <p>These libraries form the foundation of machine learning in Python. Each serves a specific purpose in the ML pipeline:</p>
+
+                    <div class="azbn-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+                        <div style="border: 1px solid #e0e0e0; padding: 1rem; border-radius: 8px;">
+                            <h4>🔢 NumPy (Numerical Python)</h4>
+                            <p><strong>Purpose:</strong> Foundation for numerical computing</p>
+                            <ul style="font-size: 0.9rem;">
+                                <li>Efficient arrays and mathematical operations</li>
+                                <li>Linear algebra functions</li>
+                                <li>Random number generation</li>
+                                <li>Broadcasting for vectorized operations</li>
+                            </ul>
+                            <div style="background: #f5f5f5; padding: 0.5rem; border-radius: 4px; margin-top: 0.5rem;">
+                                <code>import numpy as np</code>
+                            </div>
+                        </div>
+
+                        <div style="border: 1px solid #e0e0e0; padding: 1rem; border-radius: 8px;">
+                            <h4>🐼 Pandas (Panel Data)</h4>
+                            <p><strong>Purpose:</strong> Data manipulation and analysis</p>
+                            <ul style="font-size: 0.9rem;">
+                                <li>DataFrames for structured data</li>
+                                <li>Data cleaning and preprocessing</li>
+                                <li>File I/O (CSV, Excel, JSON, SQL)</li>
+                                <li>Data aggregation and grouping</li>
+                            </ul>
+                            <div style="background: #f5f5f5; padding: 0.5rem; border-radius: 4px; margin-top: 0.5rem;">
+                                <code>import pandas as pd</code>
+                            </div>
+                        </div>
+
+                        <div style="border: 1px solid #e0e0e0; padding: 1rem; border-radius: 8px;">
+                            <h4>📊 Matplotlib</h4>
+                            <p><strong>Purpose:</strong> Data visualization and plotting</p>
+                            <ul style="font-size: 0.9rem;">
+                                <li>Static plots and charts</li>
+                                <li>Customizable figure aesthetics</li>
+                                <li>Mathematical notation support</li>
+                                <li>Publication-quality graphics</li>
+                            </ul>
+                            <div style="background: #f5f5f5; padding: 0.5rem; border-radius: 4px; margin-top: 0.5rem;">
+                                <code>import matplotlib.pyplot as plt</code>
+                            </div>
+                        </div>
+
+                        <div style="border: 1px solid #e0e0e0; padding: 1rem; border-radius: 8px;">
+                            <h4>🌊 Seaborn</h4>
+                            <p><strong>Purpose:</strong> Statistical data visualization</p>
+                            <ul style="font-size: 0.9rem;">
+                                <li>Beautiful default styles</li>
+                                <li>Statistical plot types</li>
+                                <li>Easy categorical data plotting</li>
+                                <li>Built on top of Matplotlib</li>
+                            </ul>
+                            <div style="background: #f5f5f5; padding: 0.5rem; border-radius: 4px; margin-top: 0.5rem;">
+                                <code>import seaborn as sns</code>
+                            </div>
+                        </div>
+
+                        <div style="border: 1px solid #e0e0e0; padding: 1rem; border-radius: 8px;">
+                            <h4>🤖 Scikit-learn</h4>
+                            <p><strong>Purpose:</strong> Machine learning algorithms and tools</p>
+                            <ul style="font-size: 0.9rem;">
+                                <li>Ready-to-use ML algorithms</li>
+                                <li>Data preprocessing utilities</li>
+                                <li>Model evaluation metrics</li>
+                                <li>Cross-validation tools</li>
+                            </ul>
+                            <div style="background: #f5f5f5; padding: 0.5rem; border-radius: 4px; margin-top: 0.5rem;">
+                                <code>from sklearn import ...</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: #e8f5e8; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                        <h4>💡 Installation Tip:</h4>
+                        <p style="margin: 0;">Install all essential libraries at once:</p>
+                        <code style="background: white; padding: 0.5rem; display: block; margin-top: 0.5rem; border-radius: 4px;">
+                            pip install numpy pandas matplotlib seaborn scikit-learn jupyter
+                        </code>
+                    </div>
+                </div>
+
+                <h2>🛠️ Data Preprocessing: The Foundation of ML Success</h2>
+                <div class="azbn-card">
+                    <h3>Why Data Preprocessing Matters</h3>
+                    <div style="background: #fff8e1; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                        <strong>🎯 Key Principle:</strong> "Garbage in, garbage out" - The quality of your data directly determines the quality of your model!
+                    </div>
+
+                    <h4>📊 Common Data Quality Issues:</h4>
+                    <div class="azbn-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1rem 0;">
+                        <div style="border-left: 4px solid #f44336; padding-left: 1rem;">
+                            <h5>❌ Missing Values</h5>
+                            <ul style="font-size: 0.9rem;">
+                                <li>Incomplete surveys or sensors</li>
+                                <li>Database corruption</li>
+                                <li>Human data entry errors</li>
+                            </ul>
+                        </div>
+                        <div style="border-left: 4px solid #ff9800; padding-left: 1rem;">
+                            <h5>⚠️ Outliers</h5>
+                            <ul style="font-size: 0.9rem;">
+                                <li>Measurement errors</li>
+                                <li>Rare but valid events</li>
+                                <li>Data entry mistakes</li>
+                            </ul>
+                        </div>
+                        <div style="border-left: 4px solid #2196f3; padding-left: 1rem;">
+                            <h5>🔀 Inconsistent Formats</h5>
+                            <ul style="font-size: 0.9rem;">
+                                <li>Different date formats</li>
+                                <li>Various text cases</li>
+                                <li>Multiple units of measurement</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>🔧 Essential Preprocessing Techniques:</h4>
+                    
+                    <div style="margin: 1.5rem 0;">
+                        <h5>1️⃣ Handling Missing Values</h5>
+                        <div style="background: #f8f9fa; padding: 1rem; border-radius: 6px;">
+                            <p><strong>Strategies:</strong></p>
+                            <ul>
+                                <li><strong>Deletion:</strong> Remove rows/columns with missing data (use when <5% missing)</li>
+                                <li><strong>Mean/Median Imputation:</strong> Replace with average values (numerical data)</li>
+                                <li><strong>Mode Imputation:</strong> Replace with most frequent value (categorical data)</li>
+                                <li><strong>Forward/Backward Fill:</strong> Use adjacent values (time series data)</li>
+                                <li><strong>Advanced:</strong> Use ML models to predict missing values</li>
+                            </ul>
+                            <div style="background: #e3f2fd; padding: 0.8rem; border-radius: 4px; margin-top: 0.5rem;">
+                                <strong>💡 Pro Tip:</strong> Always analyze WHY data is missing - it might reveal important patterns!
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin: 1.5rem 0;">
+                        <h5>2️⃣ Feature Scaling and Normalization</h5>
+                        <div style="background: #f8f9fa; padding: 1rem; border-radius: 6px;">
+                            <p><strong>Why Scale?</strong> Many ML algorithms are sensitive to feature magnitude differences.</p>
+                            <ul>
+                                <li><strong>StandardScaler:</strong> Mean=0, Std=1 (most common)</li>
+                                <li><strong>MinMaxScaler:</strong> Scale to [0,1] range</li>
+                                <li><strong>RobustScaler:</strong> Uses median and IQR (handles outliers better)</li>
+                                <li><strong>Normalizer:</strong> Scale individual samples to unit norm</li>
+                            </ul>
+                            <div style="background: #fff3e0; padding: 0.8rem; border-radius: 4px; margin-top: 0.5rem;">
+                                <strong>⚠️ Important:</strong> Always fit scaler on training data only, then transform both train and test sets!
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin: 1.5rem 0;">
+                        <h5>3️⃣ Encoding Categorical Variables</h5>
+                        <div style="background: #f8f9fa; padding: 1rem; border-radius: 6px;">
+                            <p><strong>Challenge:</strong> ML algorithms work with numbers, not text categories.</p>
+                            <ul>
+                                <li><strong>Label Encoding:</strong> Convert categories to integers (0, 1, 2...)</li>
+                                <li><strong>One-Hot Encoding:</strong> Create binary columns for each category</li>
+                                <li><strong>Ordinal Encoding:</strong> Preserve natural order (Small < Medium < Large)</li>
+                                <li><strong>Target Encoding:</strong> Replace with target variable statistics</li>
+                            </ul>
+                            <div style="background: #f3e5f5; padding: 0.8rem; border-radius: 4px; margin-top: 0.5rem;">
+                                <strong>🎯 Rule of Thumb:</strong> Use One-Hot for nominal data, Label/Ordinal for ordinal data with few categories.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>📈 The Machine Learning Workflow</h2>
+                <div class="azbn-card">
+                    <h3>🔄 Complete ML Pipeline</h3>
+                    <p>Every successful ML project follows this systematic approach:</p>
+
+                    <div style="display: flex; flex-direction: column; gap: 1rem; margin: 1.5rem 0;">
+                        <div style="display: flex; align-items: center; padding: 1rem; border-radius: 8px; background: linear-gradient(90deg, #e3f2fd 0%, #bbdefb 100%);">
+                            <div style="background: #2196f3; color: white; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-weight: bold;">1</div>
+                            <div>
+                                <h4 style="margin: 0; color: #1976d2;">Problem Definition</h4>
+                                <p style="margin: 0; font-size: 0.9rem;">Clearly define what you want to predict and why</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; align-items: center; padding: 1rem; border-radius: 8px; background: linear-gradient(90deg, #e8f5e8 0%, #c8e6c9 100%);">
+                            <div style="background: #4caf50; color: white; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-weight: bold;">2</div>
+                            <div>
+                                <h4 style="margin: 0; color: #388e3c;">Data Collection & Exploration</h4>
+                                <p style="margin: 0; font-size: 0.9rem;">Gather data and understand its structure, quality, and patterns</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; align-items: center; padding: 1rem; border-radius: 8px; background: linear-gradient(90deg, #fff8e1 0%, #ffecb3 100%);">
+                            <div style="background: #ff9800; color: white; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-weight: bold;">3</div>
+                            <div>
+                                <h4 style="margin: 0; color: #f57c00;">Data Preprocessing</h4>
+                                <p style="margin: 0; font-size: 0.9rem;">Clean, transform, and prepare data for modeling</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; align-items: center; padding: 1rem; border-radius: 8px; background: linear-gradient(90deg, #f3e5f5 0%, #e1bee7 100%);">
+                            <div style="background: #9c27b0; color: white; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-weight: bold;">4</div>
+                            <div>
+                                <h4 style="margin: 0; color: #7b1fa2;">Model Selection & Training</h4>
+                                <p style="margin: 0; font-size: 0.9rem;">Choose appropriate algorithms and train models</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; align-items: center; padding: 1rem; border-radius: 8px; background: linear-gradient(90deg, #ffebee 0%, #ffcdd2 100%);">
+                            <div style="background: #f44336; color: white; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-weight: bold;">5</div>
+                            <div>
+                                <h4 style="margin: 0; color: #d32f2f;">Model Evaluation</h4>
+                                <p style="margin: 0; font-size: 0.9rem;">Assess performance using appropriate metrics</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; align-items: center; padding: 1rem; border-radius: 8px; background: linear-gradient(90deg, #e0f2f1 0%, #b2dfdb 100%);">
+                            <div style="background: #009688; color: white; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-weight: bold;">6</div>
+                            <div>
+                                <h4 style="margin: 0; color: #00695c;">Deployment & Monitoring</h4>
+                                <p style="margin: 0; font-size: 0.9rem;">Deploy model and monitor its performance over time</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: #e3f2fd; padding: 1rem; border-radius: 8px; margin-top: 1.5rem;">
+                        <h4>🔁 Iterative Process</h4>
+                        <p style="margin: 0;">ML development is iterative! You'll often cycle back to earlier steps as you learn more about your data and problem.</p>
+                    </div>
+                </div>
 
                 <h2>🎯 Key Takeaways</h2>
                 <div class="azbn-deployment-status">
-                    <p><strong>✅ Concepts Learned:</strong></p>
-                    <p>• Supervised vs Unsupervised learning</p>
-                    <p>• Data preprocessing importance</p>
-                    <p>• Train-test split methodology</p>
-                    <p>• Feature scaling techniques</p>
+                    <p><strong>✅ Chapter 1 Mastery:</strong></p>
+                    <p>• Understanding of ML types: Supervised, Unsupervised, Reinforcement</p>
+                    <p>• Essential Python libraries and their purposes</p>
+                    <p>• Data preprocessing importance and techniques</p>
+                    <p>• Complete ML workflow from problem to deployment</p>
+                    <p>• Foundation for advanced ML concepts</p>
                 </div>
 
                 <div style="margin: 2rem 0; text-align: center;">
-                    <a href="./chapter2.html" class="azbn-btn" style="text-decoration: none;">Next: Chapter 2 - Regression →</a>
+                    <a href="./chapter2.html" class="azbn-btn" style="text-decoration: none; margin-right: 1rem;">Next: Chapter 2 - Regression →</a>
+                    <a href="./index.html" class="azbn-btn azbn-secondary" style="text-decoration: none;">← Back to Course Index</a>
                 </div>
             </div>
         </section>
