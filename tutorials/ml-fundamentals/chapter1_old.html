@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 1: Introduction to Machine Learning - Alireza Barzin Zanganeh</title>
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+    <header class="azbn-header">
+        <div class="azbn-container">
+            <h1><a href="../../" style="text-decoration: none; color: #4f46e5;">Alireza Barzin Zanganeh</a></h1>
+            <nav>
+                <a href="../../#home">Home</a>
+                <a href="../">Tutorials</a>
+                <a href="./chapter2.html">Chapter 2 →</a>
+            </nav>
+        </div>
+    </header>
+
+    <main style="padding-top: 100px;">
+        <section class="azbn-section">
+            <div class="azbn-container">
+                <h1>Chapter 1: Introduction to Machine Learning</h1>
+                <p class="azbn-subtitle">Understanding the foundations of artificial intelligence and data-driven decision making</p>
+                
+                <div class="azbn-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; margin-bottom: 2rem;">
+                    <h2>🎯 Learning Objectives</h2>
+                    <ul style="color: white;">
+                        <li>Understand what machine learning is and why it matters</li>
+                        <li>Distinguish between supervised, unsupervised, and reinforcement learning</li>
+                        <li>Learn essential Python libraries for ML (NumPy, Pandas, Scikit-learn)</li>
+                        <li>Master data preprocessing techniques</li>
+                        <li>Understand the importance of data quality and preparation</li>
+                    </ul>
+                </div>
+
+                <h2>🤖 What is Machine Learning?</h2>
+                <div class="azbn-card">
+                    <h3>Definition and Core Concept</h3>
+                    <p><strong>Machine Learning</strong> is a subset of artificial intelligence that enables computers to learn and make decisions from data without being explicitly programmed for every scenario.</p>
+                    
+                    <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                        <h4>💡 Key Insight:</h4>
+                        <p style="margin: 0;"><em>"Traditional programming requires us to write rules to process data into answers. Machine learning flips this: we provide data and answers, and the algorithm discovers the rules."</em></p>
+                    </div>
+
+                    <h4>🔍 Real-World Examples:</h4>
+                    <ul>
+                        <li><strong>Email Spam Detection:</strong> Learning patterns from millions of emails</li>
+                        <li><strong>Netflix Recommendations:</strong> Analyzing viewing history to suggest content</li>
+                        <li><strong>Medical Diagnosis:</strong> Identifying diseases from medical images</li>
+                        <li><strong>Financial Trading:</strong> Predicting market trends from historical data</li>
+                        <li><strong>Autonomous Vehicles:</strong> Learning to navigate from sensor data</li>
+                    </ul>
+                </div>
+
+                <h2>📊 Types of Machine Learning</h2>
+                <div class="azbn-grid">
+                    <div class="azbn-card">
+                        <h3>🧑‍🏫 Supervised Learning</h3>
+                        <p><strong>Definition:</strong> Learning with labeled examples (input-output pairs)</p>
+                        
+                        <h4>Key Characteristics:</h4>
+                        <ul>
+                            <li>Training data includes both features (X) and target labels (y)</li>
+                            <li>Goal: Learn a function f(X) = y</li>
+                            <li>Performance measured against known correct answers</li>
+                        </ul>
+
+                        <h4>Two Main Types:</h4>
+                        <div style="margin: 1rem 0;">
+                            <p><strong>🔢 Regression:</strong> Predicting continuous numerical values</p>
+                            <ul style="margin-left: 1rem;">
+                                <li>House prices based on size, location, features</li>
+                                <li>Stock prices based on market indicators</li>
+                                <li>Temperature prediction from weather data</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin: 1rem 0;">
+                            <p><strong>🏷️ Classification:</strong> Predicting discrete categories or classes</p>
+                            <ul style="margin-left: 1rem;">
+                                <li>Email spam vs. legitimate (binary classification)</li>
+                                <li>Image recognition: cat, dog, bird (multi-class)</li>
+                                <li>Medical diagnosis: disease type identification</li>
+                            </ul>
+                        </div>
+
+                        <div style="background: #e3f2fd; padding: 0.8rem; border-radius: 6px; margin-top: 1rem;">
+                            <strong>💡 Pro Tip:</strong> Start with supervised learning - it's easier to evaluate because you have ground truth to compare against!
+                        </div>
+                    </div>
+
+                    <div class="azbn-card">
+                        <h3>🔍 Unsupervised Learning</h3>
+                        <p><strong>Definition:</strong> Finding hidden patterns in data without labeled examples</p>
+
+                        <h4>Key Characteristics:</h4>
+                        <ul>
+                            <li>Only input data (X) available, no target labels (y)</li>
+                            <li>Goal: Discover underlying structure in data</li>
+                            <li>More exploratory and hypothesis-generating</li>
+                        </ul>
+
+                        <h4>Common Applications:</h4>
+                        <div style="margin: 1rem 0;">
+                            <p><strong>🎯 Clustering:</strong> Grouping similar data points</p>
+                            <ul style="margin-left: 1rem;">
+                                <li>Customer segmentation for marketing</li>
+                                <li>Gene sequencing to identify species</li>
+                                <li>Market research to identify consumer groups</li>
+                            </ul>
+                        </div>
+
+                        <div style="margin: 1rem 0;">
+                            <p><strong>📏 Dimensionality Reduction:</strong> Simplifying data while preserving information</p>
+                            <ul style="margin-left: 1rem;">
+                                <li>Data visualization (3D to 2D plots)</li>
+                                <li>Feature selection for model efficiency</li>
+                                <li>Noise reduction in data</li>
+                            </ul>
+                        </div>
+
+                        <div style="background: #fff3e0; padding: 0.8rem; border-radius: 6px; margin-top: 1rem;">
+                            <strong>⚠️ Challenge:</strong> Harder to evaluate since there's no "correct answer" to compare against!
+                        </div>
+                    </div>
+
+                    <div class="azbn-card">
+                        <h3>🎮 Reinforcement Learning</h3>
+                        <p><strong>Definition:</strong> Learning through interaction with an environment using rewards and penalties</p>
+
+                        <h4>Key Components:</h4>
+                        <ul>
+                            <li><strong>Agent:</strong> The learner/decision maker</li>
+                            <li><strong>Environment:</strong> The world the agent operates in</li>
+                            <li><strong>Actions:</strong> What the agent can do</li>
+                            <li><strong>Rewards:</strong> Feedback signal for good/bad actions</li>
+                            <li><strong>Policy:</strong> Strategy for choosing actions</li>
+                        </ul>
+
+                        <h4>Famous Applications:</h4>
+                        <ul>
+                            <li>Game playing (Chess, Go, video games)</li>
+                            <li>Autonomous vehicle navigation</li>
+                            <li>Robot control and manipulation</li>
+                            <li>Trading algorithms</li>
+                            <li>Personalized recommendations</li>
+                        </ul>
+
+                        <div style="background: #f3e5f5; padding: 0.8rem; border-radius: 6px; margin-top: 1rem;">
+                            <strong>🚀 Advanced:</strong> Most complex type of ML, often requires significant computational resources and expertise!
+                        </div>
+                    </div>
+                </div>
+
+                <h2>🐍 Essential Python Libraries for ML</h2>
+                <div class="azbn-card">
+                    <h3>📚 The ML Python Stack</h3>
+                    <p>These libraries form the foundation of machine learning in Python. Each serves a specific purpose in the ML pipeline:</p>
+
+                    <div class="azbn-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+                        <div style="border: 1px solid #e0e0e0; padding: 1rem; border-radius: 8px;">
+                            <h4>🔢 NumPy (Numerical Python)</h4>
+                            <p><strong>Purpose:</strong> Foundation for numerical computing</p>
+                            <ul style="font-size: 0.9rem;">
+                                <li>Efficient arrays and mathematical operations</li>
+                                <li>Linear algebra functions</li>
+                                <li>Random number generation</li>
+                                <li>Broadcasting for vectorized operations</li>
+                            </ul>
+                            <div style="background: #f5f5f5; padding: 0.5rem; border-radius: 4px; margin-top: 0.5rem;">
+                                <code>import numpy as np</code>
+                            </div>
+                        </div>
+
+                        <div style="border: 1px solid #e0e0e0; padding: 1rem; border-radius: 8px;">
+                            <h4>🐼 Pandas (Panel Data)</h4>
+                            <p><strong>Purpose:</strong> Data manipulation and analysis</p>
+                            <ul style="font-size: 0.9rem;">
+                                <li>DataFrames for structured data</li>
+                                <li>Data cleaning and preprocessing</li>
+                                <li>File I/O (CSV, Excel, JSON, SQL)</li>
+                                <li>Data aggregation and grouping</li>
+                            </ul>
+                            <div style="background: #f5f5f5; padding: 0.5rem; border-radius: 4px; margin-top: 0.5rem;">
+                                <code>import pandas as pd</code>
+                            </div>
+                        </div>
+
+                        <div style="border: 1px solid #e0e0e0; padding: 1rem; border-radius: 8px;">
+                            <h4>📊 Matplotlib</h4>
+                            <p><strong>Purpose:</strong> Data visualization and plotting</p>
+                            <ul style="font-size: 0.9rem;">
+                                <li>Static plots and charts</li>
+                                <li>Customizable figure aesthetics</li>
+                                <li>Mathematical notation support</li>
+                                <li>Publication-quality graphics</li>
+                            </ul>
+                            <div style="background: #f5f5f5; padding: 0.5rem; border-radius: 4px; margin-top: 0.5rem;">
+                                <code>import matplotlib.pyplot as plt</code>
+                            </div>
+                        </div>
+
+                        <div style="border: 1px solid #e0e0e0; padding: 1rem; border-radius: 8px;">
+                            <h4>🌊 Seaborn</h4>
+                            <p><strong>Purpose:</strong> Statistical data visualization</p>
+                            <ul style="font-size: 0.9rem;">
+                                <li>Beautiful default styles</li>
+                                <li>Statistical plot types</li>
+                                <li>Easy categorical data plotting</li>
+                                <li>Built on top of Matplotlib</li>
+                            </ul>
+                            <div style="background: #f5f5f5; padding: 0.5rem; border-radius: 4px; margin-top: 0.5rem;">
+                                <code>import seaborn as sns</code>
+                            </div>
+                        </div>
+
+                        <div style="border: 1px solid #e0e0e0; padding: 1rem; border-radius: 8px;">
+                            <h4>🤖 Scikit-learn</h4>
+                            <p><strong>Purpose:</strong> Machine learning algorithms and tools</p>
+                            <ul style="font-size: 0.9rem;">
+                                <li>Ready-to-use ML algorithms</li>
+                                <li>Data preprocessing utilities</li>
+                                <li>Model evaluation metrics</li>
+                                <li>Cross-validation tools</li>
+                            </ul>
+                            <div style="background: #f5f5f5; padding: 0.5rem; border-radius: 4px; margin-top: 0.5rem;">
+                                <code>from sklearn import ...</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: #e8f5e8; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                        <h4>💡 Installation Tip:</h4>
+                        <p style="margin: 0;">Install all essential libraries at once:</p>
+                        <code style="background: white; padding: 0.5rem; display: block; margin-top: 0.5rem; border-radius: 4px;">
+                            pip install numpy pandas matplotlib seaborn scikit-learn jupyter
+                        </code>
+                    </div>
+                </div>
+
+                <h2>🛠️ Data Preprocessing: The Foundation of ML Success</h2>
+                <div class="azbn-card">
+                    <h3>Why Data Preprocessing Matters</h3>
+                    <div style="background: #fff8e1; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                        <strong>🎯 Key Principle:</strong> "Garbage in, garbage out" - The quality of your data directly determines the quality of your model!
+                    </div>
+
+                    <h4>📊 Common Data Quality Issues:</h4>
+                    <div class="azbn-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1rem 0;">
+                        <div style="border-left: 4px solid #f44336; padding-left: 1rem;">
+                            <h5>❌ Missing Values</h5>
+                            <ul style="font-size: 0.9rem;">
+                                <li>Incomplete surveys or sensors</li>
+                                <li>Database corruption</li>
+                                <li>Human data entry errors</li>
+                            </ul>
+                        </div>
+                        <div style="border-left: 4px solid #ff9800; padding-left: 1rem;">
+                            <h5>⚠️ Outliers</h5>
+                            <ul style="font-size: 0.9rem;">
+                                <li>Measurement errors</li>
+                                <li>Rare but valid events</li>
+                                <li>Data entry mistakes</li>
+                            </ul>
+                        </div>
+                        <div style="border-left: 4px solid #2196f3; padding-left: 1rem;">
+                            <h5>🔀 Inconsistent Formats</h5>
+                            <ul style="font-size: 0.9rem;">
+                                <li>Different date formats</li>
+                                <li>Various text cases</li>
+                                <li>Multiple units of measurement</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>🔧 Essential Preprocessing Techniques:</h4>
+                    
+                    <div style="margin: 1.5rem 0;">
+                        <h5>1️⃣ Handling Missing Values</h5>
+                        <div style="background: #f8f9fa; padding: 1rem; border-radius: 6px;">
+                            <p><strong>Strategies:</strong></p>
+                            <ul>
+                                <li><strong>Deletion:</strong> Remove rows/columns with missing data (use when <5% missing)</li>
+                                <li><strong>Mean/Median Imputation:</strong> Replace with average values (numerical data)</li>
+                                <li><strong>Mode Imputation:</strong> Replace with most frequent value (categorical data)</li>
+                                <li><strong>Forward/Backward Fill:</strong> Use adjacent values (time series data)</li>
+                                <li><strong>Advanced:</strong> Use ML models to predict missing values</li>
+                            </ul>
+                            <div style="background: #e3f2fd; padding: 0.8rem; border-radius: 4px; margin-top: 0.5rem;">
+                                <strong>💡 Pro Tip:</strong> Always analyze WHY data is missing - it might reveal important patterns!
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin: 1.5rem 0;">
+                        <h5>2️⃣ Feature Scaling and Normalization</h5>
+                        <div style="background: #f8f9fa; padding: 1rem; border-radius: 6px;">
+                            <p><strong>Why Scale?</strong> Many ML algorithms are sensitive to feature magnitude differences.</p>
+                            <ul>
+                                <li><strong>StandardScaler:</strong> Mean=0, Std=1 (most common)</li>
+                                <li><strong>MinMaxScaler:</strong> Scale to [0,1] range</li>
+                                <li><strong>RobustScaler:</strong> Uses median and IQR (handles outliers better)</li>
+                                <li><strong>Normalizer:</strong> Scale individual samples to unit norm</li>
+                            </ul>
+                            <div style="background: #fff3e0; padding: 0.8rem; border-radius: 4px; margin-top: 0.5rem;">
+                                <strong>⚠️ Important:</strong> Always fit scaler on training data only, then transform both train and test sets!
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin: 1.5rem 0;">
+                        <h5>3️⃣ Encoding Categorical Variables</h5>
+                        <div style="background: #f8f9fa; padding: 1rem; border-radius: 6px;">
+                            <p><strong>Challenge:</strong> ML algorithms work with numbers, not text categories.</p>
+                            <ul>
+                                <li><strong>Label Encoding:</strong> Convert categories to integers (0, 1, 2...)</li>
+                                <li><strong>One-Hot Encoding:</strong> Create binary columns for each category</li>
+                                <li><strong>Ordinal Encoding:</strong> Preserve natural order (Small < Medium < Large)</li>
+                                <li><strong>Target Encoding:</strong> Replace with target variable statistics</li>
+                            </ul>
+                            <div style="background: #f3e5f5; padding: 0.8rem; border-radius: 4px; margin-top: 0.5rem;">
+                                <strong>🎯 Rule of Thumb:</strong> Use One-Hot for nominal data, Label/Ordinal for ordinal data with few categories.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>📈 The Machine Learning Workflow</h2>
+                <div class="azbn-card">
+                    <h3>🔄 Complete ML Pipeline</h3>
+                    <p>Every successful ML project follows this systematic approach:</p>
+
+                    <div style="display: flex; flex-direction: column; gap: 1rem; margin: 1.5rem 0;">
+                        <div style="display: flex; align-items: center; padding: 1rem; border-radius: 8px; background: linear-gradient(90deg, #e3f2fd 0%, #bbdefb 100%);">
+                            <div style="background: #2196f3; color: white; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-weight: bold;">1</div>
+                            <div>
+                                <h4 style="margin: 0; color: #1976d2;">Problem Definition</h4>
+                                <p style="margin: 0; font-size: 0.9rem;">Clearly define what you want to predict and why</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; align-items: center; padding: 1rem; border-radius: 8px; background: linear-gradient(90deg, #e8f5e8 0%, #c8e6c9 100%);">
+                            <div style="background: #4caf50; color: white; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-weight: bold;">2</div>
+                            <div>
+                                <h4 style="margin: 0; color: #388e3c;">Data Collection & Exploration</h4>
+                                <p style="margin: 0; font-size: 0.9rem;">Gather data and understand its structure, quality, and patterns</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; align-items: center; padding: 1rem; border-radius: 8px; background: linear-gradient(90deg, #fff8e1 0%, #ffecb3 100%);">
+                            <div style="background: #ff9800; color: white; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-weight: bold;">3</div>
+                            <div>
+                                <h4 style="margin: 0; color: #f57c00;">Data Preprocessing</h4>
+                                <p style="margin: 0; font-size: 0.9rem;">Clean, transform, and prepare data for modeling</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; align-items: center; padding: 1rem; border-radius: 8px; background: linear-gradient(90deg, #f3e5f5 0%, #e1bee7 100%);">
+                            <div style="background: #9c27b0; color: white; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-weight: bold;">4</div>
+                            <div>
+                                <h4 style="margin: 0; color: #7b1fa2;">Model Selection & Training</h4>
+                                <p style="margin: 0; font-size: 0.9rem;">Choose appropriate algorithms and train models</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; align-items: center; padding: 1rem; border-radius: 8px; background: linear-gradient(90deg, #ffebee 0%, #ffcdd2 100%);">
+                            <div style="background: #f44336; color: white; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-weight: bold;">5</div>
+                            <div>
+                                <h4 style="margin: 0; color: #d32f2f;">Model Evaluation</h4>
+                                <p style="margin: 0; font-size: 0.9rem;">Assess performance using appropriate metrics</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; align-items: center; padding: 1rem; border-radius: 8px; background: linear-gradient(90deg, #e0f2f1 0%, #b2dfdb 100%);">
+                            <div style="background: #009688; color: white; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-weight: bold;">6</div>
+                            <div>
+                                <h4 style="margin: 0; color: #00695c;">Deployment & Monitoring</h4>
+                                <p style="margin: 0; font-size: 0.9rem;">Deploy model and monitor its performance over time</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: #e3f2fd; padding: 1rem; border-radius: 8px; margin-top: 1.5rem;">
+                        <h4>🔁 Iterative Process</h4>
+                        <p style="margin: 0;">ML development is iterative! You'll often cycle back to earlier steps as you learn more about your data and problem.</p>
+                    </div>
+                </div>
+
+                <h2>🎯 Key Takeaways</h2>
+                <div class="azbn-deployment-status">
+                    <p><strong>✅ Chapter 1 Mastery:</strong></p>
+                    <p>• Understanding of ML types: Supervised, Unsupervised, Reinforcement</p>
+                    <p>• Essential Python libraries and their purposes</p>
+                    <p>• Data preprocessing importance and techniques</p>
+                    <p>• Complete ML workflow from problem to deployment</p>
+                    <p>• Foundation for advanced ML concepts</p>
+                </div>
+
+                <div style="margin: 2rem 0; text-align: center;">
+                    <a href="./chapter2.html" class="azbn-btn" style="text-decoration: none; margin-right: 1rem;">Next: Chapter 2 - Regression →</a>
+                    <a href="./index.html" class="azbn-btn azbn-secondary" style="text-decoration: none;">← Back to Course Index</a>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
+
+                <h2>💻 Hands-On Python Implementation</h2>
+                <div class="azbn-card">
+                    <h3>Setting Up Your ML Environment</h3>
+                    
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
+                        <h4>🔧 Installation and Setup</h4>
+                        <div style="background: #1e1e1e; color: #f8f8f2; padding: 1rem; border-radius: 6px; margin: 1rem 0; font-family: 'Courier New', monospace;">
+                            <div style="color: #75715e;"># Install essential ML libraries</div>
+                            <div style="color: #a6e22e;">pip install numpy pandas matplotlib seaborn scikit-learn jupyter</div>
+                            <div style="color: #75715e;"># For more advanced work</div>
+                            <div style="color: #a6e22e;">pip install plotly scipy statsmodels</div>
+                        </div>
+                    </div>
+
+                    <h4>📊 Your First ML Project: Iris Classification</h4>
+                    <div style="background: #e8f5e8; padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
+                        <h5>🌟 Complete Example: From Data to Prediction</h5>
+                        
+                        <div style="background: #1e1e1e; color: #f8f8f2; padding: 1rem; border-radius: 6px; margin: 1rem 0; font-family: 'Courier New', monospace; font-size: 0.9rem;">
+<div style="color: #75715e;"># Import essential libraries</div>
+<div><span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">numpy</span> <span style="color: #f92672;">as</span> <span style="color: #f8f8f2;">np</span></div>
+<div><span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">pandas</span> <span style="color: #f92672;">as</span> <span style="color: #f8f8f2;">pd</span></div>
+<div><span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">matplotlib.pyplot</span> <span style="color: #f92672;">as</span> <span style="color: #f8f8f2;">plt</span></div>
+<div><span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">seaborn</span> <span style="color: #f92672;">as</span> <span style="color: #f8f8f2;">sns</span></div>
+<div><span style="color: #f92672;">from</span> <span style="color: #f8f8f2;">sklearn.datasets</span> <span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">load_iris</span></div>
+<div><span style="color: #f92672;">from</span> <span style="color: #f8f8f2;">sklearn.model_selection</span> <span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">train_test_split</span></div>
+<div><span style="color: #f92672;">from</span> <span style="color: #f8f8f2;">sklearn.preprocessing</span> <span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">StandardScaler</span></div>
+<div><span style="color: #f92672;">from</span> <span style="color: #f8f8f2;">sklearn.linear_model</span> <span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">LogisticRegression</span></div>
+<div><span style="color: #f92672;">from</span> <span style="color: #f8f8f2;">sklearn.metrics</span> <span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">accuracy_score, classification_report</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># Step 1: Load and explore the data</div>
+<div><span style="color: #f8f8f2;">iris</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">load_iris()</span></div>
+<div><span style="color: #f8f8f2;">df</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">pd.DataFrame(iris.data, columns=iris.feature_names)</span></div>
+<div><span style="color: #f8f8f2;">df</span><span style="color: #f92672;">[</span><span style="color: #e6db74;">'species'</span><span style="color: #f92672;">]</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">iris.target</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># Explore the data</div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"Dataset shape:"</span><span style="color: #f92672;">,</span> <span style="color: #f8f8f2;">df.shape</span><span style="color: #f92672;">)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"\nFirst 5 rows:"</span><span style="color: #f92672;">)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">df.head()</span><span style="color: #f92672;">)</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># Check for missing values</div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"\nMissing values:"</span><span style="color: #f92672;">)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">df.isnull().sum()</span><span style="color: #f92672;">)</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># Basic statistics</div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"\nBasic statistics:"</span><span style="color: #f92672;">)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">df.describe()</span><span style="color: #f92672;">)</span></div>
+                        </div>
+
+                        <div style="background: #1e1e1e; color: #f8f8f2; padding: 1rem; border-radius: 6px; margin: 1rem 0; font-family: 'Courier New', monospace; font-size: 0.9rem;">
+<div style="color: #75715e;"># Step 2: Data Visualization</div>
+<div><span style="color: #f8f8f2;">plt.figure(figsize=(12, 8))</span></div>
+
+<div style="color: #75715e;"># Pairplot to see relationships</div>
+<div><span style="color: #f8f8f2;">sns.pairplot(df, hue=</span><span style="color: #e6db74;">'species'</span><span style="color: #f8f8f2;">, palette=</span><span style="color: #e6db74;">'viridis'</span><span style="color: #f8f8f2;">)</span></div>
+<div><span style="color: #f8f8f2;">plt.suptitle(</span><span style="color: #e6db74;">'Iris Dataset: Feature Relationships'</span><span style="color: #f8f8f2;">, y=1.02)</span></div>
+<div><span style="color: #f8f8f2;">plt.show()</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># Correlation heatmap</div>
+<div><span style="color: #f8f8f2;">plt.figure(figsize=(10, 8))</span></div>
+<div><span style="color: #f8f8f2;">correlation_matrix</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">df.drop(</span><span style="color: #e6db74;">'species'</span><span style="color: #f8f8f2;">, axis=1).corr()</span></div>
+<div><span style="color: #f8f8f2;">sns.heatmap(correlation_matrix, annot=</span><span style="color: #ae81ff;">True</span><span style="color: #f8f8f2;">, cmap=</span><span style="color: #e6db74;">'coolwarm'</span><span style="color: #f8f8f2;">, center=0)</span></div>
+<div><span style="color: #f8f8f2;">plt.title(</span><span style="color: #e6db74;">'Feature Correlation Matrix'</span><span style="color: #f8f8f2;">)</span></div>
+<div><span style="color: #f8f8f2;">plt.show()</span></div>
+                        </div>
+
+                        <div style="background: #1e1e1e; color: #f8f8f2; padding: 1rem; border-radius: 6px; margin: 1rem 0; font-family: 'Courier New', monospace; font-size: 0.9rem;">
+<div style="color: #75715e;"># Step 3: Data Preprocessing</div>
+<div style="color: #75715e;"># Separate features and target</div>
+<div><span style="color: #f8f8f2;">X</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">iris.data</span></div>
+<div><span style="color: #f8f8f2;">y</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">iris.target</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># Split the data (80% train, 20% test)</div>
+<div><span style="color: #f8f8f2;">X_train, X_test, y_train, y_test</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">train_test_split(</span></div>
+<div><span style="color: #f8f8f2;">    X, y, test_size=0.2, random_state=42, stratify=y</span></div>
+<div><span style="color: #f8f8f2;">)</span></div>
+
+<div style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">f"Training set size: </span><span style="color: #e6db74;">{X_train.shape[0]}</span><span style="color: #e6db74;"> samples"</span><span style="color: #f92672;">)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">f"Test set size: </span><span style="color: #e6db74;">{X_test.shape[0]}</span><span style="color: #e6db74;"> samples"</span><span style="color: #f92672;">)</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># Feature scaling (standardization)</div>
+<div><span style="color: #f8f8f2;">scaler</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">StandardScaler()</span></div>
+<div><span style="color: #f8f8f2;">X_train_scaled</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">scaler.fit_transform(X_train)</span></div>
+<div><span style="color: #f8f8f2;">X_test_scaled</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">scaler.transform(X_test)</span></div>
+
+<div style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"\nFeature scaling completed!"</span><span style="color: #f92672;">)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">f"Original feature means: </span><span style="color: #e6db74;">{X_train.mean(axis=0).round(2)}</span><span style="color: #e6db74;">"</span><span style="color: #f92672;">)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">f"Scaled feature means: </span><span style="color: #e6db74;">{X_train_scaled.mean(axis=0).round(2)}</span><span style="color: #e6db74;">"</span><span style="color: #f92672;">)</span></div>
+                        </div>
+
+                        <div style="background: #1e1e1e; color: #f8f8f2; padding: 1rem; border-radius: 6px; margin: 1rem 0; font-family: 'Courier New', monospace; font-size: 0.9rem;">
+<div style="color: #75715e;"># Step 4: Model Training</div>
+<div><span style="color: #f8f8f2;">model</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">LogisticRegression(random_state=42, max_iter=1000)</span></div>
+
+<div style="color: #75715e;"># Train the model</div>
+<div><span style="color: #f8f8f2;">model.fit(X_train_scaled, y_train)</span></div>
+
+<div style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"Model training completed!"</span><span style="color: #f92672;">)</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># Step 5: Make Predictions</div>
+<div><span style="color: #f8f8f2;">y_pred</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">model.predict(X_test_scaled)</span></div>
+<div><span style="color: #f8f8f2;">y_pred_proba</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">model.predict_proba(X_test_scaled)</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># Step 6: Evaluate the Model</div>
+<div><span style="color: #f8f8f2;">accuracy</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">accuracy_score(y_test, y_pred)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">f"\nModel Accuracy: </span><span style="color: #e6db74;">{accuracy:.3f}</span><span style="color: #e6db74;"> (</span><span style="color: #e6db74;">{accuracy*100:.1f}</span><span style="color: #e6db74;">%)"</span><span style="color: #f92672;">)</span></div>
+
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"\nDetailed Classification Report:"</span><span style="color: #f92672;">)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">classification_report(y_test, y_pred, target_names=iris.target_names)</span><span style="color: #f92672;">)</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># Example prediction with probabilities</div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"\nExample Predictions:"</span><span style="color: #f92672;">)</span></div>
+<div><span style="color: #f92672;">for</span> <span style="color: #f8f8f2;">i</span> <span style="color: #f92672;">in</span> <span style="color: #66d9ef;">range</span><span style="color: #f92672;">(</span><span style="color: #ae81ff;">3</span><span style="color: #f92672;">):</span></div>
+<div><span style="color: #f8f8f2;">    predicted_class</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">iris.target_names[y_pred[i]]</span></div>
+<div><span style="color: #f8f8f2;">    actual_class</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">iris.target_names[y_test[i]]</span></div>
+<div><span style="color: #f8f8f2;">    confidence</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">y_pred_proba[i].max()</span></div>
+<div><span style="color: #f8f8f2;">    </span><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">f"Sample </span><span style="color: #e6db74;">{i+1}</span><span style="color: #e6db74;">: Predicted={predicted_class}, Actual={actual_class}, Confidence={confidence:.3f}"</span><span style="color: #f92672;">)</span></div>
+                        </div>
+
+                        <div style="background: #fff3e0; padding: 1rem; border-radius: 6px; margin-top: 1rem;">
+                            <strong>🎯 Expected Output:</strong>
+                            <ul style="font-size: 0.9rem; margin: 0.5rem 0;">
+                                <li>Model Accuracy: ~97-100% (Iris is an easy dataset!)</li>
+                                <li>Classification report showing precision, recall, F1-score for each species</li>
+                                <li>Example predictions with confidence scores</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>🔍 Data Preprocessing Examples</h4>
+                    <div style="background: #e3f2fd; padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
+                        <h5>🧹 Handling Missing Values</h5>
+                        
+                        <div style="background: #1e1e1e; color: #f8f8f2; padding: 1rem; border-radius: 6px; margin: 1rem 0; font-family: 'Courier New', monospace; font-size: 0.9rem;">
+<div style="color: #75715e;"># Example with missing data</div>
+<div><span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">numpy</span> <span style="color: #f92672;">as</span> <span style="color: #f8f8f2;">np</span></div>
+<div><span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">pandas</span> <span style="color: #f92672;">as</span> <span style="color: #f8f8f2;">pd</span></div>
+<div><span style="color: #f92672;">from</span> <span style="color: #f8f8f2;">sklearn.impute</span> <span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">SimpleImputer</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># Create sample data with missing values</div>
+<div><span style="color: #f8f8f2;">data</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">{</span></div>
+<div><span style="color: #f8f8f2;">    </span><span style="color: #e6db74;">'age'</span><span style="color: #f8f8f2;">: [25, 30, np.nan, 35, 40, np.nan, 45],</span></div>
+<div><span style="color: #f8f8f2;">    </span><span style="color: #e6db74;">'salary'</span><span style="color: #f8f8f2;">: [50000, 60000, 70000, np.nan, 80000, 75000, np.nan],</span></div>
+<div><span style="color: #f8f8f2;">    </span><span style="color: #e6db74;">'department'</span><span style="color: #f8f8f2;">: [</span><span style="color: #e6db74;">'IT'</span><span style="color: #f8f8f2;">, </span><span style="color: #e6db74;">'HR'</span><span style="color: #f8f8f2;">, </span><span style="color: #e6db74;">'IT'</span><span style="color: #f8f8f2;">, </span><span style="color: #e6db74;">'Finance'</span><span style="color: #f8f8f2;">, np.nan, </span><span style="color: #e6db74;">'IT'</span><span style="color: #f8f8f2;">, </span><span style="color: #e6db74;">'HR'</span><span style="color: #f8f8f2;">]</span></div>
+<div><span style="color: #f8f8f2;">}</span></div>
+<div><span style="color: #f8f8f2;">df</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">pd.DataFrame(data)</span></div>
+
+<div style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"Original data with missing values:"</span><span style="color: #f92672;">)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">df</span><span style="color: #f92672;">)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">f"\nMissing values per column:\n</span><span style="color: #e6db74;">{df.isnull().sum()}</span><span style="color: #e6db74;">"</span><span style="color: #f92672;">)</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># Method 1: Mean imputation for numerical columns</div>
+<div><span style="color: #f8f8f2;">numerical_imputer</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">SimpleImputer(strategy=</span><span style="color: #e6db74;">'mean'</span><span style="color: #f8f8f2;">)</span></div>
+<div><span style="color: #f8f8f2;">df_numeric_imputed</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">df.copy()</span></div>
+<div><span style="color: #f8f8f2;">df_numeric_imputed[[</span><span style="color: #e6db74;">'age'</span><span style="color: #f8f8f2;">, </span><span style="color: #e6db74;">'salary'</span><span style="color: #f8f8f2;">]]</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">numerical_imputer.fit_transform(df[[</span><span style="color: #e6db74;">'age'</span><span style="color: #f8f8f2;">, </span><span style="color: #e6db74;">'salary'</span><span style="color: #f8f8f2;">]])</span></div>
+
+<div style="color: #75715e;"># Method 2: Mode imputation for categorical columns</div>
+<div><span style="color: #f8f8f2;">categorical_imputer</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">SimpleImputer(strategy=</span><span style="color: #e6db74;">'most_frequent'</span><span style="color: #f8f8f2;">)</span></div>
+<div><span style="color: #f8f8f2;">df_numeric_imputed[</span><span style="color: #e6db74;">'department'</span><span style="color: #f8f8f2;">]</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">categorical_imputer.fit_transform(df[[</span><span style="color: #e6db74;">'department'</span><span style="color: #f8f8f2;">]]).ravel()</span></div>
+
+<div style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"\nData after imputation:"</span><span style="color: #f92672;">)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">df_numeric_imputed</span><span style="color: #f92672;">)</span></div>
+                        </div>
+
+                        <h5>🔄 Feature Scaling Comparison</h5>
+                        
+                        <div style="background: #1e1e1e; color: #f8f8f2; padding: 1rem; border-radius: 6px; margin: 1rem 0; font-family: 'Courier New', monospace; font-size: 0.9rem;">
+<div style="color: #f92672;">from</span> <span style="color: #f8f8f2;">sklearn.preprocessing</span> <span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">StandardScaler, MinMaxScaler, RobustScaler</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># Sample data with different scales</div>
+<div><span style="color: #f8f8f2;">data</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">np.array([[1, 1000], [2, 2000], [3, 3000], [100, 1500]])</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"Original data:"</span><span style="color: #f92672;">)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">data</span><span style="color: #f92672;">)</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># StandardScaler (mean=0, std=1)</div>
+<div><span style="color: #f8f8f2;">standard_scaler</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">StandardScaler()</span></div>
+<div><span style="color: #f8f8f2;">data_standard</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">standard_scaler.fit_transform(data)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">f"\nStandardScaler result:\n</span><span style="color: #e6db74;">{data_standard.round(3)}</span><span style="color: #e6db74;">"</span><span style="color: #f92672;">)</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># MinMaxScaler (range 0-1)</div>
+<div><span style="color: #f8f8f2;">minmax_scaler</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">MinMaxScaler()</span></div>
+<div><span style="color: #f8f8f2;">data_minmax</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">minmax_scaler.fit_transform(data)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">f"\nMinMaxScaler result:\n</span><span style="color: #e6db74;">{data_minmax.round(3)}</span><span style="color: #e6db74;">"</span><span style="color: #f92672;">)</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># RobustScaler (uses median and IQR)</div>
+<div><span style="color: #f8f8f2;">robust_scaler</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">RobustScaler()</span></div>
+<div><span style="color: #f8f8f2;">data_robust</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">robust_scaler.fit_transform(data)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">f"\nRobustScaler result:\n</span><span style="color: #e6db74;">{data_robust.round(3)}</span><span style="color: #e6db74;">"</span><span style="color: #f92672;">)</span></div>
+                        </div>
+                    </div>
+                </div>
+
