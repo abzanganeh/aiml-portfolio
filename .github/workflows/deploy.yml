@@ -13,17 +13,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
       
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        
-    - name: Create deployment package
-      run: |
-        echo "📦 Preparing files for deployment..."
-        echo "Files to deploy:"
-        find . -name "*.html" -o -name "*.css" -o -name "*.js" | head -10
-        
     - name: Deploy via FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
@@ -34,35 +23,11 @@ jobs:
         server-dir: /domains/zanganehai.com/public_html/
         exclude: |
           **/.git*
-          **/.git*/**
-          **/node_modules/**
           **/.DS_Store
           .gitignore
           README.md
           .github/**
           *.md
-          Jenkinsfile
           
-    - name: Deploy via SFTP (Fallback)
-      if: failure()
-      uses: burnett01/rsync-deployments@6.0.0
-      with:
-        switches: -avzr --delete
-        path: ./
-        remote_path: /domains/zanganehai.com/public_html/
-        remote_host: ${{ secrets.SFTP_HOST }}
-        remote_user: ${{ secrets.SFTP_USERNAME }}
-        remote_key: ${{ secrets.SFTP_PRIVATE_KEY }}
-        
-    - name: Deployment Success Notification
-      if: success()
-      run: |
-        echo "🎉 SUCCESS: Portfolio deployed to zanganehai.com"
-        echo "✅ Files uploaded via GitHub Actions FTP Deploy"
-        echo "🌐 Website available at: https://zanganehai.com"
-        
-    - name: Deployment Failure Notification
-      if: failure()
-      run: |
-        echo "❌ FAILED: Deployment unsuccessful"
-        echo "🔍 Check secrets configuration and server connectivity"
+    - name: Notify Success
+      run: echo "✅ Deployed to zanganehai.com"
