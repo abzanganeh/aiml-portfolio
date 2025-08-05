@@ -3,7 +3,7 @@ name: Deploy Portfolio to Web Server
 on:
   push:
     branches: [ main ]
-  workflow_dispatch: # Allow manual triggers
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -20,8 +20,9 @@ jobs:
         
     - name: Create deployment package
       run: |
-        echo "Preparing files for deployment..."
-        ls -la
+        echo "📦 Preparing files for deployment..."
+        echo "Files to deploy:"
+        find . -name "*.html" -o -name "*.css" -o -name "*.js" | head -10
         
     - name: Deploy via FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
@@ -40,9 +41,10 @@ jobs:
           README.md
           .github/**
           *.md
+          Jenkinsfile
           
-    - name: Deploy via SFTP (Alternative)
-      if: failure() # Try SFTP if FTP fails
+    - name: Deploy via SFTP (Fallback)
+      if: failure()
       uses: burnett01/rsync-deployments@6.0.0
       with:
         switches: -avzr --delete
@@ -52,11 +54,15 @@ jobs:
         remote_user: ${{ secrets.SFTP_USERNAME }}
         remote_key: ${{ secrets.SFTP_PRIVATE_KEY }}
         
-    - name: Notify deployment status
-      if: always()
+    - name: Deployment Success Notification
+      if: success()
       run: |
-        if [ ${{ job.status }} == 'success' ]; then
-          echo "✅ Deployment successful! Portfolio updated at zanganehai.com"
-        else
-          echo "❌ Deployment failed. Check the logs above."
-        fi
+        echo "🎉 SUCCESS: Portfolio deployed to zanganehai.com"
+        echo "✅ Files uploaded via GitHub Actions FTP Deploy"
+        echo "🌐 Website available at: https://zanganehai.com"
+        
+    - name: Deployment Failure Notification
+      if: failure()
+      run: |
+        echo "❌ FAILED: Deployment unsuccessful"
+        echo "🔍 Check secrets configuration and server connectivity"
