@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 3: Classification - Ali Zanganeh</title>
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+    <header class="azbn-header">
+        <div class="azbn-container">
+            <h1><a href="../../" style="text-decoration: none; color: #4f46e5;">Ali Zanganeh</a></h1>
+            <nav>
+                <a href="../../#home">Home</a>
+                <a href="../">Tutorials</a>
+                <a href="chapter2.html">← Chapter 2</a>
+            </nav>
+        </div>
+    </header>
+
+    <main style="padding-top: 100px;">
+        <section class="azbn-section">
+            <div class="azbn-container">
+                <h1>Chapter 3: Classification Algorithms</h1>
+                
+                <h2>🎯 Learning Objectives</h2>
+                <ul class="azbn-skills">
+                    <li>Master Logistic Regression for classification</li>
+                    <li>Understand Support Vector Machines and kernels</li>
+                    <li>Learn proper model evaluation techniques</li>
+                    <li>Apply hyperparameter tuning with GridSearchCV</li>
+                </ul>
+
+                <h2>📚 Classification Fundamentals</h2>
+                <div class="azbn-grid">
+                    <div class="azbn-card">
+                        <h3>🎓 Logistic Regression</h3>
+                        <p><strong>Purpose:</strong> Binary and multi-class classification</p>
+                        <p><strong>Key Formula:</strong> p = 1 / (1 + e^(-z))</p>
+                        <p><strong>Advantages:</strong> Interpretable, fast, probabilistic output</p>
+                        <p><strong>Best for:</strong> Linear decision boundaries</p>
+                    </div>
+                    <div class="azbn-card">
+                        <h3>⚡ Support Vector Machine</h3>
+                        <p><strong>Purpose:</strong> Find optimal separating hyperplane</p>
+                        <p><strong>Key Concept:</strong> Maximize margin between classes</p>
+                        <p><strong>Kernels:</strong> Linear, Polynomial, RBF, Sigmoid</p>
+                        <p><strong>Best for:</strong> High-dimensional data, non-linear patterns</p>
+                    </div>
+                </div>
+
+                <h2>💻 Python Implementation Guide</h2>
+                <div class="azbn-card">
+                    <h3>🚀 Complete Classification Pipeline</h3>
+                    <p>Essential steps for any classification project:</p>
+                    <ol>
+                        <li><strong>Data Loading:</strong> Import dataset and explore structure</li>
+                        <li><strong>Preprocessing:</strong> Handle missing values, encode categories</li>
+                        <li><strong>Feature Scaling:</strong> StandardScaler for SVM, optional for Logistic</li>
+                        <li><strong>Train-Test Split:</strong> 80/20 or 70/30 with stratification</li>
+                        <li><strong>Model Training:</strong> Fit multiple algorithms</li>
+                        <li><strong>Evaluation:</strong> Use multiple metrics (accuracy, precision, recall, F1)</li>
+                        <li><strong>Hyperparameter Tuning:</strong> GridSearchCV or RandomSearchCV</li>
+                        <li><strong>Final Selection:</strong> Choose best model based on validation</li>
+                    </ol>
+                </div>
+
+                <h2>📊 Evaluation Metrics</h2>
+                <div class="azbn-skills">
+                    <span class="azbn-tag">Accuracy</span>
+                    <span class="azbn-tag">Precision</span>
+                    <span class="azbn-tag">Recall</span>
+                    <span class="azbn-tag">F1-Score</span>
+                    <span class="azbn-tag">ROC-AUC</span>
+                    <span class="azbn-tag">Confusion Matrix</span>
+                </div>
+
+                <h2>🎯 Practical Example: Iris Classification</h2>
+                <div class="azbn-card">
+                    <h3>📈 Real-World Application</h3>
+                    <p><strong>Dataset:</strong> Iris flowers (150 samples, 4 features, 3 classes)</p>
+                    <p><strong>Goal:</strong> Classify flower species based on measurements</p>
+                    <p><strong>Algorithms:</strong> Compare Logistic Regression, SVM, Random Forest</p>
+                    <p><strong>Expected Results:</strong> >95% accuracy with proper preprocessing</p>
+                </div>
+
+                <div class="azbn-deployment-status">
+                    <p><strong>✅ Classification Mastery:</strong></p>
+                    <p>• Logistic Regression for interpretable linear classification</p>
+                    <p>• SVM with kernels for complex non-linear patterns</p>
+                    <p>• Proper evaluation prevents overfitting</p>
+                    <p>• Hyperparameter tuning improves performance</p>
+                </div>
+
+                <div style="margin: 2rem 0; text-align: center;">
+                    <a href="chapter2.html" class="azbn-btn azbn-secondary" style="text-decoration: none; margin-right: 1rem;">← Chapter 2</a>
+                    <a href="../../tutorials/neural-networks/" class="azbn-btn" style="text-decoration: none;">Next: Neural Networks →</a>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
