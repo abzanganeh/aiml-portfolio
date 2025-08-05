@@ -333,21 +333,37 @@
         </div>
 
         <div class="course-nav">
-            <button class="nav-btn active" onclick="showSection('intro')">Introduction</button>
-            <button class="nav-btn" onclick="showSection('text-repr')">Text Representation</button>
-            <button class="nav-btn" onclick="showSection('embeddings')">Word Embeddings</button>
-            <button class="nav-btn" onclick="showSection('sentiment')">Sentiment Analysis</button>
-            <button class="nav-btn" onclick="showSection('seq2seq')">Seq2Seq Models</button>
-            <button class="nav-btn" onclick="showSection('transformers')">Transformers</button>
-            <button class="nav-btn" onclick="showSection('attention')">Self-Attention</button>
-            <button class="nav-btn" onclick="showSection('applications')">Applications</button>
+            <button class="nav-btn active" onclick="showSection('intro', event)">Introduction</button>
+            <button class="nav-btn" onclick="showSection('text-repr', event)">Text Representation</button>
+            <button class="nav-btn" onclick="showSection('embeddings', event)">Word Embeddings</button>
+            <button class="nav-btn" onclick="showSection('sentiment', event)">Sentiment Analysis</button>
+            <button class="nav-btn" onclick="showSection('seq2seq', event)">Seq2Seq Models</button>
+            <button class="nav-btn" onclick="showSection('transformers', event)">Transformers</button>
+            <button class="nav-btn" onclick="showSection('attention', event)">Self-Attention</button>
+            <button class="nav-btn" onclick="showSection('applications', event)">Applications</button>
         </div>
 
         <!-- Introduction Section -->
         <div id="intro" class="section active">
+            <h2>👋 Welcome to the NLP Course!</h2>
             <h2>🚀 Introduction to Natural Language Processing</h2>
             
             <p>Natural Language Processing (NLP) is a machine learning technology that gives computers the ability to interpret, manipulate, and comprehend human language. It involves reading, deciphering, understanding, and making sense of human languages.</p>
+
+            <p>In this course, you will learn the fundamentals of NLP, from basic text representation techniques to advanced transformer models like BERT and GPT. Each section includes interactive demos, quizzes, and practical applications.</p>
+
+            <h3>🌟 Key Topics Covered</h3>
+            <ul>
+                <li>Text Representation Techniques</li>
+                <li>Word Embeddings</li>
+                <li>Sentiment Analysis</li>
+                <li>Seq2Seq Models</li>
+                <li>Transformers and Self-Attention</li>
+                <li>Applications in Real-World Scenarios</li>
+            </ul>
+
+            <h3>👨‍🏫 Who This Course is For</h3>
+            <p>This course is designed for anyone interested in learning about NLP, from beginners to advanced practitioners. No prior experience with machine learning is required, but familiarity with Python is recommended.</p>
 
             <div class="interactive-demo">
                 <h3>🎯 Try NLP in Action!</h3>
@@ -896,7 +912,7 @@ Where:
         let currentSection = 'intro';
         const sections = ['intro', 'text-repr', 'embeddings', 'sentiment', 'seq2seq', 'transformers', 'attention', 'applications'];
         
-        function showSection(sectionId) {
+        function showSection(sectionId, evt) {
             // Hide all sections
             document.querySelectorAll('.section').forEach(section => {
                 section.classList.remove('active');
@@ -909,7 +925,9 @@ Where:
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            event.target.classList.add('active');
+            if (evt && evt.target) {
+                evt.target.classList.add('active');
+            }
             
             // Update progress
             const progress = (sections.indexOf(sectionId) + 1) / sections.length * 100;
@@ -1481,35 +1499,183 @@ Where:
             });
         });
 
-        // Add some easter egg interactions
-        let clickCount = 0;
-        document.querySelector('.header h1').addEventListener('click', function() {
-            clickCount++;
-            if (clickCount === 5) {
-                this.innerHTML = '🤖 You found the easter egg! Welcome to Advanced NLP! 🎉';
-                setTimeout(() => {
-                    this.innerHTML = '🤖 Complete Interactive NLP Course';
-                    clickCount = 0;
-                }, 3000);
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add some easter egg interactions
+            let clickCount = 0;
+            const headerH1 = document.querySelector('.header h1');
+            if (headerH1) {
+                headerH1.addEventListener('click', function() {
+                    clickCount++;
+                    if (clickCount === 5) {
+                        this.innerHTML = '🤖 You found the easter egg! Welcome to Advanced NLP! 🎉';
+                        setTimeout(() => {
+                            this.innerHTML = '🤖 Complete Interactive NLP Course';
+                            clickCount = 0;
+                        }, 3000);
+                    }
+                });
             }
-        });
 
-        // Add keyboard navigation
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowRight') {
-                const currentIndex = sections.indexOf(currentSection);
-                if (currentIndex < sections.length - 1) {
-                    const nextSection = sections[currentIndex + 1];
-                    showSection(nextSection);
-                    document.querySelector(`[onclick="showSection('${nextSection}')"]`).classList.add('active');
+            // Add keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowRight') {
+                    const currentIndex = sections.indexOf(currentSection);
+                    if (currentIndex < sections.length - 1) {
+                        const nextSection = sections[currentIndex + 1];
+                        showSection(nextSection);
+                        document.querySelector(`[onclick="showSection('${nextSection}')"]`).classList.add('active');
+                    }
+                } else if (e.key === 'ArrowLeft') {
+                    const currentIndex = sections.indexOf(currentSection);
+                    if (currentIndex > 0) {
+                        const prevSection = sections[currentIndex - 1];
+                        showSection(prevSection);
+                        document.querySelector(`[onclick="showSection('${prevSection}')"]`).classList.add('active');
+                    }
                 }
-            } else if (e.key === 'ArrowLeft') {
-                const currentIndex = sections.indexOf(currentSection);
-                if (currentIndex > 0) {
-                    const prevSection = sections[currentIndex - 1];
-                    showSection(prevSection);
-                    document.querySelector(`[onclick="showSection('${prevSection}')"]`).classList.add('active');
+            });
+
+            // Add tooltips for technical terms
+            const technicalTerms = {
+                'transformer': 'A neural network architecture that relies entirely on attention mechanisms',
+                'attention': 'A mechanism that allows the model to focus on relevant parts of the input',
+                'embedding': 'Dense vector representations of words that capture semantic meaning',
+                'encoder': 'The part of the model that processes and understands the input',
+                'decoder': 'The part of the model that generates the output sequence'
+            };
+
+            Object.keys(technicalTerms).forEach(term => {
+                const regex = new RegExp(`\\b${term}\\b`, 'gi');
+                document.querySelectorAll('.section p, .section li').forEach(element => {
+                    element.innerHTML = element.innerHTML.replace(regex, 
+                        `<span class="tooltip" title="${technicalTerms[term]}">${term}</span>`
+                    );
+                });
+            });
+
+            // Add CSS for tooltips
+            const tooltipStyle = document.createElement('style');
+            tooltipStyle.textContent = `
+                .tooltip {
+                    position: relative;
+                    border-bottom: 1px dotted #667eea;
+                    cursor: help;
                 }
+                
+                .tooltip:hover::after {
+                    content: attr(title);
+                    position: absolute;
+                    bottom: 100%;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: #333;
+                    color: white;
+                    padding: 5px 10px;
+                    border-radius: 4px;
+                    font-size: 12px;
+                    white-space: nowrap;
+                    z-index: 1000;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+                }
+                
+                .tooltip:hover::before {
+                    content: '';
+                    position: absolute;
+                    bottom: 94%;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    border: 5px solid transparent;
+                    border-top-color: #333;
+                    z-index: 1000;
+                }
+            `;
+            document.head.appendChild(tooltipStyle);
+
+            // Performance optimization: Lazy load heavy content
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const section = entry.target;
+                        if (!section.dataset.loaded) {
+                            // Load heavy content here if needed
+                            section.dataset.loaded = 'true';
+                        }
+                    }
+                });
+            });
+
+            document.querySelectorAll('.section').forEach(section => {
+                observer.observe(section);
+            });
+
+            // Add completion tracking
+            const completedSections = new Set();
+
+            function markSectionComplete(sectionId) {
+                completedSections.add(sectionId);
+                const button = document.querySelector(`[onclick="showSection('${sectionId}')"]`);
+                if (button && !button.querySelector('.checkmark')) {
+                    button.innerHTML += ' ✅';
+                    button.querySelector('.checkmark')?.classList.add('checkmark');
+                }
+                
+                // Update overall progress
+                const overallProgress = (completedSections.size / sections.length) * 100;
+                document.getElementById('progressFill').style.width = overallProgress + '%';
+                
+                // Congratulations message when all sections completed
+                if (completedSections.size === sections.length) {
+                    setTimeout(() => {
+                        alert('🎉 Congratulations! You have completed the entire NLP course! 🎊');
+                    }, 500);
+                }
+            }
+
+            // Auto-mark sections as complete when user spends time on them
+            let sectionStartTime = Date.now();
+            let timeThreshold = 30000; // 30 seconds
+
+            function trackSectionTime() {
+                const timeSpent = Date.now() - sectionStartTime;
+                if (timeSpent > timeThreshold) {
+                    markSectionComplete(currentSection);
+                }
+            }
+
+            // Track time spent on each section
+            setInterval(trackSectionTime, 5000);
+
+            // Reset timer when section changes
+            const originalShowSection = showSection;
+            showSection = function(sectionId) {
+                sectionStartTime = Date.now();
+                originalShowSection(sectionId);
+            };
+
+            // Add final interactive summary
+            function generateCourseSummary() {
+                return `
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                        <h3>🎓 Course Summary</h3>
+                        <p>You've learned about:</p>
+                        <ul>
+                            <li>📝 Text representation techniques (BoW, TF-IDF)</li>
+                            <li>🧠 Word embeddings (Word2Vec, GloVe, FastText)</li>
+                            <li>😊 Sentiment analysis applications and challenges</li>
+                            <li>🔄 Sequence-to-sequence model architectures</li>
+                            <li>🤖 Transformer models and their innovations</li>
+                            <li>🎯 Self-attention mechanisms and multi-head attention</li>
+                            <li>🚀 Modern NLP applications and future directions</li>
+                        </ul>
+                        <p><strong>Next Steps:</strong> Practice with real datasets, explore frameworks like Hugging Face Transformers, and stay updated with the latest research!</p>
+                    </div>
+                `;
+            }
+
+            // Add the summary to the applications section
+            const applicationsSection = document.getElementById('applications');
+            if (applicationsSection) {
+                applicationsSection.innerHTML += generateCourseSummary();
             }
         });
 
@@ -1537,150 +1703,6 @@ Where:
             
             return attentionDiv;
         }
-
-        // Add tooltips for technical terms
-        const technicalTerms = {
-            'transformer': 'A neural network architecture that relies entirely on attention mechanisms',
-            'attention': 'A mechanism that allows the model to focus on relevant parts of the input',
-            'embedding': 'Dense vector representations of words that capture semantic meaning',
-            'encoder': 'The part of the model that processes and understands the input',
-            'decoder': 'The part of the model that generates the output sequence'
-        };
-
-        // Initialize tooltips
-        Object.keys(technicalTerms).forEach(term => {
-            const regex = new RegExp(`\\b${term}\\b`, 'gi');
-            document.querySelectorAll('.section p, .section li').forEach(element => {
-                element.innerHTML = element.innerHTML.replace(regex, 
-                    `<span class="tooltip" title="${technicalTerms[term]}">${term}</span>`
-                );
-            });
-        });
-
-        // Add CSS for tooltips
-        const tooltipStyle = document.createElement('style');
-        tooltipStyle.textContent = `
-            .tooltip {
-                position: relative;
-                border-bottom: 1px dotted #667eea;
-                cursor: help;
-            }
-            
-            .tooltip:hover::after {
-                content: attr(title);
-                position: absolute;
-                bottom: 100%;
-                left: 50%;
-                transform: translateX(-50%);
-                background: #333;
-                color: white;
-                padding: 5px 10px;
-                border-radius: 4px;
-                font-size: 12px;
-                white-space: nowrap;
-                z-index: 1000;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-            }
-            
-            .tooltip:hover::before {
-                content: '';
-                position: absolute;
-                bottom: 94%;
-                left: 50%;
-                transform: translateX(-50%);
-                border: 5px solid transparent;
-                border-top-color: #333;
-                z-index: 1000;
-            }
-        `;
-        document.head.appendChild(tooltipStyle);
-
-        // Performance optimization: Lazy load heavy content
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const section = entry.target;
-                    if (!section.dataset.loaded) {
-                        // Load heavy content here if needed
-                        section.dataset.loaded = 'true';
-                    }
-                }
-            });
-        });
-
-        document.querySelectorAll('.section').forEach(section => {
-            observer.observe(section);
-        });
-
-        // Add completion tracking
-        const completedSections = new Set();
-
-        function markSectionComplete(sectionId) {
-            completedSections.add(sectionId);
-            const button = document.querySelector(`[onclick="showSection('${sectionId}')"]`);
-            if (button && !button.querySelector('.checkmark')) {
-                button.innerHTML += ' ✅';
-                button.querySelector('.checkmark')?.classList.add('checkmark');
-            }
-            
-            // Update overall progress
-            const overallProgress = (completedSections.size / sections.length) * 100;
-            document.getElementById('progressFill').style.width = overallProgress + '%';
-            
-            // Congratulations message when all sections completed
-            if (completedSections.size === sections.length) {
-                setTimeout(() => {
-                    alert('🎉 Congratulations! You have completed the entire NLP course! 🎊');
-                }, 500);
-            }
-        }
-
-        // Auto-mark sections as complete when user spends time on them
-        let sectionStartTime = Date.now();
-        let timeThreshold = 30000; // 30 seconds
-
-        function trackSectionTime() {
-            const timeSpent = Date.now() - sectionStartTime;
-            if (timeSpent > timeThreshold) {
-                markSectionComplete(currentSection);
-            }
-        }
-
-        // Track time spent on each section
-        setInterval(trackSectionTime, 5000);
-
-        // Reset timer when section changes
-        const originalShowSection = showSection;
-        showSection = function(sectionId) {
-            sectionStartTime = Date.now();
-            originalShowSection(sectionId);
-        };
-
-        // Add final interactive summary
-        function generateCourseSummary() {
-            return `
-                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 10px; margin: 20px 0;">
-                    <h3>🎓 Course Summary</h3>
-                    <p>You've learned about:</p>
-                    <ul>
-                        <li>📝 Text representation techniques (BoW, TF-IDF)</li>
-                        <li>🧠 Word embeddings (Word2Vec, GloVe, FastText)</li>
-                        <li>😊 Sentiment analysis applications and challenges</li>
-                        <li>🔄 Sequence-to-sequence model architectures</li>
-                        <li>🤖 Transformer models and their innovations</li>
-                        <li>🎯 Self-attention mechanisms and multi-head attention</li>
-                        <li>🚀 Modern NLP applications and future directions</li>
-                    </ul>
-                    <p><strong>Next Steps:</strong> Practice with real datasets, explore frameworks like Hugging Face Transformers, and stay updated with the latest research!</p>
-                </div>
-            `;
-        }
-
-        // Add the summary to the applications section
-        document.addEventListener('DOMContentLoaded', function() {
-            const applicationsSection = document.getElementById('applications');
-            applicationsSection.innerHTML += generateCourseSummary();
-        });
     </script>
 </body>
 </html>
