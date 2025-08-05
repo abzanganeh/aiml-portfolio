@@ -408,3 +408,196 @@
     </main>
 </body>
 </html>
+
+                <h2>💻 Hands-On Python Implementation</h2>
+                <div class="azbn-card">
+                    <h3>Setting Up Your ML Environment</h3>
+                    
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
+                        <h4>🔧 Installation and Setup</h4>
+                        <div style="background: #1e1e1e; color: #f8f8f2; padding: 1rem; border-radius: 6px; margin: 1rem 0; font-family: 'Courier New', monospace;">
+                            <div style="color: #75715e;"># Install essential ML libraries</div>
+                            <div style="color: #a6e22e;">pip install numpy pandas matplotlib seaborn scikit-learn jupyter</div>
+                            <div style="color: #75715e;"># For more advanced work</div>
+                            <div style="color: #a6e22e;">pip install plotly scipy statsmodels</div>
+                        </div>
+                    </div>
+
+                    <h4>📊 Your First ML Project: Iris Classification</h4>
+                    <div style="background: #e8f5e8; padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
+                        <h5>🌟 Complete Example: From Data to Prediction</h5>
+                        
+                        <div style="background: #1e1e1e; color: #f8f8f2; padding: 1rem; border-radius: 6px; margin: 1rem 0; font-family: 'Courier New', monospace; font-size: 0.9rem;">
+<div style="color: #75715e;"># Import essential libraries</div>
+<div><span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">numpy</span> <span style="color: #f92672;">as</span> <span style="color: #f8f8f2;">np</span></div>
+<div><span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">pandas</span> <span style="color: #f92672;">as</span> <span style="color: #f8f8f2;">pd</span></div>
+<div><span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">matplotlib.pyplot</span> <span style="color: #f92672;">as</span> <span style="color: #f8f8f2;">plt</span></div>
+<div><span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">seaborn</span> <span style="color: #f92672;">as</span> <span style="color: #f8f8f2;">sns</span></div>
+<div><span style="color: #f92672;">from</span> <span style="color: #f8f8f2;">sklearn.datasets</span> <span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">load_iris</span></div>
+<div><span style="color: #f92672;">from</span> <span style="color: #f8f8f2;">sklearn.model_selection</span> <span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">train_test_split</span></div>
+<div><span style="color: #f92672;">from</span> <span style="color: #f8f8f2;">sklearn.preprocessing</span> <span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">StandardScaler</span></div>
+<div><span style="color: #f92672;">from</span> <span style="color: #f8f8f2;">sklearn.linear_model</span> <span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">LogisticRegression</span></div>
+<div><span style="color: #f92672;">from</span> <span style="color: #f8f8f2;">sklearn.metrics</span> <span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">accuracy_score, classification_report</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># Step 1: Load and explore the data</div>
+<div><span style="color: #f8f8f2;">iris</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">load_iris()</span></div>
+<div><span style="color: #f8f8f2;">df</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">pd.DataFrame(iris.data, columns=iris.feature_names)</span></div>
+<div><span style="color: #f8f8f2;">df</span><span style="color: #f92672;">[</span><span style="color: #e6db74;">'species'</span><span style="color: #f92672;">]</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">iris.target</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># Explore the data</div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"Dataset shape:"</span><span style="color: #f92672;">,</span> <span style="color: #f8f8f2;">df.shape</span><span style="color: #f92672;">)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"\nFirst 5 rows:"</span><span style="color: #f92672;">)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">df.head()</span><span style="color: #f92672;">)</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># Check for missing values</div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"\nMissing values:"</span><span style="color: #f92672;">)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">df.isnull().sum()</span><span style="color: #f92672;">)</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># Basic statistics</div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"\nBasic statistics:"</span><span style="color: #f92672;">)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">df.describe()</span><span style="color: #f92672;">)</span></div>
+                        </div>
+
+                        <div style="background: #1e1e1e; color: #f8f8f2; padding: 1rem; border-radius: 6px; margin: 1rem 0; font-family: 'Courier New', monospace; font-size: 0.9rem;">
+<div style="color: #75715e;"># Step 2: Data Visualization</div>
+<div><span style="color: #f8f8f2;">plt.figure(figsize=(12, 8))</span></div>
+
+<div style="color: #75715e;"># Pairplot to see relationships</div>
+<div><span style="color: #f8f8f2;">sns.pairplot(df, hue=</span><span style="color: #e6db74;">'species'</span><span style="color: #f8f8f2;">, palette=</span><span style="color: #e6db74;">'viridis'</span><span style="color: #f8f8f2;">)</span></div>
+<div><span style="color: #f8f8f2;">plt.suptitle(</span><span style="color: #e6db74;">'Iris Dataset: Feature Relationships'</span><span style="color: #f8f8f2;">, y=1.02)</span></div>
+<div><span style="color: #f8f8f2;">plt.show()</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># Correlation heatmap</div>
+<div><span style="color: #f8f8f2;">plt.figure(figsize=(10, 8))</span></div>
+<div><span style="color: #f8f8f2;">correlation_matrix</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">df.drop(</span><span style="color: #e6db74;">'species'</span><span style="color: #f8f8f2;">, axis=1).corr()</span></div>
+<div><span style="color: #f8f8f2;">sns.heatmap(correlation_matrix, annot=</span><span style="color: #ae81ff;">True</span><span style="color: #f8f8f2;">, cmap=</span><span style="color: #e6db74;">'coolwarm'</span><span style="color: #f8f8f2;">, center=0)</span></div>
+<div><span style="color: #f8f8f2;">plt.title(</span><span style="color: #e6db74;">'Feature Correlation Matrix'</span><span style="color: #f8f8f2;">)</span></div>
+<div><span style="color: #f8f8f2;">plt.show()</span></div>
+                        </div>
+
+                        <div style="background: #1e1e1e; color: #f8f8f2; padding: 1rem; border-radius: 6px; margin: 1rem 0; font-family: 'Courier New', monospace; font-size: 0.9rem;">
+<div style="color: #75715e;"># Step 3: Data Preprocessing</div>
+<div style="color: #75715e;"># Separate features and target</div>
+<div><span style="color: #f8f8f2;">X</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">iris.data</span></div>
+<div><span style="color: #f8f8f2;">y</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">iris.target</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># Split the data (80% train, 20% test)</div>
+<div><span style="color: #f8f8f2;">X_train, X_test, y_train, y_test</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">train_test_split(</span></div>
+<div><span style="color: #f8f8f2;">    X, y, test_size=0.2, random_state=42, stratify=y</span></div>
+<div><span style="color: #f8f8f2;">)</span></div>
+
+<div style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">f"Training set size: </span><span style="color: #e6db74;">{X_train.shape[0]}</span><span style="color: #e6db74;"> samples"</span><span style="color: #f92672;">)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">f"Test set size: </span><span style="color: #e6db74;">{X_test.shape[0]}</span><span style="color: #e6db74;"> samples"</span><span style="color: #f92672;">)</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># Feature scaling (standardization)</div>
+<div><span style="color: #f8f8f2;">scaler</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">StandardScaler()</span></div>
+<div><span style="color: #f8f8f2;">X_train_scaled</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">scaler.fit_transform(X_train)</span></div>
+<div><span style="color: #f8f8f2;">X_test_scaled</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">scaler.transform(X_test)</span></div>
+
+<div style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"\nFeature scaling completed!"</span><span style="color: #f92672;">)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">f"Original feature means: </span><span style="color: #e6db74;">{X_train.mean(axis=0).round(2)}</span><span style="color: #e6db74;">"</span><span style="color: #f92672;">)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">f"Scaled feature means: </span><span style="color: #e6db74;">{X_train_scaled.mean(axis=0).round(2)}</span><span style="color: #e6db74;">"</span><span style="color: #f92672;">)</span></div>
+                        </div>
+
+                        <div style="background: #1e1e1e; color: #f8f8f2; padding: 1rem; border-radius: 6px; margin: 1rem 0; font-family: 'Courier New', monospace; font-size: 0.9rem;">
+<div style="color: #75715e;"># Step 4: Model Training</div>
+<div><span style="color: #f8f8f2;">model</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">LogisticRegression(random_state=42, max_iter=1000)</span></div>
+
+<div style="color: #75715e;"># Train the model</div>
+<div><span style="color: #f8f8f2;">model.fit(X_train_scaled, y_train)</span></div>
+
+<div style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"Model training completed!"</span><span style="color: #f92672;">)</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># Step 5: Make Predictions</div>
+<div><span style="color: #f8f8f2;">y_pred</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">model.predict(X_test_scaled)</span></div>
+<div><span style="color: #f8f8f2;">y_pred_proba</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">model.predict_proba(X_test_scaled)</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># Step 6: Evaluate the Model</div>
+<div><span style="color: #f8f8f2;">accuracy</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">accuracy_score(y_test, y_pred)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">f"\nModel Accuracy: </span><span style="color: #e6db74;">{accuracy:.3f}</span><span style="color: #e6db74;"> (</span><span style="color: #e6db74;">{accuracy*100:.1f}</span><span style="color: #e6db74;">%)"</span><span style="color: #f92672;">)</span></div>
+
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"\nDetailed Classification Report:"</span><span style="color: #f92672;">)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">classification_report(y_test, y_pred, target_names=iris.target_names)</span><span style="color: #f92672;">)</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># Example prediction with probabilities</div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"\nExample Predictions:"</span><span style="color: #f92672;">)</span></div>
+<div><span style="color: #f92672;">for</span> <span style="color: #f8f8f2;">i</span> <span style="color: #f92672;">in</span> <span style="color: #66d9ef;">range</span><span style="color: #f92672;">(</span><span style="color: #ae81ff;">3</span><span style="color: #f92672;">):</span></div>
+<div><span style="color: #f8f8f2;">    predicted_class</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">iris.target_names[y_pred[i]]</span></div>
+<div><span style="color: #f8f8f2;">    actual_class</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">iris.target_names[y_test[i]]</span></div>
+<div><span style="color: #f8f8f2;">    confidence</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">y_pred_proba[i].max()</span></div>
+<div><span style="color: #f8f8f2;">    </span><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">f"Sample </span><span style="color: #e6db74;">{i+1}</span><span style="color: #e6db74;">: Predicted={predicted_class}, Actual={actual_class}, Confidence={confidence:.3f}"</span><span style="color: #f92672;">)</span></div>
+                        </div>
+
+                        <div style="background: #fff3e0; padding: 1rem; border-radius: 6px; margin-top: 1rem;">
+                            <strong>🎯 Expected Output:</strong>
+                            <ul style="font-size: 0.9rem; margin: 0.5rem 0;">
+                                <li>Model Accuracy: ~97-100% (Iris is an easy dataset!)</li>
+                                <li>Classification report showing precision, recall, F1-score for each species</li>
+                                <li>Example predictions with confidence scores</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>🔍 Data Preprocessing Examples</h4>
+                    <div style="background: #e3f2fd; padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
+                        <h5>🧹 Handling Missing Values</h5>
+                        
+                        <div style="background: #1e1e1e; color: #f8f8f2; padding: 1rem; border-radius: 6px; margin: 1rem 0; font-family: 'Courier New', monospace; font-size: 0.9rem;">
+<div style="color: #75715e;"># Example with missing data</div>
+<div><span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">numpy</span> <span style="color: #f92672;">as</span> <span style="color: #f8f8f2;">np</span></div>
+<div><span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">pandas</span> <span style="color: #f92672;">as</span> <span style="color: #f8f8f2;">pd</span></div>
+<div><span style="color: #f92672;">from</span> <span style="color: #f8f8f2;">sklearn.impute</span> <span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">SimpleImputer</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># Create sample data with missing values</div>
+<div><span style="color: #f8f8f2;">data</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">{</span></div>
+<div><span style="color: #f8f8f2;">    </span><span style="color: #e6db74;">'age'</span><span style="color: #f8f8f2;">: [25, 30, np.nan, 35, 40, np.nan, 45],</span></div>
+<div><span style="color: #f8f8f2;">    </span><span style="color: #e6db74;">'salary'</span><span style="color: #f8f8f2;">: [50000, 60000, 70000, np.nan, 80000, 75000, np.nan],</span></div>
+<div><span style="color: #f8f8f2;">    </span><span style="color: #e6db74;">'department'</span><span style="color: #f8f8f2;">: [</span><span style="color: #e6db74;">'IT'</span><span style="color: #f8f8f2;">, </span><span style="color: #e6db74;">'HR'</span><span style="color: #f8f8f2;">, </span><span style="color: #e6db74;">'IT'</span><span style="color: #f8f8f2;">, </span><span style="color: #e6db74;">'Finance'</span><span style="color: #f8f8f2;">, np.nan, </span><span style="color: #e6db74;">'IT'</span><span style="color: #f8f8f2;">, </span><span style="color: #e6db74;">'HR'</span><span style="color: #f8f8f2;">]</span></div>
+<div><span style="color: #f8f8f2;">}</span></div>
+<div><span style="color: #f8f8f2;">df</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">pd.DataFrame(data)</span></div>
+
+<div style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"Original data with missing values:"</span><span style="color: #f92672;">)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">df</span><span style="color: #f92672;">)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">f"\nMissing values per column:\n</span><span style="color: #e6db74;">{df.isnull().sum()}</span><span style="color: #e6db74;">"</span><span style="color: #f92672;">)</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># Method 1: Mean imputation for numerical columns</div>
+<div><span style="color: #f8f8f2;">numerical_imputer</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">SimpleImputer(strategy=</span><span style="color: #e6db74;">'mean'</span><span style="color: #f8f8f2;">)</span></div>
+<div><span style="color: #f8f8f2;">df_numeric_imputed</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">df.copy()</span></div>
+<div><span style="color: #f8f8f2;">df_numeric_imputed[[</span><span style="color: #e6db74;">'age'</span><span style="color: #f8f8f2;">, </span><span style="color: #e6db74;">'salary'</span><span style="color: #f8f8f2;">]]</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">numerical_imputer.fit_transform(df[[</span><span style="color: #e6db74;">'age'</span><span style="color: #f8f8f2;">, </span><span style="color: #e6db74;">'salary'</span><span style="color: #f8f8f2;">]])</span></div>
+
+<div style="color: #75715e;"># Method 2: Mode imputation for categorical columns</div>
+<div><span style="color: #f8f8f2;">categorical_imputer</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">SimpleImputer(strategy=</span><span style="color: #e6db74;">'most_frequent'</span><span style="color: #f8f8f2;">)</span></div>
+<div><span style="color: #f8f8f2;">df_numeric_imputed[</span><span style="color: #e6db74;">'department'</span><span style="color: #f8f8f2;">]</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">categorical_imputer.fit_transform(df[[</span><span style="color: #e6db74;">'department'</span><span style="color: #f8f8f2;">]]).ravel()</span></div>
+
+<div style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"\nData after imputation:"</span><span style="color: #f92672;">)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">df_numeric_imputed</span><span style="color: #f92672;">)</span></div>
+                        </div>
+
+                        <h5>🔄 Feature Scaling Comparison</h5>
+                        
+                        <div style="background: #1e1e1e; color: #f8f8f2; padding: 1rem; border-radius: 6px; margin: 1rem 0; font-family: 'Courier New', monospace; font-size: 0.9rem;">
+<div style="color: #f92672;">from</span> <span style="color: #f8f8f2;">sklearn.preprocessing</span> <span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">StandardScaler, MinMaxScaler, RobustScaler</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># Sample data with different scales</div>
+<div><span style="color: #f8f8f2;">data</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">np.array([[1, 1000], [2, 2000], [3, 3000], [100, 1500]])</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"Original data:"</span><span style="color: #f92672;">)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">data</span><span style="color: #f92672;">)</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># StandardScaler (mean=0, std=1)</div>
+<div><span style="color: #f8f8f2;">standard_scaler</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">StandardScaler()</span></div>
+<div><span style="color: #f8f8f2;">data_standard</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">standard_scaler.fit_transform(data)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">f"\nStandardScaler result:\n</span><span style="color: #e6db74;">{data_standard.round(3)}</span><span style="color: #e6db74;">"</span><span style="color: #f92672;">)</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># MinMaxScaler (range 0-1)</div>
+<div><span style="color: #f8f8f2;">minmax_scaler</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">MinMaxScaler()</span></div>
+<div><span style="color: #f8f8f2;">data_minmax</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">minmax_scaler.fit_transform(data)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">f"\nMinMaxScaler result:\n</span><span style="color: #e6db74;">{data_minmax.round(3)}</span><span style="color: #e6db74;">"</span><span style="color: #f92672;">)</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># RobustScaler (uses median and IQR)</div>
+<div><span style="color: #f8f8f2;">robust_scaler</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">RobustScaler()</span></div>
+<div><span style="color: #f8f8f2;">data_robust</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">robust_scaler.fit_transform(data)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">f"\nRobustScaler result:\n</span><span style="color: #e6db74;">{data_robust.round(3)}</span><span style="color: #e6db74;">"</span><span style="color: #f92672;">)</span></div>
+                        </div>
+                    </div>
+                </div>
+
