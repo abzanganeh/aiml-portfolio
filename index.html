@@ -3,42 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ali Barzin Zanganeh - ML Portfolio</title>
-    <link rel="stylesheet" href="ali-styles/portfolio.css">
+    <title>Ali Barzin Zanganeh - AIML Portfolio</title>
+    <style>
+        .azbn-wrapper {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 0;
+            padding: 2rem;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .azbn-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        .azbn-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+        .azbn-description {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+            max-width: 600px;
+        }
+        .azbn-status {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1rem;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+    </style>
 </head>
 <body>
-    <header class="ali-main-header">
-        <div class="ali-container">
-            <div class="ali-brand-section">
-                <span class="ali-brand-name">Ali Barzin Zanganeh</span>
-            </div>
-            <nav class="ali-navigation">
-                <ul class="ali-menu-list">
-                    <li><a href="index.html" class="ali-menu-item ali-active">Home</a></li>
-                    <li><a href="about.html" class="ali-menu-item">About</a></li>
-                    <li><a href="tutorials.html" class="ali-menu-item">Tutorials</a></li>
-                    <li><a href="projects.html" class="ali-menu-item">Projects</a></li>
-                    <li><a href="contact.html" class="ali-menu-item">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <main class="ali-hero-area">
-        <div class="ali-container">
-            <div class="ali-hero-content">
-                <h1 class="ali-main-title">Ali Barzin Zanganeh</h1>
-                <h2 class="ali-subtitle">Machine Learning Engineer</h2>
-                <p class="ali-description">
-                    Building intelligent solutions through advanced machine learning, 
-                    data science, and artificial intelligence technologies.
-                </p>
-                <div class="ali-button-group">
-                    <a href="projects.html" class="ali-btn ali-primary">View Projects</a>
-                    <a href="contact.html" class="ali-btn ali-secondary">Get In Touch</a>
-                </div>
+    <div class="azbn-wrapper">
+        <div>
+            <h1 class="azbn-title">Ali Barzin Zanganeh</h1>
+            <h2 class="azbn-subtitle">Machine Learning Engineer</h2>
+            <p class="azbn-description">
+                Building intelligent solutions through advanced machine learning, 
+                data science, and artificial intelligence technologies.
+            </p>
+            <div class="azbn-status">
+                <p><strong>✅ GitHub Actions Deployment Test</strong></p>
+                <p>Website deploying to zanganehai.com via FTP</p>
             </div>
         </div>
-    </main>
+    </div>
 </body>
 </html>
