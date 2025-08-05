@@ -707,3 +707,111 @@
     </main>
 </body>
 </html>
+<div><span style="color: #f92672;">from</span> <span style="color: #f8f8f2;">collections</span> <span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">Counter</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># Create imbalanced dataset (keep only 10% of malignant cases)</div>
+<div><span style="color: #f8f8f2;">malignant_indices</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">np.where(y_train</span> <span style="color: #f92672;">==</span> <span style="color: #ae81ff;">0</span><span style="color: #f8f8f2;">)[0]</span></div>
+<div><span style="color: #f8f8f2;">benign_indices</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">np.where(y_train</span> <span style="color: #f92672;">==</span> <span style="color: #ae81ff;">1</span><span style="color: #f8f8f2;">)[0]</span></div>
+
+<div style="color: #75715e;"># Keep only 10% of malignant cases</div>
+<div><span style="color: #f8f8f2;">keep_malignant</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">np.random.choice(malignant_indices, size=</span><span style="color: #66d9ef;">int</span><span style="color: #f92672;">(</span><span style="color: #66d9ef;">len</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">malignant_indices</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">*</span> <span style="color: #ae81ff;">0.1</span><span style="color: #f92672;">)</span><span style="color: #f8f8f2;">, replace=</span><span style="color: #ae81ff;">False</span><span style="color: #f8f8f2;">)</span></div>
+<div><span style="color: #f8f8f2;">balanced_indices</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">np.concatenate([keep_malignant, benign_indices])</span></div>
+
+<div><span style="color: #f8f8f2;">X_imbalanced</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">X_train_scaled[balanced_indices]</span></div>
+<div><span style="color: #f8f8f2;">y_imbalanced</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">y_train[balanced_indices]</span></div>
+
+<div style="color: #66d9ef;">print</div><span style="color: #f92672;">(</span><span style="color: #e6db74;">f"Imbalanced dataset class distribution:"</span><span style="color: #f92672;">)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">Counter(y_imbalanced)</span><span style="color: #f92672;">)</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># Compare models with/without handling imbalance</div>
+<div style="color: #75715e;"># 1. Standard model (suffers from imbalance)</div>
+<div><span style="color: #f8f8f2;">lr_standard</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">LogisticRegression(random_state=42)</span></div>
+<div><span style="color: #f8f8f2;">lr_standard.fit(X_imbalanced, y_imbalanced)</span></div>
+<div><span style="color: #f8f8f2;">pred_standard</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">lr_standard.predict(X_test_scaled)</span></div>
+
+<div style="color: #75715e;"># 2. Balanced model (handles imbalance)</div>
+<div><span style="color: #f8f8f2;">lr_balanced</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">LogisticRegression(class_weight=</span><span style="color: #e6db74;">'balanced'</span><span style="color: #f8f8f2;">, random_state=42)</span></div>
+<div><span style="color: #f8f8f2;">lr_balanced.fit(X_imbalanced, y_imbalanced)</span></div>
+<div><span style="color: #f8f8f2;">pred_balanced</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">lr_balanced.predict(X_test_scaled)</span></div>
+
+<div style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">f"\nComparison on Imbalanced Data:"</span><span style="color: #f92672;">)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">f"Standard Model F1-Score: </span><span style="color: #e6db74;">{f1_score(y_test, pred_standard):.3f}</span><span style="color: #e6db74;">"</span><span style="color: #f92672;">)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">f"Balanced Model F1-Score: </span><span style="color: #e6db74;">{f1_score(y_test, pred_balanced):.3f}</span><span style="color: #e6db74;">"</span><span style="color: #f92672;">)</span></div>
+                        </div>
+
+                        <div style="background: #fff3e0; padding: 1rem; border-radius: 6px; margin-top: 1rem;">
+                            <strong>🎯 Expected Results:</strong>
+                            <ul style="font-size: 0.9rem; margin: 0.5rem 0;">
+                                <li>Standard model: High accuracy but poor minority class detection</li>
+                                <li>Balanced model: Better F1-score and minority class performance</li>
+                                <li>SMOTE can further improve results with synthetic samples</li>
+                                <li>Always evaluate with appropriate metrics for imbalanced data</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                        <div style="background: #fff3e0; padding: 1rem; border-radius: 6px; margin-top: 1rem;">
+                            <strong>🎯 Expected Results:</strong>
+                            <ul style="font-size: 0.9rem; margin: 0.5rem 0;">
+                                <li>Logistic Regression: ~97% accuracy</li>
+                                <li>SVM with RBF: ~98% accuracy</li>
+                                <li>Multi-class strategies perform similarly on Iris</li>
+                                <li>Class imbalance techniques significantly improve minority class detection</li>
+                                <li>Professional evaluation requires multiple metrics beyond accuracy</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+</body></html>
+cat > temp_chapter3_addition.html << 'EOF'
+
+                <h2>💻 Complete Python Implementation</h2>
+                <div class="azbn-card">
+                    <h3>Classification Master Class: Hands-On Code</h3>
+                    
+                    <div style="background: #e8f5e8; padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
+                        <h4>🎯 Binary Classification Project</h4>
+                        
+                        <div style="background: #1e1e1e; color: #f8f8f2; padding: 1rem; border-radius: 6px; margin: 1rem 0; font-family: 'Courier New', monospace; font-size: 0.9rem;">
+<div style="color: #75715e;"># Complete Classification Pipeline</div>
+<div><span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">numpy</span> <span style="color: #f92672;">as</span> <span style="color: #f8f8f2;">np</span></div>
+<div><span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">pandas</span> <span style="color: #f92672;">as</span> <span style="color: #f8f8f2;">pd</span></div>
+<div><span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">matplotlib.pyplot</span> <span style="color: #f92672;">as</span> <span style="color: #f8f8f2;">plt</span></div>
+<div><span style="color: #f92672;">from</span> <span style="color: #f8f8f2;">sklearn.datasets</span> <span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">load_breast_cancer</span></div>
+<div><span style="color: #f92672;">from</span> <span style="color: #f8f8f2;">sklearn.model_selection</span> <span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">train_test_split, GridSearchCV</span></div>
+<div><span style="color: #f92672;">from</span> <span style="color: #f8f8f2;">sklearn.preprocessing</span> <span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">StandardScaler</span></div>
+<div><span style="color: #f92672;">from</span> <span style="color: #f8f8f2;">sklearn.linear_model</span> <span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">LogisticRegression</span></div>
+<div><span style="color: #f92672;">from</span> <span style="color: #f8f8f2;">sklearn.svm</span> <span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">SVC</span></div>
+<div><span style="color: #f92672;">from</span> <span style="color: #f8f8f2;">sklearn.metrics</span> <span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">classification_report, confusion_matrix, roc_auc_score</span></div>
+
+<div style="color: #75715e; margin-top: 1rem;"># Load and prepare data</div>
+<div><span style="color: #f8f8f2;">cancer</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">load_breast_cancer()</span></div>
+<div><span style="color: #f8f8f2;">X, y</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">cancer.data, cancer.target</span></div>
+
+<div><span style="color: #f8f8f2;">X_train, X_test, y_train, y_test</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">train_test_split(</span></div>
+<div><span style="color: #f8f8f2;">    X, y, test_size=0.2, random_state=42, stratify=y</span></div>
+<div><span style="color: #f8f8f2;">)</span></div>
+
+<div style="color: #75715e;"># Scale features</div>
+<div><span style="color: #f8f8f2;">scaler</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">StandardScaler()</span></div>
+<div><span style="color: #f8f8f2;">X_train_scaled</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">scaler.fit_transform(X_train)</span></div>
+<div><span style="color: #f8f8f2;">X_test_scaled</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">scaler.transform(X_test)</span></div>
+
+<div style="color: #66d9ef;">print</div><span style="color: #f92672;">(</span><span style="color: #e6db74;">f"Dataset: {X.shape[0]} samples, {X.shape[1]} features"</span><span style="color: #f92672;">)</span></div>
+<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">f"Classes: {cancer.target_names}"</span><span style="color: #f92672;">)</span></div>
+                        </div>
+
+                        <div style="background: #fff3e0; padding: 1rem; border-radius: 6px; margin-top: 1rem;">
+                            <strong>🎯 Expected Results:</strong>
+                            <ul style="font-size: 0.9rem; margin: 0.5rem 0;">
+                                <li>Logistic Regression AUC: ~0.99</li>
+                                <li>SVM AUC: ~0.99</li>
+                                <li>Both models achieve excellent performance on this dataset</li>
+                                <li>Hyperparameter tuning often improves performance</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+EOF
