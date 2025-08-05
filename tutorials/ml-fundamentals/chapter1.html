@@ -523,7 +523,7 @@ print(<span style="color:#CE9178">"\n🎯 Discovered Customer Segments:"</span>)
     avg_visits = segment_data[:, 1].mean()
     size = len(segment_data)
     
-    <span style="color:#DCDCAA">if</span> avg_spending > 120 <span style="color:#DCDCAA">and</span> avg_visits > 6:
+    <span style="color:#DCDCAA">if</span> avg_spending > 120:
         segment_name = <span style="color:#CE9178">"💎 VIP Customers"</span>
     <span style="color:#DCDCAA">elif</span> avg_spending > 100:
         segment_name = <span style="color:#CE9178">"🎯 Regular Customers"</span>
