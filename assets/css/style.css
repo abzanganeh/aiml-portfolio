@@ -634,6 +634,9 @@ code[class^="language-"]::before {
     font-size: 1.1em;
 }
 
+// Add this after the existing quiz styles around line 650
+
+/* CRITICAL FIX: Quiz feedback display issues */
 .nlp-course .quiz-option {
     display: block;
     margin: 10px 0;
@@ -644,7 +647,110 @@ code[class^="language-"]::before {
     cursor: pointer;
     transition: all 0.2s ease;
     font-weight: 500;
-    color: #2d3748; /* DARK TEXT */
+    color: #2d3748;
+    position: relative;
+    overflow: hidden; /* Prevent text overflow */
+    white-space: nowrap; /* Prevent text wrapping */
+    text-overflow: ellipsis; /* Add ... if text is too long */
+}
+
+/* Fix quiz feedback text */
+.nlp-course .quiz-option.correct {
+    background: #c6f6d5;
+    border-color: #38a169;
+    color: #2f855a;
+    white-space: normal; /* Allow normal wrapping for feedback */
+}
+
+.nlp-course .quiz-option.incorrect {
+    background: #fed7d7;
+    border-color: #e53e3e;
+    color: #c53030;
+    white-space: normal; /* Allow normal wrapping for feedback */
+}
+
+/* Fix for quiz option content - prevent duplication */
+.nlp-course .quiz-option::after {
+    content: none !important; /* Remove any pseudo-element content */
+}
+
+.nlp-course .quiz-option::before {
+    content: none !important; /* Remove any pseudo-element content */
+}
+
+/* Ensure quiz options display properly */
+.nlp-course .quiz-option {
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Fix for feedback text - single line display */
+.nlp-course .quiz-option.correct::after {
+    content: " ✅ Correct!";
+    color: #2f855a;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.nlp-course .quiz-option.incorrect::after {
+    content: " ❌ Incorrect";
+    color: #c53030;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+/* Prevent JavaScript from adding multiple feedback elements */
+.nlp-course .quiz-option .feedback {
+    display: inline !important;
+    margin-left: 10px;
+}
+
+/* Hide duplicate feedback elements */
+.nlp-course .quiz-option .feedback:not(:first-of-type) {
+    display: none !important;
+}
+
+/* Clean quiz layout */
+.nlp-course .quiz-container {
+    background: #f7fafc;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+    border: 2px solid #e2e8f0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.nlp-course .quiz-question {
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #2d3748;
+    font-size: 1.1em;
+    line-height: 1.4;
+}
+
+/* Ensure proper spacing between quiz elements */
+.nlp-course .quiz-option + .quiz-option {
+    margin-top: 10px;
+}
+
+/* Mobile quiz fixes */
+@media (max-width: 768px) {
+    .nlp-course .quiz-option {
+        padding: 15px;
+        font-size: 14px;
+        white-space: normal; /* Allow wrapping on mobile */
+    }
+    
+    .nlp-course .quiz-question {
+        font-size: 1em;
+    }
+    
+    .nlp-course .quiz-container {
+        padding: 15px;
+    }
 }
 
 .nlp-course .quiz-option:hover {

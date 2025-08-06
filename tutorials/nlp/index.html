@@ -1178,31 +1178,48 @@ Where:
         }
 
         function checkAnswer(element, isCorrect) {
-            // Remove previous selections
+            // Store original text if not already stored
+            if (!element.dataset.originalText) {
+                element.dataset.originalText = element.textContent.trim();
+            }
+            
+            // Remove previous selections and reset text
             element.parentNode.querySelectorAll('.quiz-option').forEach(option => {
                 option.classList.remove('correct', 'incorrect');
+                if (option.dataset.originalText) {
+                    option.textContent = option.dataset.originalText;
+                }
             });
             
             // Mark the selected answer
             if (isCorrect) {
                 element.classList.add('correct');
-                element.innerHTML += ' ✅ Correct!';
+                element.textContent = element.dataset.originalText + ' ✅ Correct!';
             } else {
                 element.classList.add('incorrect');
-                element.innerHTML += ' ❌ Incorrect';
+                element.textContent = element.dataset.originalText + ' ❌ Incorrect';
                 
                 // Show correct answer
                 const correctOption = Array.from(element.parentNode.querySelectorAll('.quiz-option'))
-                    .find(option => option.onclick.toString().includes('true'));
+                    .find(option => {
+                        const onclickStr = option.getAttribute('onclick') || '';
+                        return onclickStr.includes('true');
+                    });
                 if (correctOption) {
                     correctOption.classList.add('correct');
-                    correctOption.innerHTML += ' ✅ Correct Answer';
+                    correctOption.textContent = correctOption.dataset.originalText + ' ✅ Correct Answer';
                 }
             }
         }
 
-        // Initialize the course
+            // Also add this initialization function to store original text
         document.addEventListener('DOMContentLoaded', function() {
+            // Store original text for all quiz options
+            document.querySelectorAll('.quiz-option').forEach(option => {
+                option.dataset.originalText = option.textContent.trim();
+            });
+            
+            // Your existing DOMContentLoaded code continues here...
             showSection('intro');
             
             // Add some interactive enhancements
