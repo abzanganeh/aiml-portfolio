@@ -139,12 +139,24 @@ body {
     margin-top: 2rem;
 }
 
+.azbn-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
 .azbn-card {
     background: white;
     padding: 2rem;
     border-radius: 1rem;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
+
+    /* NEW — make content stack and stretch */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .azbn-card:hover {
@@ -163,6 +175,15 @@ body {
     margin-bottom: 1rem;
 }
 
+/* NEW — push the link to the bottom */
+.azbn-card a {
+    margin-top: auto;
+    color: #080450;
+    text-decoration: none;
+    font-weight: 600;
+    padding-top: 1rem;
+}
+
 .azbn-skills {
     display: flex;
     flex-wrap: wrap;
@@ -172,14 +193,28 @@ body {
 }
 
 .azbn-tag {
-    background: #4f46e5;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 1rem;
-    font-size: 0.9rem;
-    font-weight: 500;
+  display: inline-block;
+  background-color: #452cd6aa;
+  color: #f7f9fe;
+  padding: 4px 12px;
+  margin: 4px 4px 0 0;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  white-space: nowrap; /* keeps the tag text on one line */
 }
 
+.azbn-card .tag-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem; /* optional: control spacing */
+}
+.azbn-card .tag-container span {
+    background-color: #050e2d;
+    color: #e5e4f9;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+}
 #contact {
     text-align: center;
 }
