@@ -5,11 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ali Barzin Zanganeh - Machine Learning Engineer</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self' 'unsafe-inline';
+    style-src 'self' 'unsafe-inline';
+    img-src 'self' data: https:;
+    font-src 'self';
+    connect-src 'self';
+    frame-src 'none';
+    object-src 'none';
+    base-uri 'self';
+">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="DENY">
+<meta http-equiv="X-XSS-Protection" content="1; mode=block">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 </head>
 <body>
-
-    <header class="azbn-header">
-         <div style="
+    <div style="
         background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
         color: white;
         padding: 12px 20px;
@@ -38,21 +51,23 @@
             font-size: 12px;
         ">✕</button>
     </div>
+    <header class="azbn-header" style="top: 50px;">
+        <nav class="azbn-nav" style="top: 50px;">
+            <div class="azbn-container" style="display: flex; justify-content: space-between; align-items: center;">
+                <a href="../" style="text-decoration: none; color: #4f46e5; display: flex; align-items: center; gap: 0.5rem;">
+                    <img src="/../assets/images/logo.png" alt="Logo" style="height: 40px;">
+                </a>
 
-    <nav class="azbn-nav" style="top: 50px;">
-        <div class="azbn-container">
-            <h1>Ali Barzin Zanganeh</h1>
-            <nav>
-                <a href="#home">Home</a>
-                <a href="#about">About</a>
-                <a href="tutorials/">Tutorials</a>
-                <a href="#projects">Projects</a>
-                <a href="#contact">Contact</a>
-            </nav>
-        </div>
-
+                <div class="azbn-links">
+                    <a href="../../#home">Home</a>
+                    <a href="../../#about">About</a>
+                    <a href="../#tutorials/">Tutorials</a>
+                    <a href="../../#projects">Projects</a>
+                    <a href="../../#contact">Contact</a>
+                </div>
+            </div>
+        </nav>
     </header>
-
     <main>
         <section id="home" class="azbn-hero">
             <div class="azbn-container">
@@ -70,7 +85,7 @@
             
             <div class="azbn-container">
                 <h2>About Me</h2>
-                <p>Passionate Machine Learning Engineer with expertise in developing end-to-end AI solutions.</p>
+                <p class="azbn-intro">Passionate Machine Learning Engineer with expertise in developing end-to-end AI solutions.</p>
                 <div class="azbn-skills">
                     <span class="azbn-tag">Python</span>
                     <span class="azbn-tag">TensorFlow</span>
@@ -123,5 +138,39 @@
             </div>
         </section>
     </main>
+    <!-- filepath: /Users/admin/Desktop/WebSite/index.html -->
+    <!-- Add this script section before </body> -->
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        'use strict';
+        
+        // Secure banner close functionality
+        const closeBanner = document.getElementById('closeBanner');
+        if (closeBanner) {
+            closeBanner.addEventListener('click', function(e) {
+                e.preventDefault();
+                const banner = this.parentElement;
+                if (banner) {
+                    banner.style.display = 'none';
+                }
+            });
+        }
+        
+        // Secure smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    });
+    </script>
 </body>
 </html>
