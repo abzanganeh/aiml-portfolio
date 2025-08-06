@@ -7,7 +7,39 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+
     <header class="azbn-header">
+         <div style="
+        background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+        color: white;
+        padding: 12px 20px;
+        text-align: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        font-size: 14px;
+        border-bottom: 2px solid rgba(255,255,255,0.2);
+    ">
+        <span style="margin-right: 10px;">🚧</span>
+        <strong>Website Under Development:</strong> 
+        We experienced some downtime recently. Some links may be broken and topics incomplete - working to fix everything gradually. 
+        <span style="margin-left: 10px;">Thank you for your patience! 🙏</span>
+        <button onclick="this.parentElement.style.display='none'" style="
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            margin-left: 15px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        ">✕</button>
+    </div>
+
+    <nav class="azbn-nav" style="top: 50px;">
         <div class="azbn-container">
             <h1>Ali Barzin Zanganeh</h1>
             <nav>
@@ -18,12 +50,13 @@
                 <a href="#contact">Contact</a>
             </nav>
         </div>
+
     </header>
 
     <main>
         <section id="home" class="azbn-hero">
             <div class="azbn-container">
-                <h1>Ali Barzin Zanganeh</h1>
+                <h1>Alireza Barzin Zanganeh</h1>
                 <h2>Machine Learning Engineer</h2>
                 <p>Transforming data into intelligent solutions through advanced machine learning and AI.</p>
                 <div class="azbn-buttons">
@@ -34,6 +67,7 @@
         </section>
 
         <section id="about" class="azbn-section">
+            
             <div class="azbn-container">
                 <h2>About Me</h2>
                 <p>Passionate Machine Learning Engineer with expertise in developing end-to-end AI solutions.</p>
