@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Complete Interactive NLP Course</title>
+    <title>Complete Interactive NLP Course - Alireza Barzin Zanganeh</title>
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+
     <style>
         * {
             margin: 0;
@@ -321,10 +324,20 @@
             }
         }
     </style>
-</head>
 <body>
-    
-    <div class="container">
+    <header class="azbn-header">
+        <div class="azbn-container">
+            <h1><a href="../../" style="text-decoration: none; color: #4f46e5;">Alireza Barzin Zanganeh</a></h1>
+          <nav>
+                <a href="../../#home">Home</a>
+                <a href="../">Tutorials</a>
+                <a href="../../#projects">Projects</a>
+            </nav>
+        </div>
+    </header>
+    <main style="padding-top: 100px;">
+        <section class="azbn-section">
+            <div class="azbn-container">
         <div class="header">
              <div style="
         background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
@@ -363,8 +376,8 @@
                 <div class="progress-fill" id="progressFill"></div>
             </div>
         </div>
-
-        <div class="course-nav">
+    
+        <div class="course-nav" style="top: 50px;">
             <button class="nav-btn active" onclick="showSection('intro', event)">Introduction</button>
             <button class="nav-btn" onclick="showSection('text-repr', event)">Text Representation</button>
             <button class="nav-btn" onclick="showSection('embeddings', event)">Word Embeddings</button>
@@ -938,8 +951,9 @@ Where:
                 <p>You've completed the comprehensive NLP course! You now understand the fundamental concepts from basic text representation to advanced Transformer architectures. Keep practicing and exploring to master these powerful techniques!</p>
             </div>
         </div>
-    </div>
-
+            </div>
+        </section>
+    </main>
     <script>
         let currentSection = 'intro';
         const sections = ['intro', 'text-repr', 'embeddings', 'sentiment', 'seq2seq', 'transformers', 'attention', 'applications'];
