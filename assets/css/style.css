@@ -213,3 +213,33 @@ body {
         font-size: 2rem;
     }
 }
+
+.code-block {
+  position: relative;
+  overflow: visible; /* Allow the label to extend outside the container */
+}
+
+pre, code {
+  overflow: auto;
+  white-space: pre-wrap; /* or pre if you want horizontal scroll */
+  position: relative;
+  border-radius: 8px;
+}
+
+/* Fix for the language badge (like 'python code') */
+code[class^="language-"]::before {
+  content: attr(class);
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background-color: #007acc;
+  color: white;
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  z-index: 1;
+  font-family: sans-serif;
+}
+
+
