@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chapter 3: Classification Algorithms - Ali Zanganeh</title>
     <link rel="stylesheet" href="../../assets/css/style.css">
 </head>
+
 <body>
+    <a id="top"></a>
     <header class="azbn-header">
         <div class="azbn-container">
             <h1><a href="../../" style="text-decoration: none; color: #4f46e5;">Ali Zanganeh</a></h1>
@@ -23,9 +26,11 @@
         <section class="azbn-section">
             <div class="azbn-container">
                 <h1>Chapter 3: Classification Algorithms Mastery</h1>
-                <p class="azbn-subtitle">From logistic regression to support vector machines with mathematical foundations and real-world applications</p>
-                
-                <div class="azbn-card" style="background: linear-gradient(135deg, #e91e63 0%, #673ab7 100%); color: white; margin-bottom: 2rem;">
+                <p class="azbn-subtitle">From logistic regression to support vector machines with mathematical
+                    foundations and real-world applications</p>
+
+                <div class="azbn-card"
+                    style="background: linear-gradient(135deg, #e91e63 0%, #673ab7 100%); color: white; margin-bottom: 2rem;">
                     <h2>🎯 Learning Objectives</h2>
                     <ul style="color: white;">
                         <li>Master logistic regression theory and sigmoid function mathematics</li>
@@ -40,8 +45,10 @@
                 <h2>🎯 What is Classification?</h2>
                 <div class="azbn-card">
                     <h3>From Continuous to Discrete Predictions</h3>
-                    <p><strong>Classification</strong> is a supervised learning task where we predict discrete categories or classes rather than continuous values. Unlike regression, the output is categorical.</p>
-                    
+                    <p><strong>Classification</strong> is a supervised learning task where we predict discrete
+                        categories or classes rather than continuous values. Unlike regression, the output is
+                        categorical.</p>
+
                     <div style="background: #e8f5e8; padding: 1.5rem; border-radius: 10px; margin: 1.5rem 0;">
                         <h4>🎯 The Classification Problem:</h4>
                         <div style="text-align: center; font-size: 1.2rem; margin: 1rem 0;">
@@ -56,7 +63,8 @@
                     </div>
 
                     <h4>📊 Types of Classification Problems:</h4>
-                    <div class="azbn-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin: 1rem 0;">
+                    <div class="azbn-grid"
+                        style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin: 1rem 0;">
                         <div style="border: 1px solid #ddd; padding: 1rem; border-radius: 8px; background: #e3f2fd;">
                             <h5>🔵 Binary Classification</h5>
                             <p><strong>Classes:</strong> 2 (Yes/No, True/False)</p>
@@ -96,19 +104,19 @@
                 <h2>📈 Logistic Regression: The Classification Foundation</h2>
                 <div class="azbn-card">
                     <h3>From Linear to Probabilistic</h3>
-                    
+
                     <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
                         <h4>🤔 Why Not Linear Regression for Classification?</h4>
                         <div style="background: #ffebee; padding: 1rem; border-radius: 6px; margin: 1rem 0;">
                             <h5>❌ Problems with Linear Regression:</h5>
                             <ul>
-                                <li>Predictions can be <0 or >1 (impossible probabilities)</li>
+                                <li>Predictions can be <0 or>1 (impossible probabilities)</li>
                                 <li>Assumes linear relationship between X and y</li>
                                 <li>Equal intervals assumption doesn't make sense for categories</li>
                                 <li>Sensitive to outliers in classification context</li>
                             </ul>
                         </div>
-                        
+
                         <div style="background: #e8f5e8; padding: 1rem; border-radius: 6px; margin: 1rem 0;">
                             <h5>✅ Logistic Regression Solution:</h5>
                             <ul>
@@ -154,7 +162,8 @@
                         </div>
 
                         <div style="background: #fff3e0; padding: 1rem; border-radius: 6px; margin-top: 1rem;">
-                            <strong>💡 Key Insight:</strong> The sigmoid transforms any real number into a probability, making it perfect for classification!
+                            <strong>💡 Key Insight:</strong> The sigmoid transforms any real number into a probability,
+                            making it perfect for classification!
                         </div>
                     </div>
 
@@ -172,7 +181,8 @@
                             <div style="text-align: center; margin: 0.5rem 0;">
                                 <strong>log(p/(1-p)) = β₀ + β₁x₁ + ... + βₚxₚ</strong>
                             </div>
-                            <p style="text-align: center; font-size: 0.9rem;">The log-odds is linear in the parameters!</p>
+                            <p style="text-align: center; font-size: 0.9rem;">The log-odds is linear in the parameters!
+                            </p>
                         </div>
 
                         <h5>📊 Interpretation Examples:</h5>
@@ -183,14 +193,16 @@
                         </ul>
 
                         <div style="background: #e3f2fd; padding: 1rem; border-radius: 6px; margin-top: 1rem;">
-                            <strong>🎯 Coefficient Interpretation:</strong> βⱼ represents the change in log-odds for a one-unit increase in xⱼ
+                            <strong>🎯 Coefficient Interpretation:</strong> βⱼ represents the change in log-odds for a
+                            one-unit increase in xⱼ
                         </div>
                     </div>
 
                     <h4>🔢 Maximum Likelihood Estimation</h4>
                     <div style="background: #fff8e1; padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
                         <h5>🎯 How Logistic Regression Learns:</h5>
-                        <p>Unlike linear regression (which uses least squares), logistic regression uses Maximum Likelihood Estimation (MLE).</p>
+                        <p>Unlike linear regression (which uses least squares), logistic regression uses Maximum
+                            Likelihood Estimation (MLE).</p>
 
                         <div style="background: white; padding: 1rem; border-radius: 6px; margin: 1rem 0;">
                             <h6>📐 Likelihood Function:</h6>
@@ -204,12 +216,14 @@
                         <ol>
                             <li><strong>Log-Likelihood:</strong> Take log for easier computation</li>
                             <li><strong>Optimization:</strong> Use gradient descent or Newton-Raphson</li>
-                            <li><strong>No Closed Form:</strong> Unlike linear regression, requires iterative methods</li>
+                            <li><strong>No Closed Form:</strong> Unlike linear regression, requires iterative methods
+                            </li>
                             <li><strong>Convergence:</strong> Algorithm stops when improvement is minimal</li>
                         </ol>
 
                         <div style="background: #e8f5e8; padding: 1rem; border-radius: 6px; margin-top: 1rem;">
-                            <strong>💡 Intuition:</strong> Find parameters that make the observed data most likely under our model!
+                            <strong>💡 Intuition:</strong> Find parameters that make the observed data most likely under
+                            our model!
                         </div>
                     </div>
                 </div>
@@ -217,10 +231,11 @@
                 <h2>⚡ Support Vector Machines: Maximum Margin Classification</h2>
                 <div class="azbn-card">
                     <h3>Finding the Optimal Decision Boundary</h3>
-                    
+
                     <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
                         <h4>�� The SVM Philosophy</h4>
-                        <p>SVMs find the decision boundary that maximizes the margin between classes. This leads to better generalization than just finding any boundary that separates the data.</p>
+                        <p>SVMs find the decision boundary that maximizes the margin between classes. This leads to
+                            better generalization than just finding any boundary that separates the data.</p>
 
                         <div style="background: #e3f2fd; padding: 1rem; border-radius: 6px; margin: 1rem 0;">
                             <h5>🔍 Key Concepts:</h5>
@@ -237,7 +252,8 @@
                             <p><strong>Hyperplane equation:</strong> wᵀx + b = 0</p>
                             <p><strong>Classification rule:</strong> sign(wᵀx + b)</p>
                             <p><strong>Margin:</strong> 2/||w|| (geometric interpretation)</p>
-                            <div style="text-align: center; margin: 0.5rem 0; background: #f8f9fa; padding: 0.5rem; border-radius: 4px;">
+                            <div
+                                style="text-align: center; margin: 0.5rem 0; background: #f8f9fa; padding: 0.5rem; border-radius: 4px;">
                                 <strong>Maximize: 2/||w|| ⟺ Minimize: ½||w||²</strong>
                             </div>
                         </div>
@@ -286,25 +302,30 @@
                     <h4>🌟 Kernel Methods: The Magic of Non-Linear Classification</h4>
                     <div style="background: #e3f2fd; padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
                         <h5>🤔 The Non-Linear Problem:</h5>
-                        <p>Real-world data is rarely linearly separable. Kernels allow SVMs to create non-linear decision boundaries without explicitly computing high-dimensional transformations.</p>
+                        <p>Real-world data is rarely linearly separable. Kernels allow SVMs to create non-linear
+                            decision boundaries without explicitly computing high-dimensional transformations.</p>
 
                         <div style="background: white; padding: 1rem; border-radius: 6px; margin: 1rem 0;">
                             <h6>🎯 The Kernel Trick:</h6>
-                            <p>Instead of explicitly mapping to higher dimensions, kernels compute similarity in the transformed space:</p>
+                            <p>Instead of explicitly mapping to higher dimensions, kernels compute similarity in the
+                                transformed space:</p>
                             <div style="text-align: center; margin: 0.5rem 0;">
                                 <strong>K(xᵢ, xⱼ) = φ(xᵢ)ᵀ φ(xⱼ)</strong>
                             </div>
-                            <p style="font-size: 0.9rem; text-align: center;">Compute dot product in feature space without explicit mapping!</p>
+                            <p style="font-size: 0.9rem; text-align: center;">Compute dot product in feature space
+                                without explicit mapping!</p>
                         </div>
 
                         <h5>🔧 Common Kernel Functions:</h5>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1rem 0;">
+                        <div
+                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1rem 0;">
                             <div style="background: #f8f9fa; padding: 1rem; border-radius: 6px;">
                                 <h6>📏 Linear Kernel</h6>
                                 <div style="background: white; padding: 0.5rem; border-radius: 4px; margin: 0.3rem 0;">
                                     <strong>K(x,z) = xᵀz</strong>
                                 </div>
-                                <p style="font-size: 0.9rem;"><strong>Use:</strong> High-dimensional data, text classification</p>
+                                <p style="font-size: 0.9rem;"><strong>Use:</strong> High-dimensional data, text
+                                    classification</p>
                             </div>
 
                             <div style="background: #f8f9fa; padding: 1rem; border-radius: 6px;">
@@ -312,7 +333,8 @@
                                 <div style="background: white; padding: 0.5rem; border-radius: 4px; margin: 0.3rem 0;">
                                     <strong>K(x,z) = exp(-γ||x-z||²)</strong>
                                 </div>
-                                <p style="font-size: 0.9rem;"><strong>Use:</strong> Most popular, handles complex patterns</p>
+                                <p style="font-size: 0.9rem;"><strong>Use:</strong> Most popular, handles complex
+                                    patterns</p>
                             </div>
 
                             <div style="background: #f8f9fa; padding: 1rem; border-radius: 6px;">
@@ -320,7 +342,8 @@
                                 <div style="background: white; padding: 0.5rem; border-radius: 4px; margin: 0.3rem 0;">
                                     <strong>K(x,z) = (γxᵀz + r)ᵈ</strong>
                                 </div>
-                                <p style="font-size: 0.9rem;"><strong>Use:</strong> Natural language processing, image processing</p>
+                                <p style="font-size: 0.9rem;"><strong>Use:</strong> Natural language processing, image
+                                    processing</p>
                             </div>
 
                             <div style="background: #f8f9fa; padding: 1rem; border-radius: 6px;">
@@ -335,7 +358,8 @@
                         <div style="background: #e8f5e8; padding: 1rem; border-radius: 6px; margin-top: 1rem;">
                             <h6>⚙️ Kernel Hyperparameters:</h6>
                             <ul style="margin: 0.5rem 0; font-size: 0.9rem;">
-                                <li><strong>γ (gamma):</strong> Controls kernel bandwidth (higher γ = more complex boundary)</li>
+                                <li><strong>γ (gamma):</strong> Controls kernel bandwidth (higher γ = more complex
+                                    boundary)</li>
                                 <li><strong>d (degree):</strong> Polynomial degree (higher d = more complex)</li>
                                 <li><strong>r (coef0):</strong> Independent term in polynomial/sigmoid</li>
                             </ul>
@@ -346,10 +370,11 @@
                 <h2>📊 Multi-Class Classification Strategies</h2>
                 <div class="azbn-card">
                     <h3>Extending Binary Classifiers</h3>
-                    
+
                     <div style="background: #fff8e1; padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
                         <h4>🤔 The Multi-Class Challenge</h4>
-                        <p>Many algorithms (like SVM) are naturally binary. To handle multiple classes, we need strategies to combine binary classifiers.</p>
+                        <p>Many algorithms (like SVM) are naturally binary. To handle multiple classes, we need
+                            strategies to combine binary classifiers.</p>
 
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0;">
                             <div style="background: #e3f2fd; padding: 1rem; border-radius: 8px;">
@@ -361,7 +386,8 @@
                                     <li>...</li>
                                     <li>Choose class with highest confidence</li>
                                 </ul>
-                                <div style="background: #f8f9fa; padding: 0.5rem; border-radius: 4px; margin-top: 0.5rem;">
+                                <div
+                                    style="background: #f8f9fa; padding: 0.5rem; border-radius: 4px; margin-top: 0.5rem;">
                                     <strong>Pros:</strong> Simple, efficient, interpretable
                                 </div>
                             </div>
@@ -375,7 +401,8 @@
                                     <li>...</li>
                                     <li>Majority voting for final prediction</li>
                                 </ul>
-                                <div style="background: #f8f9fa; padding: 0.5rem; border-radius: 4px; margin-top: 0.5rem;">
+                                <div
+                                    style="background: #f8f9fa; padding: 0.5rem; border-radius: 4px; margin-top: 0.5rem;">
                                     <strong>Pros:</strong> More robust, smaller training sets per classifier
                                 </div>
                             </div>
@@ -397,57 +424,80 @@
                 <h2>📏 Classification Evaluation Metrics: Beyond Accuracy</h2>
                 <div class="azbn-card">
                     <h3>The Complete Evaluation Toolkit</h3>
-                    
+
                     <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
                         <h4>�� The Confusion Matrix Foundation</h4>
-                        <p>All classification metrics derive from the confusion matrix - a table showing actual vs predicted classifications.</p>
+                        <p>All classification metrics derive from the confusion matrix - a table showing actual vs
+                            predicted classifications.</p>
 
-                        <div style="background: white; padding: 1.5rem; border-radius: 8px; margin: 1rem 0; text-align: center;">
+                        <div
+                            style="background: white; padding: 1.5rem; border-radius: 8px; margin: 1rem 0; text-align: center;">
                             <h5>📊 Binary Classification Confusion Matrix:</h5>
                             <table style="margin: 1rem auto; border-collapse: collapse; border: 2px solid #333;">
                                 <tr style="background: #f0f0f0;">
-                                    <td rowspan="2" style="border: 1px solid #333; padding: 0.5rem; font-weight: bold;"></td>
-                                    <td colspan="2" style="border: 1px solid #333; padding: 0.5rem; font-weight: bold;">Predicted</td>
+                                    <td rowspan="2" style="border: 1px solid #333; padding: 0.5rem; font-weight: bold;">
+                                    </td>
+                                    <td colspan="2" style="border: 1px solid #333; padding: 0.5rem; font-weight: bold;">
+                                        Predicted</td>
                                 </tr>
                                 <tr style="background: #f0f0f0;">
-                                    <td style="border: 1px solid #333; padding: 0.5rem; font-weight: bold;">Negative (0)</td>
-                                    <td style="border: 1px solid #333; padding: 0.5rem; font-weight: bold;">Positive (1)</td>
+                                    <td style="border: 1px solid #333; padding: 0.5rem; font-weight: bold;">Negative (0)
+                                    </td>
+                                    <td style="border: 1px solid #333; padding: 0.5rem; font-weight: bold;">Positive (1)
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td style="border: 1px solid #333; padding: 0.5rem; font-weight: bold; background: #f0f0f0;">Actual Negative (0)</td>
-                                    <td style="border: 1px solid #333; padding: 0.5rem; background: #e8f5e8;"><strong>TN</strong><br>True Negative</td>
-                                    <td style="border: 1px solid #333; padding: 0.5rem; background: #ffebee;"><strong>FP</strong><br>False Positive<br>(Type I Error)</td>
+                                    <td
+                                        style="border: 1px solid #333; padding: 0.5rem; font-weight: bold; background: #f0f0f0;">
+                                        Actual Negative (0)</td>
+                                    <td style="border: 1px solid #333; padding: 0.5rem; background: #e8f5e8;">
+                                        <strong>TN</strong><br>True Negative
+                                    </td>
+                                    <td style="border: 1px solid #333; padding: 0.5rem; background: #ffebee;">
+                                        <strong>FP</strong><br>False Positive<br>(Type I Error)
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td style="border: 1px solid #333; padding: 0.5rem; font-weight: bold; background: #f0f0f0;">Actual Positive (1)</td>
-                                    <td style="border: 1px solid #333; padding: 0.5rem; background: #ffebee;"><strong>FN</strong><br>False Negative<br>(Type II Error)</td>
-                                    <td style="border: 1px solid #333; padding: 0.5rem; background: #e8f5e8;"><strong>TP</strong><br>True Positive</td>
+                                    <td
+                                        style="border: 1px solid #333; padding: 0.5rem; font-weight: bold; background: #f0f0f0;">
+                                        Actual Positive (1)</td>
+                                    <td style="border: 1px solid #333; padding: 0.5rem; background: #ffebee;">
+                                        <strong>FN</strong><br>False Negative<br>(Type II Error)
+                                    </td>
+                                    <td style="border: 1px solid #333; padding: 0.5rem; background: #e8f5e8;">
+                                        <strong>TP</strong><br>True Positive
+                                    </td>
                                 </tr>
                             </table>
                         </div>
                     </div>
 
                     <h4>📊 Essential Classification Metrics</h4>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+                    <div
+                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
                         <div style="background: #e3f2fd; padding: 1rem; border-radius: 8px;">
                             <h5>🎯 Accuracy</h5>
-                            <div style="background: white; padding: 0.5rem; border-radius: 4px; margin: 0.5rem 0; text-align: center;">
+                            <div
+                                style="background: white; padding: 0.5rem; border-radius: 4px; margin: 0.5rem 0; text-align: center;">
                                 <strong>(TP + TN) / (TP + TN + FP + FN)</strong>
                             </div>
                             <p><strong>Interpretation:</strong> Overall correctness</p>
                             <p><strong>Good when:</strong> Balanced classes</p>
                             <p><strong>Problem:</strong> Misleading with imbalanced data</p>
                             <div style="background: #f8f9fa; padding: 0.5rem; border-radius: 4px; margin-top: 0.5rem;">
-                                <strong>Example:</strong> 95% accuracy sounds great, but not if 95% of data is one class!
+                                <strong>Example:</strong> 95% accuracy sounds great, but not if 95% of data is one
+                                class!
                             </div>
                         </div>
 
                         <div style="background: #e8f5e8; padding: 1rem; border-radius: 8px;">
                             <h5>🔍 Precision</h5>
-                            <div style="background: white; padding: 0.5rem; border-radius: 4px; margin: 0.5rem 0; text-align: center;">
+                            <div
+                                style="background: white; padding: 0.5rem; border-radius: 4px; margin: 0.5rem 0; text-align: center;">
                                 <strong>TP / (TP + FP)</strong>
                             </div>
-                            <p><strong>Interpretation:</strong> Of predicted positives, how many are actually positive?</p>
+                            <p><strong>Interpretation:</strong> Of predicted positives, how many are actually positive?
+                            </p>
                             <p><strong>Focus:</strong> Avoiding false alarms</p>
                             <p><strong>Important when:</strong> False positives are costly</p>
                             <div style="background: #f8f9fa; padding: 0.5rem; border-radius: 4px; margin-top: 0.5rem;">
@@ -457,7 +507,8 @@
 
                         <div style="background: #fff8e1; padding: 1rem; border-radius: 8px;">
                             <h5>🕵️ Recall (Sensitivity)</h5>
-                            <div style="background: white; padding: 0.5rem; border-radius: 4px; margin: 0.5rem 0; text-align: center;">
+                            <div
+                                style="background: white; padding: 0.5rem; border-radius: 4px; margin: 0.5rem 0; text-align: center;">
                                 <strong>TP / (TP + FN)</strong>
                             </div>
                             <p><strong>Interpretation:</strong> Of actual positives, how many did we catch?</p>
@@ -470,7 +521,8 @@
 
                         <div style="background: #f3e5f5; padding: 1rem; border-radius: 8px;">
                             <h5>⚖️ F1-Score</h5>
-                            <div style="background: white; padding: 0.5rem; border-radius: 4px; margin: 0.5rem 0; text-align: center;">
+                            <div
+                                style="background: white; padding: 0.5rem; border-radius: 4px; margin: 0.5rem 0; text-align: center;">
                                 <strong>2 × (Precision × Recall) / (Precision + Recall)</strong>
                             </div>
                             <p><strong>Interpretation:</strong> Harmonic mean of precision and recall</p>
@@ -491,13 +543,15 @@
                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                                 <div>
                                     <p><strong>True Positive Rate (TPR):</strong></p>
-                                    <div style="text-align: center; background: #f8f9fa; padding: 0.5rem; border-radius: 4px;">
+                                    <div
+                                        style="text-align: center; background: #f8f9fa; padding: 0.5rem; border-radius: 4px;">
                                         TPR = TP / (TP + FN) = Recall
                                     </div>
                                 </div>
                                 <div>
                                     <p><strong>False Positive Rate (FPR):</strong></p>
-                                    <div style="text-align: center; background: #f8f9fa; padding: 0.5rem; border-radius: 4px;">
+                                    <div
+                                        style="text-align: center; background: #f8f9fa; padding: 0.5rem; border-radius: 4px;">
                                         FPR = FP / (FP + TN)
                                     </div>
                                 </div>
@@ -516,7 +570,8 @@
                         </ul>
 
                         <div style="background: #e8f5e8; padding: 1rem; border-radius: 6px; margin-top: 1rem;">
-                            <strong>💡 AUC Advantage:</strong> Single number summarizing performance across all thresholds - great for model comparison!
+                            <strong>💡 AUC Advantage:</strong> Single number summarizing performance across all
+                            thresholds - great for model comparison!
                         </div>
                     </div>
                 </div>
@@ -524,13 +579,15 @@
                 <h2>🔧 Hyperparameter Tuning: Optimizing Model Performance</h2>
                 <div class="azbn-card">
                     <h3>GridSearchCV and Cross-Validation Mastery</h3>
-                    
+
                     <div style="background: #fff8e1; padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
                         <h4>🎯 The Hyperparameter Challenge</h4>
-                        <p>Unlike model parameters (learned from data), hyperparameters are set before training and control the learning process. Finding optimal values requires systematic search.</p>
+                        <p>Unlike model parameters (learned from data), hyperparameters are set before training and
+                            control the learning process. Finding optimal values requires systematic search.</p>
 
                         <h5>🔍 Key Hyperparameters by Algorithm:</h5>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1rem 0;">
+                        <div
+                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1rem 0;">
                             <div style="background: #e3f2fd; padding: 1rem; border-radius: 6px;">
                                 <h6>📈 Logistic Regression</h6>
                                 <ul style="font-size: 0.9rem;">
@@ -624,10 +681,11 @@
                 <h2>⚖️ Handling Class Imbalance</h2>
                 <div class="azbn-card">
                     <h3>When Classes Aren't Equal</h3>
-                    
+
                     <div style="background: #ffebee; padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
                         <h4>❌ The Imbalanced Data Problem</h4>
-                        <p>Many real-world problems have imbalanced classes (e.g., fraud detection: 99.9% legitimate, 0.1% fraud). Standard metrics and algorithms can be misleading.</p>
+                        <p>Many real-world problems have imbalanced classes (e.g., fraud detection: 99.9% legitimate,
+                            0.1% fraud). Standard metrics and algorithms can be misleading.</p>
 
                         <h5>🚨 Common Issues:</h5>
                         <ul>
@@ -639,7 +697,8 @@
                     </div>
 
                     <h4>🛠️ Solutions for Imbalanced Data</h4>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+                    <div
+                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
                         <div style="background: #e3f2fd; padding: 1rem; border-radius: 8px;">
                             <h5>📊 Sampling Techniques</h5>
                             <ul style="font-size: 0.9rem;">
@@ -687,7 +746,8 @@
                     <h3>🎓 Professional Classification Guidelines:</h3>
                     <ol>
                         <li><strong>Start with simple baselines:</strong> Logistic regression before complex models</li>
-                        <li><strong>Understand your data:</strong> Check class distribution and feature relationships</li>
+                        <li><strong>Understand your data:</strong> Check class distribution and feature relationships
+                        </li>
                         <li><strong>Choose appropriate metrics:</strong> F1-score for imbalanced, AUC for ranking</li>
                         <li><strong>Use proper validation:</strong> Stratified K-fold cross-validation</li>
                         <li><strong>Tune hyperparameters systematically:</strong> Grid/random search with CV</li>
@@ -696,122 +756,225 @@
                         <li><strong>Consider business context:</strong> Precision vs recall trade-offs matter</li>
                     </ol>
                 </div>
+                <h2>💻 Complete Python Implementation</h2>
+                <div class="azbn-card">
+                    <h3>Classification Master Class: Hands-On Code</h3>
 
-                <div style="margin: 2rem 0; text-align: center;">
-                    <a href="./chapter2.html" class="azbn-btn azbn-secondary" style="text-decoration: none; margin-right: 1rem;">← Chapter 2: Regression</a>
-                    <a href="../../tutorials/neural-networks/" class="azbn-btn" style="text-decoration: none;">Next: Neural Networks →</a>
-                    <a href="./index.html" class="azbn-btn azbn-secondary" style="text-decoration: none; margin-left: 1rem;">Course Home</a>
+                    <div style="background: #e8f5e8; padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
+                        <h4>🎯 Binary Classification Project</h4>
+
+                        <div
+                            style="background: #1e1e1e; color: #f8f8f2; padding: 1rem; border-radius: 6px; margin: 1rem 0; font-family: 'Courier New', monospace; font-size: 0.9rem;">
+                            <div style="color: #75715e;"># Complete Classification Pipeline</div>
+                            <div><span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">numpy</span>
+                                <span style="color: #f92672;">as</span> <span style="color: #f8f8f2;">np</span>
+                            </div>
+                            <div><span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">pandas</span>
+                                <span style="color: #f92672;">as</span> <span style="color: #f8f8f2;">pd</span>
+                            </div>
+                            <div><span style="color: #f92672;">import</span> <span
+                                    style="color: #f8f8f2;">matplotlib.pyplot</span> <span
+                                    style="color: #f92672;">as</span> <span style="color: #f8f8f2;">plt</span></div>
+                            <div><span style="color: #f92672;">from</span> <span
+                                    style="color: #f8f8f2;">sklearn.datasets</span> <span
+                                    style="color: #f92672;">import</span> <span
+                                    style="color: #f8f8f2;">load_breast_cancer</span></div>
+                            <div><span style="color: #f92672;">from</span> <span
+                                    style="color: #f8f8f2;">sklearn.model_selection</span> <span
+                                    style="color: #f92672;">import</span> <span
+                                    style="color: #f8f8f2;">train_test_split, GridSearchCV</span></div>
+                            <div><span style="color: #f92672;">from</span> <span
+                                    style="color: #f8f8f2;">sklearn.preprocessing</span> <span
+                                    style="color: #f92672;">import</span> <span
+                                    style="color: #f8f8f2;">StandardScaler</span></div>
+                            <div><span style="color: #f92672;">from</span> <span
+                                    style="color: #f8f8f2;">sklearn.linear_model</span> <span
+                                    style="color: #f92672;">import</span> <span
+                                    style="color: #f8f8f2;">LogisticRegression</span></div>
+                            <div><span style="color: #f92672;">from</span> <span
+                                    style="color: #f8f8f2;">sklearn.svm</span> <span
+                                    style="color: #f92672;">import</span> <span style="color: #f8f8f2;">SVC</span></div>
+                            <div><span style="color: #f92672;">from</span> <span
+                                    style="color: #f8f8f2;">sklearn.metrics</span> <span
+                                    style="color: #f92672;">import</span> <span
+                                    style="color: #f8f8f2;">classification_report, confusion_matrix,
+                                    roc_auc_score</span>
+                            </div>
+                            <div style="color: #75715e; margin-top: 1rem;"># Load and prepare data</div>
+                            <div><span style="color: #f8f8f2;">cancer</span> <span style="color: #f92672;">=</span>
+                                <span style="color: #f8f8f2;">load_breast_cancer()</span>
+                            </div>
+                            <div><span style="color: #f8f8f2;">X, y</span> <span style="color: #f92672;">=</span> <span
+                                    style="color: #f8f8f2;">cancer.data, cancer.target</span></div>
+
+                            <div><span style="color: #f8f8f2;">X_train, X_test, y_train, y_test</span> <span
+                                    style="color: #f92672;">=</span> <span
+                                    style="color: #f8f8f2;">train_test_split(</span></div>
+                            <div><span style="color: #f8f8f2;"> X, y, test_size=0.2, random_state=42, stratify=y</span>
+                            </div>
+                            <div><span style="color: #f8f8f2;">)</span></div>
+
+                            <div style="color: #75715e;"># Scale features</div>
+                            <div><span style="color: #f8f8f2;">scaler</span> <span style="color: #f92672;">=</span>
+                                <span style="color: #f8f8f2;">StandardScaler()</span>
+                            </div>
+                            <div><span style="color: #f8f8f2;">X_train_scaled</span> <span
+                                    style="color: #f92672;">=</span> <span
+                                    style="color: #f8f8f2;">scaler.fit_transform(X_train)</span></div>
+                            <div><span style="color: #f8f8f2;">X_test_scaled</span> <span
+                                    style="color: #f92672;">=</span> <span
+                                    style="color: #f8f8f2;">scaler.transform(X_test)</span></div>
+
+                            <div style="color: #66d9ef;">print</div><span style="color: #f92672;">(</span><span
+                                style="color: #e6db74;">f"Dataset: {X.shape[0]} samples, {X.shape[1]}
+                                features"</span><span style="color: #f92672;">)</span>
+                        </div>
+                        <div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span
+                                style="color: #e6db74;">f"Classes: {cancer.target_names}"</span><span
+                                style="color: #f92672;">)</span></div>
+                    </div>
+
+                    <div style="background: #fff3e0; padding: 1rem; border-radius: 6px; margin-top: 1rem;">
+                        <strong>🎯 Expected Results:</strong>
+                        <ul style="font-size: 0.9rem; margin: 0.5rem 0;">
+                            <li>Logistic Regression AUC: ~0.99</li>
+                            <li>SVM AUC: ~0.99</li>
+                            <li>Both models achieve excellent performance on this dataset</li>
+                            <li>Hyperparameter tuning often improves performance</li>
+                        </ul>
+                    </div>
                 </div>
+            </div>
+            <div style="background: #e8f5e8; padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
+                <h4>⚖️ Handling Imbalanced Classification</h4>
+
+                <div
+                    style="background: #1e1e1e; color: #f8f8f2; padding: 1rem; border-radius: 6px; margin: 1rem 0; font-family: 'Courier New', monospace; font-size: 0.9rem;">
+                    <div style="color: #75715e;">
+
+                        <div><span style="color: #f92672;">from</span> <span style="color: #f8f8f2;">collections</span>
+                            <span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">Counter</span>
+                        </div>
+
+                        <div style="color: #75715e; margin-top: 1rem;"># Create imbalanced dataset (keep only 10% of
+                            malignant cases)</div>
+                        <div><span style="color: #f8f8f2;">malignant_indices</span> <span
+                                style="color: #f92672;">=</span> <span style="color: #f8f8f2;">np.where(y_train</span>
+                            <span style="color: #f92672;">==</span> <span style="color: #ae81ff;">0</span><span
+                                style="color: #f8f8f2;">)[0]</span>
+                        </div>
+                        <div><span style="color: #f8f8f2;">benign_indices</span> <span style="color: #f92672;">=</span>
+                            <span style="color: #f8f8f2;">np.where(y_train</span> <span
+                                style="color: #f92672;">==</span> <span style="color: #ae81ff;">1</span><span
+                                style="color: #f8f8f2;">)[0]</span>
+                        </div>
+
+                        <div style="color: #75715e;"># Keep only 10% of malignant cases</div>
+                        <div><span style="color: #f8f8f2;">keep_malignant</span> <span style="color: #f92672;">=</span>
+                            <span style="color: #f8f8f2;">np.random.choice(malignant_indices, size=</span><span
+                                style="color: #66d9ef;">int</span><span style="color: #f92672;">(</span><span
+                                style="color: #66d9ef;">len</span><span style="color: #f92672;">(</span><span
+                                style="color: #f8f8f2;">malignant_indices</span><span style="color: #f92672;">)</span>
+                            <span style="color: #f92672;">*</span> <span style="color: #ae81ff;">0.1</span><span
+                                style="color: #f92672;">)</span><span style="color: #f8f8f2;">, replace=</span><span
+                                style="color: #ae81ff;">False</span><span style="color: #f8f8f2;">)</span>
+                        </div>
+                        <div><span style="color: #f8f8f2;">balanced_indices</span> <span
+                                style="color: #f92672;">=</span> <span
+                                style="color: #f8f8f2;">np.concatenate([keep_malignant, benign_indices])</span></div>
+
+                        <div><span style="color: #f8f8f2;">X_imbalanced</span> <span style="color: #f92672;">=</span>
+                            <span style="color: #f8f8f2;">X_train_scaled[balanced_indices]</span>
+                        </div>
+                        <div><span style="color: #f8f8f2;">y_imbalanced</span> <span style="color: #f92672;">=</span>
+                            <span style="color: #f8f8f2;">y_train[balanced_indices]</span>
+                        </div>
+
+                        <div style="color: #66d9ef;">print</div><span style="color: #f92672;">(</span><span
+                            style="color: #e6db74;">f"Imbalanced dataset class distribution:"</span><span
+                            style="color: #f92672;">)</span>
+                    </div>
+                    <div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span
+                            style="color: #f8f8f2;">Counter(y_imbalanced)</span><span style="color: #f92672;">)</span>
+                    </div>
+
+                    <div style="color: #75715e; margin-top: 1rem;"># Compare models with/without handling imbalance
+                    </div>
+                    <div style="color: #75715e;"># 1. Standard model (suffers from imbalance)</div>
+                    <div><span style="color: #f8f8f2;">lr_standard</span> <span style="color: #f92672;">=</span> <span
+                            style="color: #f8f8f2;">LogisticRegression(random_state=42)</span></div>
+                    <div><span style="color: #f8f8f2;">lr_standard.fit(X_imbalanced, y_imbalanced)</span></div>
+                    <div><span style="color: #f8f8f2;">pred_standard</span> <span style="color: #f92672;">=</span> <span
+                            style="color: #f8f8f2;">lr_standard.predict(X_test_scaled)</span></div>
+
+                    <div style="color: #75715e;"># 2. Balanced model (handles imbalance)</div>
+                    <div><span style="color: #f8f8f2;">lr_balanced</span> <span style="color: #f92672;">=</span> <span
+                            style="color: #f8f8f2;">LogisticRegression(class_weight=</span><span
+                            style="color: #e6db74;">'balanced'</span><span style="color: #f8f8f2;">,
+                            random_state=42)</span></div>
+                    <div><span style="color: #f8f8f2;">lr_balanced.fit(X_imbalanced, y_imbalanced)</span></div>
+                    <div><span style="color: #f8f8f2;">pred_balanced</span> <span style="color: #f92672;">=</span> <span
+                            style="color: #f8f8f2;">lr_balanced.predict(X_test_scaled)</span></div>
+
+                    <div style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span
+                            style="color: #e6db74;">f"\nComparison on Imbalanced Data:"</span><span
+                            style="color: #f92672;">)</span></div>
+                    <div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span
+                            style="color: #e6db74;">f"Standard Model F1-Score: </span><span
+                            style="color: #e6db74;">{f1_score(y_test, pred_standard):.3f}</span><span
+                            style="color: #e6db74;">"</span><span style="color: #f92672;">)</span></div>
+                    <div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span
+                            style="color: #e6db74;">f"Balanced Model F1-Score: </span><span
+                            style="color: #e6db74;">{f1_score(y_test, pred_balanced):.3f}</span><span
+                            style="color: #e6db74;">"</span><span style="color: #f92672;">)</span></div>
+                </div>
+
+                <div style="background: #fff3e0; padding: 1rem; border-radius: 6px; margin-top: 1rem;">
+                    <strong>🎯 Expected Results:</strong>
+                    <ul style="font-size: 0.9rem; margin: 0.5rem 0;">
+                        <li>Standard model: High accuracy but poor minority class detection</li>
+                        <li>Balanced model: Better F1-score and minority class performance</li>
+                        <li>SMOTE can further improve results with synthetic samples</li>
+                        <li>Always evaluate with appropriate metrics for imbalanced data</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="background: #fff3e0; padding: 1rem; border-radius: 6px; margin-top: 1rem;">
+                <strong>🎯 Expected Results:</strong>
+                <ul style="font-size: 0.9rem; margin: 0.5rem 0;">
+                    <li>Logistic Regression: ~97% accuracy</li>
+                    <li>SVM with RBF: ~98% accuracy</li>
+                    <li>Multi-class strategies perform similarly on Iris</li>
+                    <li>Class imbalance techniques significantly improve minority class detection</li>
+                    <li>Professional evaluation requires multiple metrics beyond accuracy</li>
+                </ul>
+            </div>
+                    <div style="text-align: center; margin: 40px 0;">
+                        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: blue; padding: 30px; border-radius: 15px;">
+                            <h2>🎉 Congratulations!</h2>
+                            <p style="font-size: 1.2em; margin: 20px 0;color: white">You've completed Chapter 3 and built a solid foundation in Classification!</p>
+                
+                            
+                            <div style="display: flex; justify-content: space-between; margin-top: 30px;">
+                                <!-- Left-aligned button -->
+                                <button style="background: white; color: #667eea; border: none; padding: 15px 30px; border-radius: 8px; font-size: 1.1em; font-weight: bold; margin: 10px; cursor: pointer;">
+                                    <a href="./chapter2.html" class="azbn-btn azbn-secondary" style="text-decoration: none; color: inherit;">📚 Back to Chapter 2: Regression</a>
+                                </button>
+                                
+                                <button style="background: white; color: #667eea; border: none; padding: 15px 30px; border-radius: 8px; font-size: 1.1em; font-weight: bold; margin: 10px; cursor: pointer;">
+                                    <a href="#top" class="azbn-btn azbn-secondary" style="text-decoration: none; color: inherit;">  🔄 Review This Chapter</a>
+                                </button>
+                                <!-- Right-aligned button -->
+                                <button style="background: white; color: #667eea; border: none; padding: 15px 30px; border-radius: 8px; font-size: 1.1em; font-weight: bold; margin: 10px; cursor: pointer;">
+                                    <a href="./index.html" class="azbn-btn azbn-secondary" style="text-decoration: none; color: inherit;"> Course Home </a>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
             </div>
         </section>
     </main>
 </body>
+
 </html>
-<div><span style="color: #f92672;">from</span> <span style="color: #f8f8f2;">collections</span> <span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">Counter</span></div>
-
-<div style="color: #75715e; margin-top: 1rem;"># Create imbalanced dataset (keep only 10% of malignant cases)</div>
-<div><span style="color: #f8f8f2;">malignant_indices</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">np.where(y_train</span> <span style="color: #f92672;">==</span> <span style="color: #ae81ff;">0</span><span style="color: #f8f8f2;">)[0]</span></div>
-<div><span style="color: #f8f8f2;">benign_indices</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">np.where(y_train</span> <span style="color: #f92672;">==</span> <span style="color: #ae81ff;">1</span><span style="color: #f8f8f2;">)[0]</span></div>
-
-<div style="color: #75715e;"># Keep only 10% of malignant cases</div>
-<div><span style="color: #f8f8f2;">keep_malignant</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">np.random.choice(malignant_indices, size=</span><span style="color: #66d9ef;">int</span><span style="color: #f92672;">(</span><span style="color: #66d9ef;">len</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">malignant_indices</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">*</span> <span style="color: #ae81ff;">0.1</span><span style="color: #f92672;">)</span><span style="color: #f8f8f2;">, replace=</span><span style="color: #ae81ff;">False</span><span style="color: #f8f8f2;">)</span></div>
-<div><span style="color: #f8f8f2;">balanced_indices</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">np.concatenate([keep_malignant, benign_indices])</span></div>
-
-<div><span style="color: #f8f8f2;">X_imbalanced</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">X_train_scaled[balanced_indices]</span></div>
-<div><span style="color: #f8f8f2;">y_imbalanced</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">y_train[balanced_indices]</span></div>
-
-<div style="color: #66d9ef;">print</div><span style="color: #f92672;">(</span><span style="color: #e6db74;">f"Imbalanced dataset class distribution:"</span><span style="color: #f92672;">)</span></div>
-<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">Counter(y_imbalanced)</span><span style="color: #f92672;">)</span></div>
-
-<div style="color: #75715e; margin-top: 1rem;"># Compare models with/without handling imbalance</div>
-<div style="color: #75715e;"># 1. Standard model (suffers from imbalance)</div>
-<div><span style="color: #f8f8f2;">lr_standard</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">LogisticRegression(random_state=42)</span></div>
-<div><span style="color: #f8f8f2;">lr_standard.fit(X_imbalanced, y_imbalanced)</span></div>
-<div><span style="color: #f8f8f2;">pred_standard</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">lr_standard.predict(X_test_scaled)</span></div>
-
-<div style="color: #75715e;"># 2. Balanced model (handles imbalance)</div>
-<div><span style="color: #f8f8f2;">lr_balanced</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">LogisticRegression(class_weight=</span><span style="color: #e6db74;">'balanced'</span><span style="color: #f8f8f2;">, random_state=42)</span></div>
-<div><span style="color: #f8f8f2;">lr_balanced.fit(X_imbalanced, y_imbalanced)</span></div>
-<div><span style="color: #f8f8f2;">pred_balanced</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">lr_balanced.predict(X_test_scaled)</span></div>
-
-<div style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">f"\nComparison on Imbalanced Data:"</span><span style="color: #f92672;">)</span></div>
-<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">f"Standard Model F1-Score: </span><span style="color: #e6db74;">{f1_score(y_test, pred_standard):.3f}</span><span style="color: #e6db74;">"</span><span style="color: #f92672;">)</span></div>
-<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">f"Balanced Model F1-Score: </span><span style="color: #e6db74;">{f1_score(y_test, pred_balanced):.3f}</span><span style="color: #e6db74;">"</span><span style="color: #f92672;">)</span></div>
-                        </div>
-
-                        <div style="background: #fff3e0; padding: 1rem; border-radius: 6px; margin-top: 1rem;">
-                            <strong>🎯 Expected Results:</strong>
-                            <ul style="font-size: 0.9rem; margin: 0.5rem 0;">
-                                <li>Standard model: High accuracy but poor minority class detection</li>
-                                <li>Balanced model: Better F1-score and minority class performance</li>
-                                <li>SMOTE can further improve results with synthetic samples</li>
-                                <li>Always evaluate with appropriate metrics for imbalanced data</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                        <div style="background: #fff3e0; padding: 1rem; border-radius: 6px; margin-top: 1rem;">
-                            <strong>🎯 Expected Results:</strong>
-                            <ul style="font-size: 0.9rem; margin: 0.5rem 0;">
-                                <li>Logistic Regression: ~97% accuracy</li>
-                                <li>SVM with RBF: ~98% accuracy</li>
-                                <li>Multi-class strategies perform similarly on Iris</li>
-                                <li>Class imbalance techniques significantly improve minority class detection</li>
-                                <li>Professional evaluation requires multiple metrics beyond accuracy</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-</body></html>
-cat > temp_chapter3_addition.html << 'EOF'
-
-                <h2>💻 Complete Python Implementation</h2>
-                <div class="azbn-card">
-                    <h3>Classification Master Class: Hands-On Code</h3>
-                    
-                    <div style="background: #e8f5e8; padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
-                        <h4>🎯 Binary Classification Project</h4>
-                        
-                        <div style="background: #1e1e1e; color: #f8f8f2; padding: 1rem; border-radius: 6px; margin: 1rem 0; font-family: 'Courier New', monospace; font-size: 0.9rem;">
-<div style="color: #75715e;"># Complete Classification Pipeline</div>
-<div><span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">numpy</span> <span style="color: #f92672;">as</span> <span style="color: #f8f8f2;">np</span></div>
-<div><span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">pandas</span> <span style="color: #f92672;">as</span> <span style="color: #f8f8f2;">pd</span></div>
-<div><span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">matplotlib.pyplot</span> <span style="color: #f92672;">as</span> <span style="color: #f8f8f2;">plt</span></div>
-<div><span style="color: #f92672;">from</span> <span style="color: #f8f8f2;">sklearn.datasets</span> <span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">load_breast_cancer</span></div>
-<div><span style="color: #f92672;">from</span> <span style="color: #f8f8f2;">sklearn.model_selection</span> <span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">train_test_split, GridSearchCV</span></div>
-<div><span style="color: #f92672;">from</span> <span style="color: #f8f8f2;">sklearn.preprocessing</span> <span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">StandardScaler</span></div>
-<div><span style="color: #f92672;">from</span> <span style="color: #f8f8f2;">sklearn.linear_model</span> <span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">LogisticRegression</span></div>
-<div><span style="color: #f92672;">from</span> <span style="color: #f8f8f2;">sklearn.svm</span> <span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">SVC</span></div>
-<div><span style="color: #f92672;">from</span> <span style="color: #f8f8f2;">sklearn.metrics</span> <span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">classification_report, confusion_matrix, roc_auc_score</span></div>
-
-<div style="color: #75715e; margin-top: 1rem;"># Load and prepare data</div>
-<div><span style="color: #f8f8f2;">cancer</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">load_breast_cancer()</span></div>
-<div><span style="color: #f8f8f2;">X, y</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">cancer.data, cancer.target</span></div>
-
-<div><span style="color: #f8f8f2;">X_train, X_test, y_train, y_test</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">train_test_split(</span></div>
-<div><span style="color: #f8f8f2;">    X, y, test_size=0.2, random_state=42, stratify=y</span></div>
-<div><span style="color: #f8f8f2;">)</span></div>
-
-<div style="color: #75715e;"># Scale features</div>
-<div><span style="color: #f8f8f2;">scaler</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">StandardScaler()</span></div>
-<div><span style="color: #f8f8f2;">X_train_scaled</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">scaler.fit_transform(X_train)</span></div>
-<div><span style="color: #f8f8f2;">X_test_scaled</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">scaler.transform(X_test)</span></div>
-
-<div style="color: #66d9ef;">print</div><span style="color: #f92672;">(</span><span style="color: #e6db74;">f"Dataset: {X.shape[0]} samples, {X.shape[1]} features"</span><span style="color: #f92672;">)</span></div>
-<div><span style="color: #66d9ef;">print</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">f"Classes: {cancer.target_names}"</span><span style="color: #f92672;">)</span></div>
-                        </div>
-
-                        <div style="background: #fff3e0; padding: 1rem; border-radius: 6px; margin-top: 1rem;">
-                            <strong>🎯 Expected Results:</strong>
-                            <ul style="font-size: 0.9rem; margin: 0.5rem 0;">
-                                <li>Logistic Regression AUC: ~0.99</li>
-                                <li>SVM AUC: ~0.99</li>
-                                <li>Both models achieve excellent performance on this dataset</li>
-                                <li>Hyperparameter tuning often improves performance</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-EOF
