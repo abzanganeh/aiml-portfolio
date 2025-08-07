@@ -7,17 +7,47 @@
     <link rel="stylesheet" href="../../assets/css/style.css">
 </head>
 <body>
-    <header class="azbn-header">
+    <div style="
+        background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+        color: white;
+        padding: 12px 20px;
+        text-align: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        font-size: 14px;
+        border-bottom: 2px solid rgba(255,255,255,0.2);
+    ">
+        <span style="margin-right: 10px;">🚧</span>
+        <strong>Website Under Development:</strong> 
+        We experienced some downtime recently. Some links may be broken and topics incomplete - working to fix everything gradually. 
+        <span style="margin-left: 10px;">Thank you for your patience! 🙏</span>
+        <button onclick="this.parentElement.style.display='none'" style="
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            margin-left: 15px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        ">✕</button>
+    </div>
+
+    <header class="azbn-header" style="top: 50px;">
         <nav class="azbn-nav" style="top: 50px;">
             <div class="azbn-container" style="display: flex; justify-content: space-between; align-items: center;">
                 <a href="../" style="text-decoration: none; color: #4f46e5; display: flex; align-items: center; gap: 0.5rem;">
-                    <img src="/../assets/images/logo.png" alt="Logo" style="height: 40px;">
+                    <img src="../../assets/images/logo.png" alt="Logo" style="height: 40px;">
                 </a>
 
                 <div class="azbn-links">
                     <a href="../../#home">Home</a>
                     <a href="../../#about">About</a>
-                    <a href="../../#tutorials/">Tutorials</a>
+                    <a href="../../tutorials/">Tutorials</a>
                     <a href="../../#projects">Projects</a>
                     <a href="../../#contact">Contact</a>
                 </div>

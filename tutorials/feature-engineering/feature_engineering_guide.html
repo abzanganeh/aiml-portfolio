@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feature Engineering Complete Guide</title>
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/feature_engineering_style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+</head>
+<body>
+    <div style="
+        background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+        color: white;
+        padding: 12px 20px;
+        text-align: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        font-size: 14px;
+        border-bottom: 2px solid rgba(255,255,255,0.2);
+    ">
+        <span style="margin-right: 10px;">🚧</span>
+        <strong>Website Under Development:</strong> 
+        We experienced some downtime recently. Some links may be broken and topics incomplete - working to fix everything gradually. 
+        <span style="margin-left: 10px;">Thank you for your patience! 🙏</span>
+        <button onclick="this.parentElement.style.display='none'" style="
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            margin-left: 15px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        ">✕</button>
+    </div>
+
+    <header class="azbn-header" style="top: 50px;">
+        <nav class="azbn-nav" style="top: 50px;">
+            <div class="azbn-container" style="display: flex; justify-content: space-between; align-items: center;">
+                <a href="../" style="text-decoration: none; color: #4f46e5; display: flex; align-items: center; gap: 0.5rem;">
+                    <img src="../assets/images/logo.png" alt="Logo" style="height: 40px;">
+                </a>
+
+                <div class="azbn-links">
+                    <a href="../../#home">Home</a>
+                    <a href="../../#about">About</a>
+                    <a href="../">Tutorials</a>
+                    <a href="../../#projects">Projects</a>
+                    <a href="../../#contact">Contact</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main style="padding-top: 150px;">
+        <div class="container">
+        <h1>🔍 Complete Guide to Feature Engineering</h1>
+        
+        <h2>📚 What is Feature Engineering?</h2>
+        <div class="content-section">
+            <p>Feature engineering is the process of creating, transforming, and selecting the most relevant features from raw data to improve machine learning model performance. It's often considered the most important step in the machine learning pipeline, as good features can make simple algorithms work better than complex algorithms with poor features.</p>
+            
+            <p>The goal is to extract meaningful patterns and representations that help algorithms learn more effectively, while reducing noise and irrelevant information.</p>
+        </div>
+        
+        <h2>🛠️ Core Feature Engineering Techniques</h2>
+        
+        <div class="technique-grid">
+            <div class="technique-card">
+                <h3>🔢 Numerical Transformations</h3>
+                <p><strong>Scaling & Normalization:</strong></p>
+                <ul>
+                    <li>Min-Max Scaling</li>
+                    <li>Standard Scaling (Z-score)</li>
+                    <li>Robust Scaling</li>
+                    <li>Unit Vector Scaling</li>
+                </ul>
+            </div>
+            
+            <div class="technique-card">
+                <h3>📝 Categorical Encoding</h3>
+                <p><strong>Handling Categorical Data:</strong></p>
+                <ul>
+                    <li>One-Hot Encoding</li>
+                    <li>Label Encoding</li>
+                    <li>Target Encoding</li>
+                    <li>Binary Encoding</li>
+                </ul>
+            </div>
+            
+            <div class="technique-card">
+                <h3>📊 Feature Creation</h3>
+                <p><strong>Generating New Features:</strong></p>
+                <ul>
+                    <li>Polynomial Features</li>
+                    <li>Interaction Features</li>
+                    <li>Domain-specific Features</li>
+                    <li>Aggregation Features</li>
+                </ul>
+            </div>
+            
+            <div class="technique-card">
+                <h3>📉 Dimensionality Reduction</h3>
+                <p><strong>Reducing Feature Space:</strong></p>
+                <ul>
+                    <li>Principal Component Analysis (PCA)</li>
+                    <li>Linear Discriminant Analysis (LDA)</li>
+                    <li>t-SNE</li>
+                    <li>Feature Selection Methods</li>
+                </ul>
+            </div>
+        </div>
+        
+        <h2>📈 Feature Engineering Process</h2>
+        
+        <div class="process-step">
+            <div class="step-number">1</div>
+            <h3 style="margin-left: 40px;">Data Understanding & Exploration</h3>
+            <p style="margin-left: 40px;">Analyze data distribution, identify missing values, outliers, and understand feature relationships.</p>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">2</div>
+            <h3 style="margin-left: 40px;">Data Cleaning & Preprocessing</h3>
+            <p style="margin-left: 40px;">Handle missing values, remove duplicates, and correct inconsistencies in the data.</p>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">3</div>
+            <h3 style="margin-left: 40px;">Feature Transformation</h3>
+            <p style="margin-left: 40px;">Apply scaling, encoding, and mathematical transformations to existing features.</p>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">4</div>
+            <h3 style="margin-left: 40px;">Feature Creation</h3>
+            <p style="margin-left: 40px;">Generate new features through combinations, aggregations, and domain knowledge.</p>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">5</div>
+            <h3 style="margin-left: 40px;">Feature Selection</h3>
+            <p style="margin-left: 40px;">Select the most relevant features using statistical methods and model-based approaches.</p>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">6</div>
+            <h3 style="margin-left: 40px;">Validation & Iteration</h3>
+            <p style="margin-left: 40px;">Evaluate feature performance and iterate based on model results and domain feedback.</p>
+        </div>
+        
+        <h2>💻 Python Implementation</h2>
+        
+        <h3>Comprehensive Feature Engineering Pipeline</h3>
+        <div class="code-block">
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import StandardScaler, LabelEncoder, PolynomialFeatures
+from sklearn.feature_selection import SelectKBest, f_classif, RFE
+from sklearn.decomposition import PCA
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+class FeatureEngineeringPipeline:
+    def __init__(self):
+        self.scalers = {}
+        self.encoders = {}
+        self.feature_selector = None
+        self.pca = None
+        self.selected_features = None
+        
+    def handle_missing_values(self, df, strategy='median'):
+        """Handle missing values in the dataset"""
+        if strategy == 'median':
+            numeric_cols = df.select_dtypes(include=[np.number]).columns
+            df[numeric_cols] = df[numeric_cols].fillna(df[numeric_cols].median())
+        elif strategy == 'mode':
+            categorical_cols = df.select_dtypes(include=['object']).columns
+            for col in categorical_cols:
+                df[col] = df[col].fillna(df[col].mode()[0])
+        elif strategy == 'forward_fill':
+            df = df.fillna(method='ffill')
+        
+        return df
+    
+    def detect_outliers(self, df, columns, method='iqr'):
+        """Detect outliers using IQR or Z-score method"""
+        outliers = pd.DataFrame()
+        
+        for col in columns:
+            if method == 'iqr':
+                Q1 = df[col].quantile(0.25)
+                Q3 = df[col].quantile(0.75)
+                IQR = Q3 - Q1
+                lower_bound = Q1 - 1.5 * IQR
+                upper_bound = Q3 + 1.5 * IQR
+                outliers[col] = (df[col] < lower_bound) | (df[col] > upper_bound)
+            
+            elif method == 'zscore':
+                z_scores = np.abs((df[col] - df[col].mean()) / df[col].std())
+                outliers[col] = z_scores > 3
+        
+        return outliers
+    
+    def scale_features(self, X_train, X_test, columns, method='standard'):
+        """Scale numerical features"""
+        if method == 'standard':
+            scaler = StandardScaler()
+        elif method == 'minmax':
+            from sklearn.preprocessing import MinMaxScaler
+            scaler = MinMaxScaler()
+        elif method == 'robust':
+            from sklearn.preprocessing import RobustScaler
+            scaler = RobustScaler()
+        
+        X_train_scaled = X_train.copy()
+        X_test_scaled = X_test.copy()
+        
+        X_train_scaled[columns] = scaler.fit_transform(X_train[columns])
+        X_test_scaled[columns] = scaler.transform(X_test[columns])
+        
+        self.scalers[method] = scaler
+        return X_train_scaled, X_test_scaled
+    
+    def encode_categorical(self, X_train, X_test, columns, method='onehot'):
+        """Encode categorical features"""
+        X_train_encoded = X_train.copy()
+        X_test_encoded = X_test.copy()
+        
+        if method == 'onehot':
+            encoded_train = pd.get_dummies(X_train[columns], prefix=columns)
+            encoded_test = pd.get_dummies(X_test[columns], prefix=columns)
+            
+            # Ensure same columns in train and test
+            all_columns = set(encoded_train.columns) | set(encoded_test.columns)
+            for col in all_columns:
+                if col not in encoded_train.columns:
+                    encoded_train[col] = 0
+                if col not in encoded_test.columns:
+                    encoded_test[col] = 0
+            
+            encoded_train = encoded_train.reindex(sorted(encoded_train.columns), axis=1)
+            encoded_test = encoded_test.reindex(sorted(encoded_test.columns), axis=1)
+            
+            X_train_encoded = X_train_encoded.drop(columns=columns)
+            X_test_encoded = X_test_encoded.drop(columns=columns)
+            X_train_encoded = pd.concat([X_train_encoded, encoded_train], axis=1)
+            X_test_encoded = pd.concat([X_test_encoded, encoded_test], axis=1)
+        
+        elif method == 'label':
+            for col in columns:
+                le = LabelEncoder()
+                X_train_encoded[col] = le.fit_transform(X_train[col].astype(str))
+                X_test_encoded[col] = le.transform(X_test[col].astype(str))
+                self.encoders[col] = le
+        
+        return X_train_encoded, X_test_encoded
+    
+    def create_polynomial_features(self, X_train, X_test, degree=2):
+        """Create polynomial features"""
+        poly = PolynomialFeatures(degree=degree, include_bias=False)
+        
+        X_train_poly = poly.fit_transform(X_train)
+        X_test_poly = poly.transform(X_test)
+        
+        feature_names = poly.get_feature_names_out(X_train.columns)
+        
+        return (pd.DataFrame(X_train_poly, columns=feature_names, index=X_train.index),
+                pd.DataFrame(X_test_poly, columns=feature_names, index=X_test.index))
+    
+    def create_interaction_features(self, df, feature_pairs):
+        """Create interaction features between specified pairs"""
+        df_interactions = df.copy()
+        
+        for feat1, feat2 in feature_pairs:
+            if feat1 in df.columns and feat2 in df.columns:
+                df_interactions[f'{feat1}_x_{feat2}'] = df[feat1] * df[feat2]
+                df_interactions[f'{feat1}_div_{feat2}'] = df[feat1] / (df[feat2] + 1e-8)
+                df_interactions[f'{feat1}_plus_{feat2}'] = df[feat1] + df[feat2]
+        
+        return df_interactions
+    
+    def select_features_univariate(self, X_train, y_train, X_test, k=10):
+        """Select features using univariate statistical tests"""
+        selector = SelectKBest(score_func=f_classif, k=k)
+        
+        X_train_selected = selector.fit_transform(X_train, y_train)
+        X_test_selected = selector.transform(X_test)
+        
+        selected_feature_names = X_train.columns[selector.get_support()]
+        
+        return (pd.DataFrame(X_train_selected, columns=selected_feature_names, index=X_train.index),
+                pd.DataFrame(X_test_selected, columns=selected_feature_names, index=X_test.index),
+                selected_feature_names)
+    
+    def select_features_recursive(self, X_train, y_train, X_test, n_features=10):
+        """Select features using Recursive Feature Elimination"""
+        estimator = RandomForestClassifier(n_estimators=50, random_state=42)
+        selector = RFE(estimator, n_features_to_select=n_features)
+        
+        X_train_selected = selector.fit_transform(X_train, y_train)
+        X_test_selected = selector.transform(X_test)
+        
+        selected_feature_names = X_train.columns[selector.get_support()]
+        
+        return (pd.DataFrame(X_train_selected, columns=selected_feature_names, index=X_train.index),
+                pd.DataFrame(X_test_selected, columns=selected_feature_names, index=X_test.index),
+                selected_feature_names)
+    
+    def apply_pca(self, X_train, X_test, n_components=0.95):
+        """Apply Principal Component Analysis"""
+        pca = PCA(n_components=n_components)
+        
+        X_train_pca = pca.fit_transform(X_train)
+        X_test_pca = pca.transform(X_test)
+        
+        self.pca = pca
+        
+        feature_names = [f'PC{i+1}' for i in range(X_train_pca.shape[1])]
+        
+        return (pd.DataFrame(X_train_pca, columns=feature_names, index=X_train.index),
+                pd.DataFrame(X_test_pca, columns=feature_names, index=X_test.index))
+
+# Example usage
+def feature_engineering_example():
+    # Load sample dataset (using Titanic dataset as example)
+    from sklearn.datasets import load_breast_cancer
+    
+    # Load data
+    data = load_breast_cancer()
+    df = pd.DataFrame(data.data, columns=data.feature_names)
+    df['target'] = data.target
+    
+    # Split features and target
+    X = df.drop('target', axis=1)
+    y = df['target']
+    
+    # Split into train and test
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+    
+    # Initialize feature engineering pipeline
+    fe_pipeline = FeatureEngineeringPipeline()
+    
+    # 1. Scale features
+    numeric_columns = X_train.select_dtypes(include=[np.number]).columns
+    X_train_scaled, X_test_scaled = fe_pipeline.scale_features(
+        X_train, X_test, numeric_columns, method='standard'
+    )
+    
+    # 2. Feature selection
+    X_train_selected, X_test_selected, selected_features = fe_pipeline.select_features_univariate(
+        X_train_scaled, y_train, X_test_scaled, k=15
+    )
+    
+    # 3. Create polynomial features (on selected features only)
+    X_train_poly, X_test_poly = fe_pipeline.create_polynomial_features(
+        X_train_selected, X_test_selected, degree=2
+    )
+    
+    # 4. Apply PCA to reduce dimensionality
+    X_train_final, X_test_final = fe_pipeline.apply_pca(
+        X_train_poly, X_test_poly, n_components=20
+    )
+    
+    # Train and evaluate model
+    model = RandomForestClassifier(n_estimators=100, random_state=42)
+    model.fit(X_train_final, y_train)
+    
+    # Evaluate
+    y_pred = model.predict(X_test_final)
+    print("Classification Report:")
+    print(classification_report(y_test, y_pred))
+    
+    # Feature importance analysis
+    if hasattr(model, 'feature_importances_'):
+        feature_importance = pd.DataFrame({
+            'feature': X_train_final.columns,
+            'importance': model.feature_importances_
+        }).sort_values('importance', ascending=False)
+        
+        print("\nTop 10 Most Important Features:")
+        print(feature_importance.head(10))
+    
+    return fe_pipeline, X_train_final, X_test_final
+
+# Run the example
+if __name__ == "__main__":
+    pipeline, X_train, X_test = feature_engineering_example()
+        </div>
+        
+        <h2>📊 Feature Selection Methods</h2>
+        
+        <div class="technique-grid">
+            <div class="technique-card">
+                <h3>📈 Filter Methods</h3>
+                <p>Select features based on statistical measures</p>
+                <ul>
+                    <li>Correlation coefficients</li>
+                    <li>Chi-square test</li>
+                    <li>ANOVA F-test</li>
+                    <li>Mutual information</li>
+                </ul>
+            </div>
+            
+            <div class="technique-card">
+                <h3>🎯 Wrapper Methods</h3>
+                <p>Use model performance to select features</p>
+                <ul>
+                    <li>Recursive Feature Elimination (RFE)</li>
+                    <li>Forward Selection</li>
+                    <li>Backward Elimination</li>
+                    <li>Exhaustive Search</li>
+                </ul>
+            </div>
+            
+            <div class="technique-card">
+                <h3>🌳 Embedded Methods</h3>
+                <p>Feature selection during model training</p>
+                <ul>
+                    <li>LASSO Regularization</li>
+                    <li>Ridge Regularization</li>
+                    <li>Tree-based importance</li>
+                    <li>Elastic Net</li>
+                </ul>
+            </div>
+            
+            <div class="technique-card">
+                <h3>🧠 Advanced Methods</h3>
+                <p>Modern feature selection techniques</p>
+                <ul>
+                    <li>Genetic Algorithms</li>
+                    <li>Simulated Annealing</li>
+                    <li>Particle Swarm Optimization</li>
+                    <li>Deep Feature Selection</li>
+                </ul>
+            </div>
+        </div>
+        
+        <h2>⚠️ Common Pitfalls and Best Practices</h2>
+        
+        <div class="warning-box">
+            <h3>❌ Common Mistakes to Avoid:</h3>
+            <ul>
+                <li><strong>Data Leakage:</strong> Using future information or target-derived features</li>
+                <li><strong>Overfitting:</strong> Creating too many features relative to sample size</li>
+                <li><strong>Feature Scaling Issues:</strong> Not scaling features for distance-based algorithms</li>
+                <li><strong>Ignoring Domain Knowledge:</strong> Creating irrelevant features without understanding</li>
+                <li><strong>Not Handling Missing Values:</strong> Improper treatment of missing data</li>
+            </ul>
+        </div>
+        
+        <div class="example-box">
+            <h3>✅ Best Practices:</h3>
+            <ul>
+                <li><strong>🎯 Start Simple:</strong> Begin with basic transformations before complex ones</li>
+                <li><strong>📊 Understand Your Data:</strong> Explore distributions and relationships first</li>
+                <li><strong>🔄 Iterate:</strong> Feature engineering is an iterative process</li>
+                <li><strong>📈 Validate:</strong> Always validate feature performance on holdout data</li>
+                <li><strong>📝 Document:</strong> Keep track of transformations for reproducibility</li>
+                <li><strong>⚖️ Balance Complexity:</strong> More features ≠ better performance</li>
+            </ul>
+        </div>
+        
+        <h2>🚀 Real-World Applications</h2>
+        
+        <div class="technique-grid">
+            <div class="technique-card">
+                <h4>🏦 Financial Services</h4>
+                <p>Risk assessment, fraud detection, credit scoring with engineered financial ratios and behavioral features</p>
+            </div>
+            
+            <div class="technique-card">
+                <h4>🛒 E-commerce</h4>
+                <p>Recommendation systems, customer segmentation with purchase history and interaction features</p>
+            </div>
+            
+            <div class="technique-card">
+                <h4>🏥 Healthcare</h4>
+                <p>Disease prediction, treatment optimization with clinical measurements and derived biomarkers</p>
+            </div>
+            
+            <div class="technique-card">
+                <h4>🚗 Transportation</h4>
+                <p>Route optimization, demand forecasting with temporal and geospatial feature engineering</p>
+            </div>
+            
+            <div class="technique-card">
+                <h4>📱 Technology</h4>
+                <p>User behavior analysis, product optimization with engagement metrics and feature interactions</p>
+            </div>
+            
+            <div class="technique-card">
+                <h4>🏭 Manufacturing</h4>
+                <p>Predictive maintenance, quality control with sensor data and process parameter engineering</p>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="../index.html#learning" class="back-link">← Back to Learning Resources</a>
+        </div>
+    </div>
+    </main>
+</body>
+</html>

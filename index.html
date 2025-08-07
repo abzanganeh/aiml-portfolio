@@ -54,8 +54,8 @@
     <header class="azbn-header" style="top: 50px;">
         <nav class="azbn-nav" style="top: 50px;">
             <div class="azbn-container" style="display: flex; justify-content: space-between; align-items: center;">
-                <a href="../" style="text-decoration: none; color: #4f46e5; display: flex; align-items: center; gap: 0.5rem;">
-                    <img src="/../assets/images/logo.png" alt="Logo" style="height: 40px;">
+                <a href="./" style="text-decoration: none; color: #4f46e5; display: flex; align-items: center; gap: 0.5rem;">
+                    <img src="assets/images/logo.png" alt="Logo" style="height: 40px;">
                 </a>
 
                 <div class="azbn-links">
@@ -102,27 +102,63 @@
                 <h2>Portfolio Projects</h2>
                 <div class="azbn-grid">
                     <div class="azbn-card">
-                        <h3>Titanic Survival Prediction</h3>
-                        <p>Advanced ML model with ensemble methods and feature engineering.</p>
-                        <span class="azbn-tag">Machine Learning</span>
-                        <div style="margin-top: 1rem;">
-                            <a href="projects/titanic-prediction/" style="color: #4f46e5; text-decoration: none; font-weight: 600;">View Project →</a>
+                        <div class="card-body">
+                            <h3>Titanic Survival Prediction</h3>
+                            <p>Advanced ML model with ensemble methods and feature engineering.</p>
+                            <span class="azbn-tag">Machine Learning</span>
+                        </div>
+                        <div class="card-footer">
+                            <a href="projects/titanic-prediction/" class="btn">View Project →</a>
                         </div>
                     </div>
                     <div class="azbn-card">
-                        <h3>Neural Network from Scratch</h3>
-                        <p>Custom implementation demonstrating deep learning fundamentals.</p>
-                        <span class="azbn-tag">Deep Learning</span>
-                        <div style="margin-top: 1rem;">
-                            <a href="projects/neural-network-scratch/" style="color: #4f46e5; text-decoration: none; font-weight: 600;">View Project →</a>
+                        <div class="card-body">
+                            <h3>Neural Network from Scratch</h3>
+                            <p>Custom implementation demonstrating deep learning fundamentals.</p>
+                            <span class="azbn-tag">Deep Learning</span>
+                        </div>
+                        <div class="card-footer">
+                            <a href="projects/neural-network-scratch/" class="btn">View Project →</a>
                         </div>
                     </div>
                     <div class="azbn-card">
-                        <h3>CI/CD ML Pipeline</h3>
-                        <p>Production-ready pipeline with automated deployment.</p>
-                        <span class="azbn-tag">MLOps</span>
-                        <div style="margin-top: 1rem;">
-                            <a href="projects/ml-pipeline/" style="color: #4f46e5; text-decoration: none; font-weight: 600;">View Project →</a>
+                        <div class="card-body">
+                            <h3>CI/CD ML Pipeline</h3>
+                            <p>Production-ready pipeline with automated deployment.</p>
+                            <span class="azbn-tag">MLOps</span>
+                        </div>
+                        <div class="card-footer">
+                            <a href="projects/ml-pipeline/" class="btn">View Project →</a>
+                        </div>
+                    </div>
+                    <div class="azbn-card">
+                        <div class="card-body">
+                            <h3>Decision Trees Guide</h3>
+                            <p>Comprehensive guide on decision tree algorithms and implementation.</p>
+                            <span class="azbn-tag">Machine Learning</span>
+                        </div>
+                        <div class="card-footer">
+                            <a href="projects/decision-trees/decision_trees_guide.html" class="btn">View Project →</a>
+                        </div>
+                    </div>
+                    <div class="azbn-card">
+                        <div class="card-body">
+                            <h3>Linear Regression Analysis</h3>
+                            <p>Statistical regression analysis and predictive modeling guide.</p>
+                            <span class="azbn-tag">Statistics</span>
+                        </div>
+                        <div class="card-footer">
+                            <a href="projects/linear-regression/linear_regression_guide.html" class="btn">View Project →</a>
+                        </div>
+                    </div>
+                    <div class="azbn-card">
+                        <div class="card-body">
+                            <h3>Clustering Algorithms</h3>
+                            <p>Unsupervised learning techniques for data grouping and analysis.</p>
+                            <span class="azbn-tag">Unsupervised Learning</span>
+                        </div>
+                        <div class="card-footer">
+                            <a href="projects/clustering/clustering_guide.html" class="btn">View Project →</a>
                         </div>
                     </div>
                 </div>
@@ -132,12 +168,55 @@
         <section id="contact" class="azbn-section">
             <div class="azbn-container">
                 <h2>Get In Touch</h2>
-                <p>Email: ali.zanganeh@example.com</p>
-                <p>GitHub: github.com/abzanganeh</p>
-                <p>LinkedIn: Professional networking</p>
+                <div style="display: flex; justify-content: center; gap: 2rem; margin-top: 2rem; flex-wrap: wrap;">
+                    <div class="azbn-card" style="max-width: 300px; text-align: center; cursor: pointer;" onclick="copyEmail()">
+                        <h3>📧 Email</h3>
+                        <p id="email-text">ali.zanganeh@example.com</p>
+                        <p style="font-size: 0.9em; color: #666; margin-top: 0.5rem;">Click to copy email address</p>
+                        <div id="email-copied" style="display: none; color: #10b981; font-weight: 600; margin-top: 0.5rem;">
+                            ✓ Email copied to clipboard!
+                        </div>
+                    </div>
+                    <div class="azbn-card" style="max-width: 300px; text-align: center; cursor: pointer;" onclick="openLinkedIn()">
+                        <h3>💼 LinkedIn</h3>
+                        <p>Connect with me on LinkedIn</p>
+                        <p style="font-size: 0.9em; color: #666; margin-top: 0.5rem;">Click to open LinkedIn profile</p>
+                    </div>
+                </div>
+                <div style="margin-top: 2rem; text-align: center;">
+                    <p>GitHub: <a href="https://github.com/abzanganeh" style="color: #4f46e5; text-decoration: none;">github.com/abzanganeh</a></p>
+                </div>
             </div>
         </section>
     </main>
+
+    <!-- Footer with Version Information -->
+    <footer style="
+        background: #1f2937;
+        color: white;
+        padding: 2rem 0;
+        margin-top: 4rem;
+        text-align: center;
+    ">
+        <div class="azbn-container">
+            <div style="margin-bottom: 1rem;">
+                <p>&copy; 2025 Ali Barzin Zanganeh. All rights reserved.</p>
+            </div>
+            <div style="
+                font-size: 0.8em;
+                color: #9ca3af;
+                border-top: 1px solid #374151;
+                padding-top: 1rem;
+            ">
+                <p>
+                    <strong>Version:</strong> v10.0805.0700 | 
+                    <strong>Last Updated:</strong> <span id="build-timestamp">August 5, 2025</span> | 
+                    <strong>Build:</strong> <span id="build-id">20250805-0700</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
     <!-- filepath: /Users/admin/Desktop/WebSite/index.html -->
     <!-- Add this script section before </body> -->
 
@@ -170,7 +249,40 @@
                 }
             });
         });
+
+        // Update build timestamp dynamically
+        const timestamp = document.getElementById('build-timestamp');
+        if (timestamp) {
+            timestamp.textContent = new Date().toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
     });
+
+    // Email copy functionality
+    function copyEmail() {
+        const email = 'ali.zanganeh@example.com';
+        navigator.clipboard.writeText(email).then(function() {
+            const copiedDiv = document.getElementById('email-copied');
+            copiedDiv.style.display = 'block';
+            setTimeout(() => {
+                copiedDiv.style.display = 'none';
+            }, 2000);
+        }).catch(function(err) {
+            console.error('Could not copy text: ', err);
+        });
+    }
+
+    // LinkedIn open functionality
+    function openLinkedIn() {
+        // Replace with actual LinkedIn URL
+        const linkedinUrl = 'https://www.linkedin.com/in/alireza-barzin-zanganeh-2a9909126';
+        window.open(linkedinUrl, '_blank');
+    }
     </script>
 </body>
 </html>

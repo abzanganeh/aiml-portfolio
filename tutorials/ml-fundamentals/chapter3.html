@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chapter 3: Classification Algorithms - Ali Zanganeh</title>
     <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/ml_fundamentals_ch3.css">
 </head>
 
 <body>
@@ -29,10 +30,9 @@
                 <p class="azbn-subtitle">From logistic regression to support vector machines with mathematical
                     foundations and real-world applications</p>
 
-                <div class="azbn-card"
-                    style="background: linear-gradient(135deg, #e91e63 0%, #673ab7 100%); color: white; margin-bottom: 2rem;">
+                <div class="azbn-card learning-objectives-card">
                     <h2>🎯 Learning Objectives</h2>
-                    <ul style="color: white;">
+                    <ul>
                         <li>Master logistic regression theory and sigmoid function mathematics</li>
                         <li>Understand Support Vector Machines and kernel methods</li>
                         <li>Learn comprehensive model evaluation (accuracy, precision, recall, F1, ROC-AUC)</li>
@@ -49,12 +49,12 @@
                         categories or classes rather than continuous values. Unlike regression, the output is
                         categorical.</p>
 
-                    <div style="background: #e8f5e8; padding: 1.5rem; border-radius: 10px; margin: 1.5rem 0;">
+                    <div class="classification-problem">
                         <h4>🎯 The Classification Problem:</h4>
-                        <div style="text-align: center; font-size: 1.2rem; margin: 1rem 0;">
+                        <div class="classification-formula">
                             <strong>y ∈ {C₁, C₂, ..., Cₖ}</strong>
                         </div>
-                        <ul style="margin-top: 1rem;">
+                        <ul>
                             <li><strong>y:</strong> Target class (what we want to predict)</li>
                             <li><strong>Cₖ:</strong> Possible classes (finite, discrete set)</li>
                             <li><strong>X:</strong> Input features (same as regression)</li>
@@ -63,35 +63,34 @@
                     </div>
 
                     <h4>📊 Types of Classification Problems:</h4>
-                    <div class="azbn-grid"
-                        style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin: 1rem 0;">
-                        <div style="border: 1px solid #ddd; padding: 1rem; border-radius: 8px; background: #e3f2fd;">
+                    <div class="azbn-grid classification-types-grid">
+                        <div class="classification-type-card binary-classification">
                             <h5>🔵 Binary Classification</h5>
                             <p><strong>Classes:</strong> 2 (Yes/No, True/False)</p>
                             <p><strong>Examples:</strong></p>
-                            <ul style="font-size: 0.9rem;">
+                            <ul>
                                 <li>Email: Spam vs Ham</li>
                                 <li>Medical: Disease vs Healthy</li>
                                 <li>Finance: Fraud vs Legitimate</li>
                                 <li>Marketing: Buy vs Don't Buy</li>
                             </ul>
                         </div>
-                        <div style="border: 1px solid #ddd; padding: 1rem; border-radius: 8px; background: #e8f5e8;">
+                        <div class="classification-type-card multi-class-classification">
                             <h5>🟢 Multi-class Classification</h5>
                             <p><strong>Classes:</strong> 3+ (mutually exclusive)</p>
                             <p><strong>Examples:</strong></p>
-                            <ul style="font-size: 0.9rem;">
+                            <ul>
                                 <li>Image: Cat, Dog, Bird, Fish</li>
                                 <li>Text: Sports, Politics, Entertainment</li>
                                 <li>Iris: Setosa, Versicolor, Virginica</li>
                                 <li>Grade: A, B, C, D, F</li>
                             </ul>
                         </div>
-                        <div style="border: 1px solid #ddd; padding: 1rem; border-radius: 8px; background: #fff8e1;">
+                        <div class="classification-type-card multi-label-classification">
                             <h5>🟡 Multi-label Classification</h5>
                             <p><strong>Classes:</strong> Multiple labels per sample</p>
                             <p><strong>Examples:</strong></p>
-                            <ul style="font-size: 0.9rem;">
+                            <ul>
                                 <li>Movie genres: Action + Comedy</li>
                                 <li>Article tags: Tech + AI + Python</li>
                                 <li>Image tags: Person + Car + Road</li>
