@@ -1,14 +1,13 @@
 /* Feature Engineering Guide Specific Styles */
 
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
     line-height: 1.6;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: #333;
@@ -16,17 +15,36 @@ body {
 }
 
 .container {
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
+  max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
+
+header {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+}
+
+main {
+    margin-top: 80px;
+    padding: 2rem 0;
+}
+
 
 h1 {
     color: #2c3e50;
     text-align: center;
-    border-bottom: 3px solid #3498db;
     padding-bottom: 10px;
     margin-bottom: 30px;
     font-size: 2.5rem;
@@ -34,20 +52,19 @@ h1 {
 
 h2 {
     color: #34495e;
-    border-left: 4px solid #3498db;
     padding-left: 15px;
     margin-top: 30px;
     font-size: 1.8rem;
 }
 
 h3 {
-    color: #2980b9;
+    color: #002e5d;
     margin-top: 25px;
     font-size: 1.4rem;
 }
 
 .content-section {
-    background: #f8f9fa;
+    background: #b0d3f8;
     padding: 2rem;
     border-radius: 10px;
     margin: 1rem 0;
@@ -59,8 +76,9 @@ h3 {
 }
 
 .code-block {
-    background: #f8f9fa;
+    background: #021121;
     border: 1px solid #e9ecef;
+    color: #c9e2fa;
     border-radius: 5px;
     padding: 1rem;
     margin: 1rem 0;

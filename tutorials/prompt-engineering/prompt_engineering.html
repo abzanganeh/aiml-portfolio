@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Prompt Engineering Course - Master AI Communication</title>
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/prompt_engineering.css">
+   
+    <style>
+        .refiner-demo {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .refiner-demo h4 {
+            color: #4f46e5;
+            margin-top: 0;
+            border-bottom: 2px solid #e5e5f5;
+            padding-bottom: 10px;
+            font-size: 1.25rem;
+            margin-bottom: 15px;
+        }
+        .refiner-demo label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        .refiner-demo textarea, .refiner-demo select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+        .refiner-btn {
+            background-color: #4f46e5;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        .refiner-btn:hover {
+            background-color: #4338ca;
+        }
+        .refiner-output {
+            background-color: #eef2ff;
+            border: 1px solid #c7d2fe;
+            border-left: 5px solid #4f46e5;
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 20px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', Courier, monospace;
+            color: #1e40af;
+        }
+    </style>
+</head>
+<body class="prompt-course"> 
+     <header class="azbn-header" >
+        <nav class="azbn-nav" style="top: 50px;">
+            <div class="azbn-container" style="display: flex; justify-content: space-between; align-items: center;">
+                <a href="../" style="text-decoration: none; color: #4f46e5; display: flex; align-items: center; gap: 0.5rem;">
+                    <img src="../../assets/images/logo.png" alt="Logo" style="height: 40px;">
+                </a>
+
+                <div class="azbn-links">
+                    <a href="../../#home">Home</a>
+                    <a href="../../#about">About</a>
+                    <a href="../../tutorials/">Tutorials</a>
+                    <a href="../../#projects">Projects</a>
+                    <a href="../../#contact">Contact</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main style="padding-top: 70px;">
+        <div class="container">
+            <div class="header">
+                <h1>🚀 Complete Prompt Engineering Course</h1>
+                <p>Master the art and science of communicating with AI - From zero to expert level</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+        
+            <div class="course-nav" id="courseNav">
+                <button class="nav-btn active" onclick="showSection('foundations', event)">Foundations</button>
+                <button class="nav-btn" onclick="showSection('core-techniques', event)">Core Techniques</button>
+                <button class="nav-btn" onclick="showSection('advanced-methods', event)">Advanced Methods</button>
+                <button class="nav-btn" onclick="showSection('specialized', event)">Specialized</button>
+                <button class="nav-btn" onclick="showSection('industry', event)">Industry</button>
+                <button class="nav-btn" onclick="showSection('best-practices', event)">Best Practices</button>
+                <button class="nav-btn" onclick="showSection('interactive', event)">Interactive Lab</button>
+                <button class="nav-btn" onclick="showSection('quiz', event)">Quiz & Assessment</button>
+            </div>
+
+            <div class="section active" id="foundations">
+                <h2>📚 Module 1: Foundations of Prompt Engineering</h2>
+                
+                <h3>What is Prompt Engineering?</h3>
+                <p>Prompt engineering is the systematic approach to designing, crafting, and optimizing inputs (prompts) to achieve desired outputs from AI language models. It combines art, science, and strategy to effectively communicate with artificial intelligence systems.</p>
+                
+                <div class="formula-box">
+                    <strong>Universal Prompt Formula:</strong><br>
+                    [Context] + [Specific Instruction] + [Examples] + [Constraints] + [Output Format] = Effective Prompt
+                </div>
+                
+                <h3>Core Principles of Effective Prompting</h3>
+                <ol>
+                    <li><strong>Clarity & Precision:</strong> Be specific and unambiguous in your instructions</li>
+                    <li><strong>Context Provision:</strong> Supply relevant background information and situational details</li>
+                    <li><strong>Constraint Setting:</strong> Define clear boundaries, limitations, and requirements</li>
+                    <li><strong>Example Demonstration:</strong> Show desired outcomes through concrete examples</li>
+                    <li><strong>Iterative Refinement:</strong> Continuously improve prompts based on results</li>
+                    <li><strong>Task Decomposition:</strong> Break complex tasks into manageable components</li>
+                </ol>
+                
+                <div class="example-box">
+                    <strong>❌ Ineffective Prompt:</strong><br>
+                    "Write about marketing"<br><br>
+                    <strong>✅ Effective Prompt:</strong><br>
+                    "As a digital marketing expert, write a 500-word comprehensive guide for small business owners about social media marketing strategies. Focus on Facebook and Instagram platforms, include 3 specific tactics with real-world examples, and format the response with clear headings and bullet points. Assume the audience has basic computer skills but limited marketing experience."
+                </div>
+                
+                <h3>The Psychology of AI Communication</h3>
+                <p>Understanding how language models process information helps create better prompts:</p>
+                <ul>
+                    <li><strong>Token-based processing:</strong> AI reads text as tokens, not words</li>
+                    <li><strong>Pattern recognition:</strong> Models identify patterns from training data</li>
+                    <li><strong>Context window:</strong> Limited memory affects long conversations</li>
+                    <li><strong>Probability-based responses:</strong> Outputs are generated probabilistically</li>
+                </ul>
+                
+                <div class="tip-box">
+                    Start with simple, clear instructions and gradually add complexity. Test your prompts with variations to discover what works best for your specific use case. Remember: specificity beats ambiguity every time!
+                </div>
+                
+                <div class="industry-note">
+                    Industry studies show that well-crafted prompts can improve AI task performance by 40-60% compared to basic instructions. This translates to significant time and cost savings in enterprise applications.
+                </div>
+            </div>
+
+            <div class="section" id="core-techniques">
+                <h2>🔧 Module 2: Core Prompt Engineering Techniques</h2>
+                
+                <h3>1. Zero-Shot Prompting</h3>
+                <p>Leveraging the AI's pre-trained knowledge without providing examples. Best for straightforward tasks where the AI has sufficient training data.</p>
+                
+                <div class="formula-box">
+                    <strong>Zero-Shot Formula:</strong><br>
+                    [Task Description] + [Specific Requirements] + [Output Format] + [Quality Constraints]
+                </div>
+                
+                <div class="example-box">
+                    <strong>Task:</strong> Sentiment Analysis<br>
+                    <strong>Prompt:</strong> "Analyze the sentiment of this customer review and classify it as positive, negative, or neutral. Provide a confidence score from 1-10 and explain your reasoning in 2-3 sentences:<br><br>
+                    'The product arrived quickly but the quality was disappointing. Customer service was helpful when I contacted them about the issue.'"
+                </div>
+                
+                <h3>2. Few-Shot Prompting</h3>
+                <p>Providing 2-5 examples to guide the AI's understanding. Highly effective for pattern-based tasks and consistent formatting.</p>
+                
+                <div class="formula-box">
+                    <strong>Few-Shot Formula:</strong><br>
+                    [Task Explanation] + [Example 1] + [Example 2] + [Example 3] + [New Task Instance]
+                </div>
+                
+                <div class="example-box">
+                    <strong>Task:</strong> Email Classification<br>
+                    <strong>Prompt:</strong> "Classify emails into categories: Sales, Support, Billing, or General.<br><br>
+                    Email: 'Can you help me reset my password?' → Category: Support<br>
+                    Email: 'I'd like to upgrade my plan' → Category: Sales<br>
+                    Email: 'My invoice shows incorrect charges' → Category: Billing<br><br>
+                    Email: 'When will the new features be available?' → Category: ?"
+                </div>
+                
+                <h3>3. Chain-of-Thought (CoT) Prompting</h3>
+                <p>Encouraging step-by-step reasoning for complex problems. Essential for mathematical, logical, and analytical tasks.</p>
+                
+                <div class="formula-box">
+                    <strong>Chain-of-Thought Formula:</strong><br>
+                    [Complex Problem] + "Let's approach this step-by-step:" + [Reasoning Process] + [Final Answer]
+                </div>
+                
+                <div class="example-box">
+                    <strong>Problem:</strong> Business Decision Analysis<br>
+                    <strong>Prompt:</strong> "A company is deciding whether to launch a new product. The development cost is $2M, expected revenue is $500K monthly for 2 years, and operating costs are $200K monthly. Should they proceed?<br><br>
+                    Let's analyze this step-by-step:"
+                </div>
+                
+                <h3>4. Tree of Thoughts (ToT) Prompting</h3>
+                <p>Advanced technique exploring multiple reasoning paths simultaneously. Excellent for creative problem-solving and complex decision-making.</p>
+                
+                <div class="formula-box">
+                    <strong>Tree of Thoughts Formula:</strong><br>
+                    [Problem] + "Consider multiple approaches:" + [Path 1] + [Path 2] + [Path 3] + [Evaluation] + [Best Solution]
+                </div>
+                
+                <div class="industry-note">
+                    Chain-of-thought prompting can improve accuracy by 25-40% on reasoning tasks. It's particularly valuable in finance, engineering, and strategic planning applications where logical progression matters.
+                </div>
+                
+                <h3>5. Self-Consistency Prompting</h3>
+                <p>Generating multiple responses and selecting the most consistent answer. Reduces errors and improves reliability.</p>
+                
+                <div class="tip-box">
+                    For critical tasks, ask the AI to solve the problem multiple ways and compare results. This technique catches errors and improves confidence in the output.
+                </div>
+            </div>
+
+            <div class="section" id="advanced-methods">
+                <h2>🎯 Module 3: Advanced Prompting Methods</h2>
+                
+                <h3>1. Role-Based Prompting (Persona Prompting)</h3>
+                <p>Assigning specific roles, expertise, or perspectives to shape the AI's responses. Creates consistent voice and specialized knowledge application.</p>
+                
+                <div class="formula-box">
+                    <strong>Role-Based Formula:</strong><br>
+                    "You are a [SPECIFIC ROLE] with [YEARS] of experience in [FIELD]. Your expertise includes [SKILLS]. [TASK] while maintaining a [TONE] and [STYLE]."
+                </div>
+                
+                <div class="example-box">
+                    <strong>Financial Advisory Role:</strong><br>
+                    "You are a certified financial advisor with 15 years of experience specializing in retirement planning for middle-class families. You have a CFP certification and prefer conservative investment strategies. Explain dollar-cost averaging to a 35-year-old teacher who's new to investing, using simple language and relatable examples."
+                </div>
+                
+                <h3>2. Template-Based Prompting</h3>
+                <p>Using structured frameworks for consistent, professional outputs. Ideal for reports, analyses, and standardized communications.</p>
+                
+                <div class="formula-box">
+                    <strong>Template Formula:</strong><br>
+                    "Structure your response using this template:<br>
+                    **Executive Summary**: [Brief overview]<br>
+                    **Key Findings**: [Main points]<br>
+                    **Recommendations**: [Action items]<br>
+                    **Next Steps**: [Implementation plan]"
+                </div>
+                
+                <h3>3. Iterative Refinement Prompting</h3>
+                <p>Building upon previous responses to create increasingly sophisticated outputs. Perfect for creative writing, strategic planning, and complex analysis.</p>
+                
+                <div class="example-box">
+                    <strong>Refinement Sequence:</strong><br>
+                    1. "Create a basic marketing plan for a coffee shop"<br>
+                    2. "Expand the target audience section with demographic data"<br>
+                    3. "Add competitive analysis for the local market"<br>
+                    4. "Include specific budget allocations for each strategy"
+                </div>
+                
+                <h3>4. Constraint-Based Prompting</h3>
+                <p>Setting specific limitations to control output characteristics. Essential for meeting requirements and managing scope.</p>
+                
+                <table>
+                    <tr>
+                        <th>Constraint Type</th>
+                        <th>Example</th>
+                        <th>Use Case</th>
+                    </tr>
+                    <tr>
+                        <td>Length</td>
+                        <td>"In exactly 100 words..."</td>
+                        <td>Social media posts, summaries</td>
+                    </tr>
+                    <tr>
+                        <td>Format</td>
+                        <td>"As a numbered list..."</td>
+                        <td>Instructions, procedures</td>
+                    </tr>
+                    <tr>
+                        <td>Audience</td>
+                        <td>"For 8th-grade reading level..."</td>
+                        <td>Educational content</td>
+                    </tr>
+                    <tr>
+                        <td>Tone</td>
+                        <td>"Professional but conversational..."</td>
+                        <td>Business communications</td>
+                    </tr>
+                    <tr>
+                        <td>Perspective</td>
+                        <td>"From a customer's viewpoint..."</td>
+                        <td>User experience design</td>
+                    </tr>
+                </table>
+                
+                <h3>5. Meta-Prompting</h3>
+                <p>Prompts that help create better prompts. Advanced technique for prompt optimization and self-improvement.</p>
+                
+                <div class="formula-box">
+                    <strong>Meta-Prompt Example:</strong><br>
+                    "I want to create a prompt that will help generate high-quality product descriptions for e-commerce. The prompt should ensure consistency, highlight key features, and include emotional appeal. What would be an effective prompt structure for this task?"
+                </div>
+                
+                <div class="tip-box">
+                    Advanced techniques work best when combined. Try using role-based prompting with chain-of-thought reasoning, or template-based prompting with iterative refinement for maximum effectiveness.
+                </div>
+            </div>
+
+            <div class="section" id="specialized">
+                <h2>🎨 Module 4: Specialized Prompting Applications</h2>
+                
+                <h3>1. Creative Writing Prompts</h3>
+                <p>Techniques for generating engaging stories, poetry, and creative content with specific styles and themes.</p>
+                
+                <div class="formula-box">
+                    <strong>Creative Writing Formula:</strong><br>
+                    [Genre] + [Setting] + [Character Details] + [Conflict/Challenge] + [Style/Tone] + [Length/Structure]
+                </div>
+                
+                <div class="example-box">
+                    <strong>Story Generation:</strong><br>
+                    "Write a 800-word science fiction short story set in a Mars colony in 2087. The protagonist is a 28-year-old botanist who discovers something unexpected in the greenhouse. Use a mysterious, suspenseful tone with vivid sensory details. Include dialogue and end with a cliffhanger."
+                </div>
+                
+                <h3>2. Code Generation Prompts</h3>
+                <p>Structured approaches for generating clean, efficient, and well-documented code across different programming languages.</p>
+                
+                <div class="formula-box">
+                    <strong>Code Generation Formula:</strong><br>
+                    [Programming Language] + [Specific Task] + [Requirements] + [Constraints] + [Documentation Level] + [Testing Requirements]
+                </div>
+                
+                <div class="example-box">
+                    <strong>Python Function Request:</strong><br>
+                    "Create a Python function that validates email addresses using regex. Requirements: Handle international domains, return boolean result, include comprehensive docstring with examples, add type hints, and provide 3 test cases. Follow PEP 8 standards and include error handling for edge cases."
+                </div>
+                
+                <h3>3. Data Analysis Prompts</h3>
+                <p>Systematic approaches for interpreting datasets, identifying patterns, and generating insights.</p>
+                
+                <div class="formula-box">
+                    <strong>Data Analysis Formula:</strong><br>
+                    [Dataset Description] + [Analysis Objectives] + [Key Metrics] + [Visualization Needs] + [Business Context] + [Action Items]
+                </div>
+                
+                <div class="example-box">
+                    <strong>Sales Data Analysis:</strong><br>
+                    "Analyze this quarterly sales data for an e-commerce company: [data]. Identify top-performing products, seasonal trends, and underperforming categories. Create insights for the marketing team focused on Q4 strategy. Include specific recommendations with projected impact and suggest 3 key performance indicators to monitor."
+                </div>
+                
+                <h3>4. Educational Content Prompts</h3>
+                <p>Designing prompts for creating effective learning materials, assessments, and instructional content.</p>
+                
+                <div class="formula-box">
+                    <strong>Educational Formula:</strong><br>
+                    [Learning Objective] + [Target Audience] + [Difficulty Level] + [Learning Style] + [Assessment Method] + [Engagement Elements]
+                </div>
+                
+                <h3>5. Business Strategy Prompts</h3>
+                <p>Frameworks for strategic planning, market analysis, and decision-making support.</p>
+                
+                <div class="example-box">
+                    <strong>SWOT Analysis Request:</strong><br>
+                    "Conduct a comprehensive SWOT analysis for a mid-sized renewable energy company entering the residential solar market. Consider current market conditions, regulatory environment, and emerging technologies. Format as a strategic presentation with actionable recommendations for the next 18 months."
+                </div>
+                
+                <div class="tip-box">
+                    For specialized applications, always include domain-specific terminology and context. This helps the AI access more relevant knowledge patterns and produce higher-quality, field-appropriate responses.
+                </div>
+                
+                <h3>6. Research and Academic Prompts</h3>
+                <p>Structured approaches for literature reviews, hypothesis generation, and academic writing.</p>
+                
+                <div class="formula-box">
+                    <strong>Research Formula:</strong><br>
+                    [Research Question] + [Methodology] + [Scope] + [Academic Level] + [Citation Requirements] + [Critical Analysis Depth]
+                </div>
+                
+                <div class="industry-note">
+                    Specialized prompting can increase task-specific performance by 50-70%. Different domains require different approaches - what works for creative writing may not work for technical documentation.
+                </div>
+            </div>
+
+            <div class="section" id="industry">
+                <h2>🏢 Module 5: Industry Applications & Best Practices</h2>
+                
+                <h3>Enterprise Prompt Engineering</h3>
+                <p>Real-world applications across different industries and business functions.</p>
+                
+                <h3>1. Customer Service & Support</h3>
+                <div class="example-box">
+                    <strong>Support Ticket Classification:</strong><br>
+                    "You are a customer support AI trained on our company's policies and procedures. Classify this support ticket into Priority (High/Medium/Low) and Category (Technical/Billing/Account/Product). Provide a suggested first response and escalation path if needed:<br><br>
+                    [Customer Ticket Content]"
+                </div>
+                
+                <h3>2. Marketing & Content Creation</h3>
+                <table>
+                    <tr>
+                        <th>Use Case</th>
+                        <th>Prompt Structure</th>
+                        <th>Key Elements</th>
+                    </tr>
+                    <tr>
+                        <td>Social Media Posts</td>
+                        <td>Platform + Audience + CTA + Constraints</td>
+                        <td>Character limits, hashtags, engagement hooks</td>
+                    </tr>
+                    <tr>
+                        <td>Email Campaigns</td>
+                        <td>Objective + Personalization + A/B Testing</td>
+                        <td>Subject lines, segmentation, conversion focus</td>
+                    </tr>
+                    <tr>
+                        <td>Product Descriptions</td>
+                        <td>Features + Benefits + SEO + Emotional Appeal</td>
+                        <td>Keywords, pain points, competitive advantages</td>
+                    </tr>
+                </table>
+                
+                <h3>3. Financial Services</h3>
+                <div class="formula-box">
+                    <strong>Financial Analysis Prompt:</strong><br>
+                    "As a senior financial analyst, review these quarterly earnings and provide:<br>
+                    1. Key performance indicators analysis<br>
+                    2. Year-over-year comparison with industry benchmarks<br>
+                    3. Risk assessment and mitigation strategies<br>
+                    4. Investment recommendations with confidence levels<br>
+                    Use conservative assumptions and cite relevant financial principles."
+                </div>
+                
+                <h3>4. Healthcare & Medical</h3>
+                <div class="industry-note">
+                    <strong>Critical Note:</strong> Healthcare prompts must include disclaimers about not providing medical advice and encouraging professional consultation. Always emphasize limitations and the need for human oversight.
+                </div>
+                
+                <h3>5. Legal & Compliance</h3>
+                <div class="example-box">
+                    <strong>Contract Review Prompt:</strong><br>
+                    "Review this contract section for potential issues, focusing on:<br>
+                    - Ambiguous language that could lead to disputes<br>
+                    - Missing standard clauses for this contract type<br>
+                    - Unusual terms requiring legal review<br>
+                    - Risk assessment for each identified issue<br>
+                    Note: This is preliminary analysis only; final review requires qualified legal counsel."
+                </div>
+                
+                <h3>Quality Assurance Framework</h3>
+                <ol>
+                    <li><strong>Consistency Testing:</strong> Run the same prompt multiple times</li>
+                    <li><strong>Edge Case Analysis:</strong> Test with unusual or boundary inputs</li>
+                    <li><strong>Bias Detection:</strong> Check for unfair or prejudiced outputs</li>
+                    <li><strong>Accuracy Validation:</strong> Verify factual claims and calculations</li>
+                    <li><strong>Stakeholder Review:</strong> Have domain experts evaluate results</li>
+                </ol>
+                
+                <div class="tip-box">
+                    Enterprise prompt engineering requires systematic testing, version control, and continuous monitoring. Establish feedback loops with end users to continuously improve prompt performance.
+                </div>
+                
+                <h3>Scaling Prompt Engineering</h3>
+                <ul>
+                    <li><strong>Prompt Libraries:</strong> Maintain centralized repositories of tested prompts</li>
+                    <li><strong>Template Systems:</strong> Create reusable frameworks for common tasks</li>
+                    <li><strong>Performance Metrics:</strong> Track success rates, user satisfaction, and efficiency gains</li>
+                    <li><strong>Training Programs:</strong> Educate team members on effective prompting techniques</li>
+                    <li><strong>Governance Policies:</strong> Establish guidelines for prompt creation and modification</li>
+                </ul>
+            </div>
+
+            <div class="section" id="best-practices">
+                <h2>⭐ Module 6: Best Practices & Optimization</h2>
+                
+                <h3>The CLEAR Framework</h3>
+                <p>A systematic approach to creating effective prompts:</p>
+                
+                <div class="formula-box">
+                    <strong>CLEAR Framework:</strong><br>
+                    <strong>C</strong>ontext - Provide relevant background<br>
+                    <strong>L</strong>ength - Specify desired output length<br>
+                    <strong>E</strong>xamples - Include concrete demonstrations<br>
+                    <strong>A</strong>udience - Define target audience<br>
+                    <strong>R</strong>ole - Assign appropriate persona/expertise
+                </div>
+                
+                <h3>Common Pitfalls to Avoid</h3>
+                <table>
+                    <tr>
+                        <th>Pitfall</th>
+                        <th>Problem</th>
+                        <th>Solution</th>
+                    </tr>
+                    <tr>
+                        <td>Vague Instructions</td>
+                        <td>Inconsistent, unpredictable outputs</td>
+                        <td>Use specific, measurable requirements</td>
+                    </tr>
+                    <tr>
+                        <td>Overlong Prompts</td>
+                        <td>Diluted focus, increased costs</td>
+                        <td>Break into smaller, focused prompts</td>
+                    </tr>
+                    <tr>
+                        <td>Missing Context</td>
+                        <td>Generic, irrelevant responses</td>
+                        <td>Provide necessary background information</td>
+                    </tr>
+                    <tr>
+                        <td>No Output Format</td>
+                        <td>Unusable response structure</td>
+                        <td>Specify desired format clearly</td>
+                    </tr>
+                    <tr>
+                        <td>Single Attempt</td>
+                        <td>Suboptimal results</td>
+                        <td>Iterate and refine based on results</td>
+                    </tr>
+                </table>
+                
+                <h3>Optimization Strategies</h3>
+                
+                <h4>1. A/B Testing Prompts</h4>
+                <div class="example-box">
+                    <strong>Version A:</strong> "Write a product description for these headphones"<br>
+                    <strong>Version B:</strong> "As a tech reviewer, write a compelling 150-word product description for these wireless headphones, highlighting sound quality, battery life, and comfort. Target music enthusiasts aged 25-35. Include a call-to-action."<br><br>
+                    <strong>Result:</strong> Version B typically performs 3x better in engagement metrics.
+                </div>
+                
+                <h4>2. Progressive Enhancement</h4>
+                <ol>
+                    <li><strong>Start Simple:</strong> Basic instruction + desired outcome</li>
+                    <li><strong>Add Context:</strong> Background information and constraints</li>
+                    <li><strong>Include Examples:</strong> Show desired patterns</li>
+                    <li><strong>Refine Format:</strong> Specify structure and style</li>
+                    <li><strong>Optimize Performance:</strong> Fine-tune based on results</li>
+                </ol>
+                
+                <h4>3. Error Recovery Strategies</h4>
+                <div class="tip-box">
+                    When prompts fail, systematically diagnose the issue:<br>
+                    • Was the instruction clear?<br>
+                    • Was there enough context?<br>
+                    • Were examples appropriate?<br>
+                    • Was the task within AI capabilities?<br>
+                    • Did constraints conflict with each other?
+                </div>
+                
+                <h3>Advanced Optimization Techniques</h3>
+                
+                <h4>1. Prompt Chaining</h4>
+                <p>Breaking complex tasks into sequential steps:</p>
+                <div class="formula-box">
+                    Step 1: "Analyze the market research data and identify key trends"<br>
+                    Step 2: "Based on these trends, suggest 3 product improvements"<br>
+                    Step 3: "Create implementation timelines for each suggestion"<br>
+                    Step 4: "Estimate budget requirements and ROI projections"
+                </div>
+                
+                <h4>2. Dynamic Prompting</h4>
+                <p>Adapting prompts based on previous responses or external data:</p>
+                <div class="example-box">
+                    <strong>Adaptive Customer Service:</strong><br>
+                    IF customer_sentiment == "frustrated" THEN<br>
+                    "Respond with empathy and immediate solution focus..."<br>
+                    ELSE IF customer_sentiment == "confused" THEN<br>
+                    "Provide clear, step-by-step explanations..."
+                </div>
+                
+                <h4>3. Performance Monitoring</h4>
+                <ul>
+                    <li><strong>Response Quality:</strong> Relevance, accuracy, completeness</li>
+                    <li><strong>Consistency:</strong> Similar inputs produce similar outputs</li>
+                    <li><strong>Efficiency:</strong> Token usage and response time</li>
+                    <li><strong>User Satisfaction:</strong> Feedback and adoption rates</li>
+                    <li><strong>Business Impact:</strong> Measurable outcomes and ROI</li>
+                </ul>
+                
+                <div class="industry-note">
+                    Companies using systematic prompt optimization report 60-80% improvement in AI task success rates and 40% reduction in iteration time. The key is treating prompt engineering as an engineering discipline, not an art.
+                </div>
+                
+                <h3>Ethical Considerations</h3>
+                <div class="tip-box">
+                    Always consider:<br>
+                    • Bias in prompts and outputs<br>
+                    • Privacy and data sensitivity<br>
+                    • Transparency about AI involvement<br>
+                    • Accuracy verification for critical tasks<br>
+                    • Fair representation across demographics
+                </div>
+            </div>
+
+            <div class="section" id="interactive">
+                <h2>🧪 Module 7: Interactive Prompt Engineering Lab</h2>
+                
+                <h3>Hands-On Practice: Build Your Prompts</h3>
+                <p>Use these interactive tools to practice and experiment with different prompting techniques.</p>
+                
+                <div class="interactive-demo">
+                    <h4>🎯 Prompt Builder Workshop</h4>
+                    <p>Create and test different prompt structures:</p>
+                    
+                    <label for="promptTask"><strong>Task Type:</strong></label>
+                    <select id="promptTask" class="demo-input">
+                        <option value="creative">Creative Writing</option>
+                        <option value="analysis">Data Analysis</option>
+                        <option value="summary">Text Summarization</option>
+                        <option value="coding">Code Generation</option>
+                        <option value="business">Business Strategy</option>
+                    </select>
+                    <label for="promptRole"><strong>AI Role:</strong></label>
+                    <input type="text" id="promptRole" class="demo-input" placeholder="e.g., experienced marketing manager, data scientist, creative writer...">
+                    <label for="promptContext"><strong>Context/Background:</strong></label>
+                    <textarea id="promptContext" class="demo-input" rows="3" placeholder="Provide relevant background information..."></textarea>
+                    <label for="promptInstruction"><strong>Specific Instructions:</strong></label>
+                    <textarea id="promptInstruction" class="demo-input" rows="3" placeholder="What exactly do you want the AI to do?"></textarea>
+                    <label for="promptConstraints"><strong>Constraints & Requirements:</strong></label>
+                    <input type="text" id="promptConstraints" class="demo-input" placeholder="Length, format, tone, audience, etc.">
+                    <button onclick="generatePrompt()" class="demo-btn">🚀 Build My Prompt</button>
+                    <button onclick="analyzePrompt()" class="demo-btn">🔍 Analyze Structure</button>
+                    <div id="promptBuilderOutput" class="demo-output">Your generated prompt will appear here...</div>
+                </div>
+                
+                <div class="interactive-demo">
+                    <h4>🔄 Prompt Iteration Simulator</h4>
+                    <p>Practice refining prompts through multiple iterations:</p>
+                    
+                    <textarea id="iterationPrompt" class="demo-input" rows="4" placeholder="Enter your initial prompt here..."></textarea>
+                    <label for="iterationGoal"><strong>Improvement Goal:</strong></label>
+                    <select id="iterationGoal" class="demo-input">
+                        <option value="clarity">Improve Clarity</option>
+                        <option value="specificity">Add Specificity</option>
+                        <option value="examples">Include Examples</option>
+                        <option value="constraints">Add Constraints</option>
+                        <option value="context">Enhance Context</option>
+                    </select>
+                    <button onclick="improvePrompt()" class="demo-btn">✨ Improve Prompt</button>
+                    <button onclick="compareVersions()" class="demo-btn">📊 Compare Versions</button>
+                    <div id="iterationOutput" class="demo-output">Improved prompt suggestions will appear here...</div>
+                </div>
+
+                <div class="interactive-demo">
+                    <h4>🎭 Role-Playing Prompt Generator</h4>
+                    <p>Create effective role-based prompts for different scenarios:</p>
+                    
+                    <label for="roleExpertise"><strong>Expertise Area:</strong></label>
+                    <input type="text" id="roleExpertise" class="demo-input" placeholder="e.g., cybersecurity, financial planning, creative writing...">
+                    <label for="roleExperience"><strong>Years of Experience:</strong></label>
+                    <select id="roleExperience" class="demo-input">
+                        <option value="5">5 years (Mid-level)</option>
+                        <option value="10">10 years (Senior)</option>
+                        <option value="15">15 years (Expert)</option>
+                        <option value="20">20+ years (Master)</option>
+                    </select>
+                    <label for="roleSpecialty"><strong>Specialty/Focus:</strong></label>
+                    <input type="text" id="roleSpeciality" class="demo-input" placeholder="Specific area within the expertise...">
+                    <label for="roleAudience"><strong>Target Audience:</strong></label>
+                    <input type="text" id="roleAudience" class="demo-input" placeholder="Who is the AI speaking to?">
+                    <label for="roleTask"><strong>Specific Task:</strong></label>
+                    <textarea id="roleTask" class="demo-input" rows="3" placeholder="What specific task or problem should the AI address?"></textarea>
+                    <button onclick="generateRolePrompt()" class="demo-btn">📝 Generate Role Prompt</button>
+                    <div id="rolePromptOutput" class="demo-output">Your role-based prompt will be generated here...</div>
+                </div>
+
+                <div class="interactive-demo">
+                    <h4>🧠 Chain-of-Thought Builder</h4>
+                    <p>Practice breaking down complex problems with Chain-of-Thought prompting:</p>
+                    
+                    <label for="cotProblem"><strong>Complex Problem:</strong></label>
+                    <textarea id="cotProblem" class="demo-input" rows="3" placeholder="Enter a complex problem that requires step-by-step reasoning..."></textarea>
+                    <label for="cotSteps"><strong>Number of Steps:</strong></label>
+                    <input type="number" id="cotSteps" class="demo-input" value="3" min="1">
+                    <button onclick="generateCoT()" class="demo-btn">🧠 Generate CoT Prompt</button>
+                    <div id="cotOutput" class="demo-output">Your Chain-of-Thought prompt will be generated here...</div>
+                </div>
+                
+                <div class="refiner-demo">
+                    <h4>✨ The Prompt Refiner</h4>
+                    <p>Turn a simple prompt into a professional, detailed one using a simulated AI refinement process.</p>
+                    <label for="simplePrompt"><strong>Your Simple Prompt:</strong></label>
+                    <textarea id="simplePrompt" rows="3" placeholder="e.g., Write a marketing plan for my new business."></textarea>
+                    <label for="taskSelect"><strong>Select a Task Context:</strong></label>
+                    <select id="taskSelect">
+                        <option value="marketing">Marketing Strategy</option>
+                        <option value="coding">Code Generation</option>
+                        <option value="creative">Creative Writing</option>
+                        <option value="research">Market Research</option>
+                    </select>
+                    <button class="refiner-btn" onclick="refinePrompt()">✨ Refine Prompt</button>
+                    <div class="refiner-output" id="refinerOutput">Your refined, professional prompt will appear here.</div>
+                </div>
+            </div>
+
+            <div class="section" id="quiz">
+                <h2>📝 Module 8: Quiz & Assessment</h2>
+                <p>Test your knowledge with this final assessment.</p>
+                <form id="quizForm">
+                    <ol>
+                        <li>
+                            <p>What is the primary benefit of using a "Role-Based Prompt"?</p>
+                            <label><input type="radio" name="q1" value="a"> A) It makes the prompt shorter.</label><br>
+                            <label><input type="radio" name="q1" value="b"> B) It helps the AI generate responses from a specific perspective or with specialized knowledge.</label><br>
+                            <label><input type="radio" name="q1" value="c"> C) It always increases the response time.</label>
+                        </li>
+                        <li>
+                            <p>Which technique is most effective for solving complex, multi-step problems?</p>
+                            <label><input type="radio" name="q2" value="a"> A) Zero-Shot Prompting</label><br>
+                            <label><input type="radio" name="q2" value="b"> B) Few-Shot Prompting</label><br>
+                            <label><input type="radio" name="q2" value="c"> C) Chain-of-Thought (CoT) Prompting</label>
+                        </li>
+                        <li>
+                            <p>The "C" in the CLEAR Framework stands for...</p>
+                            <label><input type="radio" name="q3" value="a"> A) Creativity</label><br>
+                            <label><input type="radio" name="q3" value="b"> B) Constraints</label><br>
+                            <label><input type="radio" name="q3" value="c"> C) Context</label>
+                        </li>
+                        <li>
+                            <p>When writing a prompt for code generation, which element is most important for ensuring the code meets specific requirements?</p>
+                            <label><input type="radio" name="q4" value="a"> A) Including emojis</label><br>
+                            <label><input type="radio" name="q4" value="b"> B) Providing the programming language and specific task</label><br>
+                            <label><input type="radio" name="q4" value="c"> C) Writing a long, poetic description of the problem</label>
+                        </li>
+                        <li>
+                            <p>What is a "meta-prompt"?</p>
+                            <label><input type="radio" name="q5" value="a"> A) A prompt that is used to generate an image.</label><br>
+                            <label><input type="radio" name="q5" value="b"> B) A prompt that helps you create better prompts.</label><br>
+                            <label><input type="radio" name="q5" value="c"> C) The first prompt you use in a conversation.</label>
+                        </li>
+                    </ol>
+                    <button type="button" onclick="submitQuiz()">Submit Answers</button>
+                    <div id="quizResult" class="demo-output"></div>
+                </form>
+            </div>
+            
+        </div>
+    </main>
+
+    <script>
+        // This function is responsible for showing the correct content section and highlighting the active tab.
+        function showSection(sectionId, event) {
+            // Prevent the default anchor link behavior if applicable
+            if (event) {
+                event.preventDefault();
+            }
+
+            // Get all sections and remove the 'active' class
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Get all navigation buttons and remove the 'active' class
+            const navButtons = document.querySelectorAll('.nav-btn');
+            navButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Add the 'active' class to the target section to display it
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+
+            // Add the 'active' class to the clicked button
+            const clickedButton = event.target;
+            if (clickedButton) {
+                clickedButton.classList.add('active');
+            }
+        }
+        
+        // Interactive Lab Scripts
+        function generatePrompt() {
+            const task = document.getElementById('promptTask').value;
+            const role = document.getElementById('promptRole').value;
+            const context = document.getElementById('promptContext').value;
+            const instruction = document.getElementById('promptInstruction').value;
+            const constraints = document.getElementById('promptConstraints').value;
+            const outputDiv = document.getElementById('promptBuilderOutput');
+
+            let prompt = "";
+            if (role) prompt += `As a ${role}, `;
+            if (context) prompt += `given the following context: "${context}", `;
+            if (instruction) prompt += `please ${instruction}.`;
+            if (constraints) prompt += ` The output must adhere to the following constraints: ${constraints}.`;
+            
+            outputDiv.textContent = prompt || "Please fill in some fields to generate a prompt.";
+        }
+
+        function analyzePrompt() {
+            const task = document.getElementById('promptTask').value;
+            const role = document.getElementById('promptRole').value;
+            const context = document.getElementById('promptContext').value;
+            const instruction = document.getElementById('promptInstruction').value;
+            const constraints = document.getElementById('promptConstraints').value;
+            const outputDiv = document.getElementById('promptBuilderOutput');
+
+            let analysis = "Prompt Analysis:\n\n";
+            analysis += `Task Type: ${task}\n`;
+            analysis += `Role: ${role ? "Included" : "Missing"}\n`;
+            analysis += `Context: ${context ? "Included" : "Missing"}\n`;
+            analysis += `Instructions: ${instruction ? "Included" : "Missing"}\n`;
+            analysis += `Constraints: ${constraints ? "Included" : "Missing"}\n\n`;
+            analysis += "Tip: A strong prompt should include all these elements for best results!";
+
+            outputDiv.textContent = analysis;
+        }
+
+        function improvePrompt() {
+            const initialPrompt = document.getElementById('iterationPrompt').value;
+            const goal = document.getElementById('iterationGoal').value;
+            const outputDiv = document.getElementById('iterationOutput');
+            let improvedPrompt = initialPrompt;
+
+            if (!initialPrompt) {
+                outputDiv.textContent = "Please enter an initial prompt.";
+                return;
+            }
+
+            switch(goal) {
+                case 'clarity':
+                    improvedPrompt = `Refine the following prompt for better clarity and precision: "${initialPrompt}"`;
+                    break;
+                case 'specificity':
+                    improvedPrompt = `Expand the following prompt by adding specific details and examples: "${initialPrompt}"`;
+                    break;
+                case 'examples':
+                    improvedPrompt = `Rewrite the following prompt to include 3 clear examples of the desired output: "${initialPrompt}"`;
+                    break;
+                case 'constraints':
+                    improvedPrompt = `Add constraints for length, tone, and format to the following prompt: "${initialPrompt}"`;
+                    break;
+                case 'context':
+                    improvedPrompt = `Precede the following prompt with relevant background and context: "${initialPrompt}"`;
+                    break;
+            }
+
+            outputDiv.textContent = improvedPrompt;
+        }
+
+        function compareVersions() {
+            const initialPrompt = document.getElementById('iterationPrompt').value;
+            const improvedPrompt = document.getElementById('iterationOutput').textContent;
+            const outputDiv = document.getElementById('iterationOutput');
+
+            if (!initialPrompt || improvedPrompt.includes("Please enter an initial prompt")) {
+                outputDiv.textContent = "Please create an initial prompt and an improved version first.";
+                return;
+            }
+
+            let comparison = "--- Comparison ---\n\n";
+            comparison += `Initial Prompt: "${initialPrompt}"\n\n`;
+            comparison += `Improved Prompt: "${improvedPrompt}"\n\n`;
+            comparison += "Tips: Analyze how the changes in the improved prompt are likely to produce a better result!";
+
+            outputDiv.textContent = comparison;
+        }
+
+        function generateRolePrompt() {
+            const expertise = document.getElementById('roleExpertise').value;
+            const experience = document.getElementById('roleExperience').value;
+            const specialty = document.getElementById('roleSpecialty').value;
+            const audience = document.getElementById('roleAudience').value;
+            const task = document.getElementById('roleTask').value;
+            const outputDiv = document.getElementById('rolePromptOutput');
+
+            if (!expertise || !task) {
+                outputDiv.textContent = "Please provide at least an expertise area and a task.";
+                return;
+            }
+
+            let rolePrompt = `You are a professional ${expertise} with ${experience} years of experience`;
+            if (specialty) {
+                rolePrompt += ` specializing in ${specialty}.`;
+            } else {
+                rolePrompt += `.`;
+            }
+
+            if (audience) {
+                rolePrompt += ` Your audience is a group of ${audience}.`;
+            }
+            
+            rolePrompt += ` Your task is to: "${task}"`;
+
+            outputDiv.textContent = rolePrompt;
+        }
+
+        function generateCoT() {
+            const problem = document.getElementById('cotProblem').value;
+            const steps = document.getElementById('cotSteps').value;
+            const outputDiv = document.getElementById('cotOutput');
+
+            if (!problem) {
+                outputDiv.textContent = "Please enter a complex problem to break down.";
+                return;
+            }
+
+            let cotPrompt = `Solve the following problem by breaking it down into ${steps} logical steps. Explain each step in detail before providing the final answer:\n\nProblem: "${problem}"\n\nLet's think step-by-step:`;
+
+            outputDiv.textContent = cotPrompt;
+        }
+        
+        function refinePrompt() {
+            const simplePrompt = document.getElementById('simplePrompt').value;
+            const task = document.getElementById('taskSelect').value;
+            const outputDiv = document.getElementById('refinerOutput');
+            
+            if (!simplePrompt) {
+                outputDiv.textContent = "Please enter a simple prompt to get started.";
+                return;
+            }
+
+            let refinedPrompt = "";
+
+            switch(task) {
+                case 'marketing':
+                    refinedPrompt = `As a seasoned digital marketing strategist, create a comprehensive marketing plan for the following request: "${simplePrompt}". The plan should include an executive summary, a detailed competitive analysis, a 6-month timeline with key milestones, and a budget allocation breakdown. Ensure the tone is professional and data-driven, and format the response using clear headings and bullet points. Assume a target audience of tech-savvy young adults.`;
+                    break;
+                case 'coding':
+                    refinedPrompt = `As a senior software engineer, write a complete Python function for the following request: "${simplePrompt}". The function must include a docstring explaining its purpose, parameters, and return values. Add type hints for all variables and parameters. The code should be well-commented and follow PEP 8 style guidelines. Include three unit tests to verify the function's correctness and handle potential edge cases.`;
+                    break;
+                case 'creative':
+                    refinedPrompt = `You are a master storyteller. Using the prompt "${simplePrompt}", write a short story of approximately 500 words. The story should be set in a fantastical, magical world. Include a clear protagonist with a defined motivation, a central conflict, and a resolution that leaves a lasting impression on the reader. The tone should be epic and adventurous, with vivid descriptions of the setting and characters.`;
+                    break;
+                case 'research':
+                    refinedPrompt = `You are a professional market research analyst. Based on the request: "${simplePrompt}", create a detailed research plan. The plan should outline the key objectives, the target demographic for the study, a proposed methodology (e.g., surveys, interviews, focus groups), a list of primary questions to ask, and a timeline for data collection and analysis. The final output should be structured for a presentation to a board of directors.`;
+                    break;
+                default:
+                    refinedPrompt = "A refinement could not be generated for this task. Please select a different task or refine the prompt manually.";
+                    break;
+            }
+
+            outputDiv.textContent = refinedPrompt;
+        }
+
+        function submitQuiz() {
+            const form = document.getElementById('quizForm');
+            const resultDiv = document.getElementById('quizResult');
+            const answers = {
+                q1: 'b',
+                q2: 'c',
+                q3: 'c',
+                q4: 'b',
+                q5: 'b'
+            };
+            let score = 0;
+            let feedback = "";
+            const totalQuestions = Object.keys(answers).length;
+
+            for (const question in answers) {
+                const selectedAnswer = form.elements[question].value;
+                const isCorrect = selectedAnswer === answers[question];
+                
+                if (isCorrect) {
+                    score++;
+                }
+                
+                const p = form.querySelector(`input[name="${question}"]`).parentNode.parentNode.querySelector('p');
+                const label = form.querySelector(`input[name="${question}"][value="${selectedAnswer}"]`);
+                
+                if (isCorrect) {
+                    if (label) {
+                        label.parentNode.style.color = 'green';
+                    }
+                } else {
+                    if (label) {
+                        label.parentNode.style.color = 'red';
+                    }
+                }
+            }
+
+            feedback += `You scored ${score} out of ${totalQuestions}.<br>`;
+            if (score === totalQuestions) {
+                feedback += "Excellent job! You've mastered the fundamentals of Prompt Engineering.";
+            } else if (score > totalQuestions / 2) {
+                feedback += "Good effort! You have a solid understanding, but there's room for improvement.";
+            } else {
+                feedback += "Keep practicing! Review the modules and try the interactive labs again.";
+            }
+
+            resultDiv.innerHTML = feedback;
+            resultDiv.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

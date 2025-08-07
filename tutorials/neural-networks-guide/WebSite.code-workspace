@@ -1,0 +1,29 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"path": "../../../website02/old_data/Clustering"
+		},
+		{
+			"path": "../../../website02/old_data/Decision Trees"
+		},
+		{
+			"path": "../../../website02/old_data/learning"
+		},
+		{
+			"path": "../../../website02/old_data/Linear Regression"
+		},
+		{
+			"path": "../../../website02/old_data/Naive Bayes"
+		},
+		{
+			"path": "../../../website02/old_data/Neural Networks"
+		},
+		{
+			"path": "../../../website02/old_data/Feature Engineering"
+		}
+	],
+	"settings": {}
+}

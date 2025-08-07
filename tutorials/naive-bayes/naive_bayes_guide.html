@@ -5,776 +5,522 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Naive Bayes Complete Guide</title>
     <link rel="stylesheet" href="../../assets/css/style.css">
-    <link rel="stylesheet" href="../../assets/css/decision_tree_regression.css">
+    <link rel="stylesheet" href="../../assets/css/naive_bayes_guide.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            line-height: 1.6;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #333;
-            min-height: 100vh;
-        }
-        
-        .container {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-            opacity: 0;
-            transform: translateY(50px);
-            animation: fadeInUp 0.6s ease-out forwards;
-        }
-        
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        h1 {
-            color: #2c3e50;
-            text-align: center;
-            border-bottom: 3px solid #3498db;
-            padding-bottom: 10px;
-            margin-bottom: 30px;
-            font-size: 2.5rem;
-        }
-        
-        h2 {
-            color: #34495e;
-            border-left: 4px solid #3498db;
-            padding-left: 15px;
-            margin-top: 30px;
-            font-size: 1.8rem;
-        }
-        
-        h3 {
-            color: #2980b9;
-            margin-top: 25px;
-            font-size: 1.4rem;
-        }
-        
-        .formula {
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            border: 2px solid #dee2e6;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 20px 0;
-            text-align: center;
-            font-size: 1.3em;
-            font-family: 'Courier New', monospace;
-            font-weight: bold;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .code-block {
-            background: #1a202c;
-            color: #e2e8f0;
-            padding: 25px;
-            border-radius: 12px;
-            margin: 20px 0;
-            overflow-x: auto;
-            font-family: 'Fira Code', 'Courier New', monospace;
-            font-size: 14px;
-            line-height: 1.5;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            position: relative;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-        
-        .code-block::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #3498db, #2ecc71, #f39c12);
-            border-radius: 12px 12px 0 0;
-        }
-        
-        .code-block .comment {
-            color: #68d391;
-            font-style: italic;
-        }
-        
-        .code-block .keyword {
-            color: #63b3ed;
-            font-weight: bold;
-        }
-        
-        .code-block .string {
-            color: #fbb6ce;
-        }
-        
-        .code-block .number {
-            color: #f6ad55;
-        }
-        
-        .example-box {
-            background: linear-gradient(135deg, #e8f5e8, #d4edda);
-            border: 2px solid #4caf50;
-            border-radius: 12px;
-            padding: 25px;
-            margin: 20px 0;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        
-        .chart-container {
-            width: 100%;
-            height: 400px;
-            margin: 20px 0;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        
-        th, td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: center;
-        }
-        
-        th {
-            background: linear-gradient(135deg, #3498db, #2980b9);
-            color: white;
-            font-weight: bold;
-        }
-        
-        tr:nth-child(even) {
-            background-color: #f8f9fa;
-        }
-        
-        tr:hover {
-            background-color: #e3f2fd;
-            transition: background-color 0.3s ease;
-        }
-        
-        .interactive-demo {
-            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
-            border: 2px solid #ffc107;
-            border-radius: 12px;
-            padding: 25px;
-            margin: 20px 0;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        
-        button {
-            background: linear-gradient(135deg, #3498db, #2980b9);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            margin: 5px;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-        
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-            background: linear-gradient(135deg, #2980b9, #1f4e79);
-        }
-        
-        button:active {
-            transform: translateY(0);
-        }
-        
-        input, select {
-            padding: 10px;
-            margin: 5px;
-            border-radius: 6px;
-            border: 2px solid #ddd;
-            font-size: 14px;
-            transition: border-color 0.3s ease;
-        }
-        
-        input:focus, select:focus {
-            outline: none;
-            border-color: #3498db;
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
-        }
-        
-        .prediction-result {
-            background: linear-gradient(135deg, #d1ecf1, #bee5eb);
-            border: 2px solid #17a2b8;
-            border-radius: 12px;
-            padding: 20px;
-            margin: 15px 0;
-            font-weight: bold;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        
-        .advantages {
-            background: linear-gradient(135deg, #d4edda, #c3e6cb);
-            border: 2px solid #28a745;
-            border-radius: 12px;
-            padding: 25px;
-            margin: 20px 0;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        
-        .disadvantages {
-            background: linear-gradient(135deg, #ffebee, #f8d7da);
-            border: 2px solid #dc3545;
-            border-radius: 12px;
-            padding: 25px;
-            margin: 20px 0;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
-        }
-        
-        .feature-card {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            border-left: 4px solid #3498db;
-        }
-        
-        .highlight {
-            background: linear-gradient(135deg, #fff9c4, #f7dc6f);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-        
-        .step-number {
-            display: inline-block;
-            background: #3498db;
-            color: white;
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 25px;
-            font-weight: bold;
-            margin-right: 10px;
-        }
-    </style>
+   
 </head>
 <body>
-    <div class="container">
-        <h1>🧠 Complete Guide to Naive Bayes</h1>
-        
-        <h2>📚 What is Naive Bayes?</h2>
-        <p>Naive Bayes is a family of probabilistic algorithms based on applying Bayes' theorem with the "naive" assumption of conditional independence between every pair of features. Despite this strong assumption, it works surprisingly well for many real-world problems, especially text classification and spam filtering.</p>
-        
-        <h2>🔢 The Mathematical Foundation</h2>
-        <p>Bayes' theorem forms the core of this algorithm:</p>
-        
-        <div class="formula">
-            P(A|B) = P(B|A) × P(A) / P(B)
-        </div>
-        
-        <p>For classification, this becomes:</p>
-        
-        <div class="formula">
-            P(class|features) = P(features|class) × P(class) / P(features)
-        </div>
-        
-        <p>The "naive" assumption means we assume all features are independent:</p>
-        
-        <div class="formula">
-            P(x₁,x₂,...,xₙ|class) = P(x₁|class) × P(x₂|class) × ... × P(xₙ|class)
-        </div>
-        
-        <h2>📊 Simple Example: Weather Prediction</h2>
-        <div class="example-box">
-            <h3>Dataset: Will we play tennis based on weather?</h3>
-            <table id="weatherTable">
-                <tr>
-                    <th>Day</th>
-                    <th>Outlook</th>
-                    <th>Temperature</th>
-                    <th>Humidity</th>
-                    <th>Wind</th>
-                    <th>Play Tennis?</th>
-                </tr>
-                <tr><td>1</td><td>Sunny</td><td>Hot</td><td>High</td><td>Weak</td><td>No</td></tr>
-                <tr><td>2</td><td>Sunny</td><td>Hot</td><td>High</td><td>Strong</td><td>No</td></tr>
-                <tr><td>3</td><td>Overcast</td><td>Hot</td><td>High</td><td>Weak</td><td>Yes</td></tr>
-                <tr><td>4</td><td>Rain</td><td>Mild</td><td>High</td><td>Weak</td><td>Yes</td></tr>
-                <tr><td>5</td><td>Rain</td><td>Cool</td><td>Normal</td><td>Weak</td><td>Yes</td></tr>
-                <tr><td>6</td><td>Rain</td><td>Cool</td><td>Normal</td><td>Strong</td><td>No</td></tr>
-                <tr><td>7</td><td>Overcast</td><td>Cool</td><td>Normal</td><td>Strong</td><td>Yes</td></tr>
-                <tr><td>8</td><td>Sunny</td><td>Mild</td><td>High</td><td>Weak</td><td>No</td></tr>
-                <tr><td>9</td><td>Sunny</td><td>Cool</td><td>Normal</td><td>Weak</td><td>Yes</td></tr>
-                <tr><td>10</td><td>Rain</td><td>Mild</td><td>Normal</td><td>Weak</td><td>Yes</td></tr>
-                <tr><td>11</td><td>Sunny</td><td>Mild</td><td>Normal</td><td>Strong</td><td>Yes</td></tr>
-                <tr><td>12</td><td>Overcast</td><td>Mild</td><td>High</td><td>Strong</td><td>Yes</td></tr>
-                <tr><td>13</td><td>Overcast</td><td>Hot</td><td>Normal</td><td>Weak</td><td>Yes</td></tr>
-                <tr><td>14</td><td>Rain</td><td>Mild</td><td>High</td><td>Strong</td><td>No</td></tr>
-            </table>
-        </div>
-        
-        <h3>Step-by-Step Calculation</h3>
-        <p>Let's predict: <strong>Outlook=Sunny, Temperature=Cool, Humidity=High, Wind=Strong</strong></p>
-        
-        <div class="example-box">
-            <h4><span class="step-number">1</span>Prior Probabilities:</h4>
-            <p>P(Play=Yes) = 9/14 = <span class="highlight">0.643</span></p>
-            <p>P(Play=No) = 5/14 = <span class="highlight">0.357</span></p>
-            
-            <h4><span class="step-number">2</span>Likelihood Calculations:</h4>
-            <p><strong>For Play=Yes:</strong></p>
-            <ul>
-                <li>P(Outlook=Sunny|Yes) = 2/9 = 0.222</li>
-                <li>P(Temperature=Cool|Yes) = 3/9 = 0.333</li>
-                <li>P(Humidity=High|Yes) = 3/9 = 0.333</li>
-                <li>P(Wind=Strong|Yes) = 3/9 = 0.333</li>
-            </ul>
-            
-            <p><strong>For Play=No:</strong></p>
-            <ul>
-                <li>P(Outlook=Sunny|No) = 3/5 = 0.600</li>
-                <li>P(Temperature=Cool|No) = 1/5 = 0.200</li>
-                <li>P(Humidity=High|No) = 4/5 = 0.800</li>
-                <li>P(Wind=Strong|No) = 3/5 = 0.600</li>
-            </ul>
-            
-            <h4><span class="step-number">3</span>Final Calculation:</h4>
-            <p>P(Yes|features) ∝ 0.643 × 0.222 × 0.333 × 0.333 × 0.333 = <span class="highlight">0.0063</span></p>
-            <p>P(No|features) ∝ 0.357 × 0.600 × 0.200 × 0.800 × 0.600 = <span class="highlight">0.0206</span></p>
-            
-            <p><strong>Prediction: <span class="highlight">No (Don't play tennis)</span></strong></p>
-        </div>
-        
-        <h2>📈 Visualization of Feature Distributions</h2>
-        <div class="chart-container">
-            <canvas id="featureChart"></canvas>
-        </div>
-        
-        <h2>💻 Python Implementation</h2>
-        
-        <h3>From Scratch Implementation</h3>
-        <div class="code-block">
-<span class="keyword">import</span> numpy <span class="keyword">as</span> np
-<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
-<span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict
-<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+   
+    <header class="azbn-header">
+        <nav class="azbn-nav">
+            <div class="azbn-container" style="display: flex; justify-content: space-between; align-items: center;">
+                <a href="../" style="text-decoration: none; color: #4f46e5; display: flex; align-items: center; gap: 0.5rem;">
+                    <img src="../../assets/images/logo.png" alt="Logo" style="height: 40px;">
+                </a>
 
-<span class="keyword">class</span> NaiveBayesClassifier:
-    <span class="keyword">def</span> __init__(self):
-        self.class_probs = {}
-        self.feature_probs = defaultdict(<span class="keyword">lambda</span>: defaultdict(dict))
-        self.classes = []
-        
-    <span class="keyword">def</span> fit(self, X, y):
-        <span class="comment">"""Train the Naive Bayes classifier"""</span>
-        self.classes = np.unique(y)
-        n_samples = len(y)
-        
-        <span class="comment"># Calculate class probabilities</span>
-        <span class="keyword">for</span> cls <span class="keyword">in</span> self.classes:
-            self.class_probs[cls] = np.sum(y == cls) / n_samples
-        
-        <span class="comment"># Calculate feature probabilities</span>
-        <span class="keyword">for</span> feature_idx <span class="keyword">in</span> range(X.shape[<span class="number">1</span>]):
-            feature_values = np.unique(X[:, feature_idx])
-            
-            <span class="keyword">for</span> cls <span class="keyword">in</span> self.classes:
-                class_mask = (y == cls)
-                class_samples = X[class_mask]
-                
-                <span class="keyword">for</span> value <span class="keyword">in</span> feature_values:
-                    count = np.sum(class_samples[:, feature_idx] == value)
-                    <span class="comment"># Add Laplace smoothing</span>
-                    self.feature_probs[feature_idx][cls][value] = (
-                        (count + <span class="number">1</span>) / (np.sum(class_mask) + len(feature_values))
-                    )
-    
-    <span class="keyword">def</span> predict_proba(self, X):
-        <span class="comment">"""Predict class probabilities"""</span>
-        predictions = []
-        
-        <span class="keyword">for</span> sample <span class="keyword">in</span> X:
-            class_scores = {}
-            
-            <span class="keyword">for</span> cls <span class="keyword">in</span> self.classes:
-                <span class="comment"># Start with class prior</span>
-                score = self.class_probs[cls]
-                
-                <span class="comment"># Multiply by feature likelihoods</span>
-                <span class="keyword">for</span> feature_idx, feature_value <span class="keyword">in</span> enumerate(sample):
-                    <span class="keyword">if</span> feature_value <span class="keyword">in</span> self.feature_probs[feature_idx][cls]:
-                        score *= self.feature_probs[feature_idx][cls][feature_value]
-                    <span class="keyword">else</span>:
-                        <span class="comment"># Laplace smoothing for unseen values</span>
-                        score *= <span class="number">1</span> / (
-                            np.sum([<span class="number">1</span> <span class="keyword">for</span> y_val <span class="keyword">in</span> self.classes]) + 
-                            len(self.feature_probs[feature_idx][cls])
-                        )
-                
-                class_scores[cls] = score
-            
-            <span class="comment"># Normalize probabilities</span>
-            total = sum(class_scores.values())
-            class_probs = {cls: score/total <span class="keyword">for</span> cls, score <span class="keyword">in</span> class_scores.items()}
-            predictions.append(class_probs)
-        
-        <span class="keyword">return</span> predictions
-    
-    <span class="keyword">def</span> predict(self, X):
-        <span class="comment">"""Predict classes"""</span>
-        probabilities = self.predict_proba(X)
-        <span class="keyword">return</span> [max(prob_dict, key=prob_dict.get) <span class="keyword">for</span> prob_dict <span class="keyword">in</span> probabilities]
-
-<span class="comment"># Example usage with weather data</span>
-weather_data = [
-    [<span class="string">'Sunny'</span>, <span class="string">'Hot'</span>, <span class="string">'High'</span>, <span class="string">'Weak'</span>, <span class="string">'No'</span>],
-    [<span class="string">'Sunny'</span>, <span class="string">'Hot'</span>, <span class="string">'High'</span>, <span class="string">'Strong'</span>, <span class="string">'No'</span>],
-    [<span class="string">'Overcast'</span>, <span class="string">'Hot'</span>, <span class="string">'High'</span>, <span class="string">'Weak'</span>, <span class="string">'Yes'</span>],
-    [<span class="string">'Rain'</span>, <span class="string">'Mild'</span>, <span class="string">'High'</span>, <span class="string">'Weak'</span>, <span class="string">'Yes'</span>],
-    <span class="comment"># ... more data rows</span>
-]
-
-<span class="comment"># Convert to numpy arrays</span>
-X = np.array([row[:-<span class="number">1</span>] <span class="keyword">for</span> row <span class="keyword">in</span> weather_data])
-y = np.array([row[-<span class="number">1</span>] <span class="keyword">for</span> row <span class="keyword">in</span> weather_data])
-
-<span class="comment"># Train the classifier</span>
-nb = NaiveBayesClassifier()
-nb.fit(X, y)
-
-<span class="comment"># Make predictions</span>
-test_sample = [[<span class="string">'Sunny'</span>, <span class="string">'Cool'</span>, <span class="string">'High'</span>, <span class="string">'Strong'</span>]]
-prediction = nb.predict(test_sample)
-probabilities = nb.predict_proba(test_sample)
-
-print(<span class="string">f"Prediction: {prediction[0]}"</span>)
-print(<span class="string">f"Probabilities: {probabilities[0]}"</span>)
-        </div>
-        
-        <h3>Using Scikit-learn</h3>
-        <div class="code-block">
-<span class="keyword">from</span> sklearn.naive_bayes <span class="keyword">import</span> GaussianNB, CategoricalNB, MultinomialNB
-<span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> LabelEncoder
-<span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split, cross_val_score
-<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> classification_report, confusion_matrix
-<span class="keyword">import</span> numpy <span class="keyword">as</span> np
-
-<span class="comment"># For categorical data (like our weather example)</span>
-<span class="keyword">def</span> categorical_naive_bayes_example():
-    <span class="comment"># Encode categorical features</span>
-    encoders = {}
-    X_encoded = np.zeros((len(X), X.shape[<span class="number">1</span>]))
-    
-    <span class="keyword">for</span> i <span class="keyword">in</span> range(X.shape[<span class="number">1</span>]):
-        encoders[i] = LabelEncoder()
-        X_encoded[:, i] = encoders[i].fit_transform(X[:, i])
-    
-    <span class="comment"># Encode target</span>
-    y_encoder = LabelEncoder()
-    y_encoded = y_encoder.fit_transform(y)
-    
-    <span class="comment"># Split data</span>
-    X_train, X_test, y_train, y_test = train_test_split(
-        X_encoded, y_encoded, test_size=<span class="number">0.3</span>, random_state=<span class="number">42</span>
-    )
-    
-    <span class="comment"># Train model</span>
-    model = CategoricalNB()
-    model.fit(X_train, y_train)
-    
-    <span class="comment"># Predictions</span>
-    y_pred = model.predict(X_test)
-    
-    <span class="comment"># Evaluation</span>
-    print(<span class="string">"Accuracy:"</span>, model.score(X_test, y_test))
-    print(<span class="string">"\nClassification Report:"</span>)
-    print(classification_report(y_test, y_pred, target_names=y_encoder.classes_))
-    
-    <span class="keyword">return</span> model, encoders, y_encoder
-
-<span class="comment"># For continuous data (Gaussian Naive Bayes)</span>
-<span class="keyword">def</span> gaussian_naive_bayes_example():
-    <span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_iris
-    
-    <span class="comment"># Load iris dataset</span>
-    iris = load_iris()
-    X, y = iris.data, iris.target
-    
-    <span class="comment"># Split data</span>
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=<span class="number">0.3</span>, random_state=<span class="number">42</span>
-    )
-    
-    <span class="comment"># Train model</span>
-    model = GaussianNB()
-    model.fit(X_train, y_train)
-    
-    <span class="comment"># Cross-validation</span>
-    cv_scores = cross_val_score(model, X, y, cv=<span class="number">5</span>)
-    
-    print(<span class="string">f"Gaussian NB Accuracy: {model.score(X_test, y_test):.3f}"</span>)
-    print(<span class="string">f"Cross-validation scores: {cv_scores}"</span>)
-    print(<span class="string">f"Mean CV accuracy: {cv_scores.mean():.3f} (+/- {cv_scores.std() * 2:.3f})"</span>)
-    
-    <span class="keyword">return</span> model
-
-<span class="comment"># Text classification example</span>
-<span class="keyword">def</span> text_classification_example():
-    <span class="keyword">from</span> sklearn.feature_extraction.text <span class="keyword">import</span> CountVectorizer
-    
-    <span class="comment"># Sample text data</span>
-    texts = [
-        <span class="string">"I love this movie, it's amazing!"</span>,
-        <span class="string">"This film is terrible, waste of time"</span>,
-        <span class="string">"Great acting and wonderful story"</span>,
-        <span class="string">"Boring and poorly made"</span>,
-        <span class="string">"Fantastic cinematography and plot"</span>,
-        <span class="string">"Worst movie I've ever seen"</span>
-    ]
-    
-    labels = [<span class="string">'positive'</span>, <span class="string">'negative'</span>, <span class="string">'positive'</span>, <span class="string">'negative'</span>, <span class="string">'positive'</span>, <span class="string">'negative'</span>]
-    
-    <span class="comment"># Vectorize text</span>
-    vectorizer = CountVectorizer()
-    X_text = vectorizer.fit_transform(texts)
-    
-    <span class="comment"># Train model</span>
-    model = MultinomialNB()
-    model.fit(X_text, labels)
-    
-    <span class="comment"># Test prediction</span>
-    test_texts = [<span class="string">"This movie is absolutely wonderful!"</span>, <span class="string">"I hate this film"</span>]
-    X_test = vectorizer.transform(test_texts)
-    predictions = model.predict(X_test)
-    probabilities = model.predict_proba(X_test)
-    
-    <span class="keyword">for</span> i, text <span class="keyword">in</span> enumerate(test_texts):
-        print(<span class="string">f"Text: '{text}'"</span>)
-        print(<span class="string">f"Prediction: {predictions[i]}"</span>)
-        print(<span class="string">f"Probabilities: {dict(zip(model.classes_, probabilities[i]))}"</span>)
-        print()
-    
-    <span class="keyword">return</span> model, vectorizer
-        </div>
-        
-        <h2>🎯 Interactive Demo</h2>
-        <div class="interactive-demo">
-            <h3>🎾 Tennis Playing Predictor</h3>
-            <p>Select weather conditions to predict if tennis will be played:</p>
-            
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <label><strong>Outlook:</strong></label><br>
-                    <select id="outlook">
-                        <option value="Sunny">☀️ Sunny</option>
-                        <option value="Overcast">☁️ Overcast</option>
-                        <option value="Rain">🌧️ Rain</option>
-                    </select>
-                </div>
-                
-                <div class="feature-card">
-                    <label><strong>Temperature:</strong></label><br>
-                    <select id="temperature">
-                        <option value="Hot">🔥 Hot</option>
-                        <option value="Mild">🌡️ Mild</option>
-                        <option value="Cool">❄️ Cool</option>
-                    </select>
-                </div>
-                
-                <div class="feature-card">
-                    <label><strong>Humidity:</strong></label><br>
-                    <select id="humidity">
-                        <option value="High">💧 High</option>
-                        <option value="Normal">💨 Normal</option>
-                    </select>
-                </div>
-                
-                <div class="feature-card">
-                    <label><strong>Wind:</strong></label><br>
-                    <select id="wind">
-                        <option value="Weak">🍃 Weak</option>
-                        <option value="Strong">💨 Strong</option>
-                    </select>
+                <div class="azbn-links">
+                    <a href="../../#home">Home</a>
+                    <a href="../../#about">About</a>
+                    <a href="../">Tutorials</a>
+                    <a href="../../#projects">Projects</a>
+                    <a href="../../#contact">Contact</a>
                 </div>
             </div>
-            
-            <button onclick="makePrediction()">🔮 Predict Tennis Playing</button>
-            
-            <div id="predictionResult" class="prediction-result" style="display: none;"></div>
-        </div>
-        
-        <h2>📊 Performance Visualization</h2>
-        <div class="chart-container">
-            <canvas id="performanceChart"></canvas>
-        </div>
-        
-        <h2>🔍 Types of Naive Bayes</h2>
-        
-        <div class="feature-grid">
-            <div class="feature-card">
-                <h3>1. Gaussian Naive Bayes</h3>
-                <p>Used for continuous features that follow a normal distribution.</p>
+        </nav>
+    </header>
+            <div class="container" >
+                <h1>🧠 Complete Guide to Naive Bayes</h1>
+                
+                <h2>📚 What is Naive Bayes?</h2>
+                <p>Naive Bayes is a family of probabilistic algorithms based on applying Bayes' theorem with the "naive" assumption of conditional independence between every pair of features. Despite this strong assumption, it works surprisingly well for many real-world problems, especially text classification and spam filtering.</p>
+                
+                <h2>🔢 The Mathematical Foundation</h2>
+                <p>Bayes' theorem forms the core of this algorithm:</p>
+                
                 <div class="formula">
-                    P(xᵢ|y) = (1/√(2πσ²)) × exp(-(xᵢ-μ)²/(2σ²))
+                    P(A|B) = P(B|A) × P(A) / P(B)
                 </div>
+                
+                <p>For classification, this becomes:</p>
+                
+                <div class="formula">
+                    P(class|features) = P(features|class) × P(class) / P(features)
+                </div>
+                
+                <p>The "naive" assumption means we assume all features are independent:</p>
+                
+                <div class="formula">
+                    P(x₁,x₂,...,xₙ|class) = P(x₁|class) × P(x₂|class) × ... × P(xₙ|class)
+                </div>
+                
+                <h2>📊 Simple Example: Weather Prediction</h2>
+                <div class="example-box">
+                    <h3>Dataset: Will we play tennis based on weather?</h3>
+                    <table id="weatherTable">
+                        <tr>
+                            <th>Day</th>
+                            <th>Outlook</th>
+                            <th>Temperature</th>
+                            <th>Humidity</th>
+                            <th>Wind</th>
+                            <th>Play Tennis?</th>
+                        </tr>
+                        <tr><td>1</td><td>Sunny</td><td>Hot</td><td>High</td><td>Weak</td><td>No</td></tr>
+                        <tr><td>2</td><td>Sunny</td><td>Hot</td><td>High</td><td>Strong</td><td>No</td></tr>
+                        <tr><td>3</td><td>Overcast</td><td>Hot</td><td>High</td><td>Weak</td><td>Yes</td></tr>
+                        <tr><td>4</td><td>Rain</td><td>Mild</td><td>High</td><td>Weak</td><td>Yes</td></tr>
+                        <tr><td>5</td><td>Rain</td><td>Cool</td><td>Normal</td><td>Weak</td><td>Yes</td></tr>
+                        <tr><td>6</td><td>Rain</td><td>Cool</td><td>Normal</td><td>Strong</td><td>No</td></tr>
+                        <tr><td>7</td><td>Overcast</td><td>Cool</td><td>Normal</td><td>Strong</td><td>Yes</td></tr>
+                        <tr><td>8</td><td>Sunny</td><td>Mild</td><td>High</td><td>Weak</td><td>No</td></tr>
+                        <tr><td>9</td><td>Sunny</td><td>Cool</td><td>Normal</td><td>Weak</td><td>Yes</td></tr>
+                        <tr><td>10</td><td>Rain</td><td>Mild</td><td>Normal</td><td>Weak</td><td>Yes</td></tr>
+                        <tr><td>11</td><td>Sunny</td><td>Mild</td><td>Normal</td><td>Strong</td><td>Yes</td></tr>
+                        <tr><td>12</td><td>Overcast</td><td>Mild</td><td>High</td><td>Strong</td><td>Yes</td></tr>
+                        <tr><td>13</td><td>Overcast</td><td>Hot</td><td>Normal</td><td>Weak</td><td>Yes</td></tr>
+                        <tr><td>14</td><td>Rain</td><td>Mild</td><td>High</td><td>Strong</td><td>No</td></tr>
+                    </table>
+                </div>
+                
+                <h3>Step-by-Step Calculation</h3>
+                <p>Let's predict: <strong>Outlook=Sunny, Temperature=Cool, Humidity=High, Wind=Strong</strong></p>
+                
+                <div class="example-box">
+                    <h4><span class="step-number">1</span>Prior Probabilities:</h4>
+                    <p>P(Play=Yes) = 9/14 = <span class="highlight">0.643</span></p>
+                    <p>P(Play=No) = 5/14 = <span class="highlight">0.357</span></p>
+                    
+                    <h4><span class="step-number">2</span>Likelihood Calculations:</h4>
+                    <p><strong>For Play=Yes:</strong></p>
+                    <ul>
+                        <li>P(Outlook=Sunny|Yes) = 2/9 = 0.222</li>
+                        <li>P(Temperature=Cool|Yes) = 3/9 = 0.333</li>
+                        <li>P(Humidity=High|Yes) = 3/9 = 0.333</li>
+                        <li>P(Wind=Strong|Yes) = 3/9 = 0.333</li>
+                    </ul>
+                    
+                    <p><strong>For Play=No:</strong></p>
+                    <ul>
+                        <li>P(Outlook=Sunny|No) = 3/5 = 0.600</li>
+                        <li>P(Temperature=Cool|No) = 1/5 = 0.200</li>
+                        <li>P(Humidity=High|No) = 4/5 = 0.800</li>
+                        <li>P(Wind=Strong|No) = 3/5 = 0.600</li>
+                    </ul>
+                    
+                    <h4><span class="step-number">3</span>Final Calculation:</h4>
+                    <p>P(Yes|features) ∝ 0.643 × 0.222 × 0.333 × 0.333 × 0.333 = <span class="highlight">0.0063</span></p>
+                    <p>P(No|features) ∝ 0.357 × 0.600 × 0.200 × 0.800 × 0.600 = <span class="highlight">0.0206</span></p>
+                    
+                    <p><strong>Prediction: <span class="highlight">No (Don't play tennis)</span></strong></p>
+                </div>
+                
+                <h2>📈 Visualization of Feature Distributions</h2>
+                <div class="chart-container">
+                    <canvas id="featureChart"></canvas>
+                </div>
+                
+                <h2>💻 Python Implementation</h2>
+                
+                <h3>From Scratch Implementation</h3>
+                <div class="code-block">
+        <span class="keyword">import</span> numpy <span class="keyword">as</span> np
+        <span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+        <span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict
+        <span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+
+        <span class="keyword">class</span> NaiveBayesClassifier:
+            <span class="keyword">def</span> __init__(self):
+                self.class_probs = {}
+                self.feature_probs = defaultdict(<span class="keyword">lambda</span>: defaultdict(dict))
+                self.classes = []
+                
+            <span class="keyword">def</span> fit(self, X, y):
+                <span class="comment">"""Train the Naive Bayes classifier"""</span>
+                self.classes = np.unique(y)
+                n_samples = len(y)
+                
+                <span class="comment"># Calculate class probabilities</span>
+                <span class="keyword">for</span> cls <span class="keyword">in</span> self.classes:
+                    self.class_probs[cls] = np.sum(y == cls) / n_samples
+                
+                <span class="comment"># Calculate feature probabilities</span>
+                <span class="keyword">for</span> feature_idx <span class="keyword">in</span> range(X.shape[<span class="number">1</span>]):
+                    feature_values = np.unique(X[:, feature_idx])
+                    
+                    <span class="keyword">for</span> cls <span class="keyword">in</span> self.classes:
+                        class_mask = (y == cls)
+                        class_samples = X[class_mask]
+                        
+                        <span class="keyword">for</span> value <span class="keyword">in</span> feature_values:
+                            count = np.sum(class_samples[:, feature_idx] == value)
+                            <span class="comment"># Add Laplace smoothing</span>
+                            self.feature_probs[feature_idx][cls][value] = (
+                                (count + <span class="number">1</span>) / (np.sum(class_mask) + len(feature_values))
+                            )
+            
+            <span class="keyword">def</span> predict_proba(self, X):
+                <span class="comment">"""Predict class probabilities"""</span>
+                predictions = []
+                
+                <span class="keyword">for</span> sample <span class="keyword">in</span> X:
+                    class_scores = {}
+                    
+                    <span class="keyword">for</span> cls <span class="keyword">in</span> self.classes:
+                        <span class="comment"># Start with class prior</span>
+                        score = self.class_probs[cls]
+                        
+                        <span class="comment"># Multiply by feature likelihoods</span>
+                        <span class="keyword">for</span> feature_idx, feature_value <span class="keyword">in</span> enumerate(sample):
+                            <span class="keyword">if</span> feature_value <span class="keyword">in</span> self.feature_probs[feature_idx][cls]:
+                                score *= self.feature_probs[feature_idx][cls][feature_value]
+                            <span class="keyword">else</span>:
+                                <span class="comment"># Laplace smoothing for unseen values</span>
+                                score *= <span class="number">1</span> / (
+                                    np.sum([<span class="number">1</span> <span class="keyword">for</span> y_val <span class="keyword">in</span> self.classes]) + 
+                                    len(self.feature_probs[feature_idx][cls])
+                                )
+                        
+                        class_scores[cls] = score
+                    
+                    <span class="comment"># Normalize probabilities</span>
+                    total = sum(class_scores.values())
+                    class_probs = {cls: score/total <span class="keyword">for</span> cls, score <span class="keyword">in</span> class_scores.items()}
+                    predictions.append(class_probs)
+                
+                <span class="keyword">return</span> predictions
+            
+            <span class="keyword">def</span> predict(self, X):
+                <span class="comment">"""Predict classes"""</span>
+                probabilities = self.predict_proba(X)
+                <span class="keyword">return</span> [max(prob_dict, key=prob_dict.get) <span class="keyword">for</span> prob_dict <span class="keyword">in</span> probabilities]
+
+        <span class="comment"># Example usage with weather data</span>
+        weather_data = [
+            [<span class="string">'Sunny'</span>, <span class="string">'Hot'</span>, <span class="string">'High'</span>, <span class="string">'Weak'</span>, <span class="string">'No'</span>],
+            [<span class="string">'Sunny'</span>, <span class="string">'Hot'</span>, <span class="string">'High'</span>, <span class="string">'Strong'</span>, <span class="string">'No'</span>],
+            [<span class="string">'Overcast'</span>, <span class="string">'Hot'</span>, <span class="string">'High'</span>, <span class="string">'Weak'</span>, <span class="string">'Yes'</span>],
+            [<span class="string">'Rain'</span>, <span class="string">'Mild'</span>, <span class="string">'High'</span>, <span class="string">'Weak'</span>, <span class="string">'Yes'</span>],
+            <span class="comment"># ... more data rows</span>
+        ]
+
+        <span class="comment"># Convert to numpy arrays</span>
+        X = np.array([row[:-<span class="number">1</span>] <span class="keyword">for</span> row <span class="keyword">in</span> weather_data])
+        y = np.array([row[-<span class="number">1</span>] <span class="keyword">for</span> row <span class="keyword">in</span> weather_data])
+
+        <span class="comment"># Train the classifier</span>
+        nb = NaiveBayesClassifier()
+        nb.fit(X, y)
+
+        <span class="comment"># Make predictions</span>
+        test_sample = [[<span class="string">'Sunny'</span>, <span class="string">'Cool'</span>, <span class="string">'High'</span>, <span class="string">'Strong'</span>]]
+        prediction = nb.predict(test_sample)
+        probabilities = nb.predict_proba(test_sample)
+
+        print(<span class="string">f"Prediction: {prediction[0]}"</span>)
+        print(<span class="string">f"Probabilities: {probabilities[0]}"</span>)
+                </div>
+                
+                <h3>Using Scikit-learn</h3>
+                <div class="code-block">
+        <span class="keyword">from</span> sklearn.naive_bayes <span class="keyword">import</span> GaussianNB, CategoricalNB, MultinomialNB
+        <span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> LabelEncoder
+        <span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split, cross_val_score
+        <span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> classification_report, confusion_matrix
+        <span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+        <span class="comment"># For categorical data (like our weather example)</span>
+        <span class="keyword">def</span> categorical_naive_bayes_example():
+            <span class="comment"># Encode categorical features</span>
+            encoders = {}
+            X_encoded = np.zeros((len(X), X.shape[<span class="number">1</span>]))
+            
+            <span class="keyword">for</span> i <span class="keyword">in</span> range(X.shape[<span class="number">1</span>]):
+                encoders[i] = LabelEncoder()
+                X_encoded[:, i] = encoders[i].fit_transform(X[:, i])
+            
+            <span class="comment"># Encode target</span>
+            y_encoder = LabelEncoder()
+            y_encoded = y_encoder.fit_transform(y)
+            
+            <span class="comment"># Split data</span>
+            X_train, X_test, y_train, y_test = train_test_split(
+                X_encoded, y_encoded, test_size=<span class="number">0.3</span>, random_state=<span class="number">42</span>
+            )
+            
+            <span class="comment"># Train model</span>
+            model = CategoricalNB()
+            model.fit(X_train, y_train)
+            
+            <span class="comment"># Predictions</span>
+            y_pred = model.predict(X_test)
+            
+            <span class="comment"># Evaluation</span>
+            print(<span class="string">"Accuracy:"</span>, model.score(X_test, y_test))
+            print(<span class="string">"\nClassification Report:"</span>)
+            print(classification_report(y_test, y_pred, target_names=y_encoder.classes_))
+            
+            <span class="keyword">return</span> model, encoders, y_encoder
+
+        <span class="comment"># For continuous data (Gaussian Naive Bayes)</span>
+        <span class="keyword">def</span> gaussian_naive_bayes_example():
+            <span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_iris
+            
+            <span class="comment"># Load iris dataset</span>
+            iris = load_iris()
+            X, y = iris.data, iris.target
+            
+            <span class="comment"># Split data</span>
+            X_train, X_test, y_train, y_test = train_test_split(
+                X, y, test_size=<span class="number">0.3</span>, random_state=<span class="number">42</span>
+            )
+            
+            <span class="comment"># Train model</span>
+            model = GaussianNB()
+            model.fit(X_train, y_train)
+            
+            <span class="comment"># Cross-validation</span>
+            cv_scores = cross_val_score(model, X, y, cv=<span class="number">5</span>)
+            
+            print(<span class="string">f"Gaussian NB Accuracy: {model.score(X_test, y_test):.3f}"</span>)
+            print(<span class="string">f"Cross-validation scores: {cv_scores}"</span>)
+            print(<span class="string">f"Mean CV accuracy: {cv_scores.mean():.3f} (+/- {cv_scores.std() * 2:.3f})"</span>)
+            
+            <span class="keyword">return</span> model
+
+        <span class="comment"># Text classification example</span>
+        <span class="keyword">def</span> text_classification_example():
+            <span class="keyword">from</span> sklearn.feature_extraction.text <span class="keyword">import</span> CountVectorizer
+            
+            <span class="comment"># Sample text data</span>
+            texts = [
+                <span class="string">"I love this movie, it's amazing!"</span>,
+                <span class="string">"This film is terrible, waste of time"</span>,
+                <span class="string">"Great acting and wonderful story"</span>,
+                <span class="string">"Boring and poorly made"</span>,
+                <span class="string">"Fantastic cinematography and plot"</span>,
+                <span class="string">"Worst movie I've ever seen"</span>
+            ]
+            
+            labels = [<span class="string">'positive'</span>, <span class="string">'negative'</span>, <span class="string">'positive'</span>, <span class="string">'negative'</span>, <span class="string">'positive'</span>, <span class="string">'negative'</span>]
+            
+            <span class="comment"># Vectorize text</span>
+            vectorizer = CountVectorizer()
+            X_text = vectorizer.fit_transform(texts)
+            
+            <span class="comment"># Train model</span>
+            model = MultinomialNB()
+            model.fit(X_text, labels)
+            
+            <span class="comment"># Test prediction</span>
+            test_texts = [<span class="string">"This movie is absolutely wonderful!"</span>, <span class="string">"I hate this film"</span>]
+            X_test = vectorizer.transform(test_texts)
+            predictions = model.predict(X_test)
+            probabilities = model.predict_proba(X_test)
+            
+            <span class="keyword">for</span> i, text <span class="keyword">in</span> enumerate(test_texts):
+                print(<span class="string">f"Text: '{text}'"</span>)
+                print(<span class="string">f"Prediction: {predictions[i]}"</span>)
+                print(<span class="string">f"Probabilities: {dict(zip(model.classes_, probabilities[i]))}"</span>)
+                print()
+            
+            <span class="keyword">return</span> model, vectorizer
+                </div>
+                
+                <h2>🎯 Interactive Demo</h2>
+                <div class="interactive-demo">
+                    <h3>🎾 Tennis Playing Predictor</h3>
+                    <p>Select weather conditions to predict if tennis will be played:</p>
+                    
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <label><strong>Outlook:</strong></label><br>
+                            <select id="outlook">
+                                <option value="Sunny">☀️ Sunny</option>
+                                <option value="Overcast">☁️ Overcast</option>
+                                <option value="Rain">🌧️ Rain</option>
+                            </select>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <label><strong>Temperature:</strong></label><br>
+                            <select id="temperature">
+                                <option value="Hot">🔥 Hot</option>
+                                <option value="Mild">🌡️ Mild</option>
+                                <option value="Cool">❄️ Cool</option>
+                            </select>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <label><strong>Humidity:</strong></label><br>
+                            <select id="humidity">
+                                <option value="High">💧 High</option>
+                                <option value="Normal">💨 Normal</option>
+                            </select>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <label><strong>Wind:</strong></label><br>
+                            <select id="wind">
+                                <option value="Weak">🍃 Weak</option>
+                                <option value="Strong">💨 Strong</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button onclick="makePrediction()">🔮 Predict Tennis Playing</button>
+                    
+                    <div id="predictionResult" class="prediction-result" style="display: none;"></div>
+                </div>
+                
+                <h2>📊 Performance Visualization</h2>
+                <div class="chart-container">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+                
+                <h2>🔍 Types of Naive Bayes</h2>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>1. Gaussian Naive Bayes</h3>
+                        <p>Used for continuous features that follow a normal distribution.</p>
+                        <div class="formula">
+                            P(xᵢ|y) = (1/√(2πσ²)) × exp(-(xᵢ-μ)²/(2σ²))
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3>2. Multinomial Naive Bayes</h3>
+                        <p>Used for discrete counts (e.g., word counts in text classification).</p>
+                        <div class="formula">
+                            P(xᵢ|y) = (Nᵧᵢ + α) / (Nᵧ + α×n)
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3>3. Bernoulli Naive Bayes</h3>
+                        <p>Used for binary/boolean features.</p>
+                        <div class="formula">
+                            P(xᵢ|y) = P(i|y)×xᵢ + (1-P(i|y))×(1-xᵢ)
+                        </div>
+                    </div>
+                </div>
+                
+                <h2>✅ Advantages and Disadvantages</h2>
+                
+                <div class="advantages">
+                    <h3>✅ Advantages:</h3>
+                    <ul>
+                        <li><strong>🚀 Simple and Fast:</strong> Easy to implement and computationally efficient</li>
+                        <li><strong>📈 Good Performance:</strong> Works well with small datasets</li>
+                        <li><strong>🛡️ No Overfitting:</strong> Less prone to overfitting, especially with small data</li>
+                        <li><strong>🎯 Handles Multiple Classes:</strong> Naturally handles multi-class classification</li>
+                        <li><strong>📊 Good Baseline:</strong> Excellent baseline for comparison with other algorithms</li>
+                        <li><strong>🎲 Probabilistic Output:</strong> Provides probability estimates</li>
+                    </ul>
+                </div>
+                
+                <div class="disadvantages">
+                    <h3>❌ Disadvantages:</h3>
+                    <ul>
+                        <li><strong>🔗 Independence Assumption:</strong> Assumes features are independent (rarely true)</li>
+                        <li><strong>📝 Categorical Inputs:</strong> Requires Laplace smoothing for categorical inputs</li>
+                        <li><strong>⚡ Limited Expressiveness:</strong> Cannot learn interactions between features</li>
+                        <li><strong>📊 Skewed Data:</strong> Can be biased if training data is not representative</li>
+                    </ul>
+                </div>
+                
+                <h2>🚀 Real-World Applications</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>📧 Email Spam Filtering</h4>
+                        <p>Classic application using word frequencies to classify emails as spam or legitimate.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>📰 Text Classification</h4>
+                        <p>News categorization, sentiment analysis, and document classification.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>⚕️ Medical Diagnosis</h4>
+                        <p>Based on symptoms and test results to predict diseases.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🌤️ Weather Prediction</h4>
+                        <p>Based on atmospheric conditions and historical data.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🎬 Recommendation Systems</h4>
+                        <p>Content-based filtering for movies, books, and products.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>⚡ Real-time Predictions</h4>
+                        <p>Due to its computational efficiency in production systems.</p>
+                    </div>
+                </div>
+                
+                <h2>💡 Tips for Better Performance</h2>
+                <div class="example-box">
+                    <ol>
+                        <li><span class="step-number">1</span><strong>Laplace Smoothing:</strong> Add small constant to avoid zero probabilities</li>
+                        <li><span class="step-number">2</span><strong>Feature Selection:</strong> Remove highly correlated features</li>
+                        <li><span class="step-number">3</span><strong>Data Preprocessing:</strong> Handle missing values and outliers</li>
+                        <li><span class="step-number">4</span><strong>Cross-Validation:</strong> Use proper validation techniques</li>
+                        <li><span class="step-number">5</span><strong>Feature Engineering:</strong> Create meaningful features from raw data</li>
+                        <li><span class="step-number">6</span><strong>Ensemble Methods:</strong> Combine with other algorithms</li>
+                    </ol>
+                </div>
+
+                <h2>🔬 Advanced Topics</h2>
+                <div class="code-block">
+        <span class="comment"># Advanced Naive Bayes with feature selection and optimization</span>
+        <span class="keyword">from</span> sklearn.feature_selection <span class="keyword">import</span> SelectKBest, chi2
+        <span class="keyword">from</span> sklearn.pipeline <span class="keyword">import</span> Pipeline
+        <span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> GridSearchCV
+
+        <span class="keyword">def</span> advanced_naive_bayes_pipeline():
+            <span class="comment"># Create pipeline with feature selection and Naive Bayes</span>
+            pipeline = Pipeline([
+                (<span class="string">'feature_selection'</span>, SelectKBest(chi2)),
+                (<span class="string">'classifier'</span>, MultinomialNB())
+            ])
+            
+            <span class="comment"># Parameter grid for hyperparameter tuning</span>
+            param_grid = {
+                <span class="string">'feature_selection__k'</span>: [<span class="number">10</span>, <span class="number">20</span>, <span class="number">50</span>, <span class="number">100</span>],
+                <span class="string">'classifier__alpha'</span>: [<span class="number">0.1</span>, <span class="number">1.0</span>, <span class="number">10.0</span>]
+            }
+            
+            <span class="comment"># Grid search with cross-validation</span>
+            grid_search = GridSearchCV(
+                pipeline, 
+                param_grid, 
+                cv=<span class="number">5</span>, 
+                scoring=<span class="string">'accuracy'</span>,
+                n_jobs=-<span class="number">1</span>
+            )
+            
+            <span class="keyword">return</span> grid_search
+
+        <span class="comment"># Custom Naive Bayes with different smoothing techniques</span>
+        <span class="keyword">class</span> AdvancedNaiveBayes:
+            <span class="keyword">def</span> __init__(self, smoothing_type=<span class="string">'laplace'</span>, alpha=<span class="number">1.0</span>):
+                self.smoothing_type = smoothing_type
+                self.alpha = alpha
+                self.class_probs = {}
+                self.feature_probs = {}
+                
+            <span class="keyword">def</span> _apply_smoothing(self, count, total, vocab_size):
+                <span class="keyword">if</span> self.smoothing_type == <span class="string">'laplace'</span>:
+                    <span class="keyword">return</span> (count + self.alpha) / (total + self.alpha * vocab_size)
+                <span class="keyword">elif</span> self.smoothing_type == <span class="string">'lidstone'</span>:
+                    <span class="keyword">return</span> (count + self.alpha) / (total + self.alpha * vocab_size)
+                <span class="keyword">else</span>:
+                    <span class="keyword">return</span> count / total <span class="keyword">if</span> total > <span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span>
+                </div>
+                 <a href="../../tutorials" class="back-link">← Back to Tutorials</a>
+
             </div>
             
-            <div class="feature-card">
-                <h3>2. Multinomial Naive Bayes</h3>
-                <p>Used for discrete counts (e.g., word counts in text classification).</p>
-                <div class="formula">
-                    P(xᵢ|y) = (Nᵧᵢ + α) / (Nᵧ + α×n)
-                </div>
-            </div>
-            
-            <div class="feature-card">
-                <h3>3. Bernoulli Naive Bayes</h3>
-                <p>Used for binary/boolean features.</p>
-                <div class="formula">
-                    P(xᵢ|y) = P(i|y)×xᵢ + (1-P(i|y))×(1-xᵢ)
-                </div>
-            </div>
-        </div>
-        
-        <h2>✅ Advantages and Disadvantages</h2>
-        
-        <div class="advantages">
-            <h3>✅ Advantages:</h3>
-            <ul>
-                <li><strong>🚀 Simple and Fast:</strong> Easy to implement and computationally efficient</li>
-                <li><strong>📈 Good Performance:</strong> Works well with small datasets</li>
-                <li><strong>🛡️ No Overfitting:</strong> Less prone to overfitting, especially with small data</li>
-                <li><strong>🎯 Handles Multiple Classes:</strong> Naturally handles multi-class classification</li>
-                <li><strong>📊 Good Baseline:</strong> Excellent baseline for comparison with other algorithms</li>
-                <li><strong>🎲 Probabilistic Output:</strong> Provides probability estimates</li>
-            </ul>
-        </div>
-        
-        <div class="disadvantages">
-            <h3>❌ Disadvantages:</h3>
-            <ul>
-                <li><strong>🔗 Independence Assumption:</strong> Assumes features are independent (rarely true)</li>
-                <li><strong>📝 Categorical Inputs:</strong> Requires Laplace smoothing for categorical inputs</li>
-                <li><strong>⚡ Limited Expressiveness:</strong> Cannot learn interactions between features</li>
-                <li><strong>📊 Skewed Data:</strong> Can be biased if training data is not representative</li>
-            </ul>
-        </div>
-        
-        <h2>🚀 Real-World Applications</h2>
-        <div class="feature-grid">
-            <div class="feature-card">
-                <h4>📧 Email Spam Filtering</h4>
-                <p>Classic application using word frequencies to classify emails as spam or legitimate.</p>
-            </div>
-            <div class="feature-card">
-                <h4>📰 Text Classification</h4>
-                <p>News categorization, sentiment analysis, and document classification.</p>
-            </div>
-            <div class="feature-card">
-                <h4>⚕️ Medical Diagnosis</h4>
-                <p>Based on symptoms and test results to predict diseases.</p>
-            </div>
-            <div class="feature-card">
-                <h4>🌤️ Weather Prediction</h4>
-                <p>Based on atmospheric conditions and historical data.</p>
-            </div>
-            <div class="feature-card">
-                <h4>🎬 Recommendation Systems</h4>
-                <p>Content-based filtering for movies, books, and products.</p>
-            </div>
-            <div class="feature-card">
-                <h4>⚡ Real-time Predictions</h4>
-                <p>Due to its computational efficiency in production systems.</p>
-            </div>
-        </div>
-        
-        <h2>💡 Tips for Better Performance</h2>
-        <div class="example-box">
-            <ol>
-                <li><span class="step-number">1</span><strong>Laplace Smoothing:</strong> Add small constant to avoid zero probabilities</li>
-                <li><span class="step-number">2</span><strong>Feature Selection:</strong> Remove highly correlated features</li>
-                <li><span class="step-number">3</span><strong>Data Preprocessing:</strong> Handle missing values and outliers</li>
-                <li><span class="step-number">4</span><strong>Cross-Validation:</strong> Use proper validation techniques</li>
-                <li><span class="step-number">5</span><strong>Feature Engineering:</strong> Create meaningful features from raw data</li>
-                <li><span class="step-number">6</span><strong>Ensemble Methods:</strong> Combine with other algorithms</li>
-            </ol>
-        </div>
-
-        <h2>🔬 Advanced Topics</h2>
-        <div class="code-block">
-<span class="comment"># Advanced Naive Bayes with feature selection and optimization</span>
-<span class="keyword">from</span> sklearn.feature_selection <span class="keyword">import</span> SelectKBest, chi2
-<span class="keyword">from</span> sklearn.pipeline <span class="keyword">import</span> Pipeline
-<span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> GridSearchCV
-
-<span class="keyword">def</span> advanced_naive_bayes_pipeline():
-    <span class="comment"># Create pipeline with feature selection and Naive Bayes</span>
-    pipeline = Pipeline([
-        (<span class="string">'feature_selection'</span>, SelectKBest(chi2)),
-        (<span class="string">'classifier'</span>, MultinomialNB())
-    ])
-    
-    <span class="comment"># Parameter grid for hyperparameter tuning</span>
-    param_grid = {
-        <span class="string">'feature_selection__k'</span>: [<span class="number">10</span>, <span class="number">20</span>, <span class="number">50</span>, <span class="number">100</span>],
-        <span class="string">'classifier__alpha'</span>: [<span class="number">0.1</span>, <span class="number">1.0</span>, <span class="number">10.0</span>]
-    }
-    
-    <span class="comment"># Grid search with cross-validation</span>
-    grid_search = GridSearchCV(
-        pipeline, 
-        param_grid, 
-        cv=<span class="number">5</span>, 
-        scoring=<span class="string">'accuracy'</span>,
-        n_jobs=-<span class="number">1</span>
-    )
-    
-    <span class="keyword">return</span> grid_search
-
-<span class="comment"># Custom Naive Bayes with different smoothing techniques</span>
-<span class="keyword">class</span> AdvancedNaiveBayes:
-    <span class="keyword">def</span> __init__(self, smoothing_type=<span class="string">'laplace'</span>, alpha=<span class="number">1.0</span>):
-        self.smoothing_type = smoothing_type
-        self.alpha = alpha
-        self.class_probs = {}
-        self.feature_probs = {}
-        
-    <span class="keyword">def</span> _apply_smoothing(self, count, total, vocab_size):
-        <span class="keyword">if</span> self.smoothing_type == <span class="string">'laplace'</span>:
-            <span class="keyword">return</span> (count + self.alpha) / (total + self.alpha * vocab_size)
-        <span class="keyword">elif</span> self.smoothing_type == <span class="string">'lidstone'</span>:
-            <span class="keyword">return</span> (count + self.alpha) / (total + self.alpha * vocab_size)
-        <span class="keyword">else</span>:
-            <span class="keyword">return</span> count / total <span class="keyword">if</span> total > <span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span>
-        </div>
-    </div>
-    
-    <script>
+        <script>
         // Weather data for calculations
         const weatherData = [
             ['Sunny', 'Hot', 'High', 'Weak', 'No'],
@@ -1093,6 +839,7 @@ print(<span class="string">f"Probabilities: {probabilities[0]}"</span>)
                 observer.observe(el);
             });
         }
-    </script>
+        </script>
+
 </body>
 </html>
