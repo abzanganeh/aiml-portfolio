@@ -340,4 +340,14 @@ body {
     .classification-formula {
         font-size: 1rem;
     }
+
+    .azbn-deployment-status {
+        font-size: 0.8rem;
+        color: #e9e0e0;
+        margin-top: 0.5rem;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        background-color: #333;
+    }
 } 
